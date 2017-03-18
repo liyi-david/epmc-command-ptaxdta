@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="epmc-expression-basic" />
+    <orderEntry type="module" module-name="epmc-jani-exporter" />
+    <orderEntry type="module" module-name="epmc-jani-model" />
+    <orderEntry type="module" module-name="epmc-prism-format" />
+    <orderEntry type="module" module-name="epmc-timedautomata" />
+    <orderEntry type="module" module-name="epmc-util" />
+    <orderEntry type="module" module-name="epmc-value-basic" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: epmc:epmc:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../main/target/epmc-0-distribution.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.jani:epmc-jani-model:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../jani-model/target/epmc-jani-model-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.timedautomata:epmc-timedautomata:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../timedautomata/target/epmc-timedautomata-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.prism-format:epmc.prism-format:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../prism-format/target/epmc-prism-format-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.expression-basic:epmc.expression-basic:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../expression-basic/target/epmc-expression-basic-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.value-basic:epmc.value-basic:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../value-basic/target/epmc-value-basic-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: epmc.util:epmc.util:0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../util/target/epmc-util-0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
