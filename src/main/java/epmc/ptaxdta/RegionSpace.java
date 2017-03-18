@@ -21,7 +21,7 @@ public class RegionSpace {
     private ArrayList<Integer> permutation;
     private ArrayList<Integer> D;
 
-    private Set<RegionElement> elements;
+    private ArrayList<RegionElement> elements;
 
     public RegionSpace(String []name,int [] bound){
         this.clockName = name;
@@ -33,24 +33,41 @@ public class RegionSpace {
         return demension;
     }
 
-    public static void main(String[] args) {
-        RegionSpace space = new RegionSpace(new String[]{"x", "y"},new int []{5,7});
-        space.generate();
+    public String[] getClockName() {
+        return clockName;
     }
-    private void generate(){
+
+    public static void main(String[] args) {
+        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{5,7,2});
+        space.explore();
+    }
+    private void explore(){
         this.interval    = new IntegerValueInterval [this.demension];
         this.openCount   = 0;
         this.choice      = new int[this.demension];
         this.permutation = new ArrayList<Integer>();
         this.D           = new ArrayList<Integer>();
+        this.elements    = new ArrayList<RegionElement>();
         // TODO init all vars
         this.dfsInterval(0);
+        System.out.print(this.elements.size() + "region elements explored");
     }
-    private void dfsPermutation(int step){
+
+    private void enumerateSubsets(){
+        int BOUND = 1 << (this.permutation.size() - 1);
+//        int ALL   = BOUND - 1;
+
+        for(int s=0; s<BOUND; s++){
+            RegionElement e = new RegionElement(this,this.interval,this.permutation,s);
+            this.elements.add(e);
+            System.out.println("\n======\n");
+            System.out.println(e);
+        }
+    }
+
+    private void dfsPermutation(int step){ // step -> current permutation length
         if(step == this.openCount){
-            System.out.println("======");
-            System.out.println(this.toString());
-            System.out.println("");
+            this.enumerateSubsets();
         }
         else {
 
@@ -65,12 +82,12 @@ public class RegionSpace {
         }
     }
 
-    private void dfsInterval(int step){
+    private void dfsInterval(int step){ // step -> clock[step]
         if (step == this.demension){
-            if (this.openCount >=2) {
+//            if (this.openCount >=1) {
                 this.used        = new boolean[this.demension];
                 this.dfsPermutation(0);
-            }
+//            }
 //            int e = new RegionElement(this,this.interval,P,D);
 //            this.elements.add(e);
         }
@@ -94,7 +111,7 @@ public class RegionSpace {
         for(int i=0; i < this.demension; i++){
             res += this.clockName[i] + " : " + this.interval[i] +"\n";
         }
-        if(this.permutation.size()<=1) return res;
+        if(this.permutation.size()<1) return res;
         res += this.clockName[this.permutation.get(0)];
         for (int i=1; i < this.permutation.size(); i++)
             res += " <= " + this.clockName[this.permutation.get(i)];
