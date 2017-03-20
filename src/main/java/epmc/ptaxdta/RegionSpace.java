@@ -3,8 +3,8 @@ package epmc.ptaxdta;
 /**
  * Created by lijianlin on 17/3/18.
  */
-import epmc.ptaxdta.IntegerValueInterval;
 import java.util.*;
+import epmc.udbm.*;
 
 public class RegionSpace {
     private int demension = 0 ; // number of clocks
@@ -38,6 +38,21 @@ public class RegionSpace {
     }
 
     public static void main(String[] args) {
+        System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/libudm-swig.so");
+        VarNamesAccessor name = new VarNamesAccessor();
+        name.setClockName(0,"*");
+        name.setClockName(1,"x");
+        name.setClockName(2,"y");
+
+        Constraint c1 = new Constraint(1,0,1,true),
+                   c2 = new Constraint(2,1,0,false),
+                   c3 = new Constraint(0,2,0,true);
+        Federation f1 = new Federation(3,c1),
+                   f2 = new Federation(3,c2),
+                   f3 = new Federation(3,c2);
+        Federation t123 = f1.andOp(f2).andOp(f3);
+        System.out.println(t123.toStr(name));
+
         RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{5,7,2});
         space.explore();
     }

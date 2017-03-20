@@ -4,10 +4,7 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 
-import epmc.ptaxdta.IntegerValueInterval;
-
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class RegionElement {
     private RegionSpace space;
