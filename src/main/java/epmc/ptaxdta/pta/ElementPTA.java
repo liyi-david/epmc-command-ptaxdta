@@ -1,13 +1,17 @@
 package epmc.ptaxdta.pta;
 
-import javax.json.JsonValue;
+import epmc.jani.model.JANINode;
 
 public interface ElementPTA {
 	
-	public JsonValue toJani();
+	public JANINode toJani();
 	
 	public void setModel(ModelPTA model);
 	
 	public ModelPTA getModel();
+	
+	public void setName(String name);
+	
+	public String getName();
 
 }

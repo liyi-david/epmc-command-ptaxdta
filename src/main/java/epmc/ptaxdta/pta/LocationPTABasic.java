@@ -1,7 +1,6 @@
 package epmc.ptaxdta.pta;
 
-import javax.json.JsonValue;
-
+import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 
 public class LocationPTABasic implements LocationPTA {
@@ -29,9 +28,15 @@ public class LocationPTABasic implements LocationPTA {
 	}
 
 	@Override
-	public JsonValue toJani() {
-		// TODO Auto-generated method stub
-		return null;
+	public JANINode toJani() {
+		Location loc = new Location();
+		loc.setName(this.name);
+		return loc;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

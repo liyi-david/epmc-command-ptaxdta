@@ -5,7 +5,16 @@ import java.util.HashMap;
 
 import javax.json.JsonValue;
 
+import epmc.expression.Expression;
+import epmc.jani.model.Action;
+import epmc.jani.model.AssignmentSimple;
+import epmc.jani.model.Assignments;
+import epmc.jani.model.Destination;
+import epmc.jani.model.Destinations;
 import epmc.jani.model.Edge;
+import epmc.jani.model.JANINode;
+import epmc.jani.model.Location;
+import epmc.jani.model.Probability;
 import epmc.ptaxdta.RegionElement;
 
 /**
@@ -25,15 +34,12 @@ public class TransitionPTA implements ElementPTA {
 	// guard condition of this transition
 	public RegionElement guard;
 	
-	public ArrayList<Double> prob;
-	public ArrayList<ClocksPTA> rstClock;
-	public ArrayList<LocationPTA> target;
+	public ArrayList<Double> prob = new ArrayList<Double>();
+	public ArrayList<ClocksPTA> rstClock = new ArrayList<ClocksPTA>();
+	public ArrayList<LocationPTA> target = new ArrayList<LocationPTA>();
+
+	private String name;
 	
-	public Edge toJANI() {
-		// TODO convert the transition to JSON object first, and use Edge.Parse to
-		// handle it
-		return null;
-	}
 	
 	/**
 	 * A transition is called <i>valid</i> if and only if it satisfies <hr />
@@ -88,9 +94,57 @@ public class TransitionPTA implements ElementPTA {
 	}
 
 	@Override
-	public JsonValue toJani() {
-		// TODO Auto-generated method stub
-		return null;
+	public JANINode toJani() {
+		Edge edge = new Edge();
+		
+		edge.setLocation((Location) this.source.toJani());
+		edge.setAction(new Action());
+		edge.getAction().setName(this.action);
+		
+		
+		edge.setDestinations(new Destinations());
+		for (int i = 0; i < this.prob.size(); i ++) {
+			Destination dest = new Destination();
+			dest.setLocation((Location) this.target.get(i).toJani());
+			dest.setProbability(new Probability());
+			// dest.getProbability().setExp(new Expression());
+			
+			dest.setAssignments(new Assignments());
+			for (String clk : this.rstClock.get(i).clocknames) {
+				AssignmentSimple asn = new AssignmentSimple();
+				// TODO add assignments
+				// dest.getAssignments().add(asn);
+			}
+			edge.getDestinations().addDestination(dest);
+		}
+		
+		return edge;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * Used to create new branches in the certain transition
+	 * @param prob probability of this branch
+	 * @param rstClocks a set of clocks that needs to reset in this branch
+	 * @param target target location of this branch
+	 * @return the transition itself, to support following chain-style invocation
+	 */
+	public TransitionPTA addTarget(double prob, ClocksPTA rstClocks, LocationPTA target) {
+		assert rstClocks != null;
+		
+		this.prob.add(prob);
+		this.rstClock.add(rstClocks);
+		this.target.add(target);
+		return this;
 	}
 	
 }
