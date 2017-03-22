@@ -10,14 +10,15 @@ public class IntegerValueInterval {
     private final static String [] RBRACK = {")","]"};
     private final static String COMMA = ",";
 
-    private int lowerClosed,upperClosed;
-    private int lower;
-    private int upper;
+    public int lowerClosed,upperClosed;
+    public int lower;
+    public int upper;
     private String info;
     static public int INF = -1;
 
     public IntegerValueInterval(int lClosed,int lower, int upper,int uClosed) {
-        assert lower <= upper;
+//        assert lower <= upper;
+        //TODO deal with +INF
         this.lower = lower;
         this.upper = upper;
         this.lowerClosed = lClosed;
@@ -37,6 +38,9 @@ public class IntegerValueInterval {
 
     public boolean isPoint() {
         return (this.lowerClosed + this.upperClosed == 2);
+    }
+    public Integer pointValue() {
+        return (this.isPoint()) ? this.lower : null;
     }
 
     public int length() {
