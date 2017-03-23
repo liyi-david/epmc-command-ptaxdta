@@ -1,4 +1,4 @@
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
 import epmc.error.EPMCException;
@@ -147,6 +147,7 @@ public class TransitionPTA implements ElementPTA {
 		                .build()
 						);
 				asn.setModel(modelref);
+				
 				// TODO add assignments
 				dest.getAssignments().add(asn);
 			}

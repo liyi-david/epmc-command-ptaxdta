@@ -1,8 +1,6 @@
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
-
-import javax.json.JsonValue;
 
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;

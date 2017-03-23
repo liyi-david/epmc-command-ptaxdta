@@ -1,7 +1,7 @@
 /**
  * 
  */
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 /**
  * @author liyi

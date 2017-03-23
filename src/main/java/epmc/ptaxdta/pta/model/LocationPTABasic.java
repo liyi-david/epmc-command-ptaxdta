@@ -1,4 +1,4 @@
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;

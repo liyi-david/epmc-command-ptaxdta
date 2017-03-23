@@ -1,16 +1,13 @@
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import javax.json.JsonValue;
-
 import epmc.ptaxdta.RegionElement;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
-import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.jani.model.Automata;
 import epmc.jani.model.Automaton;
 import epmc.jani.model.Edge;
@@ -21,9 +18,7 @@ import epmc.jani.model.Locations;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Variable;
 import epmc.jani.model.Variables;
-import epmc.jani.model.component.Component;
 import epmc.jani.model.component.ComponentAutomaton;
-import epmc.jani.model.type.JANITypeReal;
 
 /**
  * 
@@ -78,12 +73,6 @@ public class ModelPTA implements ElementPTA {
 		}
 		
 		return true;
-	}
-	
-	public static ModelPTA prod(ModelPTA pta, ModelPTA dta) {
-		assert dta.isDTA();
-		
-		return null;
 	}
 
 	@Override

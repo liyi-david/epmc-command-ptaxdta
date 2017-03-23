@@ -2,21 +2,16 @@ package epmc.command;
 
 
 import epmc.error.EPMCException;
-import epmc.expression.Expression;
-import epmc.prism.model.ModelPRISM;
-import epmc.ptaxdta.pta.ClocksPTA;
-import epmc.ptaxdta.pta.LocationPTA;
-import epmc.ptaxdta.pta.LocationPTABasic;
-import epmc.ptaxdta.pta.ModelPTA;
-import epmc.jani.model.ModelJANI;
-import epmc.jani.model.ModelJANIConverter;
 import epmc.messages.OptionsMessages;
 import epmc.modelchecker.CommandTask;
 import epmc.modelchecker.Log;
 import epmc.modelchecker.Model;
 import epmc.modelchecker.ModelChecker;
-import epmc.modelchecker.RawProperty;
 import epmc.options.Options;
+import epmc.ptaxdta.pta.model.ClocksPTA;
+import epmc.ptaxdta.pta.model.LocationPTA;
+import epmc.ptaxdta.pta.model.LocationPTABasic;
+import epmc.ptaxdta.pta.model.ModelPTA;
 import epmc.value.ContextValue;
 
 public class CommandTaskPtaCheck implements CommandTask {
@@ -35,7 +30,7 @@ public class CommandTaskPtaCheck implements CommandTask {
     private void initialize() {
     	this.options = modelChecker.getModel().getContextValue().getOptions();
         this.log = this.options.get(OptionsMessages.LOG);
-        this.contextValue = modelChecker.getModel().getContextValue();
+        this.setContextValue(modelChecker.getModel().getContextValue());
     }
 
     @Override
@@ -84,5 +79,13 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.print(pta.toJani(null).toString());
 		
     }
+
+	public ContextValue getContextValue() {
+		return contextValue;
+	}
+
+	public void setContextValue(ContextValue contextValue) {
+		this.contextValue = contextValue;
+	}
     
 }

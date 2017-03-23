@@ -1,4 +1,4 @@
-package epmc.ptaxdta.pta;
+package epmc.ptaxdta.pta.model;
 
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
