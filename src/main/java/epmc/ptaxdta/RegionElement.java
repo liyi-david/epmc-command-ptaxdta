@@ -4,6 +4,14 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 import com.alibaba.fastjson.*;
+import epmc.error.EPMCException;
+import epmc.expression.Expression;
+import epmc.expression.standard.ExpressionIdentifierStandard;
+import epmc.expression.standard.ExpressionLiteral;
+import epmc.expression.standard.ExpressionOperator;
+import epmc.jani.model.ModelJANI;
+import epmc.value.*;
+import epmc.modelchecker.Model;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -12,6 +20,10 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * a clock is a Integer number (use as Index of J and clockName)
+ * the Domain of clocks is N_{\ge0}
+ */
 public class RegionElement {
     private RegionSpace space;
     private IntegerValueInterval[] J; // [0,this.getDimension)
@@ -37,6 +49,88 @@ public class RegionElement {
         return this.space.getDimension();
     }
 
+    public Expression toExpression() throws EPMCException {
+
+        String symbol[] = new String[]{OperatorLt.IDENTIFIER,OperatorLe.IDENTIFIER};
+                                    // 0 for not closed (<), 1 for closed (<=)
+
+        Model model = this.space.getModel();
+        ArrayList v = new ArrayList();
+
+        for(int i=0; i < this.getDimension(); i++) { // i for clock
+            IntegerValueInterval interv = this.J[i];
+
+
+            Expression c = new ExpressionLiteral.Builder()
+                    .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
+                            Integer.toString(interv.lower)))
+                    .build();
+            Expression x = new ExpressionIdentifierStandard.Builder()
+                    .setName(this.getSpace().getClockName()[i])
+                    .build();
+            Expression t = new ExpressionOperator.Builder()
+                    .setOperator(model.getContextValue().getOperator(symbol[interv.lowerClosed]))
+                    .setOperands(c, x) // c </<= x
+                    .build();
+            v.add(t);
+
+            if (interv.upper != IntegerValueInterval.INF) {
+                c = new ExpressionLiteral.Builder()
+                        .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
+                                Integer.toString(interv.upper)))
+                        .build();
+                x = new ExpressionIdentifierStandard.Builder()
+                        .setName(this.getSpace().getClockName()[i])
+                        .build();
+                t = new ExpressionOperator.Builder()
+                        .setOperator(model.getContextValue().getOperator(symbol[interv.upperClosed]))
+                        .setOperands(x, c) //x </<= c
+                        .build();
+                v.add(t);
+            }
+        }
+
+        if (this.fracOrder.size() > 1) {
+            for (int i = 1; i < this.fracOrder.size(); i++) {
+                int isEq = ((this.D >> (i - 1)) & 1);
+                int clockX = this.fracOrder.get(i - 1);
+                int clockY = this.fracOrder.get(i);
+                int intDiff = this.J[clockX].lower - this.J[clockY].lower;
+
+                Expression d = new ExpressionLiteral.Builder()
+                        .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
+                                Integer.toString(intDiff)))
+                        .build();
+
+                Expression x = new ExpressionIdentifierStandard.Builder()
+                        .setName(this.getSpace().getClockName()[clockX])
+                        .build();
+                Expression y = new ExpressionIdentifierStandard.Builder()
+                        .setName(this.getSpace().getClockName()[clockY])
+                        .build();
+
+                // y + d
+                Expression right = new ExpressionOperator.Builder()
+                        .setOperator(model.getContextValue().getOperator(OperatorAdd.IDENTIFIER))
+                        .setOperands(y, d)
+                        .build();
+
+                // x < y + d
+                Expression t = new ExpressionOperator.Builder()
+                        .setOperator(model.getContextValue().getOperator(symbol[isEq]))
+                        .setOperands(x, right) // x </<= y + integer part of x - integer part of y
+                        .build();
+                v.add(t);
+            }
+        }
+        // conjunction of every thing
+        Expression res = new ExpressionOperator.Builder()
+                .setOperator(model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+                .setOperands(v)
+                .build();
+        return res;
+        //TODO : did't check how much do ExpressionOperator support the arbitrary arity
+    }
     @Override
     public String toString() {
         String res = "";

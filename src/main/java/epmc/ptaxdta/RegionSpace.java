@@ -3,10 +3,15 @@ package epmc.ptaxdta;
 /**
  * Created by lijianlin on 17/3/18.
  */
+import epmc.error.EPMCException;
+import epmc.expression.Expression;
+import epmc.jani.model.ModelJANI;
 import epmc.ptaxdta.IntegerValueInterval;
 import javax.json.*;
 import java.util.*;
 import java.io.StringReader;
+import epmc.modelchecker.Model;
+
 public class RegionSpace {
     private int dimension = 0 ; // number of clocks
     private String[] clockName;
@@ -21,13 +26,19 @@ public class RegionSpace {
     private boolean[] used;
     private ArrayList<Integer> permutation;
     private ArrayList<Integer> D;
+    private Model model;
+
+    public Model getModel() {
+        return model;
+    }
 
     private ArrayList<RegionElement> elements;
 
-    public RegionSpace(String []name,int [] bound){
+    public RegionSpace(String []name,int [] bound,Model model){
         this.clockName = name;
         this.boundary  = bound;
         this.dimension = this.clockName.length;
+        this.model     = model;
     }
 
     public int getDimension() {
@@ -39,10 +50,10 @@ public class RegionSpace {
     }
 
     public static void main(String[] args) {
-        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{2,2,2});
+        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{2,2,2},null);
         space.explore();
     }
-    private void explore(){
+    public void explore(){
         this.interval    = new IntegerValueInterval [this.dimension];
         this.openCount   = 0;
         this.choice      = new int[this.dimension];
@@ -63,12 +74,19 @@ public class RegionSpace {
             this.elements.add(e);
             System.out.println("\n======\n");
             System.out.println(e);
-            System.out.println(e.toJSON());
-            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
-            JsonValue jobj = e.toJsonObject();
-            System.out.println(jobj);
-            System.out.println("jobj is instance of JsonValue : " + (jobj instanceof JsonValue));
+//            System.out.println(e.toJSON());
+//            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
+//            JsonValue jobj = e.toJsonObject();
+//            System.out.println(jobj);
+//            System.out.println("jobj is instance of JsonValue : " + (jobj instanceof JsonValue));
 
+            Expression t = null;
+            try {
+                t = e.toExpression();
+            } catch (EPMCException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println(t);
 
         }
     }

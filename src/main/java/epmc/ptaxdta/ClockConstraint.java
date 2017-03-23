@@ -2,6 +2,7 @@ package epmc.ptaxdta;
 
 import apple.laf.JRSUIUtils;
 import epmc.error.EPMCException;
+import epmc.expression.Expression;
 import epmc.jani.model.JANIIdentifier;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.expression.*;
@@ -22,20 +23,27 @@ import java.util.TreeMap;
  * Created by lijianlin on 17/3/22.
  */
 public class ClockConstraint {
-    public JsonObject exp;
-    public static ModelJANI model = null;
-    public static ContextValue context = null;
+    public Expression exp;
+    private ModelJANI model = null;
 
-    public ClockConstraint(RegionElement e) {
+//    public ClockConstraint(RegionElement e) {
+//
+//    }
 
+    public ModelJANI getModel() {
+        return model;
+    }
+
+    public void setModel(ModelJANI model) {
+        this.model = model;
     }
 
     public static void main(String[] args) throws EPMCException {
 
-        Options options = UtilOptionsEPMC.newOptions();
-        ClockConstraint.context = new ContextValue(options);
-        ClockConstraint.model   = new ModelJANI();
-        ClockConstraint.model.setContext(ClockConstraint.context);
+//        Options options = UtilOptionsEPMC.newOptions();
+//        ClockConstraint.context = new ContextValue(options);
+//        ClockConstraint.model   = new ModelJANI();
+//        ClockConstraint.model.setContext(ClockConstraint.context);
 //        c1.setModel(ClockConstraint.model);
 //        "guard":{
 //            "exp":{
@@ -52,6 +60,7 @@ public class ClockConstraint {
 //                }
 //            }
 //        },
+        /*
         TreeMap<String,Integer> config = new TreeMap<String,Integer>();
         ExpressionParser parser = new ExpressionParser(ClockConstraint.model, null,false);
 
@@ -83,5 +92,6 @@ public class ClockConstraint {
         JANIExpression c3 = new JANIExpressionOperatorBinary();
 
         System.out.println(c1);
+        */
     }
 }
