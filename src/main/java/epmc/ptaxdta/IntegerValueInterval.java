@@ -17,7 +17,7 @@ public class IntegerValueInterval {
     static public int INF = -1;
 
     public IntegerValueInterval(int lClosed,int lower, int upper,int uClosed) {
-//        assert lower <= upper;
+        assert (upper == IntegerValueInterval.INF) | (lower <= upper);
         //TODO deal with +INF
         this.lower = lower;
         this.upper = upper;

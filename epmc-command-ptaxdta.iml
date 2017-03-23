@@ -6,17 +6,18 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="epmc-expression-basic" />
     <orderEntry type="module" module-name="epmc-jani-exporter" />
     <orderEntry type="module" module-name="epmc-jani-model" />
-    <orderEntry type="module" module-name="epmc-prism-format" />
+    <orderEntry type="module" module-name="epmc-expression-basic" />
     <orderEntry type="module" module-name="epmc-timedautomata" />
     <orderEntry type="module" module-name="epmc-util" />
     <orderEntry type="module" module-name="epmc-value-basic" />
+    <orderEntry type="module" module-name="epmc-prism-format" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: epmc:epmc:0">
@@ -81,5 +82,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.alibaba:fastjson:1.2.29" level="project" />
   </component>
 </module>

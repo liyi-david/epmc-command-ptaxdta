@@ -4,8 +4,11 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 import com.alibaba.fastjson.*;
+
+import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,7 +56,16 @@ public class RegionElement {
         return res;
     }
 
-    public JSONObject generateJSON(){
+    public JsonObject toJsonObject() {
+
+        String jsonString = this.toJSON().toJSONString();
+        JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+
+        return object;
+    }
+    public JSONObject toJSON(){
 //        TreeMap<String,Integer> config = new TreeMap<String,Integer>();
 //        JsonBuilderFactory factory = Json.createBuilderFactory(config);
 //
