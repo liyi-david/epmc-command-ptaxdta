@@ -51,9 +51,10 @@ public class CommandTaskPtaCheck implements CommandTask {
     
     public void check() throws EPMCException {
         // testing code
-        Model model = modelChecker.getModel();
-        
+        Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
+        
+        testCC(model);
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
@@ -78,6 +79,10 @@ public class CommandTaskPtaCheck implements CommandTask {
 		
 		System.out.print(pta.toJani(null).toString());
 		
+    }
+    
+    public void testCC(Model model) {
+    	// TODO
     }
 
 	public ContextValue getContextValue() {

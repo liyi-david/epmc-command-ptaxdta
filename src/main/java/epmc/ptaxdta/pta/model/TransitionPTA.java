@@ -2,6 +2,7 @@ package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
 import epmc.error.EPMCException;
+import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.jani.model.Action;
@@ -17,6 +18,7 @@ import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Probability;
 import epmc.jani.model.Variable;
 import epmc.ptaxdta.RegionElement;
+import epmc.value.TypeBoolean;
 import epmc.value.TypeReal;
 import epmc.value.UtilValue;
 
@@ -58,7 +60,7 @@ public class TransitionPTA implements ElementPTA {
 			return false;
 		}
 		
-		// sum of probabilities should be 1
+		// TODO sum of probabilities should be 1
 		double sumprob = 1;
 		for (Double pr : prob) sumprob += pr;
 		if (sumprob != 1.0) return false;
@@ -124,9 +126,10 @@ public class TransitionPTA implements ElementPTA {
 			// use prism parser to deal with guard constraints, probabilities and so on
 			dest.getProbability().setExp(
 					new ExpressionLiteral.Builder()
-						.setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), this.prob.get(i).toString()))
+						.setValue(UtilValue.newValue(TypeBoolean.get(this.model.getContextValue()), "true"))
 						.build()
 						);
+			// dest.getProbability().setExp(null);
 			dest.getProbability().setModel(modelref);
 			
 			

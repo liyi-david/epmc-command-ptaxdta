@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.RegionElement;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
@@ -81,6 +82,9 @@ public class ModelPTA implements ElementPTA {
 		
 		ModelJANI jani = new ModelJANI();
 		jani.setContext(this.contextValue);
+		
+//		ClockConstraint.context = this.contextValue;
+//		ClockConstraint.model = jani;
 		
 		try {
 			jani.setSemantics("pta");
