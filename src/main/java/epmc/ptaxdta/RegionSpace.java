@@ -7,7 +7,7 @@ import epmc.ptaxdta.IntegerValueInterval;
 import java.util.*;
 
 public class RegionSpace {
-    private int demension = 0 ; // number of clocks
+    private int dimension = 0 ; // number of clocks
     private String[] clockName;
     private int [] boundary;
     // 0 for [0,0], 1 for (0,1),
@@ -26,11 +26,11 @@ public class RegionSpace {
     public RegionSpace(String []name,int [] bound){
         this.clockName = name;
         this.boundary  = bound;
-        this.demension = this.clockName.length;
+        this.dimension = this.clockName.length;
     }
 
-    public int getDemension() {
-        return demension;
+    public int getDimension() {
+        return this.dimension;
     }
 
     public String[] getClockName() {
@@ -38,13 +38,13 @@ public class RegionSpace {
     }
 
     public static void main(String[] args) {
-        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{5,7,2});
+        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{2,2,2});
         space.explore();
     }
     private void explore(){
-        this.interval    = new IntegerValueInterval [this.demension];
+        this.interval    = new IntegerValueInterval [this.dimension];
         this.openCount   = 0;
-        this.choice      = new int[this.demension];
+        this.choice      = new int[this.dimension];
         this.permutation = new ArrayList<Integer>();
         this.D           = new ArrayList<Integer>();
         this.elements    = new ArrayList<RegionElement>();
@@ -62,6 +62,7 @@ public class RegionSpace {
             this.elements.add(e);
             System.out.println("\n======\n");
             System.out.println(e);
+            System.out.println(e.generateJSON());
         }
     }
 
@@ -71,7 +72,7 @@ public class RegionSpace {
         }
         else {
 
-            for(int i=0; i<this.demension; i++)
+            for(int i=0; i<this.dimension; i++)
                 if(!this.used[i] && (this.choice[i] % 2 == 1)){
                     this.used[i] = true;
                     this.permutation.add(i);
@@ -83,9 +84,9 @@ public class RegionSpace {
     }
 
     private void dfsInterval(int step){ // step -> clock[step]
-        if (step == this.demension){
+        if (step == this.dimension){
 //            if (this.openCount >=1) {
-                this.used        = new boolean[this.demension];
+                this.used        = new boolean[this.dimension];
                 this.dfsPermutation(0);
 //            }
 //            int e = new RegionElement(this,this.interval,P,D);
@@ -108,7 +109,7 @@ public class RegionSpace {
     @Override
     public String toString() {
         String res = "";
-        for(int i=0; i < this.demension; i++){
+        for(int i=0; i < this.dimension; i++){
             res += this.clockName[i] + " : " + this.interval[i] +"\n";
         }
         if(this.permutation.size()<1) return res;
