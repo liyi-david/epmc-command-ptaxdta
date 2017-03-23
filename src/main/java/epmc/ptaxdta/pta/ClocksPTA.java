@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import javax.json.JsonValue;
 
+import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
+import epmc.jani.model.ModelJANI;
 
 public class ClocksPTA implements ElementPTA {
 	
@@ -17,7 +19,7 @@ public class ClocksPTA implements ElementPTA {
 	}
 
 	@Override
-	public JANINode toJani() {
+	public JANINode toJani(ModelJANI modelref) throws EPMCException {
 		// TODO Auto-generated method stub
 		return null;
 	}

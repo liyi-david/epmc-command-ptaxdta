@@ -1,21 +1,24 @@
 package epmc.ptaxdta.pta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.json.JsonValue;
-
-import epmc.expression.Expression;
+import epmc.error.EPMCException;
+import epmc.expression.standard.ExpressionIdentifierStandard;
+import epmc.expression.standard.ExpressionLiteral;
 import epmc.jani.model.Action;
 import epmc.jani.model.AssignmentSimple;
 import epmc.jani.model.Assignments;
 import epmc.jani.model.Destination;
 import epmc.jani.model.Destinations;
 import epmc.jani.model.Edge;
+import epmc.jani.model.Guard;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
+import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Probability;
+import epmc.jani.model.Variable;
 import epmc.ptaxdta.RegionElement;
+import epmc.value.TypeReal;
+import epmc.value.UtilValue;
 
 /**
  * a PTATransition describe a set of probabilistic transitions which
@@ -94,26 +97,58 @@ public class TransitionPTA implements ElementPTA {
 	}
 
 	@Override
-	public JANINode toJani() {
+	public JANINode toJani(ModelJANI modelref) throws EPMCException {
 		Edge edge = new Edge();
 		
-		edge.setLocation((Location) this.source.toJani());
+		edge.setLocation((Location) this.source.toJani(modelref));
 		edge.setAction(new Action());
 		edge.getAction().setName(this.action);
 		
+		// TODO convert DBM(CC) to a guard formula
+		edge.setGuard(new Guard());
+		edge.getGuard().setModel(modelref);
+		// FIXME use the converted formula instead
+		edge.getGuard().setExp(
+				new ExpressionLiteral.Builder()
+                .setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), "0.1"))
+                .build());
+		
 		
 		edge.setDestinations(new Destinations());
+
 		for (int i = 0; i < this.prob.size(); i ++) {
 			Destination dest = new Destination();
-			dest.setLocation((Location) this.target.get(i).toJani());
+			dest.setLocation((Location) this.target.get(i).toJani(modelref));
 			dest.setProbability(new Probability());
-			// dest.getProbability().setExp(new Expression());
+			
+			// use prism parser to deal with guard constraints, probabilities and so on
+			dest.getProbability().setExp(
+					new ExpressionLiteral.Builder()
+						.setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), this.prob.get(i).toString()))
+						.build()
+						);
+			dest.getProbability().setModel(modelref);
+			
+			
 			
 			dest.setAssignments(new Assignments());
 			for (String clk : this.rstClock.get(i).clocknames) {
 				AssignmentSimple asn = new AssignmentSimple();
+				asn.setRef(new Variable());
+				asn.getRef().setName(clk);
+				asn.getRef().setIdentifier(
+						new ExpressionIdentifierStandard.Builder()
+						.setName(clk)
+						.build()
+						);
+				asn.setValue(
+						new ExpressionLiteral.Builder()
+		                .setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), "0"))
+		                .build()
+						);
+				asn.setModel(modelref);
 				// TODO add assignments
-				// dest.getAssignments().add(asn);
+				dest.getAssignments().add(asn);
 			}
 			edge.getDestinations().addDestination(dest);
 		}

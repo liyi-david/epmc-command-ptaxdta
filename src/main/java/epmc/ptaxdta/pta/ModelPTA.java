@@ -7,8 +7,10 @@ import java.util.HashSet;
 import javax.json.JsonValue;
 
 import epmc.ptaxdta.RegionElement;
+import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
+import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.jani.model.Automata;
 import epmc.jani.model.Automaton;
 import epmc.jani.model.Edge;
@@ -17,8 +19,11 @@ import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.Locations;
 import epmc.jani.model.ModelJANI;
+import epmc.jani.model.Variable;
+import epmc.jani.model.Variables;
 import epmc.jani.model.component.Component;
 import epmc.jani.model.component.ComponentAutomaton;
+import epmc.jani.model.type.JANITypeReal;
 
 /**
  * 
@@ -30,11 +35,11 @@ public class ModelPTA implements ElementPTA {
 	private String name;
 	private ContextValue contextValue;
 	
-	public LocationsPTA locations = new LocationsPTA(); 
+	public LocationsPTA locations = new LocationsPTA(this); 
 	public ArrayList<String> actions = new ArrayList<String>();
 	public ClocksPTA clocks = new ClocksPTA();
 	
-	public LocationsPTA initialLocations = new LocationsPTA();
+	public LocationsPTA initialLocations = new LocationsPTA(this);
 	
 	public HashMap<LocationPTA, RegionElement> invariants =
 			new HashMap<LocationPTA, RegionElement>();
@@ -82,31 +87,51 @@ public class ModelPTA implements ElementPTA {
 	}
 
 	@Override
-	public JANINode toJani() {
+	public JANINode toJani(ModelJANI modelref) {
+		assert modelref == null;
+		
 		ModelJANI jani = new ModelJANI();
 		jani.setContext(this.contextValue);
+		
 		try {
 			jani.setSemantics("pta");
 			jani.setName(this.name);
 			
 			ComponentAutomaton system = new ComponentAutomaton();
+			system.setModel(jani);
+			
 			Automaton automaton = new Automaton();
 			automaton.setModel(jani);
 			automaton.setName("main");
 			system.setAutomaton(automaton);
 			
 			Automata automata = new Automata();
+			automata.setModel(jani);
 			automata.addAutomaton(automaton);
 			jani.setAutomata(automata);
 			
 			// convert locations
-			automaton.setLocations((Locations) locations.toJani());
+			automaton.setLocations((Locations) locations.toJani(jani));
 			automaton.setInitialLocations(new HashSet<Location>());
 			
 			// convert initial locations
 			for (LocationPTA loc : initialLocations.getLocations()) {
-				automaton.getInitialLocations().add((Location) loc.toJani());
+				automaton.getInitialLocations().add((Location) loc.toJani(jani));
 			}
+			
+			// add clocks
+			Variables vars = new Variables();
+			
+			for (String clk : this.clocks.clocknames) {
+				Variable var = new Variable();
+				var.setModel(jani);
+				var.setType(new JANITypeClock());
+				var.setName(clk);
+				vars.addVariable(var);
+			}
+			
+			// TODO somehow clocks are not written into the JANI model
+			automaton.setVariables(vars);
 			
 			// TODO how invariants are handled?
 			
@@ -116,7 +141,7 @@ public class ModelPTA implements ElementPTA {
 			for (ArrayList<TransitionPTA> trs : this.transitions.values()) {
 				
 				for (TransitionPTA tr : trs) {
-					automaton.getEdges().add((Edge) tr.toJani());
+					automaton.getEdges().add((Edge) tr.toJani(jani));
 				}
 				
 			}
@@ -170,7 +195,9 @@ public class ModelPTA implements ElementPTA {
 	public TransitionPTA addConnectionFrom(LocationPTA source, String action, String guard) {
 		
 		TransitionPTA newtr = new TransitionPTA();
+		newtr.setModel(this);
 		newtr.source = source;
+		
 		// TODO implement guards
 		newtr.guard = null;
 		newtr.action = action;

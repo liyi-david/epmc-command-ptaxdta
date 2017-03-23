@@ -58,9 +58,12 @@ public class CommandTaskPtaCheck implements CommandTask {
         // testing code
         Model model = modelChecker.getModel();
         
-        ModelPTA pta = new ModelPTA("test");
+        ModelPTA pta = new ModelPTA("task-complete");
+        
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
+		
+		pta.clocks.clocknames.add("x");
 		
 		LocationPTA l0 = pta.initialLocations.addLocation(
 				pta.locations.addLocation(new LocationPTABasic("l0"))
@@ -69,12 +72,16 @@ public class CommandTaskPtaCheck implements CommandTask {
 		LocationPTA l2 = pta.locations.addLocation(new LocationPTABasic("l2"));
 		
 		// addConnection source, guard, probability, resetClocks, target
-		/*
-		pta.addConnectionFrom(l0, "a", "")
-			.addTarget(0.1, new ClocksPTA(), l1)
-			.addTarget(0.9, new ClocksPTA("t"), l2);
-		*/
-		System.out.print(pta.toJani().toString());
+		
+		pta.addConnectionFrom(l0, "i", "")
+			.addTarget(0.1, new ClocksPTA("x"), l0)
+			.addTarget(0.9, new ClocksPTA("x"), l1);
+		
+		pta.addConnectionFrom(l1, "i", "")
+			.addTarget(0.2, new ClocksPTA("x"), l1)
+			.addTarget(0.8, new ClocksPTA("x"), l2);
+		
+		System.out.print(pta.toJani(null).toString());
 		
     }
     

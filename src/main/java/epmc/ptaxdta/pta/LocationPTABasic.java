@@ -2,6 +2,7 @@ package epmc.ptaxdta.pta;
 
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
+import epmc.jani.model.ModelJANI;
 
 public class LocationPTABasic implements LocationPTA {
 	
@@ -28,7 +29,7 @@ public class LocationPTABasic implements LocationPTA {
 	}
 
 	@Override
-	public JANINode toJani() {
+	public JANINode toJani(ModelJANI modelref) {
 		Location loc = new Location();
 		loc.setName(this.name);
 		return loc;

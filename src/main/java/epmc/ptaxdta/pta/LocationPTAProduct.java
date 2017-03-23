@@ -4,6 +4,7 @@ import javax.json.JsonValue;
 
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
+import epmc.jani.model.ModelJANI;
 
 public class LocationPTAProduct implements LocationPTA {
 
@@ -14,7 +15,7 @@ public class LocationPTAProduct implements LocationPTA {
 	}
 
 	@Override
-	public JANINode toJani() {
+	public JANINode toJani(ModelJANI modelref) {
 		// TODO Auto-generated method stub
 		Location loc = new Location();
 		return loc;
