@@ -1,37 +1,50 @@
 package epmc.ptaxdta;
 
-import apple.laf.JRSUIUtils;
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.jani.model.JANIIdentifier;
 import epmc.jani.model.ModelJANI;
-import epmc.jani.model.expression.*;
-import epmc.jani.model.expression.JANIExpressionBool;
-import epmc.main.options.UtilOptionsEPMC;
-import epmc.options.Options;
-import epmc.value.ContextValue;
-
-import javax.json.Json;
-import javax.json.JsonBuilderFactory;
-import javax.json.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import epmc.expression.standard.*;
+import epmc.modelchecker.Model;
+import epmc.value.OperatorAnd;
 
 /**
  * Created by lijianlin on 17/3/22.
  */
 public class ClockConstraint {
-    public Expression exp;
-    private ModelJANI model = null;
+    private Expression exp;
+    private Model model = null;
 
 //    public ClockConstraint(RegionElement e) {
 //
 //    }
 
-    public ModelJANI getModel() {
-        return model;
+    public ClockConstraint(Expression exp,Model model) {
+        this.exp   = exp;
+        this.model = model;
+    }
+
+    public Expression getExp() {
+        return exp;
+    }
+
+    public ClockConstraint and(Expression e){
+        Expression res = new ExpressionOperator.Builder()
+                .setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+                .setOperands(this.exp,e)
+                .build();
+        this.exp = res;
+        return this;
+    }
+
+    public ClockConstraint and(RegionElement e) throws EPMCException {
+        return this.and(e.toExpression());
+    }
+    public ClockConstraint and(ClockConstraint c){
+        return this.and(c.getExp());
+    }
+
+    public Model getModel() {
+        return this.model;
     }
 
     public void setModel(ModelJANI model) {

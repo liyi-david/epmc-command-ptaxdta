@@ -5,11 +5,7 @@ package epmc.ptaxdta;
  */
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.jani.model.ModelJANI;
-import epmc.ptaxdta.IntegerValueInterval;
-import javax.json.*;
 import java.util.*;
-import java.io.StringReader;
 import epmc.modelchecker.Model;
 
 public class RegionSpace {

@@ -9,7 +9,6 @@ import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
-import epmc.jani.model.ModelJANI;
 import epmc.value.*;
 import epmc.modelchecker.Model;
 
@@ -68,6 +67,8 @@ public class RegionElement {
             Expression x = new ExpressionIdentifierStandard.Builder()
                     .setName(this.getSpace().getClockName()[i])
                     .build();
+            // TODO collection Expressions for clock name and reuse them
+            // FIXME too much Expression for the same clock name were generated
             Expression t = new ExpressionOperator.Builder()
                     .setOperator(model.getContextValue().getOperator(symbol[interv.lowerClosed]))
                     .setOperands(c, x) // c </<= x
