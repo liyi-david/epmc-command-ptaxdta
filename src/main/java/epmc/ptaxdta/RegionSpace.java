@@ -4,8 +4,9 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 import epmc.ptaxdta.IntegerValueInterval;
+import javax.json.*;
 import java.util.*;
-
+import java.io.StringReader;
 public class RegionSpace {
     private int dimension = 0 ; // number of clocks
     private String[] clockName;
@@ -62,9 +63,16 @@ public class RegionSpace {
             this.elements.add(e);
             System.out.println("\n======\n");
             System.out.println(e);
-            System.out.println(e.generateJSON());
+            System.out.println(e.toJSON());
+            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
+            JsonValue jobj = e.toJsonObject();
+            System.out.println(jobj);
+            System.out.println("jobj is instance of JsonValue : " + (jobj instanceof JsonValue));
+
+
         }
     }
+
 
     private void dfsPermutation(int step){ // step -> current permutation length
         if(step == this.openCount){
