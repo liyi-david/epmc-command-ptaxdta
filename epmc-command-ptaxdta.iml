@@ -18,6 +18,7 @@
     <orderEntry type="module" module-name="epmc-util" />
     <orderEntry type="module" module-name="epmc-value-basic" />
     <orderEntry type="module" module-name="epmc-prism-format" />
+    <orderEntry type="library" name="com.alibaba:fastjson:1.2.29" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: epmc:epmc:0">
@@ -82,6 +83,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="com.alibaba:fastjson:1.2.29" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.29" level="project" />
   </component>
 </module>

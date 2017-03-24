@@ -59,7 +59,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         // testing code
         Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
-        
+
         testCC(model);
         
         pta.setContextValue(model.getContextValue());
@@ -88,10 +88,10 @@ public class CommandTaskPtaCheck implements CommandTask {
     }
 
     public void testCC(Model model) throws EPMCException {
-		RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{2,2,2},model);
+		RegionSpace space = new RegionSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
 		space.explore();
 
-		ClockConstraint cc = new ClockConstraint();
+//		ClockConstraint cc = new ClockConstraint();
 
 		Expression t[] = new Expression[3];
 		String name[] = new String[]{"x","y","z"};

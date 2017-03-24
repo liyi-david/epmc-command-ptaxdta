@@ -12,30 +12,44 @@ import epmc.expression.standard.ExpressionOperator;
 import epmc.value.*;
 import epmc.modelchecker.Model;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * a clock is a Integer number (use as Index of J and clockName)
  * the Domain of clocks is N_{\ge0}
  */
-public class RegionElement {
+public class RegionElement implements Cloneable {
     private RegionSpace space;
     private IntegerValueInterval[] J; // [0,this.getDimension)
-    private ArrayList<Integer> fracOrder;
-    private int D;
+    private ArrayList<Pair<Integer,Integer>> fracOrder;
+//    private int D;    combined with FracOrder
+    private int name; // TODO for encode
 
     public RegionElement(RegionSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
         this.space = space;
         this.J = J;
-        this.fracOrder = fracOrder;
-        this.D = D;
+        this.fracOrder = new ArrayList<Pair<Integer,Integer>>();
+        for(int i=0; i < fracOrder.size(); i++){
+           if(i==0){
+               this.fracOrder.add(Pair.of(null,fracOrder.get(i)));
+           }
+           else {
+               this.fracOrder.add(Pair.of( (D>>(i-1)) & 1, fracOrder.get(i) ));
+           }
+        }
+//        this.D = D;
     }
 
+//    public RegionElement(RegionElement R){
+//        this.space = R.space;
+//        this.J     = R.J.clone();
+//        this.fracOrder = R.fracOrder.clone();
+//    }
+//    
+//    @Override
+//    public RegionElement Clone() {
+//        return new RegionElement(this.space,this.J.clone(),this.fracOrder.clone());
+//    }
     public RegionSpace getSpace() {
         return space;
     }
@@ -44,8 +58,45 @@ public class RegionElement {
         this.space = space;
     }
 
+    public int getSymbol(int index){ // [1,fracOrder.size()-1]
+        return this.fracOrder.get(index).getLeft();
+    }
+    public int getOrder(int index){
+        return this.fracOrder.get(index).getRight();
+    }
+
     public int getDimension() {
         return this.space.getDimension();
+    }
+
+    public RegionElement reset(ArrayList<Integer> X){
+        //TODO clone() first ,return the clone one instead of this
+        for (int i=0; i < X.size(); i++) {
+            int clock = X.get(i);
+            this.J[clock] = new IntegerValueInterval(1, 0, 0, 1);
+            for (int j = 0; j < this.fracOrder.size(); j++) {
+                if(this.fracOrder.get(j).getRight()==clock){
+                    if(j==0){
+                        if(this.fracOrder.size() >1) {
+                            this.fracOrder.get(1).left = null;
+                        }
+                    }
+                    else if( (0 < j) && (j < this.fracOrder.size() -1)) {
+                        int symbol = this.getSymbol(j) * this.getSymbol(j+1);
+                        this.fracOrder.get(j+1).left = symbol;
+
+                    }
+                    this.fracOrder.remove(j);
+                    break;
+                }
+            }
+
+        }
+        return this;
+    }
+
+    public RegionElement successor(){
+        return this; //TODO 
     }
 
     public Expression toExpression() throws EPMCException {
@@ -93,9 +144,9 @@ public class RegionElement {
 
         if (this.fracOrder.size() > 1) {
             for (int i = 1; i < this.fracOrder.size(); i++) {
-                int isEq = ((this.D >> (i - 1)) & 1);
-                int clockX = this.fracOrder.get(i - 1);
-                int clockY = this.fracOrder.get(i);
+                int isEq = this.getSymbol(i); //((this.D >> (i - 1)) & 1);
+                int clockX = this.getOrder(i - 1);
+                int clockY = this.getOrder(i);
                 int intDiff = this.J[clockX].lower - this.J[clockY].lower;
 
                 Expression d = new ExpressionLiteral.Builder()
@@ -140,17 +191,18 @@ public class RegionElement {
         }
 
         if (this.fracOrder.size() != 0) {
-            res += this.getSpace().getClockName()[fracOrder.get(0)];
+            res += this.getSpace().getClockName()[this.getOrder(0)];
             for (int i = 1; i < this.fracOrder.size(); i++) {
-                String symbol = (((this.D >> (i - 1)) & 1) == 1) ? "=" : "<" ;
-                res += symbol + this.getSpace().getClockName()[this.fracOrder.get(i)];
+//                String symbol = (((this.D >> (i - 1)) & 1) == 1) ? "=" : "<" ;
+                String symbol = new String[]{"<","="}[this.getSymbol(i)];
+                res += symbol + this.getSpace().getClockName()[this.getOrder(i)];
 
             }
             res += "\n";
         }
         return res;
     }
-
+        /*
     public JsonObject toJsonObject() {
 
         String jsonString = this.toJSON().toJSONString();
@@ -218,5 +270,5 @@ public class RegionElement {
         cur.put("right",v.get(v.size()-1));
 //        return 0;
         return (JSONObject) JSON.toJSON(res);
-    }
+    }  */
 }

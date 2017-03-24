@@ -4,7 +4,7 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 
-public class IntegerValueInterval {
+public class IntegerValueInterval implements Cloneable {
 
     private final static String [] LBRACK = {"(","["};
     private final static String [] RBRACK = {")","]"};
@@ -15,6 +15,8 @@ public class IntegerValueInterval {
     public int upper;
     private String info;
     static public int INF = -1;
+
+
 
     public IntegerValueInterval(int lClosed,int lower, int upper,int uClosed) {
         assert (upper == IntegerValueInterval.INF) | (lower <= upper);
@@ -27,7 +29,10 @@ public class IntegerValueInterval {
     }
 
 
-
+    @Override
+    public IntegerValueInterval clone() {
+        return new IntegerValueInterval(this.lowerClosed,this.lower,this.upper,this.upperClosed);
+    }
     public String getInfo() {
         return info;
     }

@@ -21,7 +21,8 @@ public class RegionSpace {
     private int [] choice;
     private boolean[] used;
     private ArrayList<Integer> permutation;
-    private ArrayList<Integer> D;
+//    private ArrayList<Integer> D;
+    private int s;
     private Model model;
 
     public Model getModel() {
@@ -54,36 +55,44 @@ public class RegionSpace {
         this.openCount   = 0;
         this.choice      = new int[this.dimension];
         this.permutation = new ArrayList<Integer>();
-        this.D           = new ArrayList<Integer>();
+//        this.D           = new ArrayList<Integer>();
         this.elements    = new ArrayList<RegionElement>();
         // TODO init all vars
         this.dfsInterval(0);
         System.out.print(this.elements.size() + "region elements explored");
     }
 
-    private void enumerateSubsets(){
-        int BOUND = 1 << (this.permutation.size() - 1);
-//        int ALL   = BOUND - 1;
-
-        for(int s=0; s<BOUND; s++){
-            RegionElement e = new RegionElement(this,this.interval,this.permutation,s);
-            this.elements.add(e);
-            System.out.println("\n======\n");
-            System.out.println(e);
+    private void generateNewRegion(){
+        RegionElement e = new RegionElement(this,this.interval.clone(),this.permutation,this.s);
+        this.elements.add(e);
+        System.out.println("\n======\n");
+        System.out.println(e);
 //            System.out.println(e.toJSON());
 //            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
 //            JsonValue jobj = e.toJsonObject();
 //            System.out.println(jobj);
 //            System.out.println("jobj is instance of JsonValue : " + (jobj instanceof JsonValue));
 
-            Expression t = null;
-            try {
-                t = e.toExpression();
-            } catch (EPMCException e1) {
-                e1.printStackTrace();
-            }
+        Expression t = null;
+        try {
+            ArrayList<Integer> X = new ArrayList<>();
+            X.add(1);
+            t = e.toExpression();
             System.out.println(t);
 
+            t = e.reset(X).toExpression();// TODO e.clone().reset(X)
+            System.out.println(t);
+
+        } catch (EPMCException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void enumerateSubsets(){
+        int BOUND = 1 << (this.permutation.size() - 1);
+//        int ALL   = BOUND - 1;
+        for(this.s = 0; this.s < BOUND; this.s++){
+            this.generateNewRegion();
         }
     }
 

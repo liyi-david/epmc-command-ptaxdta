@@ -22,6 +22,10 @@ public class ClockConstraint {
         this.exp   = exp;
         this.model = model;
     }
+    public ClockConstraint(RegionElement R,Model model) throws EPMCException {
+        this.exp   = R.toExpression();
+        this.model = model;
+    }
 
     public Expression getExp() {
         return exp;
