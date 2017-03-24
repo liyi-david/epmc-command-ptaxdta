@@ -3,6 +3,7 @@ package epmc.ptaxdta.pta.model;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
+import epmc.jani.model.TimeProgress;
 
 public class LocationPTABasic implements LocationPTA {
 	
@@ -32,6 +33,10 @@ public class LocationPTABasic implements LocationPTA {
 	public JANINode toJani(ModelJANI modelref) {
 		Location loc = new Location();
 		loc.setName(this.name);
+		//TODO set invariant
+		TimeProgress inv = new TimeProgress();
+//		inv.setExp(this.model.invariants.get(this).getExp());
+		loc.setTimeProgress(inv);
 		return loc;
 	}
 

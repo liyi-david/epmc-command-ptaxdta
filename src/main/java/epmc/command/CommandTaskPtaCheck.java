@@ -3,6 +3,7 @@ package epmc.command;
 
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
+import epmc.expression.standard.ExpressionIdentifier;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
@@ -19,6 +20,8 @@ import epmc.ptaxdta.pta.model.LocationPTA;
 import epmc.ptaxdta.pta.model.LocationPTABasic;
 import epmc.ptaxdta.pta.model.ModelPTA;
 import epmc.value.*;
+
+import javax.rmi.CORBA.Util;
 
 public class CommandTaskPtaCheck implements CommandTask {
     public final static String IDENTIFIER = "ptacheck";
@@ -54,13 +57,49 @@ public class CommandTaskPtaCheck implements CommandTask {
 		}
         
     }
-    
+
+    private Expression buildIntervalIneuality(String name,int l,int r){
+		Model model = modelChecker.getModel();
+		Expression x = new ExpressionIdentifierStandard.Builder()
+				.setName(name)
+				.build();
+
+		Expression t1 = new ExpressionLiteral.Builder()
+				.setValue(
+						UtilValue.newValue(
+								TypeInteger.get(model.getContextValue()),
+								l)
+				)
+				.build();
+
+		Expression t2 = new ExpressionLiteral.Builder()
+				.setValue(
+						UtilValue.newValue(
+								TypeInteger.get(model.getContextValue()),
+								r)
+				)
+				.build();
+    	Expression c1 = new ExpressionOperator.Builder()
+				.setOperator(model.getContextValue().getOperator(OperatorLe.IDENTIFIER))
+				.setOperands(t1,x) // l <=x
+				.build();
+		Expression c2 = new ExpressionOperator.Builder()
+				.setOperator(model.getContextValue().getOperator(OperatorLe.IDENTIFIER))
+				.setOperands(x,t2) // x <= r
+				.build();
+		Expression res = new ExpressionOperator.Builder()
+				.setOperator(model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+				.setOperands(c1,c2)
+				.build();
+		return res;
+	}
+
     public void check() throws EPMCException {
         // testing code
         Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
 
-        testCC(model);
+//        testCC(model);
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
@@ -72,14 +111,29 @@ public class CommandTaskPtaCheck implements CommandTask {
 				);
 		LocationPTA l1 = pta.locations.addLocation(new LocationPTABasic("l1"));
 		LocationPTA l2 = pta.locations.addLocation(new LocationPTABasic("l2"));
-		
+
+		Expression top = new ExpressionLiteral.Builder()
+				.setValue(
+						UtilValue.newValue(
+								TypeBoolean.get(model.getContextValue()),
+								"true")
+				)
+				.build();
+
+		pta.invariants.put(l0,new ClockConstraint(top,model));
+		pta.invariants.put(l1,new ClockConstraint(top,model));
+		pta.invariants.put(l2,new ClockConstraint(top,model));
+
 		// addConnection source, guard, probability, resetClocks, target
-		
-		pta.addConnectionFrom(l0, "i", "")
+
+		Expression g1 = this.buildIntervalIneuality("x",1,2);
+		Expression g2 = this.buildIntervalIneuality("x",2,3);
+
+		pta.addConnectionFrom(l0, "i", new ClockConstraint(g1,model))
 			.addTarget(0.1, new ClocksPTA("x"), l0)
 			.addTarget(0.9, new ClocksPTA("x"), l1);
 		
-		pta.addConnectionFrom(l1, "i", "")
+		pta.addConnectionFrom(l1, "i", new ClockConstraint(g2,model))
 			.addTarget(0.2, new ClocksPTA("x"), l1)
 			.addTarget(0.8, new ClocksPTA("x"), l2);
 		

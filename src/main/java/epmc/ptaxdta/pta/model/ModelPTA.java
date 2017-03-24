@@ -37,8 +37,8 @@ public class ModelPTA implements ElementPTA {
 	
 	public LocationsPTA initialLocations = new LocationsPTA(this);
 	
-	public HashMap<LocationPTA, RegionElement> invariants =
-			new HashMap<LocationPTA, RegionElement>();
+	public HashMap<LocationPTA, ClockConstraint> invariants =
+			new HashMap<LocationPTA, ClockConstraint>();
 	public HashMap<LocationPTA, ArrayList<TransitionPTA>> transitions =
 			new HashMap<LocationPTA, ArrayList<TransitionPTA>>();
 
@@ -102,7 +102,7 @@ public class ModelPTA implements ElementPTA {
 			automata.setModel(jani);
 			automata.addAutomaton(automaton);
 			jani.setAutomata(automata);
-			
+
 			// convert locations
 			automaton.setLocations((Locations) locations.toJani(jani));
 			automaton.setInitialLocations(new HashSet<Location>());
@@ -185,14 +185,14 @@ public class ModelPTA implements ElementPTA {
 		this.contextValue = contextValue;
 	}
 
-	public TransitionPTA addConnectionFrom(LocationPTA source, String action, String guard) {
+	public TransitionPTA addConnectionFrom(LocationPTA source, String action, ClockConstraint guard) {
 		
 		TransitionPTA newtr = new TransitionPTA();
 		newtr.setModel(this);
 		newtr.source = source;
 		
 		// TODO implement guards
-		newtr.guard = null;
+		newtr.guard = guard;
 		newtr.action = action;
 		
 		if (!this.transitions.containsKey(source)) {

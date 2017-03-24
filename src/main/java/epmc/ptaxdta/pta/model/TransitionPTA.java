@@ -17,6 +17,7 @@ import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Probability;
 import epmc.jani.model.Variable;
+import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.RegionElement;
 import epmc.value.TypeBoolean;
 import epmc.value.TypeReal;
@@ -37,7 +38,7 @@ public class TransitionPTA implements ElementPTA {
 	
 	public String action;
 	// guard condition of this transition
-	public RegionElement guard;
+	public ClockConstraint guard;
 	
 	public ArrayList<Double> prob = new ArrayList<Double>();
 	public ArrayList<ClocksPTA> rstClock = new ArrayList<ClocksPTA>();
@@ -107,8 +108,11 @@ public class TransitionPTA implements ElementPTA {
 		edge.getAction().setName(this.action);
 		
 		// TODO convert DBM(CC) to a guard formula
-		edge.setGuard(new Guard());
-		edge.getGuard().setModel(modelref);
+		Guard guard = new Guard();
+		guard.setModel(modelref);
+		guard.setExp(this.guard.getExp());
+		edge.setGuard(guard);
+//		edge.getGuard().setModel(modelref);
 		// FIXME use the converted formula instead
 		edge.getGuard().setExp(
 				new ExpressionLiteral.Builder()
