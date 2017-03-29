@@ -20,6 +20,7 @@ import epmc.ptaxdta.pta.model.LocationPTA;
 import epmc.ptaxdta.pta.model.LocationPTABasic;
 import epmc.ptaxdta.pta.model.ModelPTA;
 import epmc.value.*;
+import epmc.udbm.*;
 
 import javax.rmi.CORBA.Util;
 
@@ -99,7 +100,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
 
-//        testCC(model);
+        testCC(model);
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
@@ -142,6 +143,27 @@ public class CommandTaskPtaCheck implements CommandTask {
     }
 
     public void testCC(Model model) throws EPMCException {
+		System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
+//        int x = udbm_int.fact(3);
+//        System.out.println(x);
+
+		VarNamesAccessor v = new VarNamesAccessor();
+		v.setClockName(0,"*");
+		v.setClockName(1,"x");
+		v.setClockName(2,"y");
+
+
+		Constraint c1 = new Constraint(1,0,1,true),
+				c2 = new Constraint(2,1,0,false),
+				c3 = new Constraint(0,2,0,true);
+
+		Federation f1 = new Federation(3,c1),
+				f2 = new Federation(3,c2),
+				f3 = new Federation(3,c3);
+		Federation f123 = f1.andOp(f2.andOp(f3));
+
+		System.out.print(f123.toStr(v));
+		/*
 		RegionSpace space = new RegionSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
 		space.explore();
 
@@ -168,6 +190,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 				.build();
 		System.out.println(all);
 		// TODO
+		*/
     }
 
 	public ContextValue getContextValue() {

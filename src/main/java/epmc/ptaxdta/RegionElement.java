@@ -6,6 +6,7 @@ package epmc.ptaxdta;
 import com.alibaba.fastjson.*;
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
+import epmc.expression.standard.ExpressionIdentifier;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
@@ -201,6 +202,57 @@ public class RegionElement implements Cloneable {
             res += "\n";
         }
         return res;
+    }
+    public int resloveTerm(Expression term){ // TODO
+
+        if (term instanceof ExpressionOperator) {
+            Operator o = ((ExpressionOperator) term).getOperator();
+            ArrayList<Expression> oprands = (ArrayList<Expression>) ((ExpressionOperator) term).getOperands();
+            if (o instanceof OperatorAdd){ //binary
+                return this.resloveTerm(oprands.get(0)) + this.resloveTerm(oprands.get(1));
+            }
+        }
+        else if(term instanceof ExpressionIdentifierStandard) {
+            String name = ((ExpressionIdentifierStandard) term).getName();
+            int x = this.space.findClockbyName(name);
+
+        }
+        else if(term instanceof ExpressionLiteral){
+//            return ((ExpressionLiteral) term).getValue()
+        }
+        return 0;
+    }
+    public boolean isModelof(Expression cc){ //TODO
+        if (cc instanceof ExpressionOperator) {
+            Operator o = ((ExpressionOperator) cc).getOperator();
+            ArrayList<Expression> oprands = (ArrayList<Expression>) ((ExpressionOperator) cc).getOperands();
+            if( o instanceof OperatorAnd) { // arbitrary nary for boolean connectives supported
+                for (int i = 0; i < oprands.size(); i++) {
+                    if(!(this.isModelof(oprands.get(i)))) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else if ( o instanceof  OperatorOr) {
+                for (int i = 0; i < oprands.size(); i++) {
+                    if(!(this.isModelof(oprands.get(i)))) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else if ( o instanceof  OperatorNot) {
+                return ! this.isModelof(oprands.get(0));
+            }
+            else if ( o instanceof OperatorLe) { // binary
+                return (this.resloveTerm(oprands.get(0)) <= this.resloveTerm(oprands.get(1)));
+            }
+        }
+        if( cc instanceof  ExpressionLiteral){
+
+        }
+        return false;
     }
         /*
     public JsonObject toJsonObject() {

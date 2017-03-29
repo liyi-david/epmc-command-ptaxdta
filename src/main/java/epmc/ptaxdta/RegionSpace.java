@@ -137,6 +137,14 @@ public class RegionSpace {
             }
         }
     }
+    public int findClockbyName(String x){
+        for (int i = 0; i < this.dimension; i++) {
+            if (this.clockName[i].equals(x)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     @Override
     public String toString() {
         String res = "";
