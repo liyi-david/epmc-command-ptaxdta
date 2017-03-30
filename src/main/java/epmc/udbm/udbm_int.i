@@ -21,21 +21,19 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #include "udbm_int.h"
-extern int fact(int n);
 %}
 
 %include "std_string.i"
 %include "std_vector.i"
 
-extern int fact(int n);
 class VarNamesAccessor{
         public:
             void setClockName(int index, std::string name);
 };
 
-class Constraint {    
+class AtomConstraint {    
     public:
-        Constraint (int i, int j, int d, bool isStrict);
+        AtomConstraint (int i, int j, int d, bool isStrict);
 };
 
 class IntClockValuation {
@@ -60,7 +58,7 @@ class IntVector {
 class Federation {
     public:
         Federation(int dim);
-        Federation(int dim, Constraint &t);
+        Federation(int dim, AtomConstraint &t);
         Federation(const Federation&);
         std::string toStr(VarNamesAccessor &);
         // Federation& operator |= (Federation &);
@@ -69,6 +67,7 @@ class Federation {
         // Federation& operator -= (Federation &);
         Federation orOp  (Federation &); // for some reason SWIG will not work if operator is defined here      
         Federation andOp (Federation &);
+        Federation andOp (const AtomConstraint &);
         Federation addOp (Federation &);
         Federation minusOp (Federation &);
         void up();

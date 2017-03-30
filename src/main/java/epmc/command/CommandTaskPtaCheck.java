@@ -3,7 +3,6 @@ package epmc.command;
 
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.expression.standard.ExpressionIdentifier;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
@@ -14,15 +13,14 @@ import epmc.modelchecker.Model;
 import epmc.modelchecker.ModelChecker;
 import epmc.options.Options;
 import epmc.ptaxdta.ClockConstraint;
-import epmc.ptaxdta.RegionSpace;
+import epmc.ptaxdta.ClockSpace;
+import epmc.ptaxdta.UtilDBM;
 import epmc.ptaxdta.pta.model.ClocksPTA;
 import epmc.ptaxdta.pta.model.LocationPTA;
 import epmc.ptaxdta.pta.model.LocationPTABasic;
 import epmc.ptaxdta.pta.model.ModelPTA;
+import epmc.udbm.AtomConstraint;
 import epmc.value.*;
-import epmc.udbm.*;
-
-import javax.rmi.CORBA.Util;
 
 public class CommandTaskPtaCheck implements CommandTask {
     public final static String IDENTIFIER = "ptacheck";
@@ -59,8 +57,15 @@ public class CommandTaskPtaCheck implements CommandTask {
         
     }
 
-    private Expression buildIntervalIneuality(String name,int l,int r){
+    private ClockConstraint buildIntervalIneuality(ClockSpace space, String name,int l,int r){
 		Model model = modelChecker.getModel();
+        Integer x = space.getClockbyName(name);
+        AtomConstraint cl = new AtomConstraint(0,x,-l,false);
+        AtomConstraint cr = new AtomConstraint(x,0,r,false);
+		ClockConstraint c = new ClockConstraint(space);
+		c.setAnd(cl).setAnd(cr);
+		return c;
+        /*
 		Expression x = new ExpressionIdentifierStandard.Builder()
 				.setName(name)
 				.build();
@@ -93,14 +98,16 @@ public class CommandTaskPtaCheck implements CommandTask {
 				.setOperands(c1,c2)
 				.build();
 		return res;
+		*/
 	}
 
     public void check() throws EPMCException {
+        UtilDBM.LoadUDBM();
         // testing code
         Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
 
-        testCC(model);
+//        testCC(model);
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
@@ -113,28 +120,35 @@ public class CommandTaskPtaCheck implements CommandTask {
 		LocationPTA l1 = pta.locations.addLocation(new LocationPTABasic("l1"));
 		LocationPTA l2 = pta.locations.addLocation(new LocationPTABasic("l2"));
 
-		Expression top = new ExpressionLiteral.Builder()
-				.setValue(
-						UtilValue.newValue(
-								TypeBoolean.get(model.getContextValue()),
-								"true")
-				)
-				.build();
+//		Expression top = new ExpressionLiteral.Builder()
+//				.setValue(
+//						UtilValue.newValue(
+//								TypeBoolean.get(model.getContextValue()),
+//								"true")
+//				)
+//				.build();
+        ClockSpace space = new ClockSpace(pta.clocks);
+        space.setModel(model);
 
-		pta.invariants.put(l0,new ClockConstraint(top,model));
-		pta.invariants.put(l1,new ClockConstraint(top,model));
-		pta.invariants.put(l2,new ClockConstraint(top,model));
+        ClockConstraint top = new ClockConstraint(space);
+        System.out.println(top.toExpression());
+
+		pta.invariants.put(l0,top);
+		pta.invariants.put(l1,top);
+		pta.invariants.put(l2,top);
 
 		// addConnection source, guard, probability, resetClocks, target
 
-		Expression g1 = this.buildIntervalIneuality("x",1,2);
-		Expression g2 = this.buildIntervalIneuality("x",2,3);
+		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
+		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
 
-		pta.addConnectionFrom(l0, "i", new ClockConstraint(g1,model))
+
+
+		pta.addConnectionFrom(l0, "i", g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)
 			.addTarget(0.9, new ClocksPTA("x"), l1);
 		
-		pta.addConnectionFrom(l1, "i", new ClockConstraint(g2,model))
+		pta.addConnectionFrom(l1, "i", g2)
 			.addTarget(0.2, new ClocksPTA("x"), l1)
 			.addTarget(0.8, new ClocksPTA("x"), l2);
 		
@@ -143,28 +157,41 @@ public class CommandTaskPtaCheck implements CommandTask {
     }
 
     public void testCC(Model model) throws EPMCException {
-		System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
-//        int x = udbm_int.fact(3);
-//        System.out.println(x);
+        UtilDBM.LoadUDBM();
 
-		VarNamesAccessor v = new VarNamesAccessor();
-		v.setClockName(0,"*");
-		v.setClockName(1,"x");
-		v.setClockName(2,"y");
+        ClocksPTA clocks = new ClocksPTA("x");
+        ClockSpace space = new ClockSpace(clocks);
 
+        ClockConstraint c = new ClockConstraint(space);
+        c.setInit();
+        Expression s0 = UtilDBM.UDBMString2Expression(c.toString(),model);
 
-		Constraint c1 = new Constraint(1,0,1,true),
-				c2 = new Constraint(2,1,0,false),
-				c3 = new Constraint(0,2,0,true);
+        Expression s1 = UtilDBM.UDBMString2Expression("(x==1 && 0<y && y<1) || (x==1)",model);
+        System.out.println(s1);
+        Expression s2 = UtilDBM.UDBMString2Expression("(1<y && x<1 && y-x<=1)",model);
+        System.out.println(s2);
 
-		Federation f1 = new Federation(3,c1),
-				f2 = new Federation(3,c2),
-				f3 = new Federation(3,c3);
-		Federation f123 = f1.andOp(f2.andOp(f3));
-
-		System.out.print(f123.toStr(v));
+//        System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
+////        int x = udbm_int.fact(3);
+////        System.out.println(x);
+//
+//		VarNamesAccessor v = new VarNamesAccessor();
+//		v.setClockName(0,"*");
+//		v.setClockName(1,"x");
+//		v.setClockName(2,"y");
+//
+//
+//		AtomConstraint c1 = new AtomConstraint(1,0,1,true),
+//				c2 = new AtomConstraint(2,1,0,false),
+//				c3 = new AtomConstraint(0,2,0,true);
+//
+//		Federation f1 = new Federation(3,c1);
+//		f1 = f1.andOp(c2).andOp(c3);
+//        f1.updateValue(1,1);
+//
+//        System.out.print(f1.toStr(v));
 		/*
-		RegionSpace space = new RegionSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
+		ClockSpace space = new ClockSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
 		space.explore();
 
 //		ClockConstraint cc = new ClockConstraint();

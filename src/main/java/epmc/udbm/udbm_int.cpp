@@ -17,10 +17,10 @@ bool VarNamesAccessor::hasClockName(int i) const {
     return (iterator != names_map.end());
 }
 
- double My_variable = 3.0;
+ // double My_variable = 3.0;
  
- int fact(int n) {
-     if (n <= 1) return 1;
-     else return n*fact(n-1);
- }
- 
+ // int fact(int n) {
+ //     if (n <= 1) return 1;
+ //     else return n*fact(n-1);
+ // }
+ // 

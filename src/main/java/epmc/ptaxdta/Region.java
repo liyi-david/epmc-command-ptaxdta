@@ -3,13 +3,12 @@ package epmc.ptaxdta;
 /**
  * Created by lijianlin on 17/3/18.
  */
-import com.alibaba.fastjson.*;
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.expression.standard.ExpressionIdentifier;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
+import epmc.udbm.Federation;
 import epmc.value.*;
 import epmc.modelchecker.Model;
 
@@ -19,14 +18,14 @@ import java.util.ArrayList;
  * a clock is a Integer number (use as Index of J and clockName)
  * the Domain of clocks is N_{\ge0}
  */
-public class RegionElement implements Cloneable {
-    private RegionSpace space;
+public class Region implements Cloneable {
+    private ClockSpace space;
     private IntegerValueInterval[] J; // [0,this.getDimension)
     private ArrayList<Pair<Integer,Integer>> fracOrder;
 //    private int D;    combined with FracOrder
     private int name; // TODO for encode
-
-    public RegionElement(RegionSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
+    public Federation fed;
+    public Region(ClockSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
         this.space = space;
         this.J = J;
         this.fracOrder = new ArrayList<Pair<Integer,Integer>>();
@@ -41,21 +40,21 @@ public class RegionElement implements Cloneable {
 //        this.D = D;
     }
 
-//    public RegionElement(RegionElement R){
+//    public Region(Region R){
 //        this.space = R.space;
 //        this.J     = R.J.clone();
 //        this.fracOrder = R.fracOrder.clone();
 //    }
 //    
 //    @Override
-//    public RegionElement Clone() {
-//        return new RegionElement(this.space,this.J.clone(),this.fracOrder.clone());
+//    public Region Clone() {
+//        return new Region(this.space,this.J.clone(),this.fracOrder.clone());
 //    }
-    public RegionSpace getSpace() {
+    public ClockSpace getSpace() {
         return space;
     }
 
-    public void setSpace(RegionSpace space) {
+    public void setSpace(ClockSpace space) {
         this.space = space;
     }
 
@@ -70,7 +69,7 @@ public class RegionElement implements Cloneable {
         return this.space.getDimension();
     }
 
-    public RegionElement reset(ArrayList<Integer> X){
+    public Region reset(ArrayList<Integer> X){
         //TODO clone() first ,return the clone one instead of this
         for (int i=0; i < X.size(); i++) {
             int clock = X.get(i);
@@ -96,7 +95,7 @@ public class RegionElement implements Cloneable {
         return this;
     }
 
-    public RegionElement successor(){
+    public Region successor(){
         return this; //TODO 
     }
 

@@ -7,11 +7,16 @@ import epmc.error.EPMCException;
 import epmc.expression.Expression;
 import java.util.*;
 import epmc.modelchecker.Model;
+import epmc.ptaxdta.pta.model.ClocksPTA;
+import epmc.udbm.VarNamesAccessor;
 
-public class RegionSpace {
+public class ClockSpace {
     private int dimension = 0 ; // number of clocks
     private String[] clockName;
+    private HashMap<String,Integer> clockOrder;
     private int [] boundary;
+//    private ClocksPTA Clocks;
+
     // 0 for [0,0], 1 for (0,1),
     // 2 for [1,1], 3 for (1,2)
     // 2*cx for  [cx,cx], 2*cx +1  (cx,oo)
@@ -29,13 +34,43 @@ public class RegionSpace {
         return model;
     }
 
-    private ArrayList<RegionElement> elements;
+    private ArrayList<Region> elements;
 
-    public RegionSpace(String []name,int [] bound,Model model){
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public ClockSpace(ClocksPTA clocks) {
+//        Clocks = clocks;
+        this.dimension = clocks.clocknames.size() + 1;
+        this.clockName = new String[this.dimension];
+        this.clockName[0] = "*";
+        this.clockOrder = new HashMap<>();
+        for (int i = 0; i < clocks.clocknames.size(); i++) {
+            this.clockName[i+1] = clocks.clocknames.get(i);
+            this.clockOrder.put(clocks.clocknames.get(i),i);
+        }
+
+
+    }
+
+    public ClockSpace(String []name, int [] bound, Model model){
         this.clockName = name;
         this.boundary  = bound;
         this.dimension = this.clockName.length;
         this.model     = model;
+    }
+
+    public VarNamesAccessor getVarNamesAccessor(){
+        VarNamesAccessor v = new VarNamesAccessor();
+        for(int i = 0; i < this.clockName.length; i++){
+            v.setClockName(i,this.clockName[i]);
+        }
+        return v;
+    }
+
+    public int getClockbyName(String name) {
+        return this.clockOrder.get(name);
     }
 
     public int getDimension() {
@@ -47,7 +82,7 @@ public class RegionSpace {
     }
 
     public static void main(String[] args) {
-        RegionSpace space = new RegionSpace(new String[]{"x", "y","z"},new int []{2,2,2},null);
+        ClockSpace space = new ClockSpace(new String[]{"x", "y","z"},new int []{2,2,2},null);
         space.explore();
     }
     public void explore(){
@@ -56,14 +91,14 @@ public class RegionSpace {
         this.choice      = new int[this.dimension];
         this.permutation = new ArrayList<Integer>();
 //        this.D           = new ArrayList<Integer>();
-        this.elements    = new ArrayList<RegionElement>();
+        this.elements    = new ArrayList<Region>();
         // TODO init all vars
         this.dfsInterval(0);
         System.out.print(this.elements.size() + "region elements explored");
     }
 
     private void generateNewRegion(){
-        RegionElement e = new RegionElement(this,this.interval.clone(),this.permutation,this.s);
+        Region e = new Region(this,this.interval.clone(),this.permutation,this.s);
         this.elements.add(e);
         System.out.println("\n======\n");
         System.out.println(e);
@@ -120,7 +155,7 @@ public class RegionSpace {
                 this.used        = new boolean[this.dimension];
                 this.dfsPermutation(0);
 //            }
-//            int e = new RegionElement(this,this.interval,P,D);
+//            int e = new Region(this,this.interval,P,D);
 //            this.elements.add(e);
         }
         else {

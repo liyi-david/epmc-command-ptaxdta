@@ -3,15 +3,15 @@ package epmc.ptaxdta.pta.model;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
-import epmc.ptaxdta.RegionElement;
+import epmc.ptaxdta.Region;
 
 public class LocationPTAProduct implements LocationPTA {
 	
 	private LocationPTA ptaloc;
 	private LocationPTA taloc;
-	private RegionElement region;
+	private Region region;
 	
-	public LocationPTAProduct(LocationPTA ptaloc, LocationPTA taloc, RegionElement region) {
+	public LocationPTAProduct(LocationPTA ptaloc, LocationPTA taloc, Region region) {
 		this.setPtaloc(ptaloc);
 		this.setTaloc(taloc);
 		this.setRegion(region);
@@ -64,11 +64,11 @@ public class LocationPTAProduct implements LocationPTA {
 		this.taloc = taloc;
 	}
 
-	public RegionElement getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(RegionElement region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 

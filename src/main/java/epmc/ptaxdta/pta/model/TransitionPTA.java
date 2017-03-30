@@ -2,7 +2,6 @@ package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
 import epmc.error.EPMCException;
-import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.jani.model.Action;
@@ -18,7 +17,6 @@ import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Probability;
 import epmc.jani.model.Variable;
 import epmc.ptaxdta.ClockConstraint;
-import epmc.ptaxdta.RegionElement;
 import epmc.value.TypeBoolean;
 import epmc.value.TypeReal;
 import epmc.value.UtilValue;
@@ -110,7 +108,7 @@ public class TransitionPTA implements ElementPTA {
 		// TODO convert DBM(CC) to a guard formula
 		Guard guard = new Guard();
 		guard.setModel(modelref);
-		guard.setExp(this.guard.getExp());
+		guard.setExp(this.guard.toExpression());
 		edge.setGuard(guard);
 //		edge.getGuard().setModel(modelref);
 		// FIXME use the converted formula instead

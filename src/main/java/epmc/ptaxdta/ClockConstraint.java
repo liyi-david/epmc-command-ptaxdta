@@ -2,58 +2,101 @@ package epmc.ptaxdta;
 
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.jani.model.ModelJANI;
-import epmc.expression.standard.*;
 import epmc.modelchecker.Model;
-import epmc.value.OperatorAnd;
+import epmc.udbm.*;
 
 /**
  * Created by lijianlin on 17/3/22.
  */
 public class ClockConstraint {
-    private Expression exp;
-    private Model model = null;
+//    private Expression exp;
+    private Federation fed;
+    private ClockSpace space;
+//    private Model model = null;
 
-//    public ClockConstraint(RegionElement e) {
+//    private fed_t fed;
+//    public ClockConstraint(Region e) {
 //
 //    }
 
-    public ClockConstraint(Expression exp,Model model) {
-        this.exp   = exp;
-        this.model = model;
-    }
-    public ClockConstraint(RegionElement R,Model model) throws EPMCException {
-        this.exp   = R.toExpression();
-        this.model = model;
-    }
+//    public ClockConstraint(Expression exp,Model model) {
+//        this.exp   = exp;
+//        this.model = model;
+//    }
+//    public ClockConstraint(Region R,Model model) throws EPMCException {
+//        this.exp   = R.toExpression();
+//        this.model = model;
+//    }
 
-    public Expression getExp() {
-        return exp;
-    }
 
-    public ClockConstraint and(Expression e){
-        Expression res = new ExpressionOperator.Builder()
-                .setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
-                .setOperands(this.exp,e)
-                .build();
-        this.exp = res;
+    public ClockConstraint(ClockSpace space) {
+        this.space = space;
+        this.fed = new Federation(space.getDimension());
+        this.setInit();
+    }
+    public ClockConstraint setInit(){
+        this.fed.setInit();
+        return this;
+    }
+    public ClockConstraint setAnd(AtomConstraint c){
+        this.fed = this.fed.andOp(c);
+        return this;
+    }
+    public ClockConstraint setAnd(ClockConstraint c){
+        this.fed = this.fed.andOp(c.fed);
+        return this;
+    }
+    public ClockConstraint setAnd(Region R) {
+        this.fed = this.fed.andOp(R.fed);
         return this;
     }
 
-    public ClockConstraint and(RegionElement e) throws EPMCException {
-        return this.and(e.toExpression());
-    }
-    public ClockConstraint and(ClockConstraint c){
-        return this.and(c.getExp());
+    public Expression toExpression() throws EPMCException {
+        VarNamesAccessor v = this.space.getVarNamesAccessor();
+        return  UtilDBM.UDBMString2Expression(this.fed.toStr(v),this.space.getModel());
     }
 
-    public Model getModel() {
-        return this.model;
+    @Override
+    public String toString() {
+        if(this.space != null){
+            return this.fed.toStr(this.space.getVarNamesAccessor());
+        }
+        else {
+            return this.fed.toStr(new VarNamesAccessor());
+        }
+    }
+    //    public Expression getExp() {
+//        return exp;
+//    }
+
+//    public ClockConstraint and(Expression e){
+//        Expression res = new ExpressionOperator.Builder()
+//                .setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+//                .setOperands(this.exp,e)
+//                .build();
+//        this.exp = res;
+//        return this;
+//    }
+
+
+//    public ClockConstraint and(Region e) throws EPMCException {
+//        return this.and(e.toExpression());
+//    }
+//    public ClockConstraint and(ClockConstraint c){
+//        return this.and(c.getExp());
+//    }
+
+//    public Model getModel() {
+//        return this.model;
+//    }
+
+    public Federation getFed() {
+        return fed;
     }
 
-    public void setModel(ModelJANI model) {
-        this.model = model;
-    }
+//    public void setModel(Model model) {
+//        this.model = model;
+//    }
 
     public static void main(String[] args) throws EPMCException {
 

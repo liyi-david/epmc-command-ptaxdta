@@ -14,3 +14,12 @@ hs_err_pid*
 target/
 
 .idea/*
+
+#Native
+
+*.o
+*.so
+
+#SWIG
+
+*.cxx

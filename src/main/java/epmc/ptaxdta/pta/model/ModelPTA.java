@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import epmc.ptaxdta.ClockConstraint;
-import epmc.ptaxdta.RegionElement;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
@@ -31,7 +30,7 @@ public class ModelPTA implements ElementPTA {
 	private String name;
 	private ContextValue contextValue;
 	
-	public LocationsPTA locations = new LocationsPTA(this); 
+	public LocationsPTA locations = new LocationsPTA(this);
 	public ArrayList<String> actions = new ArrayList<String>();
 	public ClocksPTA clocks = new ClocksPTA();
 	

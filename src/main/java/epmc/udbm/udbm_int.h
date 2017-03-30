@@ -46,11 +46,11 @@ class VarNamesAccessor: public ClockAccessor {
             bool hasClockName(int i) const;
 };
 
-class Constraint {    
+class AtomConstraint {    
     friend class Federation;
     constraint_t constraint;
 public:
-    Constraint (int i, int j, int d, bool isStrict) : 
+    AtomConstraint (int i, int j, int d, bool isStrict) : 
         constraint(cindex_t(i), cindex_t(j), int32_t(d), isStrict) {
     }
 };
@@ -96,7 +96,7 @@ class IntVector {
 class Federation : public fed_t {
     public:
         Federation(int dim) : fed_t(dim)  {} 
-        Federation(int dim, Constraint &c) : fed_t(dim) { 
+        Federation(int dim, AtomConstraint &c) : fed_t(dim) { 
             dbm_t dbm(dim);
             dbm.setInit(); 
             dbm &= c.constraint;
@@ -116,12 +116,19 @@ class Federation : public fed_t {
             }
             return toString(b);
         }
+        void reset(int x, int v){
+            this->updateValue(x, v);
+        }
 
         Federation andOp (const Federation &arg) {            
-            VarNamesAccessor a;
             return Federation((*this) & arg);
         }        
-        
+        Federation andOp (const AtomConstraint &c) {   
+            dbm_t dbm(this->getDimension());
+            dbm.setInit(); 
+            dbm &= c.constraint;
+            return Federation((*this) & dbm);
+        } 
         Federation orOp (const Federation &arg) {
             return Federation((*this) | arg);
         }        
