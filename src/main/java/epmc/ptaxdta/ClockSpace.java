@@ -102,12 +102,31 @@ public class ClockSpace {
         this.dfsInterval(1);
         System.out.print(this.elements.size() + "region elements explored");
     }
+    private String debuginfo(){
+        String res = "";
+        for (int i = 0; i < this.getDimension(); i++) {
+            res += this.clockName[i] + " : " + this.interval[i] + "\n";
+        }
 
+        if (this.permutation.size() != 0) {
+            res += this.clockName[this.permutation.get(0)];
+            for (int i = 1; i < this.permutation.size(); i++) {
+                String symbol = (((this.s >> (i - 1)) & 1) == 1) ? "=" : "<" ;
+//                String symbol = new String[]{"<","="}[this.getSymbol(i)];
+                res += symbol + this.clockName[this.permutation.get(i)];
+            }
+            res += "\n";
+        }
+        return res;
+    }
     private void generateNewRegion(){
         Region e = new Region(this,this.interval.clone(),this.permutation,this.s);
         this.elements.add(e);
         System.out.println("\n======\n" + this.elements.size());
         System.out.println(e);
+        System.out.println(this.debuginfo());
+
+
 //            System.out.println(e.toJSON());
 //            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
 //            JsonValue jobj = e.toJsonObject();
