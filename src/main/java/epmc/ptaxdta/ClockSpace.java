@@ -48,7 +48,7 @@ public class ClockSpace {
         this.clockOrder = new HashMap<>();
         for (int i = 0; i < clocks.clocknames.size(); i++) {
             this.clockName[i+1] = clocks.clocknames.get(i);
-            this.clockOrder.put(clocks.clocknames.get(i),i);
+            this.clockOrder.put(clocks.clocknames.get(i),i+1);
         }
 
 

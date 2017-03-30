@@ -28,12 +28,20 @@ public class ClockConstraint {
 //        this.model = model;
 //    }
 
-
-    public ClockConstraint(ClockSpace space) {
+    static public ClockConstraint BOT(ClockSpace space){
+        ClockConstraint bot = new ClockConstraint(space);
+        return bot;
+    }
+    static public ClockConstraint TOP(ClockSpace space){
+        ClockConstraint top = new ClockConstraint(space);
+        top.setInit();
+        return top;
+    }
+    private ClockConstraint(ClockSpace space) {
         this.space = space;
         this.fed = new Federation(space.getDimension());
-        this.setInit();
     }
+
     public ClockConstraint setInit(){
         this.fed.setInit();
         return this;

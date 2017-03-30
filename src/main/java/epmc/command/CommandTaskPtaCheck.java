@@ -62,7 +62,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         Integer x = space.getClockbyName(name);
         AtomConstraint cl = new AtomConstraint(0,x,-l,false);
         AtomConstraint cr = new AtomConstraint(x,0,r,false);
-		ClockConstraint c = new ClockConstraint(space);
+		ClockConstraint c = ClockConstraint.TOP(space);
 		c.setAnd(cl).setAnd(cr);
 		return c;
         /*
@@ -130,7 +130,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         ClockSpace space = new ClockSpace(pta.clocks);
         space.setModel(model);
 
-        ClockConstraint top = new ClockConstraint(space);
+        ClockConstraint top = ClockConstraint.TOP(space);
         System.out.println(top.toExpression());
 
 		pta.invariants.put(l0,top);
@@ -143,7 +143,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
 
 
-
+        System.out.println("g1 : " + g1.toExpression());
+        System.out.println("g2 : " + g2.toExpression());
 		pta.addConnectionFrom(l0, "i", g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)
 			.addTarget(0.9, new ClocksPTA("x"), l1);
@@ -162,9 +163,9 @@ public class CommandTaskPtaCheck implements CommandTask {
         ClocksPTA clocks = new ClocksPTA("x");
         ClockSpace space = new ClockSpace(clocks);
 
-        ClockConstraint c = new ClockConstraint(space);
-        c.setInit();
-        Expression s0 = UtilDBM.UDBMString2Expression(c.toString(),model);
+//        ClockConstraint c = new ClockConstraint(space);
+//        c.setInit();
+//        Expression s0 = UtilDBM.UDBMString2Expression(c.toString(),model);
 
         Expression s1 = UtilDBM.UDBMString2Expression("(x==1 && 0<y && y<1) || (x==1)",model);
         System.out.println(s1);
