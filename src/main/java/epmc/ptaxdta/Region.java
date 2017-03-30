@@ -8,6 +8,7 @@ import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
+import epmc.udbm.AtomConstraint;
 import epmc.udbm.Federation;
 import epmc.value.*;
 import epmc.modelchecker.Model;
@@ -20,13 +21,16 @@ import java.util.ArrayList;
  */
 public class Region implements Cloneable {
     private ClockSpace space;
-    private IntegerValueInterval[] J; // [0,this.getDimension)
-    private ArrayList<Pair<Integer,Integer>> fracOrder;
-//    private int D;    combined with FracOrder
+//    private IntegerValueInterval[] J; // [0,this.getDimension)
+//    private ArrayList<Pair<Integer,Integer>> fracOrder;
+////    private int D;    combined with FracOrder
     private int name; // TODO for encode
     public Federation fed;
     public Region(ClockSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
         this.space = space;
+        this.fed = this.resolveIntegerPartConstrain(space,J);
+        this.fed = this.fed.andOp(this.resolveFractionalConstrain(space,J,fracOrder,D));
+        /*
         this.J = J;
         this.fracOrder = new ArrayList<Pair<Integer,Integer>>();
         for(int i=0; i < fracOrder.size(); i++){
@@ -38,7 +42,51 @@ public class Region implements Cloneable {
            }
         }
 //        this.D = D;
+*/
+
     }
+
+    private Federation resolveIntegerPartConstrain(ClockSpace space, IntegerValueInterval[] J){
+        Federation res = new Federation(space.getDimension());
+        res.setInit();
+        for(int i=1; i < this.getDimension(); i++) { // i for clock //start from the second clock
+            IntegerValueInterval interv = J[i];
+            res = res.andOp(new AtomConstraint(0,i,-interv.lower,!interv.isLowerClosed()));
+            // 0 - x < / <= -l
+
+            if (interv.upper != IntegerValueInterval.INF) {
+                res = res.andOp(new AtomConstraint(i,0,interv.upper,!interv.isUpperClosed()));
+            }
+            // x - 0 < / <= r
+        }
+        return res;
+    }
+    private Federation resolveFractionalConstrain(ClockSpace space,IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D){
+        Federation res = new Federation(space.getDimension());
+        res.setInit();
+        if (fracOrder.size() > 1) {
+            for (int i = 1; i < fracOrder.size(); i++) {
+                int clockX = fracOrder.get(i-1);
+                int clockY = fracOrder.get(i);
+                int intDiff = J[clockX].lower - J[clockY].lower;
+
+                // x -y < / <= d
+                boolean isEq = ((D >> (i - 1)) & 1) == 1 ;
+                if(isEq){
+//                    res = res.andOp(new AtomConstraint(clockX,clockY, intDiff,false));
+//                    res = res.andOp(new AtomConstraint(clockY,clockX,-intDiff,false));
+                    //TODO res.update(clockX,clockY，intDiff) fed(clockX) = fed(clockY) + intdiff
+                    res.update(clockX,clockY,intDiff);
+                }
+                else{
+                    res = res.andOp(new AtomConstraint(clockX,clockY,intDiff,true));
+                }
+
+            }
+        }
+        return res;
+    }
+
 
 //    public Region(Region R){
 //        this.space = R.space;
@@ -53,45 +101,47 @@ public class Region implements Cloneable {
     public ClockSpace getSpace() {
         return space;
     }
-
     public void setSpace(ClockSpace space) {
         this.space = space;
     }
-
-    public int getSymbol(int index){ // [1,fracOrder.size()-1]
-        return this.fracOrder.get(index).getLeft();
-    }
-    public int getOrder(int index){
-        return this.fracOrder.get(index).getRight();
-    }
-
     public int getDimension() {
         return this.space.getDimension();
     }
 
+//    public int getSymbol(int index){ // [1,fracOrder.size()-1]
+//        return this.fracOrder.get(index).getLeft();
+//    }
+//    public int getOrder(int index){
+//        return this.fracOrder.get(index).getRight();
+//    }
+
+
     public Region reset(ArrayList<Integer> X){
-        //TODO clone() first ,return the clone one instead of this
-        for (int i=0; i < X.size(); i++) {
-            int clock = X.get(i);
-            this.J[clock] = new IntegerValueInterval(1, 0, 0, 1);
-            for (int j = 0; j < this.fracOrder.size(); j++) {
-                if(this.fracOrder.get(j).getRight()==clock){
-                    if(j==0){
-                        if(this.fracOrder.size() >1) {
-                            this.fracOrder.get(1).left = null;
-                        }
-                    }
-                    else if( (0 < j) && (j < this.fracOrder.size() -1)) {
-                        int symbol = this.getSymbol(j) * this.getSymbol(j+1);
-                        this.fracOrder.get(j+1).left = symbol;
-
-                    }
-                    this.fracOrder.remove(j);
-                    break;
-                }
-            }
-
+        for (Integer x : X) {
+            this.fed.updateValue(x,0);
         }
+//        //TODO clone() first ,return the clone one instead of this
+//        for (int i=0; i < X.size(); i++) {
+//            int clock = X.get(i);
+//            this.J[clock] = new IntegerValueInterval(1, 0, 0, 1);
+//            for (int j = 0; j < this.fracOrder.size(); j++) {
+//                if(this.fracOrder.get(j).getRight()==clock){
+//                    if(j==0){
+//                        if(this.fracOrder.size() >1) {
+//                            this.fracOrder.get(1).left = null;
+//                        }
+//                    }
+//                    else if( (0 < j) && (j < this.fracOrder.size() -1)) {
+//                        int symbol = this.getSymbol(j) * this.getSymbol(j+1);
+//                        this.fracOrder.get(j+1).left = symbol;
+//
+//                    }
+//                    this.fracOrder.remove(j);
+//                    break;
+//                }
+//            }
+//
+//        }
         return this;
     }
 
@@ -100,7 +150,8 @@ public class Region implements Cloneable {
     }
 
     public Expression toExpression() throws EPMCException {
-
+        return UtilDBM.UDBMString2Expression(this.fed.toStr(this.getSpace().getVarNamesAccessor()),this.space.getModel());
+        /*
         String symbol[] = new String[]{OperatorLt.IDENTIFIER,OperatorLe.IDENTIFIER};
                                     // 0 for not closed (<), 1 for closed (<=)
 
@@ -182,26 +233,34 @@ public class Region implements Cloneable {
                 .build();
         return res;
         //TODO : did't check how much do ExpressionOperator support the arbitrary arity
+        */
     }
     @Override
-    public String toString() {
-        String res = "";
-        for (int i = 0; i < this.getDimension(); i++) {
-            res += this.getSpace().getClockName()[i] + " : " + this.J[i] + "\n";
+    public String toString()  {
+        try {
+            return this.toExpression().toString();
+        } catch (EPMCException e) {
+            e.printStackTrace();
         }
-
-        if (this.fracOrder.size() != 0) {
-            res += this.getSpace().getClockName()[this.getOrder(0)];
-            for (int i = 1; i < this.fracOrder.size(); i++) {
-//                String symbol = (((this.D >> (i - 1)) & 1) == 1) ? "=" : "<" ;
-                String symbol = new String[]{"<","="}[this.getSymbol(i)];
-                res += symbol + this.getSpace().getClockName()[this.getOrder(i)];
-
-            }
-            res += "\n";
-        }
-        return res;
+//        String res = "";
+//        for (int i = 0; i < this.getDimension(); i++) {
+//            res += this.getSpace().getClockName()[i] + " : " + this.J[i] + "\n";
+//        }
+//
+//        if (this.fracOrder.size() != 0) {
+//            res += this.getSpace().getClockName()[this.getOrder(0)];
+//            for (int i = 1; i < this.fracOrder.size(); i++) {
+////                String symbol = (((this.D >> (i - 1)) & 1) == 1) ? "=" : "<" ;
+//                String symbol = new String[]{"<","="}[this.getSymbol(i)];
+//                res += symbol + this.getSpace().getClockName()[this.getOrder(i)];
+//
+//            }
+//            res += "\n";
+//        }
+//        return res;
+        return super.toString();
     }
+    /*
     public int resloveTerm(Expression term){ // TODO
 
         if (term instanceof ExpressionOperator) {
@@ -252,7 +311,7 @@ public class Region implements Cloneable {
 
         }
         return false;
-    }
+    }*/
         /*
     public JsonObject toJsonObject() {
 

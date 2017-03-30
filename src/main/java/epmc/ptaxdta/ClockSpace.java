@@ -43,24 +43,30 @@ public class ClockSpace {
     public ClockSpace(ClocksPTA clocks) {
 //        Clocks = clocks;
         this.dimension = clocks.clocknames.size() + 1;
-        this.clockName = new String[this.dimension];
-        this.clockName[0] = "*";
-        this.clockOrder = new HashMap<>();
-        for (int i = 0; i < clocks.clocknames.size(); i++) {
-            this.clockName[i+1] = clocks.clocknames.get(i);
-            this.clockOrder.put(clocks.clocknames.get(i),i+1);
-        }
-
-
+        this.initClockNames(clocks.clocknames);
     }
 
     public ClockSpace(String []name, int [] bound, Model model){
-        this.clockName = name;
-        this.boundary  = bound;
-        this.dimension = this.clockName.length;
+        this.dimension = name.length + 1;
+        this.boundary = new int [this.dimension];
+        this.boundary[0] = 0;
+        for (int i = 0; i < bound.length; i++) {
+            this.boundary[i+1] = bound[i];
+        }
         this.model     = model;
+        List<String> nameList = Arrays.asList(name);
+        this.initClockNames(new ArrayList<String>(nameList));
     }
 
+    private void initClockNames(ArrayList<String> names) {
+        this.clockName = new String[this.dimension];
+        this.clockName[0] = "*";
+        this.clockOrder = new HashMap<>();
+        for (int i = 0; i < names.size(); i++) {
+            this.clockName[i+1] = names.get(i);
+            this.clockOrder.put(names.get(i),i+1);
+        }
+    }
     public VarNamesAccessor getVarNamesAccessor(){
         VarNamesAccessor v = new VarNamesAccessor();
         for(int i = 0; i < this.clockName.length; i++){
@@ -93,14 +99,14 @@ public class ClockSpace {
 //        this.D           = new ArrayList<Integer>();
         this.elements    = new ArrayList<Region>();
         // TODO init all vars
-        this.dfsInterval(0);
+        this.dfsInterval(1);
         System.out.print(this.elements.size() + "region elements explored");
     }
 
     private void generateNewRegion(){
         Region e = new Region(this,this.interval.clone(),this.permutation,this.s);
         this.elements.add(e);
-        System.out.println("\n======\n");
+        System.out.println("\n======\n" + this.elements.size());
         System.out.println(e);
 //            System.out.println(e.toJSON());
 //            System.out.println("e is instance of JsonValue : " + (e instanceof JsonValue));
@@ -108,22 +114,27 @@ public class ClockSpace {
 //            System.out.println(jobj);
 //            System.out.println("jobj is instance of JsonValue : " + (jobj instanceof JsonValue));
 
-        Expression t = null;
-        try {
-            ArrayList<Integer> X = new ArrayList<>();
-            X.add(1);
-            t = e.toExpression();
-            System.out.println(t);
-
-            t = e.reset(X).toExpression();// TODO e.clone().reset(X)
-            System.out.println(t);
-
-        } catch (EPMCException e1) {
-            e1.printStackTrace();
-        }
+//        Expression t = null;
+//        try {
+//            ArrayList<Integer> X = new ArrayList<>();
+//            X.add(1);
+//            t = e.toExpression();
+//            System.out.println(t);
+//
+//            t = e.reset(X).toExpression();// TODO e.clone().reset(X)
+//            System.out.println(t);
+//
+//        } catch (EPMCException e1) {
+//            e1.printStackTrace();
+//        }
     }
 
     private void enumerateSubsets(){
+        if(this.permutation.size() <= 1) {
+            this.s = 0;
+            this.generateNewRegion();
+            return;
+        }
         int BOUND = 1 << (this.permutation.size() - 1);
 //        int ALL   = BOUND - 1;
         for(this.s = 0; this.s < BOUND; this.s++){
@@ -138,7 +149,7 @@ public class ClockSpace {
         }
         else {
 
-            for(int i=0; i<this.dimension; i++)
+            for(int i=1; i<this.dimension; i++)
                 if(!this.used[i] && (this.choice[i] % 2 == 1)){
                     this.used[i] = true;
                     this.permutation.add(i);

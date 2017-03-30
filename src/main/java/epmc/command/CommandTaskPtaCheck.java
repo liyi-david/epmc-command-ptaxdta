@@ -107,7 +107,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         Model model = modelChecker.getModel();        
         ModelPTA pta = new ModelPTA("task-complete");
 
-//        testCC(model);
+        testCC(model);
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
@@ -160,17 +160,17 @@ public class CommandTaskPtaCheck implements CommandTask {
     public void testCC(Model model) throws EPMCException {
         UtilDBM.LoadUDBM();
 
-        ClocksPTA clocks = new ClocksPTA("x");
-        ClockSpace space = new ClockSpace(clocks);
+//        ClocksPTA clocks = new ClocksPTA("x");
+//        ClockSpace space = new ClockSpace(clocks);
 
 //        ClockConstraint c = new ClockConstraint(space);
 //        c.setInit();
 //        Expression s0 = UtilDBM.UDBMString2Expression(c.toString(),model);
 
-        Expression s1 = UtilDBM.UDBMString2Expression("(x==1 && 0<y && y<1) || (x==1)",model);
-        System.out.println(s1);
-        Expression s2 = UtilDBM.UDBMString2Expression("(1<y && x<1 && y-x<=1)",model);
-        System.out.println(s2);
+//        Expression s1 = UtilDBM.UDBMString2Expression("(x==1 && 0<y && y<1) || (x==1)",model);
+//        System.out.println(s1);
+//        Expression s2 = UtilDBM.UDBMString2Expression("(1<y && x<1 && y-x<=1)",model);
+//        System.out.println(s2);
 
 //        System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
 ////        int x = udbm_int.fact(3);
@@ -191,10 +191,10 @@ public class CommandTaskPtaCheck implements CommandTask {
 //        f1.updateValue(1,1);
 //
 //        System.out.print(f1.toStr(v));
-		/*
-		ClockSpace space = new ClockSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
-		space.explore();
 
+		ClockSpace s = new ClockSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
+		s.explore();
+/*
 //		ClockConstraint cc = new ClockConstraint();
 
 		Expression t[] = new Expression[3];

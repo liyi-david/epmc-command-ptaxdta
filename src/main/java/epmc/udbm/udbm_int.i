@@ -26,6 +26,10 @@
 %include "std_string.i"
 %include "std_vector.i"
 
+typedef int          int32_t;
+typedef unsigned int uint32_t;
+typedef uint32_t     cindex_t;
+
 class VarNamesAccessor{
         public:
             void setClockName(int index, std::string name);
@@ -92,6 +96,10 @@ class Federation {
         int size();
         int hash();
         bool isEmpty();
+        void updateValue(cindex_t x, int32_t v);
+        void updateClock(cindex_t x, cindex_t y);
+        void updateIncrement(cindex_t x, int32_t v);
+        void update(cindex_t x, cindex_t y, int32_t v);
 };
 
 

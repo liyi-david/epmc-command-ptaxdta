@@ -28,7 +28,12 @@ public class IntegerValueInterval implements Cloneable {
         info = LBRACK[lClosed] + lower + COMMA + upper + RBRACK[uClosed];
     }
 
-
+    public boolean isLowerClosed() {
+        return lowerClosed == 1;
+    }
+    public boolean isUpperClosed() {
+        return upperClosed == 1;
+    }
     @Override
     public IntegerValueInterval clone() {
         return new IntegerValueInterval(this.lowerClosed,this.lower,this.upper,this.upperClosed);

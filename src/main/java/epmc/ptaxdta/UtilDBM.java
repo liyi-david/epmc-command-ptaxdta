@@ -19,6 +19,7 @@ public class UtilDBM {
     public static void LoadUDBM() {
         System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
     }
+
     public static Expression UDBMString2Expression(String f, Model model) throws EPMCException {
         String conjunctions[] = f.split("\\|\\||$");
         ArrayList<Expression> conjExps = new ArrayList<>();
@@ -70,50 +71,66 @@ public class UtilDBM {
 
                 String oprands[] = inequ.split(op_sym);
                 int d_idx = -1,d = -1;
+                boolean isVar[] = {false,false};
                 for (int i = 0; i < 2; i++) {
                     try {
+//                        isVar[i] = false;
                         d = Integer.parseInt(oprands[i]);
                         d_idx = i;
                         break;
                     } catch (NumberFormatException e) {
-                        d_idx = 1 - i;
+                        isVar[i] = true;
                     }
                 }
                 int x_idx = 1 - d_idx;
-
-                Expression c = new ExpressionLiteral.Builder()
-                        .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
-                                Integer.toString(d)))
-                        .build();
-                Expression x = null;
-
-                if(oprands[x_idx].contains("-")){
-                    String vars[] = oprands[x_idx].split("-");
+                if(isVar[0] && isVar[1]){
                     Expression x0 = new ExpressionIdentifierStandard.Builder()
-                            .setName(vars[0])
+                            .setName(oprands[0])
                             .build();
                     Expression x1 = new ExpressionIdentifierStandard.Builder()
-                            .setName(vars[1])
+                            .setName(oprands[1])
                             .build();
-                    x = new ExpressionOperator.Builder()
-                            .setOperator(model.getContextValue().getOperator(OperatorSubtract.IDENTIFIER))
+                    Expression equ = new ExpressionOperator.Builder()
+                            .setOperator(model.getContextValue().getOperator(identifier))
                             .setOperands(x0,x1)
                             .build();
+                    inequExps.add(equ);
                 }
                 else {
-                    x = new ExpressionIdentifierStandard.Builder()
-                            .setName(oprands[x_idx])
+                    Expression c = new ExpressionLiteral.Builder()
+                            .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
+                                    Integer.toString(d)))
                             .build();
-                }
-                Expression operandExp[] = new Expression[2];
-                operandExp[x_idx] = x;
-                operandExp[d_idx] = c;
+                    Expression x = null;
 
-                Expression ine = new ExpressionOperator.Builder()
-                        .setOperator(model.getContextValue().getOperator(identifier))
-                        .setOperands(operandExp)
-                        .build();
-                inequExps.add(ine);
+                    if(oprands[x_idx].contains("-")){
+                        String vars[] = oprands[x_idx].split("-");
+                        Expression x0 = new ExpressionIdentifierStandard.Builder()
+                                .setName(vars[0])
+                                .build();
+                        Expression x1 = new ExpressionIdentifierStandard.Builder()
+                                .setName(vars[1])
+                                .build();
+                        x = new ExpressionOperator.Builder()
+                                .setOperator(model.getContextValue().getOperator(OperatorSubtract.IDENTIFIER))
+                                .setOperands(x0,x1)
+                                .build();
+                    }
+                    else {
+                        x = new ExpressionIdentifierStandard.Builder()
+                                .setName(oprands[x_idx])
+                                .build();
+                    }
+                    Expression operandExp[] = new Expression[2];
+                    operandExp[x_idx] = x;
+                    operandExp[d_idx] = c;
+
+                    Expression ine = new ExpressionOperator.Builder()
+                            .setOperator(model.getContextValue().getOperator(identifier))
+                            .setOperands(operandExp)
+                            .build();
+                    inequExps.add(ine);
+                }
             }
             Expression conjExp = null;
             if(inequExps.size() > 1) {

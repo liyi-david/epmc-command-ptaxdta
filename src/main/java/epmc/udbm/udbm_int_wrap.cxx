@@ -931,7 +931,7 @@ SWIGEXPORT jboolean JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1hasZero(JNIE
 }
 
 
-SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1updateValue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1updateValue_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
   Federation *arg1 = (Federation *) 0 ;
   int arg2 ;
   int arg3 ;
@@ -988,6 +988,68 @@ SWIGEXPORT jboolean JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1isEmpty(JNIE
   result = (bool)(arg1)->isEmpty();
   jresult = (jboolean)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1updateValue_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3) {
+  Federation *arg1 = (Federation *) 0 ;
+  cindex_t arg2 ;
+  int32_t arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Federation **)&jarg1; 
+  arg2 = (cindex_t)jarg2; 
+  arg3 = (int32_t)jarg3; 
+  (arg1)->updateValue(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1updateClock(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  Federation *arg1 = (Federation *) 0 ;
+  cindex_t arg2 ;
+  cindex_t arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Federation **)&jarg1; 
+  arg2 = (cindex_t)jarg2; 
+  arg3 = (cindex_t)jarg3; 
+  (arg1)->updateClock(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1updateIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3) {
+  Federation *arg1 = (Federation *) 0 ;
+  cindex_t arg2 ;
+  int32_t arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Federation **)&jarg1; 
+  arg2 = (cindex_t)jarg2; 
+  arg3 = (int32_t)jarg3; 
+  (arg1)->updateIncrement(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_epmc_udbm_udbm_1intJNI_Federation_1update(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jint jarg4) {
+  Federation *arg1 = (Federation *) 0 ;
+  cindex_t arg2 ;
+  cindex_t arg3 ;
+  int32_t arg4 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Federation **)&jarg1; 
+  arg2 = (cindex_t)jarg2; 
+  arg3 = (cindex_t)jarg3; 
+  arg4 = (int32_t)jarg4; 
+  (arg1)->update(arg2,arg3,arg4);
 }
 
 

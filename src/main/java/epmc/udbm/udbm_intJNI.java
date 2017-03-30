@@ -50,9 +50,13 @@ public class udbm_intJNI {
   public final static native boolean Federation_containsDoubleValuation(long jarg1, Federation jarg1_, long jarg2, DoubleClockValuation jarg2_);
   public final static native void Federation_myExtrapolateMaxBounds(long jarg1, Federation jarg1_, long jarg2, IntVector jarg2_);
   public final static native boolean Federation_hasZero(long jarg1, Federation jarg1_);
-  public final static native void Federation_updateValue(long jarg1, Federation jarg1_, int jarg2, int jarg3);
+  public final static native void Federation_updateValue__SWIG_0(long jarg1, Federation jarg1_, int jarg2, int jarg3);
   public final static native int Federation_size(long jarg1, Federation jarg1_);
   public final static native int Federation_hash(long jarg1, Federation jarg1_);
   public final static native boolean Federation_isEmpty(long jarg1, Federation jarg1_);
+  public final static native void Federation_updateValue__SWIG_1(long jarg1, Federation jarg1_, long jarg2, int jarg3);
+  public final static native void Federation_updateClock(long jarg1, Federation jarg1_, long jarg2, long jarg3);
+  public final static native void Federation_updateIncrement(long jarg1, Federation jarg1_, long jarg2, int jarg3);
+  public final static native void Federation_update(long jarg1, Federation jarg1_, long jarg2, long jarg3, int jarg4);
   public final static native void delete_Federation(long jarg1);
 }

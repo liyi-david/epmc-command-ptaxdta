@@ -144,7 +144,7 @@ public class Federation {
   }
 
   public void updateValue(int x, int v) {
-    udbm_intJNI.Federation_updateValue(swigCPtr, this, x, v);
+    udbm_intJNI.Federation_updateValue__SWIG_0(swigCPtr, this, x, v);
   }
 
   public int size() {
@@ -157,6 +157,22 @@ public class Federation {
 
   public boolean isEmpty() {
     return udbm_intJNI.Federation_isEmpty(swigCPtr, this);
+  }
+
+  public void updateValue(long x, int v) {
+    udbm_intJNI.Federation_updateValue__SWIG_1(swigCPtr, this, x, v);
+  }
+
+  public void updateClock(long x, long y) {
+    udbm_intJNI.Federation_updateClock(swigCPtr, this, x, y);
+  }
+
+  public void updateIncrement(long x, int v) {
+    udbm_intJNI.Federation_updateIncrement(swigCPtr, this, x, v);
+  }
+
+  public void update(long x, long y, int v) {
+    udbm_intJNI.Federation_update(swigCPtr, this, x, y, v);
   }
 
 }
