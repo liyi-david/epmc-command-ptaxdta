@@ -7,7 +7,7 @@ import epmc.udbm.*;
 /**
  * Created by lijianlin on 17/3/22.
  */
-public class ClockConstraint {
+public class ClockConstraint  implements Cloneable {
 //    private Expression exp;
     private Federation fed;
     private ClockSpace space;
@@ -39,6 +39,14 @@ public class ClockConstraint {
     private ClockConstraint(ClockSpace space) {
         this.space = space;
         this.fed = new Federation(space.getDimension());
+    }
+
+    public void setFed(Federation fed) {
+        this.fed = fed;
+    }
+
+    public void setSpace(ClockSpace space) {
+        this.space = space;
     }
 
     public ClockConstraint setInit(){
@@ -104,7 +112,22 @@ public class ClockConstraint {
 //    public void setModel(Model model) {
 //        this.model = model;
 //    }
-
+    @Override
+    public Object clone()  {
+        try {
+            ClockConstraint c =  (ClockConstraint) super.clone();
+            c.setSpace(this.space);
+            Federation f = new Federation(this.space.getDimension());
+            f.setInit();
+            f.andOp(this.fed);
+            c.setFed(f);
+            return c;
+        }
+        catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static void main(String[] args) throws EPMCException {
 
 //        Options options = UtilOptionsEPMC.newOptions();

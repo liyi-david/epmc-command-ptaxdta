@@ -35,7 +35,7 @@ public class TransitionPTA implements ElementPTA {
 	
 	public LocationPTA source;
 	
-	public String action;
+	public ActionPTA action;
 	// guard condition of this transition
 	public ClockConstraint guard;
 	
@@ -104,7 +104,7 @@ public class TransitionPTA implements ElementPTA {
 		
 		edge.setLocation((Location) this.source.toJani(modelref));
 		edge.setAction(new Action());
-		edge.getAction().setName(this.action);
+		edge.getAction().setName(this.action.contentString());
 		
 
 		Guard guard = new Guard();

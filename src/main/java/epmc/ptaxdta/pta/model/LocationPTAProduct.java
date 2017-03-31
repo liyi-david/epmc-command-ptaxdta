@@ -10,21 +10,21 @@ import epmc.ptaxdta.Region;
 
 public class LocationPTAProduct implements LocationPTA {
 	
-	private LocationPTA ptaloc;
-	private LocationPTA taloc;
-	private ClockConstraint region;
+	private LocationPTA PTAloc;
+	private LocationPTA DTAloc;
+	private Region region;
 	private ModelPTA model;
 	
-	public LocationPTAProduct(LocationPTA ptaloc, LocationPTA taloc, ClockConstraint region) {
-		this.setPtaloc(ptaloc);
-		this.setTaloc(taloc);
+	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc, Region region) {
+		this.setPTAloc(PTAloc);
+		this.setDTAloc(DTAloc);
 		this.setRegion(region);
 	}
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "(" + ptaloc.getName() + "," + taloc.getName() + ")";
+		return "(" + PTAloc.getName() + "," + DTAloc.getName() + ")";
 	}
 
 	@Override
@@ -59,27 +59,27 @@ public class LocationPTAProduct implements LocationPTA {
 		assert false;
 	}
 
-	public LocationPTA getPtaloc() {
-		return ptaloc;
+	public LocationPTA getPTAloc() {
+		return PTAloc;
 	}
 
-	public void setPtaloc(LocationPTA ptaloc) {
-		this.ptaloc = ptaloc;
+	public void setPTAloc(LocationPTA PTAloc) {
+		this.PTAloc = PTAloc;
 	}
 
-	public LocationPTA getTaloc() {
-		return taloc;
+	public LocationPTA getDTAloc() {
+		return DTAloc;
 	}
 
-	public void setTaloc(LocationPTA taloc) {
-		this.taloc = taloc;
+	public void setDTAloc(LocationPTA DTAloc) {
+		this.DTAloc = DTAloc;
 	}
 
-	public ClockConstraint getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(ClockConstraint region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 

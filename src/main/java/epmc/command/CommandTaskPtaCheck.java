@@ -12,10 +12,7 @@ import epmc.options.Options;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
 import epmc.ptaxdta.UtilDBM;
-import epmc.ptaxdta.pta.model.ClocksPTA;
-import epmc.ptaxdta.pta.model.LocationPTA;
-import epmc.ptaxdta.pta.model.LocationPTABasic;
-import epmc.ptaxdta.pta.model.ModelPTA;
+import epmc.ptaxdta.pta.model.*;
 import epmc.udbm.AtomConstraint;
 import epmc.value.*;
 
@@ -141,19 +138,19 @@ public class CommandTaskPtaCheck implements CommandTask {
 				this.buildIntervalIneuality(space,"y",0,4)
 				);
 
-		dta.addConnectionFrom(q0, "alpha", top)
+		dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
 			.addTarget(1, new ClocksPTA("y"), q1);
 		
-		dta.addConnectionFrom(q1, "alpha", top)
+		dta.addConnectionFrom(q1, new LabelPTA("alpha"), top)
 			.addTarget(1, new ClocksPTA(), q1);
 		
-		dta.addConnectionFrom(q1, "beta", g12)
+		dta.addConnectionFrom(q1, new LabelPTA("beta"), g12)
 			.addTarget(1, new ClocksPTA("y"), q2);
 		
-		dta.addConnectionFrom(q2, "beta", top)
+		dta.addConnectionFrom(q2, new LabelPTA("beta"), top)
 			.addTarget(1, new ClocksPTA(), q2);
 		
-		dta.addConnectionFrom(q2, "gamma", g23)
+		dta.addConnectionFrom(q2, new LabelPTA("gamma"), g23)
 			.addTarget(1, new ClocksPTA(), q3);
 		
 		return dta;
@@ -185,11 +182,11 @@ public class CommandTaskPtaCheck implements CommandTask {
 		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
 		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
 
-		pta.addConnectionFrom(l0, "i", g1)
+		pta.addConnectionFrom(l0, new ActionStandardPTA("i"), g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)
 			.addTarget(0.9, new ClocksPTA("x"), l1);
 		
-		pta.addConnectionFrom(l1, "i", g2)
+		pta.addConnectionFrom(l1, new ActionStandardPTA("i"), g2)
 			.addTarget(0.2, new ClocksPTA("x"), l1)
 			.addTarget(0.8, new ClocksPTA("x"), l2);
 		

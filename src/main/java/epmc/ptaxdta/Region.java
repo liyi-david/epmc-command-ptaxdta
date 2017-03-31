@@ -26,6 +26,14 @@ public class Region implements Cloneable {
 ////    private int D;    combined with FracOrder
     private int name; // TODO for encode
     public Federation fed;
+    static public Region ZERO(ClockSpace space){
+        IntegerValueInterval[] J = new IntegerValueInterval[space.getDimension()-1];
+        for (int i = 1; i < space.getDimension(); i++) {
+            J[i-1] = new IntegerValueInterval(1,0,0,1);
+        }
+        return new Region(space,J,new ArrayList<Integer>(),0);
+    }
+
     public Region(ClockSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
         this.space = space;
         this.fed = this.resolveIntegerPartConstrain(space,J);

@@ -6,22 +6,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import epmc.jani.model.*;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
 import epmc.graph.LowLevel;
 import epmc.graph.Semantics;
-import epmc.jani.model.Automata;
-import epmc.jani.model.Automaton;
-import epmc.jani.model.Edge;
-import epmc.jani.model.Edges;
-import epmc.jani.model.JANINode;
-import epmc.jani.model.Location;
-import epmc.jani.model.Locations;
-import epmc.jani.model.ModelJANI;
-import epmc.jani.model.Variable;
-import epmc.jani.model.Variables;
 import epmc.jani.model.component.ComponentAutomaton;
 import epmc.modelchecker.Engine;
 import epmc.modelchecker.Model;
@@ -67,14 +58,14 @@ public class ModelPTA implements ElementPTA, Model {
 				if (!tr.isValid() || !tr.isSingleDestination()) return false;
 				
 				// check if the edge is unique, considering its action and guard
-				if (trmap.containsKey(tr.action)) {
+				if (trmap.containsKey(tr.action.contentString())) {
 					// TODO override TransitionPTA.equals
 					if (tr.equals(trmap.get(tr))) {
 						// if this transition is exactly equal to its previous one, then we
 						continue;
 					} else return false;
 				} else {
-					trmap.put(tr.action, tr);
+					trmap.put(tr.action.contentString(), tr);
 				}
 			}
 		}
@@ -189,7 +180,7 @@ public class ModelPTA implements ElementPTA, Model {
 		this.contextValue = contextValue;
 	}
 
-	public TransitionPTA addConnectionFrom(LocationPTA source, String action, ClockConstraint guard) {
+	public TransitionPTA addConnectionFrom(LocationPTA source, ActionPTA action, ClockConstraint guard) {
 		
 		TransitionPTA newtr = new TransitionPTA();
 		newtr.setModel(this);
