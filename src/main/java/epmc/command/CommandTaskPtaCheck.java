@@ -192,7 +192,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 //
 //        System.out.print(f1.toStr(v));
 
-		ClockSpace s = new ClockSpace(new String[]{"a", "b","c","d","e"},new int []{1,1,1,2,2},model);
+		ClockSpace s = new ClockSpace(new String[]{"x", "y"},new int []{5,5},model);
 		s.explore();
 /*
 //		ClockConstraint cc = new ClockConstraint();

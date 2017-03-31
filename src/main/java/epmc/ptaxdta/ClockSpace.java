@@ -195,10 +195,13 @@ public class ClockSpace {
                 this.interval[step] = (i == end - 1) ? new IntegerValueInterval(0,t,IntegerValueInterval.INF,0) :
                                       (i % 2 == 0)   ? new IntegerValueInterval(1, t, t, 1) :
                                                        new IntegerValueInterval(0, t,t+1,0);
+
+                int isOpen = (i % 2);
+                if(i == end - 1) isOpen = 0;
                 this.choice[step] = i;
-                this.openCount += (i % 2);
+                this.openCount += isOpen;
                 this.dfsInterval(step+1);
-                this.openCount -= (i % 2);
+                this.openCount -= isOpen;
             }
         }
     }
