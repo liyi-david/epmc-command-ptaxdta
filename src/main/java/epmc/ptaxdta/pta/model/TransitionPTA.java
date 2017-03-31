@@ -105,18 +105,11 @@ public class TransitionPTA implements ElementPTA {
 		edge.setAction(new Action());
 		edge.getAction().setName(this.action);
 		
-		// TODO convert DBM(CC) to a guard formula
+
 		Guard guard = new Guard();
 		guard.setModel(modelref);
 		guard.setExp(this.guard.toExpression());
-		edge.setGuard(guard);
-//		edge.getGuard().setModel(modelref);
-		// FIXME use the converted formula instead
-		edge.getGuard().setExp(
-				new ExpressionLiteral.Builder()
-                .setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), "0.1"))
-                .build());
-		
+		edge.setGuard(guard);	
 		
 		edge.setDestinations(new Destinations());
 

@@ -1,5 +1,6 @@
 package epmc.ptaxdta.pta.model;
 
+import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
@@ -30,13 +31,17 @@ public class LocationPTABasic implements LocationPTA {
 	}
 
 	@Override
-	public JANINode toJani(ModelJANI modelref) {
+	public JANINode toJani(ModelJANI modelref) throws EPMCException {
 		Location loc = new Location();
 		loc.setName(this.name);
 		//TODO set invariant
-		TimeProgress inv = new TimeProgress();
-//		inv.setExp(this.model.invariants.get(this).getExp());
-		loc.setTimeProgress(inv);
+		if (this.model.invariants.containsKey(this)) {
+			TimeProgress inv = new TimeProgress();
+			inv.setExp(this.model.invariants.get(this).toExpression());
+			inv.setModel(modelref);
+			loc.setTimeProgress(inv);
+		}
+		
 		return loc;
 	}
 
