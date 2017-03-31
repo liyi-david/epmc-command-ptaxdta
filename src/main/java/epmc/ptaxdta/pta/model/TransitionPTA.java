@@ -18,6 +18,7 @@ import epmc.jani.model.Probability;
 import epmc.jani.model.Variable;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.value.TypeBoolean;
+import epmc.value.TypeDouble;
 import epmc.value.TypeReal;
 import epmc.value.UtilValue;
 
@@ -121,9 +122,10 @@ public class TransitionPTA implements ElementPTA {
 			// use prism parser to deal with guard constraints, probabilities and so on
 			dest.getProbability().setExp(
 					new ExpressionLiteral.Builder()
-						.setValue(UtilValue.newValue(TypeBoolean.get(this.model.getContextValue()), "true"))
+						.setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), this.prob.get(i).toString()))
 						.build()
 						);
+
 			// dest.getProbability().setExp(null);
 			dest.getProbability().setModel(modelref);
 			
