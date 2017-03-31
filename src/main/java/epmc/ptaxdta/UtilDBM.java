@@ -1,5 +1,6 @@
 package epmc.ptaxdta;
 
+import epmc.command.util.UtilNative;
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
@@ -9,6 +10,7 @@ import epmc.jani.model.ModelJANI;
 import epmc.modelchecker.Model;
 import epmc.value.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +19,12 @@ import java.util.ArrayList;
 public class UtilDBM {
 
     public static void LoadUDBM() {
-        System.load("/Users/lijianlin/Projects/epmc/plugins/command-ptaxdta/src/main/java/epmc/udbm/udbm_int.so");
+    	try {
+			UtilNative.loadLibraryFromJar("/epmc/udbm/udbm_int.so");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public static Expression UDBMString2Expression(String f, Model model) throws EPMCException {
