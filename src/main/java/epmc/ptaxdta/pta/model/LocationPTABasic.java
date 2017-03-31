@@ -41,7 +41,10 @@ public class LocationPTABasic implements LocationPTA {
 			inv.setModel(modelref);
 			loc.setTimeProgress(inv);
 		}
-		
+		if (this.model.label.containsKey(this)) {
+			loc.setComment(this.model.label.get(this).contentString());
+			//TODO put label in Jani
+		}
 		return loc;
 	}
 

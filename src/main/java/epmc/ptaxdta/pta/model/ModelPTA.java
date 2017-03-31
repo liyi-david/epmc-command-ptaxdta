@@ -36,6 +36,8 @@ public class ModelPTA implements ElementPTA, Model {
 	
 	public HashMap<LocationPTA, ClockConstraint> invariants =
 			new HashMap<LocationPTA, ClockConstraint>();
+	public HashMap<LocationPTA, LabelPTA> label =
+			new HashMap<LocationPTA, LabelPTA>();
 	public HashMap<LocationPTA, ArrayList<TransitionPTA>> transitions =
 			new HashMap<LocationPTA, ArrayList<TransitionPTA>>();
 

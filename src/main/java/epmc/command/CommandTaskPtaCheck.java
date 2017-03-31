@@ -179,6 +179,11 @@ public class CommandTaskPtaCheck implements CommandTask {
 		pta.invariants.put(l1,top);
 		pta.invariants.put(l2,top);
 
+		pta.label.put(l0,new LabelPTA("alpha"));
+		pta.label.put(l1,new LabelPTA("beta"));
+		pta.label.put(l2,new LabelPTA("gamma"));
+
+
 		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
 		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
 
