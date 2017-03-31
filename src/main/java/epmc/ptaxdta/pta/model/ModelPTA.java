@@ -124,9 +124,7 @@ public class ModelPTA implements ElementPTA {
 			
 			// TODO somehow clocks are not written into the JANI model
 			automaton.setVariables(vars);
-			
-			// TODO how invariants are handled?
-			
+
 			// convert edges
 			automaton.setEdges(new Edges());
 			

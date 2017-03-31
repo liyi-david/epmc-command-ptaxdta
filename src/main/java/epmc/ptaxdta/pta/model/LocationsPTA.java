@@ -22,6 +22,7 @@ public class LocationsPTA implements ElementPTA {
 	public LocationPTA addLocation(LocationPTA loc) {
 		if (!locations.contains(loc)) {
 			locations.add(loc);
+			loc.setModel(this.model);
 		}
 		
 		return loc;

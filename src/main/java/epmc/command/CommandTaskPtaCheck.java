@@ -1,11 +1,8 @@
 package epmc.command;
 
 
+import epmc.command.util.UtilProduct;
 import epmc.error.EPMCException;
-import epmc.expression.Expression;
-import epmc.expression.standard.ExpressionIdentifierStandard;
-import epmc.expression.standard.ExpressionLiteral;
-import epmc.expression.standard.ExpressionOperator;
 import epmc.messages.OptionsMessages;
 import epmc.modelchecker.CommandTask;
 import epmc.modelchecker.Log;
@@ -103,15 +100,71 @@ public class CommandTaskPtaCheck implements CommandTask {
 
     public void check() throws EPMCException {
         UtilDBM.LoadUDBM();
-        // testing code
-        Model model = modelChecker.getModel();        
-        ModelPTA pta = new ModelPTA("task-complete");
+        ModelPTA pta = ModelPTAExample();
+        ModelPTA dta = ModelDTAExample();
+        
+		
+		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
+		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
+		
+		System.out.println(UtilProduct.prod(pta, dta).toJani(null).toString());
+    }
+    
+    private ModelPTA ModelDTAExample() {
+		ModelPTA dta = new ModelPTA("task-complete-prop");
+		Model model = modelChecker.getModel();
+		
+		dta.setContextValue(model.getContextValue());
+		dta.actions.add("alpha");
+		dta.clocks.clocknames.add("y");
+		dta.clocks.clocknames.add("z");
+		
+		LocationPTA q0 = dta.initialLocations.addLocation(
+				dta.locations.addLocation(new LocationPTABasic("q0"))
+				);
+		LocationPTA q1 = dta.locations.addLocation(new LocationPTABasic("q1"));
+		LocationPTA q2 = dta.locations.addLocation(new LocationPTABasic("q2"));
+		LocationPTA q3 = dta.locations.addLocation(new LocationPTABasic("q3"));
 
-        testCC(model);
+        ClockSpace space = new ClockSpace(dta.clocks);
+        space.setModel(model);
+
+        ClockConstraint top = ClockConstraint.TOP(space);
+
+		dta.invariants.put(q0,top);
+		dta.invariants.put(q1,top);
+		dta.invariants.put(q2,top);
+		dta.invariants.put(q3,top);
+
+		ClockConstraint g12 = this.buildIntervalIneuality(space,"y",0,3);
+		ClockConstraint g23 = this.buildIntervalIneuality(space,"z",0,6).setAnd(
+				this.buildIntervalIneuality(space,"y",0,4)
+				);
+
+		dta.addConnectionFrom(q0, "alpha", top)
+			.addTarget(1, new ClocksPTA("y"), q1);
+		
+		dta.addConnectionFrom(q1, "alpha", top)
+			.addTarget(1, new ClocksPTA(), q1);
+		
+		dta.addConnectionFrom(q1, "beta", g12)
+			.addTarget(1, new ClocksPTA("y"), q2);
+		
+		dta.addConnectionFrom(q2, "beta", top)
+			.addTarget(1, new ClocksPTA(), q2);
+		
+		dta.addConnectionFrom(q2, "gamma", g23)
+			.addTarget(1, new ClocksPTA(), q3);
+		
+		return dta;
+	}
+
+	public ModelPTA ModelPTAExample() throws EPMCException {
+    	Model model = modelChecker.getModel();        
+        ModelPTA pta = new ModelPTA("task-complete");
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add("i");
-		
 		pta.clocks.clocknames.add("x");
 		
 		LocationPTA l0 = pta.initialLocations.addLocation(
@@ -120,31 +173,18 @@ public class CommandTaskPtaCheck implements CommandTask {
 		LocationPTA l1 = pta.locations.addLocation(new LocationPTABasic("l1"));
 		LocationPTA l2 = pta.locations.addLocation(new LocationPTABasic("l2"));
 
-//		Expression top = new ExpressionLiteral.Builder()
-//				.setValue(
-//						UtilValue.newValue(
-//								TypeBoolean.get(model.getContextValue()),
-//								"true")
-//				)
-//				.build();
         ClockSpace space = new ClockSpace(pta.clocks);
         space.setModel(model);
 
         ClockConstraint top = ClockConstraint.TOP(space);
-        System.out.println(top.toExpression());
 
 		pta.invariants.put(l0,top);
 		pta.invariants.put(l1,top);
 		pta.invariants.put(l2,top);
 
-		// addConnection source, guard, probability, resetClocks, target
-
 		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
 		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
 
-
-        System.out.println("g1 : " + g1.toExpression());
-        System.out.println("g2 : " + g2.toExpression());
 		pta.addConnectionFrom(l0, "i", g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)
 			.addTarget(0.9, new ClocksPTA("x"), l1);
@@ -153,8 +193,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 			.addTarget(0.2, new ClocksPTA("x"), l1)
 			.addTarget(0.8, new ClocksPTA("x"), l2);
 		
-		System.out.print(pta.toJani(null).toString());
-		
+		return pta;
     }
 
     public void testCC(Model model) throws EPMCException {

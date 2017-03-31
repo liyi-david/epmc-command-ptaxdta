@@ -2,7 +2,6 @@ package epmc.ptaxdta;
 
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.modelchecker.Model;
 import epmc.udbm.*;
 
 /**
