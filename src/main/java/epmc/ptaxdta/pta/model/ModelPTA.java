@@ -1,13 +1,17 @@
 package epmc.ptaxdta.pta.model;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import epmc.ptaxdta.ClockConstraint;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
+import epmc.graph.LowLevel;
+import epmc.graph.Semantics;
 import epmc.jani.model.Automata;
 import epmc.jani.model.Automaton;
 import epmc.jani.model.Edge;
@@ -19,13 +23,16 @@ import epmc.jani.model.ModelJANI;
 import epmc.jani.model.Variable;
 import epmc.jani.model.Variables;
 import epmc.jani.model.component.ComponentAutomaton;
+import epmc.modelchecker.Engine;
+import epmc.modelchecker.Model;
+import epmc.modelchecker.Properties;
 
 /**
  * 
  * @author liyi
  *
  */
-public class ModelPTA implements ElementPTA {
+public class ModelPTA implements ElementPTA, Model {
 	
 	private String name;
 	private ContextValue contextValue;
@@ -200,5 +207,41 @@ public class ModelPTA implements ElementPTA {
 		
 		return newtr;
 		
+	}
+
+	@Override
+	public String getIdentifier() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setContext(ContextValue context) {
+		this.contextValue = context;	
+	}
+
+	@Override
+	public void read(InputStream... inputs) throws EPMCException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Semantics getSemantics() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LowLevel newLowLevel(Engine engine, Set<Object> graphProperties, Set<Object> nodeProperties,
+			Set<Object> edgeProperties) throws EPMCException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Properties getPropertyList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
