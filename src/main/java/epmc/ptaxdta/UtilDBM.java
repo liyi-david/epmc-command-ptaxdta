@@ -140,33 +140,55 @@ public class UtilDBM {
                     inequExps.add(ine);
                 }
             }
-            Expression conjExp = null;
-            if(inequExps.size() > 1) {
-                conjExp = new ExpressionOperator.Builder()
-                        .setOperator(model.getContextValue().getOperator(OperatorAnd.IDENTIFIER)) //TODO linearized
-                        .setOperands(inequExps)
-                        .build();
-            }
-            else {
-                conjExp = inequExps.get(0);
-            }
-
+//            Expression conjExp = null;
+//            if(inequExps.size() > 1) {
+//                conjExp = new ExpressionOperator.Builder()
+//                        .setOperator(model.getContextValue().getOperator(OperatorAnd.IDENTIFIER)) //TODO linearized
+//                        .setOperands(inequExps)
+//                        .build();
+//            }
+//            else {
+//                conjExp = inequExps.get(0);
+//            }
+            Expression conjExp = UtilDBM.List2Tree(model,inequExps,OperatorAnd.IDENTIFIER);
 //            System.out.println(conjExp);
             conjExps.add(conjExp);
 
         }
-        Expression res = null;
-        if(conjExps.size() > 1){
-            res = new ExpressionOperator.Builder()
-                .setOperator(model.getContextValue().getOperator(OperatorOr.IDENTIFIER)) //TODO linearized
-                .setOperands(conjExps)
-                .build();
+//        Expression res = null;
+//        if(conjExps.size() > 1){
+//            res = new ExpressionOperator.Builder()
+//                .setOperator(model.getContextValue().getOperator(OperatorOr.IDENTIFIER)) //TODO linearized
+//                .setOperands(conjExps)
+//                .build();
+//
+//        }
+//        else {
+//            res = conjExps.get(0);
+//        }
+        Expression res = UtilDBM.List2Tree(model,conjExps,OperatorOr.IDENTIFIER);
+        return res;
+    }
+    static public Expression List2Tree(Model model,ArrayList<Expression> list, String identifier){
+        if(list.size() == 0) {
+            return  null;
+        }
 
+        ArrayList<Expression> rest = (ArrayList<Expression>) list.clone();
+        Expression cur = rest.get(0);
+        rest.remove(0);
+
+        if(list.size() == 1 ) {
+            return cur;
         }
         else {
-            res = conjExps.get(0);
+            Expression next = UtilDBM.List2Tree(model,rest,identifier);
+            Expression res = new ExpressionOperator.Builder()
+                    .setOperator(model.getContextValue().getOperator(identifier))
+                    .setOperands(cur,next)
+                    .build();
+            return res;
         }
-        return res;
     }
     public static void main(String[] args) {
 
