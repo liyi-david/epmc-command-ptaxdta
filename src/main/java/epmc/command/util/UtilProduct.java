@@ -40,15 +40,26 @@ public class UtilProduct {
         Queue<LocationPTAProduct> Q = new LinkedList<LocationPTAProduct>();
 
 		for (LocationPTA initm : pta.initialLocations.getLocations()) {
+		    LabelPTA initmLable = pta.label.get(initm);
 			for (LocationPTA initp : dta.initialLocations.getLocations()) {
-				LocationPTAProduct loc = new LocationPTAProduct(initm, initp, zero);
-				loc.setModel(result);
-				ClockConstraint invx = (ClockConstraint) pta.invariants.get(initm).clone();
-				invx.setAnd(zero);
-				result.invariants.put(loc, invx);
-				result.locations.addLocation(loc);
-				Q.add(loc);
-				visited.add(loc);
+                ArrayList<TransitionPTA> E_initp = dta.transitions.get(initp);
+			    for (TransitionPTA  e_initp : E_initp) {
+			        LabelPTA b = (LabelPTA) e_initp.action;
+			        if(initmLable.equals(b)){
+                        LocationPTAProduct loc = new LocationPTAProduct(initm, e_initp.target.get(0), zero);
+                        loc.setModel(result);
+                        ClockConstraint invx = (ClockConstraint) pta.invariants.get(initm).clone();
+                        invx.setAnd(zero);
+                        result.invariants.put(loc, invx);
+                        result.locations.addLocation(loc);
+
+                        Q.add(loc);
+                        visited.add(loc);
+
+                        System.out.println(Q.size() + " : " + loc);
+                    }
+                }
+
 			}
 		}
 
@@ -98,7 +109,7 @@ public class UtilProduct {
                                 int idx = visited.indexOf(state);
                                 Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
                                 if(!isVisited){
-                                    System.out.println(state);
+                                    System.out.println(state + " " + prob0);
                                     //TODO set visited
                                     Q.add(state);
                                     visited.add(state);
