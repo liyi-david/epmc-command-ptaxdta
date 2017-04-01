@@ -53,4 +53,11 @@ public class LocationPTABasic implements LocationPTA {
 		this.name = name;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		LocationPTA l = (LocationPTA) o;
+		return this.name.equals(l.getName());
+	}
+
+
 }

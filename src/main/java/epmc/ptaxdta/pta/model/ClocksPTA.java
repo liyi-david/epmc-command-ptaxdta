@@ -9,7 +9,11 @@ import epmc.jani.model.ModelJANI;
 public class ClocksPTA implements ElementPTA {
 	
 	public ArrayList<String> clocknames = new ArrayList<String>();
-	
+
+	public ClocksPTA(ArrayList<String> clocknames) {
+		this.clocknames = clocknames;
+	}
+
 	public ClocksPTA(String ...args) {
 		for (String identifier : args) {
 			clocknames.add(identifier);

@@ -83,4 +83,18 @@ public class LocationPTAProduct implements LocationPTA {
 		this.region = region;
 	}
 
+	@Override
+	public boolean equals(Object l){
+		if (!(l instanceof LocationPTAProduct)){
+			return false;
+		}
+		LocationPTAProduct state = (LocationPTAProduct) l;
+		return this.PTAloc.equals(state.getPTAloc()) &&
+			   this.DTAloc.equals(state.getDTAloc()) &&
+			   this.region.equals(state.getRegion());
+	}
+	@Override
+	public String toString(){
+		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + ", " + this.region.toString() + ")";
+	}
 }

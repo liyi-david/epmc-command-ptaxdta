@@ -5,6 +5,8 @@ package epmc.ptaxdta;
  */
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
+
+import java.lang.reflect.Array;
 import java.util.*;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.pta.model.ClocksPTA;
@@ -213,6 +215,18 @@ public class ClockSpace {
         }
         return -1;
     }
+    public ArrayList<Integer> findClockbyName(ClocksPTA clocks){
+        ArrayList<Integer> res = new ArrayList<>();
+        for (String identifier : clocks.clocknames) {
+            res.add(this.findClockbyName(identifier));
+        }
+        return res;
+    }
+    public ClocksPTA getExternalClocks(){
+        ArrayList<String> external = new ArrayList(Arrays.asList(Arrays.copyOfRange(this.clockName,1,this.clockName.length)));
+        return new ClocksPTA(external);
+    }
+
     @Override
     public String toString() {
         String res = "";

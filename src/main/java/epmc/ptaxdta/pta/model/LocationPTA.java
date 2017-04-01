@@ -20,4 +20,5 @@ public interface LocationPTA extends ElementPTA{
 	 * @return
 	 */
 	public String getName();
+//	public boolean equals(LocationPTA l);
 }

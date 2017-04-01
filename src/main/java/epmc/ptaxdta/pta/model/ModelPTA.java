@@ -8,6 +8,7 @@ import java.util.Set;
 
 import epmc.jani.model.*;
 import epmc.ptaxdta.ClockConstraint;
+import epmc.ptaxdta.ClockSpace;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.error.EPMCException;
@@ -41,7 +42,16 @@ public class ModelPTA implements ElementPTA, Model {
 	public HashMap<LocationPTA, ArrayList<TransitionPTA>> transitions =
 			new HashMap<LocationPTA, ArrayList<TransitionPTA>>();
 
-	
+	private ClockSpace space;
+
+	public void setSpace(ClockSpace space) {
+		this.space = space;
+	}
+
+	public ClockSpace getSpace() {
+		return space;
+	}
+
 	public ModelPTA(String name) {
 		this.name = name;
 		

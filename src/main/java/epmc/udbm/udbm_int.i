@@ -78,7 +78,7 @@ class Federation {
         void down();
         void mergeReduce(int, int);
         void freeClock(int i);
-        bool lt(Federation& ); 
+        bool lt(Federation& );
         bool gt(Federation& );
         bool le(Federation& );
         bool ge(Federation& );

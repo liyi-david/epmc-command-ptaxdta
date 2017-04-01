@@ -24,7 +24,7 @@ public class Region implements Cloneable {
 //    private IntegerValueInterval[] J; // [0,this.getDimension)
 //    private ArrayList<Pair<Integer,Integer>> fracOrder;
 ////    private int D;    combined with FracOrder
-    private int name; // TODO for encode
+//    private int name; // TODO for encode
     public Federation fed;
     static public Region ZERO(ClockSpace space){
         IntegerValueInterval[] J = new IntegerValueInterval[space.getDimension()-1];
@@ -32,6 +32,11 @@ public class Region implements Cloneable {
             J[i-1] = new IntegerValueInterval(1,0,0,1);
         }
         return new Region(space,J,new ArrayList<Integer>(),0);
+    }
+
+    public Region(ClockSpace space, Federation fed) {
+        this.space = space;
+        this.fed   = fed;
     }
 
     public Region(ClockSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
@@ -58,7 +63,7 @@ public class Region implements Cloneable {
         Federation res = new Federation(space.getDimension());
         res.setInit();
         for(int i=1; i < this.getDimension(); i++) { // i for clock //start from the second clock
-            IntegerValueInterval interv = J[i];
+            IntegerValueInterval interv = J[i-1];//TODO do the corresponding change in ClockSpace.explore
             res = res.andOp(new AtomConstraint(0,i,-interv.lower,!interv.isLowerClosed()));
             // 0 - x < / <= -l
 
@@ -101,11 +106,16 @@ public class Region implements Cloneable {
 //        this.J     = R.J.clone();
 //        this.fracOrder = R.fracOrder.clone();
 //    }
-//    
-//    @Override
-//    public Region Clone() {
-//        return new Region(this.space,this.J.clone(),this.fracOrder.clone());
-//    }
+//
+    @Override
+    public Region clone() {
+        Federation TOP = new Federation(this.getSpace().getDimension());
+        TOP.setInit();
+        TOP = TOP.andOp(this.fed);
+        Region res = new Region(this.space,TOP);
+        return res;
+
+    }
     public ClockSpace getSpace() {
         return space;
     }
@@ -389,4 +399,11 @@ public class Region implements Cloneable {
 //        return 0;
         return (JSONObject) JSON.toJSON(res);
     }  */
+    public boolean isModelof(ClockConstraint g){
+        return this.fed.le(g.getFed());
+    }
+    public boolean equals(Object o){
+        Region R = (Region)o;
+        return this.fed.eq(R.fed);
+    }
 }

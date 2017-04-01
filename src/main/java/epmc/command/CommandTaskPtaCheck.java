@@ -126,6 +126,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         ClockSpace space = new ClockSpace(dta.clocks);
         space.setModel(model);
 
+        dta.setSpace(space);
         ClockConstraint top = ClockConstraint.TOP(space);
 
 		dta.invariants.put(q0,top);
@@ -166,12 +167,15 @@ public class CommandTaskPtaCheck implements CommandTask {
 		
 		LocationPTA l0 = pta.initialLocations.addLocation(
 				pta.locations.addLocation(new LocationPTABasic("l0"))
-				);
+		);
+
 		LocationPTA l1 = pta.locations.addLocation(new LocationPTABasic("l1"));
 		LocationPTA l2 = pta.locations.addLocation(new LocationPTABasic("l2"));
 
         ClockSpace space = new ClockSpace(pta.clocks);
         space.setModel(model);
+
+        pta.setSpace(space);
 
         ClockConstraint top = ClockConstraint.TOP(space);
 

@@ -22,7 +22,8 @@ udbm_int_wrap.o: udbm_int_wrap.cxx
 
 udbm_int.so: udbm_int_wrap.o udbm_int.o
 	$(CXX) $(CXXFLAGS) -shared $(LIBUDBM) udbm_int.o udbm_int_wrap.o -o udbm_int.so 
-
+	cp ./udbm_int.so ../../../resources/epmc/udbm/udbm_int.so
+	
 clean: 
 	rm *.java
 	rm *.cxx
