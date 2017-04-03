@@ -5,33 +5,39 @@ package epmc.ptaxdta;
  */
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
-import epmc.expression.standard.ExpressionIdentifierStandard;
-import epmc.expression.standard.ExpressionLiteral;
-import epmc.expression.standard.ExpressionOperator;
 import epmc.udbm.AtomConstraint;
 import epmc.udbm.Federation;
-import epmc.value.*;
-import epmc.modelchecker.Model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * a clock is a Integer number (use as Index of J and clockName)
  * the Domain of clocks is N_{\ge0}
  */
 public class Region implements Cloneable {
+
     private ClockSpace space;
-//    private IntegerValueInterval[] J; // [0,this.getDimension)
-//    private ArrayList<Pair<Integer,Integer>> fracOrder;
-////    private int D;    combined with FracOrder
-//    private int name; // TODO for encode
+    private TupleSemantic tuple;
+
+    //private int name; // TODO for encode
+
     public Federation fed;
     static public Region ZERO(ClockSpace space){
-        IntegerValueInterval[] J = new IntegerValueInterval[space.getDimension()-1];
-        for (int i = 1; i < space.getDimension(); i++) {
-            J[i-1] = new IntegerValueInterval(1,0,0,1);
+        IVInterval[] J = new IVInterval[space.getDimension()];
+        for (int i = 0; i < space.getDimension(); i++) {
+            J[i] = new IVInterval(1,0,0,1);
         }
         return new Region(space,J,new ArrayList<Integer>(),0);
+    }
+
+    public Region(TupleSemantic tuple) {
+        this.tuple = tuple;
+        this.space = tuple.space;
+        this.fed = this.resolveIntegerPartConstrain(this.space,tuple.J);
+        this.fed = this.fed.andOp(this.resolveFractionalConstrain(this.space,tuple.J,tuple.fracOrder));
     }
 
     public Region(ClockSpace space, Federation fed) {
@@ -39,52 +45,51 @@ public class Region implements Cloneable {
         this.fed   = fed;
     }
 
-    public Region(ClockSpace space, IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D) {
+    public Region(ClockSpace space, IVInterval[] J, ArrayList<Integer> fracOrder, int D) {
         this.space = space;
         this.fed = this.resolveIntegerPartConstrain(space,J);
         this.fed = this.fed.andOp(this.resolveFractionalConstrain(space,J,fracOrder,D));
-        /*
-        this.J = J;
-        this.fracOrder = new ArrayList<Pair<Integer,Integer>>();
-        for(int i=0; i < fracOrder.size(); i++){
-           if(i==0){
-               this.fracOrder.add(Pair.of(null,fracOrder.get(i)));
-           }
-           else {
-               this.fracOrder.add(Pair.of( (D>>(i-1)) & 1, fracOrder.get(i) ));
-           }
-        }
-//        this.D = D;
-*/
+        this.tuple = new TupleSemantic(space,J,fracOrder,D);
 
     }
 
-    private Federation resolveIntegerPartConstrain(ClockSpace space, IntegerValueInterval[] J){
+    private Federation resolveIntegerPartConstrain(ClockSpace space, IVInterval[] J){
         Federation res = new Federation(space.getDimension());
         res.setInit();
         for(int i=1; i < this.getDimension(); i++) { // i for clock //start from the second clock
-            IntegerValueInterval interv = J[i-1];//TODO do the corresponding change in ClockSpace.explore
+            IVInterval interv = J[i];//TODO do the corresponding change in ClockSpace.explore
             res = res.andOp(new AtomConstraint(0,i,-interv.lower,!interv.isLowerClosed()));
             // 0 - x < / <= -l
 
-            if (interv.upper != IntegerValueInterval.INF) {
+            if (interv.upper != IVInterval.INF) {
                 res = res.andOp(new AtomConstraint(i,0,interv.upper,!interv.isUpperClosed()));
             }
             // x - 0 < / <= r
         }
         return res;
     }
-    private Federation resolveFractionalConstrain(ClockSpace space,IntegerValueInterval[] J, ArrayList<Integer> fracOrder, int D){
+    private Federation resolveFractionalConstrain(ClockSpace space, IVInterval[] J, ArrayList<Integer> fracOrder, int D){
+        List<Pair<Integer,Integer>> combine =
+                IntStream.range(0, fracOrder.size())
+                    .mapToObj(i -> (Pair<Integer,Integer>)Pair.of(fracOrder.get(i), i == 0 ? -1 : (D >> (i -1) ) & 1 ))
+                    .collect(Collectors.toList());
+        ArrayList<Pair<Integer,Integer>> Order = new ArrayList<Pair<Integer,Integer>>(combine);
+
+        return this.resolveFractionalConstrain(space,J,Order);
+    }
+
+    private Federation resolveFractionalConstrain(ClockSpace space, IVInterval[] J, ArrayList<Pair<Integer,Integer>> fracOrder){
         Federation res = new Federation(space.getDimension());
         res.setInit();
         if (fracOrder.size() > 1) {
             for (int i = 1; i < fracOrder.size(); i++) {
-                int clockX = fracOrder.get(i-1);
-                int clockY = fracOrder.get(i);
+                int clockX = fracOrder.get(i-1).getLeft();
+                int clockY = fracOrder.get(i).getLeft();
                 int intDiff = J[clockX].lower - J[clockY].lower;
 
                 // x -y < / <= d
-                boolean isEq = ((D >> (i - 1)) & 1) == 1 ;
+                boolean isEq = fracOrder.get(i).getRight() == 1;
+//                boolean isEq = ((D >> (i - 1)) & 1) == 1 ;
                 if(isEq){
 //                    res = res.andOp(new AtomConstraint(clockX,clockY, intDiff,false));
 //                    res = res.andOp(new AtomConstraint(clockY,clockX,-intDiff,false));
@@ -100,7 +105,6 @@ public class Region implements Cloneable {
         return res;
     }
 
-
 //    public Region(Region R){
 //        this.space = R.space;
 //        this.J     = R.J.clone();
@@ -112,7 +116,10 @@ public class Region implements Cloneable {
         Federation TOP = new Federation(this.getSpace().getDimension());
         TOP.setInit();
         TOP = TOP.andOp(this.fed);
+        TupleSemantic newTuple = this.tuple.clone();
         Region res = new Region(this.space,TOP);
+        res.tuple = newTuple;
+        //TODO refactor
         return res;
 
     }
@@ -126,22 +133,21 @@ public class Region implements Cloneable {
         return this.space.getDimension();
     }
 
-//    public int getSymbol(int index){ // [1,fracOrder.size()-1]
-//        return this.fracOrder.get(index).getLeft();
-//    }
-//    public int getOrder(int index){
-//        return this.fracOrder.get(index).getRight();
-//    }
 
 
     public Region reset(ArrayList<Integer> X){
-        for (Integer x : X) {
-            this.fed.updateValue(x,0);
-        }
+        X.forEach(x ->
+            this.fed.updateValue(x,0)
+        );
+        this.tuple.reset(X);
+
+//        for (Integer x : X) {
+//            this.fed.updateValue(x,0);
+//        }
 //        //TODO clone() first ,return the clone one instead of this
 //        for (int i=0; i < X.size(); i++) {
 //            int clock = X.get(i);
-//            this.J[clock] = new IntegerValueInterval(1, 0, 0, 1);
+//            this.J[clock] = new IVInterval(1, 0, 0, 1);
 //            for (int j = 0; j < this.fracOrder.size(); j++) {
 //                if(this.fracOrder.get(j).getRight()==clock){
 //                    if(j==0){
@@ -164,7 +170,9 @@ public class Region implements Cloneable {
     }
 
     public Region successor(){
-        return this; //TODO 
+        TupleSemantic succTuple = this.tuple.timeSuccessor();
+        Region succ = new Region(succTuple);
+        return succ;
     }
 
     public Expression toExpression() throws EPMCException {
@@ -177,7 +185,7 @@ public class Region implements Cloneable {
         ArrayList v = new ArrayList();
 
         for(int i=0; i < this.getDimension(); i++) { // i for clock
-            IntegerValueInterval interv = this.J[i];
+            IVInterval interv = this.J[i];
 
 
             Expression c = new ExpressionLiteral.Builder()
@@ -195,7 +203,7 @@ public class Region implements Cloneable {
                     .build();
             v.add(t);
 
-            if (interv.upper != IntegerValueInterval.INF) {
+            if (interv.upper != IVInterval.INF) {
                 c = new ExpressionLiteral.Builder()
                         .setValue(UtilValue.newValue(TypeInteger.get(model.getContextValue()),
                                 Integer.toString(interv.upper)))
@@ -347,7 +355,7 @@ public class Region implements Cloneable {
 //        JsonObjectBuilder builder =  factory.createObjectBuilder();
         ArrayList v = new ArrayList();
         for(int i=0; i < this.getDimension(); i++){
-            IntegerValueInterval interv = this.J[i];
+            IVInterval interv = this.J[i];
             if (interv.isPoint()){ // not necessary
                 HashMap m = new HashMap();
                 m.put("op","=");

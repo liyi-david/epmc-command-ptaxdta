@@ -4,7 +4,7 @@ package epmc.ptaxdta;
  * Created by lijianlin on 17/3/18.
  */
 
-public class IntegerValueInterval implements Cloneable {
+public class IVInterval implements Cloneable {
 
     private final static String [] LBRACK = {"(","["};
     private final static String [] RBRACK = {")","]"};
@@ -18,8 +18,8 @@ public class IntegerValueInterval implements Cloneable {
 
 
 
-    public IntegerValueInterval(int lClosed,int lower, int upper,int uClosed) {
-        assert (upper == IntegerValueInterval.INF) | (lower <= upper);
+    public IVInterval(int lClosed, int lower, int upper, int uClosed) {
+        assert (upper == IVInterval.INF) | (lower <= upper);
         //TODO deal with +INF
         this.lower = lower;
         this.upper = upper;
@@ -35,8 +35,8 @@ public class IntegerValueInterval implements Cloneable {
         return upperClosed == 1;
     }
     @Override
-    public IntegerValueInterval clone() {
-        return new IntegerValueInterval(this.lowerClosed,this.lower,this.upper,this.upperClosed);
+    public IVInterval clone() {
+        return new IVInterval(this.lowerClosed,this.lower,this.upper,this.upperClosed);
     }
     public String getInfo() {
         return info;
@@ -54,9 +54,24 @@ public class IntegerValueInterval implements Cloneable {
     }
 
     public int length() {
-        if (this.upper == IntegerValueInterval.INF)
-            return IntegerValueInterval.INF;
+        if (this.upper == IVInterval.INF)
+            return IVInterval.INF;
         return this.upper - this.lower;
+    }
+    public IVInterval successor(int bound){
+        if(this.upper == IVInterval.INF){
+            return this.clone();
+        }
+
+        if(this.isPoint()){
+            if(this.upper == bound){
+                return new  IVInterval(0,this.upper,IVInterval.INF,0);
+            }
+            return new IVInterval(0,this.upper,this.upper+1,0);
+        }
+        else {
+            return new IVInterval(1,this.upper,this.upper,1);
+        }
     }
 }
 

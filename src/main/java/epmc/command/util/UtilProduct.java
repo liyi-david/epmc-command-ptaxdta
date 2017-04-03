@@ -27,7 +27,9 @@ public class UtilProduct {
 		ClockSpace space = new ClockSpace(result.clocks);
 		space.setModel((Model) pta);
 		result.setSpace(space);
-		Region zero = Region.ZERO(space);
+		Region zero = Region.ZERO(dta.getSpace());// regions use dta space
+
+        dta.getSpace().setBoundary(new int[]{0,4,6});
 
 		// TODO: find a solution to write simpler clock constraint
 //		for (int i = 0; i < result.clocks.clocknames.size(); i ++) {
@@ -49,7 +51,7 @@ public class UtilProduct {
                         LocationPTAProduct loc = new LocationPTAProduct(initm, e_initp.target.get(0), zero);
                         loc.setModel(result);
                         ClockConstraint invx = (ClockConstraint) pta.invariants.get(initm).clone();
-                        invx.setAnd(zero);
+                        invx.setAnd(zero);//TODO invx and zero are in different space
                         result.invariants.put(loc, invx);
                         result.locations.addLocation(loc);
 
@@ -99,7 +101,7 @@ public class UtilProduct {
 
                             if ((Ll1.equals(b)) && (R0.isModelof(g1))){
                                 Region R1 = R0.clone();
-                                R1.reset(space.findClockbyName(Y2));
+                                R1.reset(dta.getSpace().findClockbyName(Y2));
 //								System.out.println("R1.equals(R0)" + R1.equals(R0));
 
                                 // (l0,q0,R0) --- g0 : a --- * prob1,Y1 U Y2 ---> (l1,q1,R1)
@@ -109,7 +111,8 @@ public class UtilProduct {
                                 int idx = visited.indexOf(state);
                                 Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
                                 if(!isVisited){
-                                    System.out.println(state + " " + prob0);
+                                    System.out.print(Q.size() + 1);
+                                    System.out.println(" "+ head + " " + prob0 + " ---> " + state );
                                     //TODO set visited
                                     Q.add(state);
                                     visited.add(state);
@@ -120,8 +123,22 @@ public class UtilProduct {
                         }
 
                     }
+
                 }
             }
+            Region R1 = R0.successor();
+            LocationPTAProduct state = new LocationPTAProduct(l0,q0,R1);
+            //TODO LocationPTAProduct equals
+            int idx = visited.indexOf(state);
+            Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
+            if(!isVisited){
+                System.out.print(Q.size() + 1);
+                System.out.println(" " + head +"tau " + " ---> " + state );
+                //TODO set visited
+                Q.add(state);
+                visited.add(state);
+            }
+            System.out.println();
 
 		}
 		/* TODO

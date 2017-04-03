@@ -28,7 +28,7 @@ public class UtilDBM {
     }
 
     public static Expression UDBMString2Expression(String f, Model model) throws EPMCException {
-//        System.out.println(f);
+        System.out.println(f);
         String conjunctions[] = f.split("\\|\\||$");
         ArrayList<Expression> conjExps = new ArrayList<>();
         for (String conj : conjunctions) {

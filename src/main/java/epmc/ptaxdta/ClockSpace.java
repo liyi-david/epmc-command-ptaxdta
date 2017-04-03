@@ -3,10 +3,7 @@ package epmc.ptaxdta;
 /**
  * Created by lijianlin on 17/3/18.
  */
-import epmc.error.EPMCException;
-import epmc.expression.Expression;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.pta.model.ClocksPTA;
@@ -17,13 +14,14 @@ public class ClockSpace {
     private String[] clockName;
     private HashMap<String,Integer> clockOrder;
     private int [] boundary;
+    private boolean haveInternalClock = true;
 //    private ClocksPTA Clocks;
 
     // 0 for [0,0], 1 for (0,1),
     // 2 for [1,1], 3 for (1,2)
     // 2*cx for  [cx,cx], 2*cx +1  (cx,oo)
 
-    private IntegerValueInterval [] interval;
+    private IVInterval[] interval;
     private int openCount = 0;
     private int [] choice;
     private boolean[] used;
@@ -40,6 +38,14 @@ public class ClockSpace {
 
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    public int[] getBoundary() {
+        return boundary;
+    }
+
+    public void setBoundary(int[] boundary) {
+        this.boundary = boundary;
     }
 
     public ClockSpace(ClocksPTA clocks) {
@@ -84,6 +90,12 @@ public class ClockSpace {
     public int getDimension() {
         return this.dimension;
     }
+    public int getExternalDimension() {
+        return this.dimension - 1;
+    }
+    public int getFirstExternalClock() {
+        return  1;
+    }
 
     public String[] getClockName() {
         return clockName;
@@ -94,7 +106,7 @@ public class ClockSpace {
         space.explore();
     }
     public void explore(){
-        this.interval    = new IntegerValueInterval [this.dimension];
+        this.interval    = new IVInterval[this.dimension];
         this.openCount   = 0;
         this.choice      = new int[this.dimension];
         this.permutation = new ArrayList<Integer>();
@@ -194,9 +206,9 @@ public class ClockSpace {
             int end = 2 * this.boundary[step] + 2;
             for(int i=0; i < end ; i++){
                 int t = i / 2;
-                this.interval[step] = (i == end - 1) ? new IntegerValueInterval(0,t,IntegerValueInterval.INF,0) :
-                                      (i % 2 == 0)   ? new IntegerValueInterval(1, t, t, 1) :
-                                                       new IntegerValueInterval(0, t,t+1,0);
+                this.interval[step] = (i == end - 1) ? new IVInterval(0,t, IVInterval.INF,0) :
+                                      (i % 2 == 0)   ? new IVInterval(1, t, t, 1) :
+                                                       new IVInterval(0, t,t+1,0);
 
                 int isOpen = (i % 2);
                 if(i == end - 1) isOpen = 0;
