@@ -1,6 +1,7 @@
 package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
@@ -55,5 +56,13 @@ public class ClocksPTA implements ElementPTA {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Override
+	public String toString() {
+		Optional<String> res = this.clocknames.stream()
+				.reduce((r,e) -> r + ", " + e);
+		if (!res.isPresent()){
+			return "{}";
+		}
+		return "{" + res.get() + "}";
+	}
 }

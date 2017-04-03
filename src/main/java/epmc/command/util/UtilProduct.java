@@ -2,6 +2,7 @@ package epmc.command.util;
 
 import java.util.*;
 
+import epmc.error.EPMCException;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
@@ -9,7 +10,7 @@ import epmc.ptaxdta.Region;
 import epmc.ptaxdta.pta.model.*;
 
 public class UtilProduct {
-	public static ModelPTA prod(ModelPTA pta, ModelPTA dta) {
+	public static ModelPTA prod(ModelPTA pta, ModelPTA dta) throws EPMCException {
 		// TODO: assertions
 		ModelPTA result = new ModelPTA("Product[" + pta.getName() + "," + dta.getName() + "]");
 		result.setContextValue(pta.getContextValue());
@@ -51,7 +52,7 @@ public class UtilProduct {
                         LocationPTAProduct loc = new LocationPTAProduct(initm, e_initp.target.get(0), zero);
                         loc.setModel(result);
                         ClockConstraint invx = (ClockConstraint) pta.invariants.get(initm).clone();
-                        invx.setAnd(zero);//TODO invx and zero are in different space
+                        //invx.setAnd(zero);//TODO invx and zero are in different space
                         result.invariants.put(loc, invx);
                         result.locations.addLocation(loc);
 
@@ -105,14 +106,16 @@ public class UtilProduct {
 //								System.out.println("R1.equals(R0)" + R1.equals(R0));
 
                                 // (l0,q0,R0) --- g0 : a --- * prob1,Y1 U Y2 ---> (l1,q1,R1)
-								// R1 = R0[ Y1 U Y2 := 0 ]
+								// R1 = R0[ Y2 := 0 ]
                                 LocationPTAProduct state = new LocationPTAProduct(l1,q1,R1);
                                 //TODO LocationPTAProduct equals
                                 int idx = visited.indexOf(state);
                                 Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
                                 if(!isVisited){
-                                    System.out.print(Q.size() + 1);
-                                    System.out.println(" "+ head + " " + prob0 + " ---> " + state );
+                                    System.out.println(visited.size() + 1);
+//                                    System.out.println(head + "---" + g0.toExpression().toString() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " ---> " + state );
+                                    System.out.println(head + "---" + g0.toString() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " ---> " + state );
+
                                     //TODO set visited
                                     Q.add(state);
                                     visited.add(state);
@@ -132,8 +135,8 @@ public class UtilProduct {
             int idx = visited.indexOf(state);
             Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
             if(!isVisited){
-                System.out.print(Q.size() + 1);
-                System.out.println(" " + head +"tau " + " ---> " + state );
+                System.out.println(visited.size() + 1);
+                System.out.println(head +"---tau---> " + state );
                 //TODO set visited
                 Q.add(state);
                 visited.add(state);
