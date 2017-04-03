@@ -95,6 +95,6 @@ public class LocationPTAProduct implements LocationPTA {
 	}
 	@Override
 	public String toString(){
-		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + ", " + this.region.toString() + ")";
+		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + ", " + this.region.toStr() + ")";
 	}
 }
