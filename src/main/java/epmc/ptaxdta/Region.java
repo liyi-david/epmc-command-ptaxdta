@@ -24,6 +24,10 @@ public class Region implements Cloneable {
 
     //private int name; // TODO for encode
 
+    public TupleSemantic getTuple() {
+        return tuple;
+    }
+
     public Federation fed;
     static public Region ZERO(ClockSpace space){
         IVInterval[] J = new IVInterval[space.getDimension()];

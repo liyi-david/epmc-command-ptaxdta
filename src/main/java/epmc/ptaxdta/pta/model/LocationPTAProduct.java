@@ -12,13 +12,13 @@ public class LocationPTAProduct implements LocationPTA {
 	
 	private LocationPTA PTAloc;
 	private LocationPTA DTAloc;
-	private Region region;
+//	private Region region;
 	private ModelPTA model;
 	
-	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc, Region region) {
+	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc/*, Region region*/) {
 		this.setPTAloc(PTAloc);
 		this.setDTAloc(DTAloc);
-		this.setRegion(region);
+//		this.setRegion(region);
 	}
 
 	@Override
@@ -75,13 +75,13 @@ public class LocationPTAProduct implements LocationPTA {
 		this.DTAloc = DTAloc;
 	}
 
-	public Region getRegion() {
-		return region;
-	}
-
-	public void setRegion(Region region) {
-		this.region = region;
-	}
+//	public Region getRegion() {
+//		return region;
+//	}
+//
+//	public void setRegion(Region region) {
+//		this.region = region;
+//	}
 
 	@Override
 	public boolean equals(Object l){
@@ -90,11 +90,11 @@ public class LocationPTAProduct implements LocationPTA {
 		}
 		LocationPTAProduct state = (LocationPTAProduct) l;
 		return this.PTAloc.equals(state.getPTAloc()) &&
-			   this.DTAloc.equals(state.getDTAloc()) &&
-			   this.region.equals(state.getRegion());
+			   this.DTAloc.equals(state.getDTAloc()) ;
+//			   this.region.equals(state.getRegion());
 	}
 	@Override
 	public String toString(){
-		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + ", " + this.region.toStr() + ")";
+		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + /*", " + this.region.toStr() +*/ ")";
 	}
 }

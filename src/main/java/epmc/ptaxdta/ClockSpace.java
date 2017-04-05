@@ -48,6 +48,10 @@ public class ClockSpace {
         this.boundary = boundary;
     }
 
+    public ArrayList<Region> getElements() {
+        return elements;
+    }
+
     public ClockSpace(ClocksPTA clocks) {
 //        Clocks = clocks;
         this.dimension = clocks.clocknames.size() + 1;
@@ -102,7 +106,7 @@ public class ClockSpace {
     }
 
     public static void main(String[] args) {
-        ClockSpace space = new ClockSpace(new String[]{"x", "y","z"},new int []{2,2,2},null);
+        ClockSpace space = new ClockSpace(new String[]{"y","z"},new int []{4,6},null);
         space.explore();
     }
     public void explore(){
@@ -114,7 +118,7 @@ public class ClockSpace {
         this.elements    = new ArrayList<Region>();
         // TODO init all vars
         this.dfsInterval(1);
-        System.out.print(this.elements.size() + "region elements explored");
+        System.out.println(this.elements.size() + " region elements explored");
     }
     private String debuginfo(){
         String res = "";
@@ -138,7 +142,7 @@ public class ClockSpace {
         this.elements.add(e);
         System.out.println("\n======\n" + this.elements.size());
         System.out.println(e);
-        System.out.println(this.debuginfo());
+        System.out.println(e.getTuple().toString());
 
 
 //            System.out.println(e.toJSON());
