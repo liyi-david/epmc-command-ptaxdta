@@ -7,7 +7,9 @@ import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
 import epmc.ptaxdta.Region;
+import epmc.ptaxdta.UtilDBM;
 import epmc.ptaxdta.pta.model.*;
+import epmc.udbm.Federation;
 
 public class UtilProduct {
 	public static ModelPTA prod(ModelPTA pta, ModelPTA dta) throws EPMCException {
@@ -92,13 +94,17 @@ public class UtilProduct {
                     ClocksPTA Y1 = e_l.rstClock.get(i);
                     LabelPTA Ll1 = pta.label.get(l1);
                     Double prob0 = e_l.prob.get(i);
+
+                    Federation g0Fed = UtilDBM.UDBMString2Federation(g0.toUDBMString(),result.getSpace());
+
                     // PTA l0 --- g0 : a --- * --- prob0,Y1 ---> l1
                     for (Region R0 : G){
+
+                        Federation R0Fed = UtilDBM.UDBMString2Federation(R0.toUDBMString(),result.getSpace());
 
                         for (TransitionPTA e_q : E_q0) {
                             LabelPTA b = (LabelPTA)e_q.action;
                             ClockConstraint g1 = e_q.guard;
-
                             for (int j = 0; j < e_q.target.size(); j++) {
                                 LocationPTA q1 = e_q.target.get(j);
                                 ClocksPTA Y2 = e_q.rstClock.get(j);
@@ -114,9 +120,11 @@ public class UtilProduct {
 
                                     LocationPTAProduct state = new LocationPTAProduct(l1,q1);
                                     int idx = result.locations.getLocations().indexOf(state);
+                                    ClockConstraint guard = ClockConstraint.TOP(result.getSpace());
+                                    guard.setAnd(R0Fed.andOp(g0Fed));
 
-                                    System.out.println(head + "   ---" + g0.toString() + " and " + R0.toStr() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state );
-
+                                    System.out.println(head + "   ---" + g0.toString() + " and " + R0.toUDBMString() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state );
+                                    System.out.println(guard.toUDBMString()+"\n");
                                     //TODO LocationPTAProduct equals
 //                                    int idx = visited.indexOf(state);
                                     Boolean isVisited = idx >= 0; //TODO visited

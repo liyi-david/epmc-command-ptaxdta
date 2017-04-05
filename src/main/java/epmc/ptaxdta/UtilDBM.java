@@ -8,6 +8,8 @@ import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
 import epmc.jani.model.ModelJANI;
 import epmc.modelchecker.Model;
+import epmc.udbm.AtomConstraint;
+import epmc.udbm.Federation;
 import epmc.value.*;
 
 import java.io.IOException;
@@ -25,6 +27,123 @@ public class UtilDBM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    public static Federation UDBMString2Federation(String f, ClockSpace space) {
+//        System.out.println("\n\nbefore : " + f);
+        String conjunctions[] = f.split("\\|\\||$");
+        Federation res = new Federation(space.getDimension());
+//        res.setInit();
+
+        for (String conj : conjunctions) {
+            String inequalities[] = conj.replace("(","").replace(")","").replace(" ","").split("&&");
+            Federation inequs = new Federation(space.getDimension());
+            inequs.setInit();
+            for (String inequ : inequalities) {
+                if(inequ.equals("true")){
+                    Federation top = new Federation(space.getDimension());
+                    top.setInit();
+                    inequs = inequs.andOp(top);//TODO do not need & True
+                    continue;
+                }
+
+                if(inequ.equals("false")){
+                    Federation bot = new Federation(space.getDimension());
+                    inequs = inequs.andOp(bot);
+                    continue;
+                }
+                String op_sym = null;
+                String identifier = null;
+                boolean isStric = false;
+                if(inequ.contains("==")){
+//                    System.out.println("equ");
+                    op_sym = "==";
+                    isStric = false;
+                    identifier = OperatorEq.IDENTIFIER;
+                }
+                else if(inequ.contains("<=")){
+//                    System.out.println("le");
+                    isStric = false;
+                    op_sym = "<=";
+                    identifier = OperatorLe.IDENTIFIER;
+                }
+                else if(inequ.contains("<")){
+//                    System.out.println("lt");
+                    isStric = true;
+                    op_sym = "<";
+                    identifier = OperatorLt.IDENTIFIER;
+                }
+
+                Federation cur = new Federation(space.getDimension());
+                cur.setInit();
+
+                String oprands[] = inequ.split(op_sym);
+                int d_idx = -1,d = -1;
+                boolean isVar[] = {false,false};
+                for (int i = 0; i < 2; i++) {
+                    try {
+//                        isVar[i] = false;
+                        d = Integer.parseInt(oprands[i]);
+                        d_idx = i;
+                        break;
+                    } catch (NumberFormatException e) {
+                        isVar[i] = true;
+                    }
+                }
+                int x_idx = 1 - d_idx;
+                if(isVar[0] && isVar[1]){
+                    int x0 = space.findClockbyName(oprands[0]);
+                    int x1 = space.findClockbyName(oprands[1]);
+
+                    if(op_sym.equals("==")){
+                        AtomConstraint g1 = new AtomConstraint(x0,x1,0,false);
+                        AtomConstraint g2 = new AtomConstraint(x1,x0,0,false);
+                        Federation temp = new Federation(space.getDimension());
+                        temp.setInit();
+                        temp = temp.andOp(g1).andOp(g2);
+//                        System.out.println(" == : " + temp.toStr(space.getVarNamesAccessor()));
+                        cur = cur.andOp(g1).andOp(g2);
+                    }
+                    else {
+                        cur = cur.andOp(new AtomConstraint(x0,x1,0,isStric));
+                    }
+                    inequs = inequs.andOp(cur);
+                }
+                else {
+                    int x0 = 0, x1 = 0;
+
+                    if(oprands[x_idx].contains("-")){
+                        String vars[] = oprands[x_idx].split("-");
+                        x0 = space.getClockbyName(vars[0]);
+                        x1 = space.getClockbyName(vars[1]);
+                    }
+                    else {
+                        x0 = space.getClockbyName(oprands[x_idx]);
+                        x1 = 0;
+                    }
+                    if(d_idx == 1){
+                        cur = cur.andOp(new AtomConstraint(x0,x1,d,isStric));
+                        if (op_sym == "=="){
+                            cur = cur.andOp(new AtomConstraint(x1,x0,-d,isStric));
+                        }
+                    }
+                    else { // d_idx = 0
+                        cur = cur.andOp(new AtomConstraint(x1,x0,-d,isStric));
+                        if (op_sym == "=="){
+                            cur = cur.andOp(new AtomConstraint(x0,x1,d,isStric));
+                        }
+                    }
+                    inequs = inequs.andOp(cur);
+
+
+                }
+            }
+            res = res.orOp(inequs);
+//            System.out.println("res.orOp(inequs) : " + res.toStr(space.getVarNamesAccessor()));
+
+        }
+//        System.out.println("after : " + res.toStr(space.getVarNamesAccessor()));
+        assert f.equals(res.toStr(space.getVarNamesAccessor()));
+        return res;
     }
 
     public static Expression UDBMString2Expression(String f, Model model) throws EPMCException {

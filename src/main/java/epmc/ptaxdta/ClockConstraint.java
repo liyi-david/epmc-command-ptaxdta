@@ -57,6 +57,10 @@ public class ClockConstraint  implements Cloneable {
         this.fed = this.fed.andOp(c);
         return this;
     }
+    public ClockConstraint setAnd(Federation f){
+        this.fed = this.fed.andOp(f);
+        return this;
+    }
     public ClockConstraint setAnd(ClockConstraint c){
         this.fed = this.fed.andOp(c.fed);
         return this;
@@ -73,6 +77,14 @@ public class ClockConstraint  implements Cloneable {
 
     @Override
     public String toString() {
+        if(this.space != null){
+            return this.fed.toStr(this.space.getVarNamesAccessor());
+        }
+        else {
+            return this.fed.toStr(new VarNamesAccessor());
+        }
+    }
+    public String toUDBMString() {
         if(this.space != null){
             return this.fed.toStr(this.space.getVarNamesAccessor());
         }

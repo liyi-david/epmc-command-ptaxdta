@@ -30,6 +30,7 @@ public class Region implements Cloneable {
 
     public Federation fed;
     static public Region ZERO(ClockSpace space){
+        //TODO use Region::Federation::setZero()
         IVInterval[] J = new IVInterval[space.getDimension()];
         for (int i = 0; i < space.getDimension(); i++) {
             J[i] = new IVInterval(1,0,0,1);
@@ -158,7 +159,7 @@ public class Region implements Cloneable {
         }
         return super.toString();
     }
-    public String toStr()  {
+    public String toUDBMString()  {
         return this.fed.toStr(this.getSpace().getVarNamesAccessor());
     }
     public boolean isModelof(ClockConstraint g){

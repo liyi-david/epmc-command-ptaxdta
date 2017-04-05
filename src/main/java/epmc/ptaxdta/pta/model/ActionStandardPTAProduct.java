@@ -15,7 +15,7 @@ public class ActionStandardPTAProduct implements ActionPTA {
     }
 
     public String contentString(){
-            return this.action + this.region.toStr();
+            return this.action + this.region.toUDBMString();
         }
 
     public String getAction() {
