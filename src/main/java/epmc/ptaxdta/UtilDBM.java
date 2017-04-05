@@ -28,7 +28,10 @@ public class UtilDBM {
 			e.printStackTrace();
 		}
     }
+
+    //TODO use Javacc when refactoring
     public static Federation UDBMString2Federation(String f, ClockSpace space) {
+
 //        System.out.println("\n\nbefore : " + f);
         String conjunctions[] = f.split("\\|\\||$");
         Federation res = new Federation(space.getDimension());
@@ -95,6 +98,7 @@ public class UtilDBM {
                     int x1 = space.findClockbyName(oprands[1]);
 
                     if(op_sym.equals("==")){
+                        // x ==  y
                         AtomConstraint g1 = new AtomConstraint(x0,x1,0,false);
                         AtomConstraint g2 = new AtomConstraint(x1,x0,0,false);
                         Federation temp = new Federation(space.getDimension());
@@ -104,6 +108,7 @@ public class UtilDBM {
                         cur = cur.andOp(g1).andOp(g2);
                     }
                     else {
+                        // x < / <= y
                         cur = cur.andOp(new AtomConstraint(x0,x1,0,isStric));
                     }
                     inequs = inequs.andOp(cur);
@@ -121,14 +126,18 @@ public class UtilDBM {
                         x1 = 0;
                     }
                     if(d_idx == 1){
+                        // x ( - y | 0) < / <= d
                         cur = cur.andOp(new AtomConstraint(x0,x1,d,isStric));
                         if (op_sym == "=="){
+                            // x (- y | 0) == d
                             cur = cur.andOp(new AtomConstraint(x1,x0,-d,isStric));
                         }
                     }
                     else { // d_idx = 0
+                        // d < / <= x ( - y | 0)
                         cur = cur.andOp(new AtomConstraint(x1,x0,-d,isStric));
                         if (op_sym == "=="){
+                            // d == x ( - y | 0)
                             cur = cur.andOp(new AtomConstraint(x0,x1,d,isStric));
                         }
                     }
@@ -221,6 +230,7 @@ public class UtilDBM {
                             .setOperator(model.getContextValue().getOperator(identifier))
                             .setOperands(x0,x1)
                             .build();
+                    // x0 ~ x1
                     inequExps.add(equ);
                 }
                 else {
@@ -242,11 +252,13 @@ public class UtilDBM {
                                 .setOperator(model.getContextValue().getOperator(OperatorSubtract.IDENTIFIER))
                                 .setOperands(x0,x1)
                                 .build();
+                        // x ::= x1 - x2
                     }
                     else {
                         x = new ExpressionIdentifierStandard.Builder()
                                 .setName(oprands[x_idx])
                                 .build();
+                        // x ::= x
                     }
                     Expression operandExp[] = new Expression[2];
                     operandExp[x_idx] = x;
@@ -256,6 +268,7 @@ public class UtilDBM {
                             .setOperator(model.getContextValue().getOperator(identifier))
                             .setOperands(operandExp)
                             .build();
+                    // x ~ c or c ~ x (x ::= x | x1 - x2)
                     inequExps.add(ine);
                 }
             }
