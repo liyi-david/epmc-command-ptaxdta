@@ -41,7 +41,7 @@ public class UtilProduct {
 //			zerocc.setAnd(new AtomConstraint(i + 1, 0, 0, false));
 //		}
 
-        ArrayList<LocationPTAProduct> visited = new ArrayList<>();
+//        ArrayList<LocationPTAProduct> visited = new ArrayList<>();
         //TODO visited : L x Q x G -> {0,1}
 
         Queue<LocationPTAProduct> Q = new LinkedList<LocationPTAProduct>();
@@ -61,7 +61,7 @@ public class UtilProduct {
                         result.locations.addLocation(loc);
 
                         Q.add(loc);
-                        visited.add(loc);
+//                        visited.add(loc);
 
                         System.out.println(Q.size() + " : " + loc);
                     }
@@ -113,19 +113,22 @@ public class UtilProduct {
                                     // (l0,q0) --- g0 and R0 : (a,R0) --- * prob1,Y1 U Y2 ---> (l1,q1)
 
                                     LocationPTAProduct state = new LocationPTAProduct(l1,q1);
+                                    int idx = result.locations.getLocations().indexOf(state);
+
                                     System.out.println(head + "   ---" + g0.toString() + " and " + R0.toStr() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state );
 
                                     //TODO LocationPTAProduct equals
-                                    int idx = visited.indexOf(state);
-                                    Boolean isVisited = visited.indexOf(state) >= 0; //TODO visited
+//                                    int idx = visited.indexOf(state);
+                                    Boolean isVisited = idx >= 0; //TODO visited
                                     if(!isVisited){
-                                        System.out.println(visited.size() + 1);
+//                                        System.out.println(visited.size() + 1);
 //                                    System.out.println(head + "---" + g0.toExpression().toString() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " ---> " + state );
 //                                        System.out.println(head + "   ---" + g0.toString() + " and " + R0 + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state );
 
                                         //TODO set visited
                                         Q.add(state);
-                                        visited.add(state);
+//                                        visited.add(state);
+                                        result.locations.addLocation(state);
                                     }
 //                                    System.out.println();
                                 }

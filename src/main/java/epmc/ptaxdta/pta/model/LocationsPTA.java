@@ -14,7 +14,11 @@ public class LocationsPTA implements ElementPTA {
 	
 	private boolean ifInitialLocations = false;
 	private ModelPTA model;
-	
+
+	public boolean isIfInitialLocations() {
+		return ifInitialLocations;
+	}
+
 	public LocationsPTA(ModelPTA model) {
 		this.setModel(model);
 	}
