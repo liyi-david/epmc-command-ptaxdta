@@ -140,6 +140,7 @@ public class ClockSpace {
     private void generateNewRegion(){
         Region e = new Region(this,this.interval.clone(),this.permutation,this.s);
         this.elements.add(e);
+        e.setName(this.elements.size());
         System.out.println("\n======\n" + this.elements.size());
         System.out.println(e);
         System.out.println(e.getTuple().toString());

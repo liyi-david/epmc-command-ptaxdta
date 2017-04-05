@@ -22,7 +22,15 @@ public class Region implements Cloneable {
     private ClockSpace space;
     private TupleSemantic tuple;
 
-    //private int name; // TODO for encode
+    private int name; // TODO for encode
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public int getName() {
+        return name;
+    }
 
     public TupleSemantic getTuple() {
         return tuple;
