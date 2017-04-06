@@ -1,5 +1,8 @@
 package epmc.ptaxdta.pta.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
@@ -42,7 +45,7 @@ public class LocationPTABasic implements LocationPTA {
 			loc.setTimeProgress(inv);
 		}
 		if (this.model.label.containsKey(this)) {
-			loc.setComment(this.model.label.get(this).contentString());
+			// loc.setComment(this.model.label.get(this).contentString());
 			//TODO put label in Jani
 		}
 		return loc;
@@ -57,6 +60,20 @@ public class LocationPTABasic implements LocationPTA {
 	public boolean equals(Object o){
 		LocationPTA l = (LocationPTA) o;
 		return this.name.equals(l.getName());
+	}
+
+	@Override
+	public ArrayList<String> getVariables() {
+		ArrayList<String> result = new ArrayList<String>();
+		result.add("Location-Index-" + this.model.getName());
+		return result;
+	}
+
+	@Override
+	public ArrayList<Integer> getSerialized() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(this.model.locations.getLocations().indexOf(this));
+		return result;
 	}
 
 

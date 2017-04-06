@@ -103,8 +103,9 @@ public class CommandTaskPtaCheck implements CommandTask {
 		
 		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
-		
-		System.out.println(UtilProduct.prod(pta, dta).toJani(null).toString());
+
+		System.out.println("[Result] \n" + dta.toSingleJani(null).toString());
+		System.out.println("[Product Result]\n" + UtilProduct.prod(pta, dta).toSingleJani(null).toString());
     }
     
     private ModelPTA ModelDTAExample() {

@@ -1,6 +1,7 @@
 package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
@@ -14,6 +15,8 @@ public class LocationsPTA implements ElementPTA {
 	
 	private boolean ifInitialLocations = false;
 	private ModelPTA model;
+	
+	private HashMap<String, LocationPTA> mapByName = new HashMap<String, LocationPTA>();
 
 	public boolean isIfInitialLocations() {
 		return ifInitialLocations;
@@ -27,9 +30,14 @@ public class LocationsPTA implements ElementPTA {
 		if (!locations.contains(loc)) {
 			locations.add(loc);
 			loc.setModel(this.model);
+			this.mapByName.put(loc.getName(), loc);
 		}
 		
 		return loc;
+	}
+	
+	public LocationPTA getLocationByName(String name) {
+		return this.mapByName.get(name);
 	}
 	
 	/**

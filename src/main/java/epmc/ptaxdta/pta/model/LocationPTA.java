@@ -3,6 +3,8 @@
  */
 package epmc.ptaxdta.pta.model;
 
+import java.util.ArrayList;
+
 /**
  * @author liyi
  *
@@ -21,4 +23,7 @@ public interface LocationPTA extends ElementPTA{
 	 */
 	public String getName();
 //	public boolean equals(LocationPTA l);
+	
+	public ArrayList<String> getVariables();
+	public ArrayList<Integer> getSerialized();
 }

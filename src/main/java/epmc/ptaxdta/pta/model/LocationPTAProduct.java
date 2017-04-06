@@ -1,5 +1,7 @@
 package epmc.ptaxdta.pta.model;
 
+import java.util.ArrayList;
+
 import epmc.error.EPMCException;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
@@ -12,13 +14,13 @@ public class LocationPTAProduct implements LocationPTA {
 	
 	private LocationPTA PTAloc;
 	private LocationPTA DTAloc;
-//	private Region region;
+	private ClockConstraint cc;
 	private ModelPTA model;
 	
-	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc/*, Region region*/) {
+	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc, ClockConstraint cc) {
 		this.setPTAloc(PTAloc);
 		this.setDTAloc(DTAloc);
-//		this.setRegion(region);
+		this.setClockConstraint(cc);
 	}
 
 	@Override
@@ -75,13 +77,13 @@ public class LocationPTAProduct implements LocationPTA {
 		this.DTAloc = DTAloc;
 	}
 
-//	public Region getRegion() {
-//		return region;
-//	}
-//
-//	public void setRegion(Region region) {
-//		this.region = region;
-//	}
+	public ClockConstraint getClockConstraint() {
+		return this.cc;
+	}
+
+	public void setClockConstraint(ClockConstraint cc) {
+		this.cc = cc;
+	}
 
 	@Override
 	public boolean equals(Object l){
@@ -89,12 +91,39 @@ public class LocationPTAProduct implements LocationPTA {
 			return false;
 		}
 		LocationPTAProduct state = (LocationPTAProduct) l;
+		
 		return this.PTAloc.equals(state.getPTAloc()) &&
-			   this.DTAloc.equals(state.getDTAloc()) ;
-//			   this.region.equals(state.getRegion());
+			   this.DTAloc.equals(state.getDTAloc()) &&
+			   (
+					   this.cc == null
+					   || this.cc.equals(state.getClockConstraint())
+					   
+			   );
 	}
 	@Override
 	public String toString(){
 		return "(" + this.PTAloc.getName() + ", " + this.DTAloc.getName() + /*", " + this.region.toStr() +*/ ")";
+	}
+
+	@Override
+	public ArrayList<String> getVariables() {
+		ArrayList<String> varspta = this.PTAloc.getVariables();
+		ArrayList<String> varsdta = this.PTAloc.getVariables();
+		ArrayList<String> result = new ArrayList<String>();
+		result.addAll(varspta);
+		result.addAll(varsdta);
+		result.add("Region-Index-" + this.model.getName());
+		return result;
+	}
+
+	@Override
+	public ArrayList<Integer> getSerialized() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> valspta = this.PTAloc.getSerialized();
+		ArrayList<Integer> valsdta = this.DTAloc.getSerialized();
+		result.addAll(valspta);
+		result.addAll(valsdta);
+		result.add(this.cc == null ? -1 : this.cc.hashCode());
+		return result;
 	}
 }

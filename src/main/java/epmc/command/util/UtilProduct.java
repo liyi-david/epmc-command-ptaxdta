@@ -3,6 +3,8 @@ package epmc.command.util;
 import java.util.*;
 
 import epmc.error.EPMCException;
+import epmc.jani.model.JANINode;
+import epmc.jani.model.ModelJANI;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
@@ -47,7 +49,8 @@ public class UtilProduct {
         //TODO visited : L x Q x G -> {0,1}
 
         Queue<LocationPTAProduct> Q = new LinkedList<LocationPTAProduct>();
-
+        
+        // STEP 1 puting initial location
 		for (LocationPTA initm : pta.initialLocations.getLocations()) {
 		    LabelPTA initmLable = pta.label.get(initm);
 			for (LocationPTA initp : dta.initialLocations.getLocations()) {
@@ -55,11 +58,12 @@ public class UtilProduct {
 			    for (TransitionPTA  e_initp : E_initp) {
 			        LabelPTA b = (LabelPTA) e_initp.action;
 			        if(initmLable.equals(b)){
-                        LocationPTAProduct loc = new LocationPTAProduct(initm, e_initp.target.get(0));
-                        loc.setModel(result);
                         ClockConstraint invx = (ClockConstraint) pta.invariants.get(initm).clone();
                         //invx.setAnd(zero);//TODO invx and zero are in different space
+                        LocationPTAProduct loc = new LocationPTAProduct(initm, e_initp.target.get(0), invx);
+                        loc.setModel(result);
                         result.invariants.put(loc, invx);
+                        // TODO invx have nothing to do with region in LocationsPTAProduct
                         result.locations.addLocation(loc);
 
                         Q.add(loc);
@@ -118,7 +122,7 @@ public class UtilProduct {
 
                                     // (l0,q0) --- g0 and R0 : (a,R0) --- * prob1,Y1 U Y2 ---> (l1,q1)
 
-                                    LocationPTAProduct state = new LocationPTAProduct(l1,q1);
+                                    LocationPTAProduct state = new LocationPTAProduct(l1,q1, null);
                                     int idx = result.locations.getLocations().indexOf(state);
                                     ClockConstraint guard = ClockConstraint.TOP(result.getSpace());
                                     guard.setAnd(R0Fed.andOp(g0Fed));
