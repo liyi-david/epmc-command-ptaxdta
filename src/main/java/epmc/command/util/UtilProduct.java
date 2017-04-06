@@ -14,6 +14,11 @@ import epmc.ptaxdta.pta.model.*;
 import epmc.udbm.Federation;
 
 public class UtilProduct {
+	
+	public static ModelPTA prodv2(ModelPTA pta, ModelPTA dta) throws EPMCException {
+		return null;
+	}
+	
 	public static ModelPTA prod(ModelPTA pta, ModelPTA dta) throws EPMCException {
 		// TODO: assertions
 		ModelPTA result = new ModelPTA("Product[" + pta.getName() + "," + dta.getName() + "]");
@@ -65,6 +70,7 @@ public class UtilProduct {
                         result.invariants.put(loc, invx);
                         // TODO invx have nothing to do with region in LocationsPTAProduct
                         result.locations.addLocation(loc);
+                        result.initialLocations.addLocation(loc);
 
                         Q.add(loc);
 //                        visited.add(loc);
@@ -179,7 +185,7 @@ public class UtilProduct {
 
 
 		// NOTE: actions of dta are actually labels or atomic propositions
-		result.actions = (ArrayList<String>) pta.actions.clone();
+		result.actions = (ArrayList<ActionPTA>) pta.actions.clone();
 		return result;
 	}
 }

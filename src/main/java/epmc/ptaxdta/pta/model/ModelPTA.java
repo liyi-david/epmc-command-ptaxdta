@@ -40,7 +40,7 @@ public class ModelPTA implements ElementPTA, Model {
 	private String name;
 	private ContextValue contextValue;
 	public LocationsPTA locations = new LocationsPTA(this);
-	public ArrayList<String> actions = new ArrayList<String>();
+	public ArrayList<ActionPTA> actions = new ArrayList<ActionPTA>();
 	public ClocksPTA clocks = new ClocksPTA();
 	
 	public LocationsPTA initialLocations = new LocationsPTA(this);
@@ -165,6 +165,11 @@ public class ModelPTA implements ElementPTA, Model {
 		return jani;
 	}
 	
+	/**
+	 * 
+	 * @param modelref
+	 * @return a jani model with only one location
+	 */
 	public JANINode toSingleJani(ModelJANI modelref) {
 		assert modelref == null;
 		
@@ -189,9 +194,6 @@ public class ModelPTA implements ElementPTA, Model {
 			automata.addAutomaton(automaton);
 			jani.setAutomata(automata);
 
-			// convert locations
-			Locations previousLocs = (Locations) locations.toJani(jani);
-			
 			Locations singleLocSet = new Locations();
 			Location loc = new Location();
 			loc.setModel(jani);
@@ -255,7 +257,10 @@ public class ModelPTA implements ElementPTA, Model {
 				for (TransitionPTA tr : trs) {
 					Edge edge = (Edge) tr.toJani(jani);
 					
-					// TODO: first modify the guard
+					// modify the guard, so that it can make sure it is only fired when
+					// the state satisfies the location constraint i.e. the guard must keeps its
+					// source location
+					
 					ArrayList<Integer> sourcevals = this.locations.getLocationByName(edge.getLocation().getName()).getSerialized();
 					for (int i = 0; i < sourcevals.size(); i ++) {
 						Expression varid = new ExpressionIdentifierStandard.Builder()
@@ -287,7 +292,10 @@ public class ModelPTA implements ElementPTA, Model {
 					edge.setLocation(loc);
 					for (Destination dest : edge.getDestinations()) {
 						
-						// modify the assignments
+						// modify the assignments, redirecting to the state that corresponds
+						// to its target location through reassignment of the location-index
+						// variables
+						
 						ArrayList<Integer> vals = this.locations.getLocationByName(dest.getLocation().getName()).getSerialized();
 						for (int i = 0; i < vals.size(); i ++) {
 							
@@ -376,6 +384,28 @@ public class ModelPTA implements ElementPTA, Model {
 		
 	}
 
+	public void addTrapLocation() {
+		/* trap location is used only in a DTA, i.e., a property instead of the model
+		 * itself. further more, it's important not to make any further modification
+		 * after invocation of this method
+		 */
+		assert this.isDTA();
+		
+		LocationPTA traploc = new LocationPTABasic("TRAP");
+		traploc.setModel(this);
+		
+		for (LocationPTA loc : this.locations.getLocations()) {
+			for (ActionPTA act : this.actions) {
+				ClockConstraint ccRemain = ClockConstraint.TOP(space);
+				for (TransitionPTA tran : this.transitions.get(loc)) {
+					if (tran.action.equals(act)) {
+						// TODO:
+					}
+				}
+			}
+		}
+	}
+	
 	@Override
 	public String getIdentifier() {
 		// TODO Auto-generated method stub
