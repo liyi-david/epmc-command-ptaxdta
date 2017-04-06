@@ -22,6 +22,7 @@ public class LabelPTA  implements ActionPTA {
             }
         });
     }
+    
     public LabelPTA(ArrayList<String> content) {
         this.content = content;
         this.content.sort(new Comparator<String>() {
@@ -36,6 +37,8 @@ public class LabelPTA  implements ActionPTA {
     }
 
     public boolean equals(ActionPTA a){
+    	assert (a instanceof LabelPTA);
+    	
         LabelPTA rhs = (LabelPTA)a;
         if(this.content.size()!=rhs.content.size()){
             return false;

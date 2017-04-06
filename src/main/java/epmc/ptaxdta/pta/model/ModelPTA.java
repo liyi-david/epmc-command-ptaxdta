@@ -76,7 +76,7 @@ public class ModelPTA implements ElementPTA, Model {
 		for (LocationPTA loc : locations.getLocations()) {
 			
 			HashMap<String, TransitionPTA> trmap = new HashMap<String, TransitionPTA>();
-			for (TransitionPTA tr : transitions.get(loc.toString())) {
+			for (TransitionPTA tr : transitions.get(loc)) {
 				if (!tr.isValid() || !tr.isSingleDestination()) return false;
 				
 				// check if the edge is unique, considering its action and guard
@@ -370,7 +370,6 @@ public class ModelPTA implements ElementPTA, Model {
 		newtr.setModel(this);
 		newtr.source = source;
 		
-		// TODO implement guards
 		newtr.guard = guard;
 		newtr.action = action;
 		
@@ -379,7 +378,6 @@ public class ModelPTA implements ElementPTA, Model {
 		}
 		
 		this.transitions.get(source).add(newtr);
-		
 		return newtr;
 		
 	}
@@ -389,21 +387,39 @@ public class ModelPTA implements ElementPTA, Model {
 		 * itself. further more, it's important not to make any further modification
 		 * after invocation of this method
 		 */
-		assert this.isDTA();
+		// FIXME
+		// assert this.isDTA();
 		
 		LocationPTA traploc = new LocationPTABasic("TRAP");
 		traploc.setModel(this);
 		
+		/*
+		 * for all location *l* and action *a*, we want to compute the maximum condition formula
+		 * *g_trap* that is disjoint with any other guards with source location *l* and action *a*,
+		 * and target *g_trap* to the trap location 
+		 */
 		for (LocationPTA loc : this.locations.getLocations()) {
 			for (ActionPTA act : this.actions) {
+				System.out.println(loc.getName() + " [" + act.contentString() + "]");
 				ClockConstraint ccRemain = ClockConstraint.TOP(space);
-				for (TransitionPTA tran : this.transitions.get(loc)) {
-					if (tran.action.equals(act)) {
-						// TODO:
+				if (this.transitions.containsKey(loc)) {
+					for (TransitionPTA tran : this.transitions.get(loc)) {
+						if (tran.action.equals(act)) {
+							ccRemain.setFed(ccRemain.getFed().minusOp(tran.guard.getFed()));
+						}
 					}
+				}
+				
+				if (!ccRemain.toString().equals("false")) {
+					System.out.println(ccRemain.toString());
+					this.addConnectionFrom(loc, act, ccRemain)
+						.addTarget(1, new ClocksPTA(), traploc);
 				}
 			}
 		}
+		
+		this.locations.addLocation(traploc);
+		this.transitions.put(traploc, new ArrayList<TransitionPTA>());
 	}
 	
 	@Override
@@ -440,5 +456,26 @@ public class ModelPTA implements ElementPTA, Model {
 	public Properties getPropertyList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void addLabels(String... labels) {
+		ArrayList<ArrayList<String>> lbls = new ArrayList<ArrayList<String>>();
+		lbls.add(new ArrayList<String>());
+		for (String label : labels) {
+			ArrayList<ArrayList<String>> lblsn = new ArrayList<ArrayList<String>>();
+			for (ArrayList<String> lbl : lbls) {
+				ArrayList<String> newlbl = (ArrayList<String>) lbl.clone();
+				newlbl.add(label);
+				lblsn.add(newlbl);
+			}
+			lbls.addAll(lblsn);
+		}
+		
+		String [] template = {};
+		for (ArrayList<String> lbl : lbls) {
+			if (lbl.size() > 0) {
+				this.actions.add(new LabelPTA(lbl.toArray(template)));
+			}
+		}
 	}
 }

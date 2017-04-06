@@ -104,7 +104,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
 
-		System.out.println("[Result] \n" + dta.toSingleJani(null).toString());
+		dta.addTrapLocation();
+		System.out.println("[Result] \n" + dta.toJani(null).toString());
 //		System.out.println("[Product Result]\n" + UtilProduct.prod(pta, dta).toSingleJani(null).toString());
     }
     
@@ -113,7 +114,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		Model model = modelChecker.getModel();
 		
 		dta.setContextValue(model.getContextValue());
-		dta.actions.add(new ActionStandardPTA("alpha"));
+		dta.addLabels("alpha", "beta", "gamma");
 		dta.clocks.clocknames.add("y");
 		dta.clocks.clocknames.add("z");
 		
