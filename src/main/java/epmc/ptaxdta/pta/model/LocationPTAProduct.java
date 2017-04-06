@@ -14,13 +14,13 @@ public class LocationPTAProduct implements LocationPTA {
 	
 	private LocationPTA PTAloc;
 	private LocationPTA DTAloc;
-	private ClockConstraint cc;
+//	private ClockConstraint cc;
 	private ModelPTA model;
 	
-	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc, ClockConstraint cc) {
+	public LocationPTAProduct(LocationPTA PTAloc, LocationPTA DTAloc/*, ClockConstraint cc*/) {
 		this.setPTAloc(PTAloc);
 		this.setDTAloc(DTAloc);
-		this.setClockConstraint(cc);
+//		this.setClockConstraint(cc);
 	}
 
 	@Override
@@ -77,13 +77,13 @@ public class LocationPTAProduct implements LocationPTA {
 		this.DTAloc = DTAloc;
 	}
 
-	public ClockConstraint getClockConstraint() {
-		return this.cc;
-	}
-
-	public void setClockConstraint(ClockConstraint cc) {
-		this.cc = cc;
-	}
+//	public ClockConstraint getClockConstraint() {
+//		return this.cc;
+//	}
+//
+//	public void setClockConstraint(ClockConstraint cc) {
+//		this.cc = cc;
+//	}
 
 	@Override
 	public boolean equals(Object l){
@@ -93,12 +93,12 @@ public class LocationPTAProduct implements LocationPTA {
 		LocationPTAProduct state = (LocationPTAProduct) l;
 		
 		return this.PTAloc.equals(state.getPTAloc()) &&
-			   this.DTAloc.equals(state.getDTAloc()) &&
-			   (
-					   this.cc == null
-					   || this.cc.equals(state.getClockConstraint())
-					   
-			   );
+			   this.DTAloc.equals(state.getDTAloc()); //&&
+//			   (
+//					   this.cc == null
+//					   || this.cc.equals(state.getClockConstraint())
+//
+//			   );
 	}
 	@Override
 	public String toString(){
@@ -123,7 +123,7 @@ public class LocationPTAProduct implements LocationPTA {
 		ArrayList<Integer> valsdta = this.DTAloc.getSerialized();
 		result.addAll(valspta);
 		result.addAll(valsdta);
-		result.add(this.cc == null ? -1 : this.cc.hashCode());
+//		result.add(this.cc == null ? -1 : this.cc.hashCode());
 		return result;
 	}
 }

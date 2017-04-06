@@ -64,4 +64,16 @@ public class APSet {
         return new LabelPTA(L);
 
     }
+    public int size(){
+        return this.content.size();
+    }
+    public int bound() {
+        return 1 << this.size();
+    }
+    public int full() {
+        return this.bound() - 1;
+    }
+    public int empty() {
+        return 0; // TODO maybe useless, maybe static
+    }
 }

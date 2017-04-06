@@ -42,7 +42,8 @@ public class ModelPTA implements ElementPTA, Model {
 	public LocationsPTA locations = new LocationsPTA(this);
 	public ArrayList<ActionPTA> actions = new ArrayList<ActionPTA>();
 	public ClocksPTA clocks = new ClocksPTA();
-	
+	public APSet AP = null;
+
 	public LocationsPTA initialLocations = new LocationsPTA(this);
 	
 	public HashMap<LocationPTA, ClockConstraint> invariants =
@@ -477,5 +478,13 @@ public class ModelPTA implements ElementPTA, Model {
 				this.actions.add(new LabelPTA(lbl.toArray(template)));
 			}
 		}
+	}
+
+	public APSet getAP() {
+		return AP;
+	}
+
+	public void setAP(APSet AP) {
+		this.AP = AP;
 	}
 }

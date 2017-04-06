@@ -1,7 +1,7 @@
 package epmc.command;
 
 
-import epmc.command.util.UtilProduct;
+import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
 import epmc.messages.OptionsMessages;
 import epmc.modelchecker.CommandTask;
@@ -111,7 +111,10 @@ public class CommandTaskPtaCheck implements CommandTask {
 		dta.addTrapLocation();
 		System.out.println("[Result] \n" + dta.toJani(null).toString());
 //		System.out.println("[Product Result]\n" + UtilProduct.prod(pta, dta).toSingleJani(null).toString());
-    }
+		UtilProductV2 util = new UtilProductV2();
+		ModelPTA result = util.prod(pta, dta);
+
+	}
     
     private ModelPTA ModelDTAExample() {
 		ModelPTA dta = new ModelPTA("task-complete-prop");
@@ -159,7 +162,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 		
 		dta.addConnectionFrom(q2, new LabelPTA("gamma"), g23)
 			.addTarget(1, new ClocksPTA(), q3);
-		
+
+		dta.setAP(new APSet("alpha","beta","gamma"));
 		return dta;
 	}
 
@@ -204,7 +208,9 @@ public class CommandTaskPtaCheck implements CommandTask {
 		pta.addConnectionFrom(l1, new ActionStandardPTA("i"), g2)
 			.addTarget(0.2, new ClocksPTA("x"), l1)
 			.addTarget(0.8, new ClocksPTA("x"), l2);
-		
+
+		pta.setAP(new APSet("alpha","beta","gamma"));
+
 		return pta;
     }
 
