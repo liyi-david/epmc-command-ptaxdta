@@ -1,17 +1,16 @@
 package epmc.ptaxdta.pta.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- * Created by lijianlin on 17/3/31.
+ * Created by lijianlin on 17/4/6.
  */
-public class LabelPTA  implements ActionPTA {
+public class APSet {
     private ArrayList<String> content;
 
-    public LabelPTA(String ...args) {
+    public APSet(String ...args) {
         this.content = new ArrayList<>(Arrays.asList(args));
         this.content.sort(new Comparator<String>() {
             @Override
@@ -23,8 +22,8 @@ public class LabelPTA  implements ActionPTA {
             }
         });
     }
-    
-    public LabelPTA(ArrayList<String> content) {
+
+    public APSet(ArrayList<String> content) {
         this.content = content;
         this.content.sort(new Comparator<String>() {
             @Override
@@ -37,10 +36,8 @@ public class LabelPTA  implements ActionPTA {
         });
     }
 
-    public boolean equals(ActionPTA a){
-    	assert (a instanceof LabelPTA);
-    	
-        LabelPTA rhs = (LabelPTA)a;
+    public boolean equals(Object a){
+        APSet rhs = (APSet)a;
         if(this.content.size()!=rhs.content.size()){
             return false;
         }
@@ -52,16 +49,19 @@ public class LabelPTA  implements ActionPTA {
         }
         return true;
     }
-    public String contentString() {
-        Optional<String> res = this.content.stream()
-                .reduce((r, e) -> r + ", " + e);
-        if (!res.isPresent()) {
-            return "{}";
-        }
-        return "{" + res.get() + "}";
+    public String contentString(){
+        return this.LabelWithSet((1<<this.content.size())-1).toString();
     }
-    @Override
-    public String toString(){
-        return this.contentString();
+    public LabelPTA LabelWithSet(int S){
+        List<String> LabelList =
+                IntStream.range(0,this.content.size())
+                        .filter(i -> ((S >> i) & 1) > 0 )
+                        .mapToObj(i -> this.content.get(i))
+                        .collect(Collectors.toList());
+
+//        String [] LabelArray = (String[]) LabelList.toArray();
+        ArrayList<String> L = new ArrayList<String>(LabelList);
+        return new LabelPTA(L);
+
     }
 }
