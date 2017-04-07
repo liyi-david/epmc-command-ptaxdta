@@ -8,6 +8,7 @@ import epmc.ptaxdta.Region;
 import epmc.ptaxdta.pta.model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -55,6 +56,7 @@ public class UtilProductV2 {
         Queue<LocationPTAProduct> Q = new LinkedList<LocationPTAProduct>();
 
         APSet S = dta.getAP();
+        HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>> T = new HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>>();
 
 
         for (int i = S.empty(); i < S.bound(); i++) {
@@ -65,20 +67,40 @@ public class UtilProductV2 {
         for (LocationPTA l : dta.locations.getLocations()){
             LocationPTABasic q = (LocationPTABasic) l;
             this.h = new ArrayList<>();
-            this.dfs(0,dta,q);
+            this.dfs(0,dta,q,T);
+        }
+
+        for (LocationPTABasic q : T.keySet()) {
+            ArrayList<ArrayList<ClockConstraint>> Tq = T.get(q);
+            System.out.println("T_" + q.getName());
+            for (ArrayList<ClockConstraint> h : Tq){
+                System.out.println();
+                for (ClockConstraint g : h) {
+                    System.out.println(g);
+                }
+                System.out.println("conj over sigma : " + this.h_conjunction(h,dta.getSpace()));
+                System.out.println();
+            }
         }
         // NOTE: actions of dta are actually labels or atomic propositions
         result.actions = (ArrayList<ActionPTA>) pta.actions.clone();
         return result;
     }
-    public void dfs(int ch,ModelPTA dta,LocationPTABasic q){
+    public void dfs(int ch,ModelPTA dta,LocationPTABasic q, HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>>  T){
 //        System.out.println(ch);
         APSet S = dta.getAP();
         if(ch == S.bound()){
-            System.out.println("\nT_" + q.getName() +"  have");
-            for (ClockConstraint g : this.h) {
-                System.out.println(g);
+//            System.out.println("\nT_" + q.getName() +"  have");
+//            for (ClockConstraint g : this.h) {
+//                System.out.println(g);
+//            }
+            ArrayList<ArrayList<ClockConstraint>> Tq = T.get(q);
+            if(Tq == null){
+                Tq = new ArrayList<>();
+                T.put(q,Tq);
             }
+            Tq.add((ArrayList<ClockConstraint>) this.h.clone());
+
             return;
         }
         LabelPTA label = S.LabelWithSet(ch);
@@ -90,18 +112,28 @@ public class UtilProductV2 {
 
             }
         }
+//        assert guards.size() > 0;
+        System.out.println("sigma = " + ch + ", q = " + q.getName() + ", gurad size " + guards.size());
         if (guards.size() == 0){
             ClockConstraint TOP = ClockConstraint.TOP(dta.getSpace());
             this.h.add(TOP);
-            dfs(ch + 1,dta,q);
+            dfs(ch + 1,dta,q,T);
             this.h.remove(this.h.size()-1);
         }
         for (ClockConstraint g : guards) {
             this.h.add(g);
 //            System.out.println(g);
-            dfs(ch + 1,dta,q);
+            dfs(ch + 1,dta,q,T);
             this.h.remove(this.h.size()-1);
         }
 
     }
+    private ClockConstraint h_conjunction(ArrayList<ClockConstraint> h,ClockSpace space){
+        ClockConstraint res = ClockConstraint.TOP(space);
+        for (ClockConstraint g : h) {
+            res.setAnd(g);
+        }
+        return res;
+    }
+
 }
