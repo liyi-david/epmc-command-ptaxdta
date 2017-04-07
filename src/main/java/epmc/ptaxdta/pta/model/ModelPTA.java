@@ -382,6 +382,27 @@ public class ModelPTA implements ElementPTA, Model {
 		return newtr;
 		
 	}
+	public void setFinalLocation(LocationPTA loc) {
+		
+		for (ActionPTA act : this.actions) {
+			ClockConstraint ccRemain = ClockConstraint.TOP(space);
+			if (this.transitions.containsKey(loc)) {
+				for (TransitionPTA tran : this.transitions.get(loc)) {
+					if (tran.action.equals(act)) {
+						ccRemain.setFed(ccRemain.getFed().minusOp(tran.guard.getFed()));
+					}
+				}
+			}
+			
+			if (!ccRemain.toString().equals("false")) {
+//				System.out.println(loc.getName() + " [" + act.contentString() + "]");
+//				System.out.println(ccRemain.toString());
+				this.addConnectionFrom(loc, act, ccRemain)
+					.addTarget(1, new ClocksPTA(), loc);
+			}
+			
+		}
+	}
 
 	public void addTrapLocation() {
 		/* trap location is used only in a DTA, i.e., a property instead of the model
@@ -393,6 +414,7 @@ public class ModelPTA implements ElementPTA, Model {
 		
 		LocationPTA traploc = new LocationPTABasic("TRAP");
 		traploc.setModel(this);
+		this.invariants.put(traploc, ClockConstraint.TOP(this.space));
 		
 		/*
 		 * for all location *l* and action *a*, we want to compute the maximum condition formula
@@ -401,7 +423,6 @@ public class ModelPTA implements ElementPTA, Model {
 		 */
 		for (LocationPTA loc : this.locations.getLocations()) {
 			for (ActionPTA act : this.actions) {
-				System.out.println(loc.getName() + " [" + act.contentString() + "]");
 				ClockConstraint ccRemain = ClockConstraint.TOP(space);
 				if (this.transitions.containsKey(loc)) {
 					for (TransitionPTA tran : this.transitions.get(loc)) {
@@ -412,7 +433,8 @@ public class ModelPTA implements ElementPTA, Model {
 				}
 				
 				if (!ccRemain.toString().equals("false")) {
-					System.out.println(ccRemain.toString());
+//					System.out.println(loc.getName() + " [" + act.contentString() + "]");
+//					System.out.println(ccRemain.toString());
 					this.addConnectionFrom(loc, act, ccRemain)
 						.addTarget(1, new ClocksPTA(), traploc);
 				}
