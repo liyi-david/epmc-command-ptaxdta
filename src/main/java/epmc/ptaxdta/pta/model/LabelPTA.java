@@ -36,7 +36,12 @@ public class LabelPTA  implements ActionPTA {
             }
         });
     }
-
+    //TODO override hashCode to use as index
+//    @Override
+//    public int hashCode() {
+//        return this.content.hashCode();
+//    }
+    @Override
     public boolean equals(ActionPTA a){
     	assert (a instanceof LabelPTA);
     	

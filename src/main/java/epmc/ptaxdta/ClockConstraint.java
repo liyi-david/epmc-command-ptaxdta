@@ -196,4 +196,7 @@ public class ClockConstraint  implements Cloneable {
         System.out.println(c1);
         */
     }
+    public boolean satisfy(ClockConstraint g){
+        return this.fed.le(g.getFed());
+    }
 }

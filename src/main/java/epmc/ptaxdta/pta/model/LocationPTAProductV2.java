@@ -75,10 +75,10 @@ public class LocationPTAProductV2 implements LocationPTA {
 
 	@Override
 	public boolean equals(Object l){
-		if (!(l instanceof LocationPTAProduct)){
+		if (!(l instanceof LocationPTAProductV2)){
 			return false;
 		}
-		LocationPTAProduct state = (LocationPTAProduct) l;
+		LocationPTAProductV2 state = (LocationPTAProductV2) l;
 		
 		return this.PTAloc.equals(state.getPTAloc()) &&
 			   this.DTAloc.equals(state.getDTAloc());

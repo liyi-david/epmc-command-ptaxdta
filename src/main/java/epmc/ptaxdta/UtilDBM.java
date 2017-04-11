@@ -151,7 +151,7 @@ public class UtilDBM {
 
         }
 //        System.out.println("after : " + res.toStr(space.getVarNamesAccessor()));
-        assert f.equals(res.toStr(space.getVarNamesAccessor()));
+//        assert f.equals(res.toStr(space.getVarNamesAccessor()));
         return res;
     }
 
