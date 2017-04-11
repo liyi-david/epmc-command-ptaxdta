@@ -29,7 +29,7 @@ import epmc.jani.model.type.JANITypeInt;
 import epmc.modelchecker.Engine;
 import epmc.modelchecker.Model;
 import epmc.modelchecker.Properties;
-import epmc.prism.exporter.processor.JANI2PRISMConverter;
+//import epmc.prism.exporter.processor.JANI2PRISMConverter;
 
 /**
  * 
@@ -329,11 +329,11 @@ public class ModelPTA implements ElementPTA, Model {
 		return jani;
 	}
 
-	public String toPrism() throws EPMCException {
-		JANI2PRISMConverter converter = new JANI2PRISMConverter((ModelJANI) this.toSingleJani(null));
-		StringBuilder builderModel = converter.convertModel();
-		return builderModel.toString();
-	}
+//	public String toPrism() throws EPMCException {
+//		JANI2PRISMConverter converter = new JANI2PRISMConverter((ModelJANI) this.toSingleJani(null));
+//		StringBuilder builderModel = converter.convertModel();
+//		return builderModel.toString();
+//	}
 	@Override
 	/**
 	 * this function should never be invoked
@@ -446,9 +446,13 @@ public class ModelPTA implements ElementPTA, Model {
 				}
 			}
 		}
-		
 		this.locations.addLocation(traploc);
 		this.transitions.put(traploc, new ArrayList<TransitionPTA>());
+
+		for (ActionPTA act : this.actions) {
+			this.addConnectionFrom(traploc, act, ClockConstraint.TOP(this.space)).addTarget(1, new ClocksPTA(), traploc);
+		}
+
 	}
 	
 	@Override
