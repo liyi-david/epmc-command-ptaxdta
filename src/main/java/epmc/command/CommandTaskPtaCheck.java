@@ -100,18 +100,14 @@ public class CommandTaskPtaCheck implements CommandTask {
         ModelPTA pta = ModelPTAExample();
         ModelPTA dta = ModelDTAExample();
         
-		APSet S = new APSet("a","b","c");
-		for (int i = 0; i < 8; i++) {
-			LabelPTA l = S.LabelWithSet(i);
-			System.out.println(l);
-		}
 		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
 
-		System.out.println("[Result] \n" + dta.toJani(null).toString());
-//		System.out.println("[Product Result]\n" + UtilProduct.prod(pta, dta).toSingleJani(null).toString());
 		UtilProductV2 util = new UtilProductV2();
 		ModelPTA result = util.prod(pta, dta);
+		
+		System.out.println("[Result]");
+		System.out.println(result.toJani(null));
 
 	}
     

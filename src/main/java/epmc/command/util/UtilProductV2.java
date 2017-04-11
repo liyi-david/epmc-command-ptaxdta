@@ -5,9 +5,11 @@ import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
 import epmc.ptaxdta.Region;
+import epmc.ptaxdta.UtilDBM;
 import epmc.ptaxdta.pta.model.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -24,86 +26,131 @@ public class UtilProductV2 {
         ModelPTA result = new ModelPTA("Product[" + pta.getName() + "," + dta.getName() + "]");
         result.setContextValue(pta.getContextValue());
 
-        // clocks
+        /*
+         * algorthm sketch
+         * 1. locations - done.
+         * 2. initial location - tbd.
+         * 3. clocks - done.
+         * 4. actions - done.
+         * 5. invariants - done. need further check
+         * 6. enab(guard) - tbd.
+         * 7. prob(transition) - tbd. 
+         */
+        
+        // -------------------------------------- CLOCKS ------------------------------------------
+        // 3.1 construct clock set
         result.clocks = new ClocksPTA();
-//		result.clocks.clocknames = (ArrayList<String>) pta.clocks.clocknames.clone();
-//		result.clocks.clocknames.addAll((Collection<? extends String>) dta.clocks.clocknames.clone());
 
         ClocksPTA X1 = pta.getSpace().getExternalClocks();
         ClocksPTA X2 = dta.getSpace().getExternalClocks();
         result.clocks.clocknames.addAll(X1.clocknames);
         result.clocks.clocknames.addAll(X2.clocknames);
-
+        
+        // 3.2 construct clock spce
         ClockSpace space = new ClockSpace(result.clocks);
         space.setModel((Model) pta);
         result.setSpace(space);
+        
+        // T is used to store all the possible (Tq)s
+        HashMap<LocationPTABasic,ArrayList<HashMap<ActionPTA, ClockConstraint>>> T =
+        		new HashMap<LocationPTABasic, ArrayList<HashMap<ActionPTA,ClockConstraint>>>();
+        
+        for (LocationPTA locpta : pta.locations.getLocations()) {
+        	for (LocationPTA locdta : dta.locations.getLocations()) {
+        		// -------------------------------- LOCATIONS --------------------------------------
+        		// add this location to the result set
+        		LocationPTA currentLoc = 
+        				result.locations.addLocation(new LocationPTAProductV2(locpta, locdta));
+        		
+        		// fix the corresponding invariants
+        		// TODO: check if it is the proper way to convert a clock constraint in the 
+        		// original pta to a literally same constraint in the product pta
+        		ClockConstraint newInv = ClockConstraint.TOP(space);
+        		newInv.setAnd(UtilDBM.UDBMString2Federation(
+						pta.invariants.get(locpta).toUDBMString(),
+						result.getSpace()
+						));
 
-        Region zero = Region.ZERO(dta.getSpace());// regions use dta space
-        Region NULL = zero;
-
-        dta.getSpace().setBoundary(new int[]{0, 4, 6});
-//        dta.getSpace().explore();
-        ArrayList<Region> G = dta.getSpace().getElements();
-
-        // TODO: find a solution to write simpler clock constraint
-//		for (int i = 0; i < result.clocks.clocknames.size(); i ++) {
-//			zerocc.setAnd(new AtomConstraint(i + 1, 0, 0, false));
-//		}
-
-//        ArrayList<LocationPTAProduct> visited = new ArrayList<>();
-        //TODO visited : L x Q x G -> {0,1}
-
-        Queue<LocationPTAProduct> Q = new LinkedList<LocationPTAProduct>();
-
-        APSet S = dta.getAP();
-        HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>> T = new HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>>();
-
-
-        for (int i = S.empty(); i < S.bound(); i++) {
-            LabelPTA l = S.LabelWithSet(i);
-            System.out.println(l);
+        		result.invariants.put(
+        				currentLoc,
+        				newInv
+        				);
+        		
+        		// -------------------------------- TQ ACTIONS ------------------------------------
+        		// find all possible actions (i.e. Tqs) from the current location
+        		// IMPORTANT !!! only if is hasn't been explored before
+        		if (!T.containsKey(locdta)) {
+        			assert (locdta instanceof LocationPTABasic);
+        			this.h = new ArrayList<>();
+                    this.dfs(0, dta, (LocationPTABasic)locdta, T);
+                    
+                    // System.out.println(T.get(locdta));
+        		}
+        		
+        		// ------------------------------- TRANSITIONS ------------------------------------
+        		result.actions = new ArrayList<>();
+        		for (ActionPTA actpta : pta.actions) {
+        			for (HashMap<ActionPTA, ClockConstraint> acttq : T.get(locdta)) {
+        				result.actions.add(
+        						new ActionStandardPTAProductV2(actpta, acttq)
+        						);
+        				
+        				// TODO: calculate the guard of its corresponding transition
+        				// TODO: calculate the assignments of its corresponding transition
+        			}
+        		}
+        	}
         }
 
-        for (LocationPTA l : dta.locations.getLocations()){
-            LocationPTABasic q = (LocationPTABasic) l;
-            this.h = new ArrayList<>();
-            this.dfs(0,dta,q,T);
-        }
 
-        for (LocationPTABasic q : T.keySet()) {
-            ArrayList<ArrayList<ClockConstraint>> Tq = T.get(q);
-            System.out.println("T_" + q.getName());
-            for (ArrayList<ClockConstraint> h : Tq){
-                System.out.println();
-                for (ClockConstraint g : h) {
-                    System.out.println(g);
-                }
-                System.out.println("conj over sigma : " + this.h_conjunction(h,dta.getSpace()));
-                System.out.println();
-            }
-        }
-        // NOTE: actions of dta are actually labels or atomic propositions
-        result.actions = (ArrayList<ActionPTA>) pta.actions.clone();
+//        for (LocationPTABasic q : T.keySet()) {
+//            ArrayList<ArrayList<ClockConstraint>> Tq = T.get(q);
+//            System.out.println("T_" + q.getName());
+//            for (ArrayList<ClockConstraint> h : Tq){
+//                System.out.println();
+//                for (ClockConstraint g : h) {
+//                    System.out.println(g);
+//                }
+//                System.out.println("conj over sigma : " + this.h_conjunction(h,dta.getSpace()));
+//                System.out.println();
+//            }
+//        }
+//        
         return result;
     }
-    public void dfs(int ch,ModelPTA dta,LocationPTABasic q, HashMap<LocationPTABasic,ArrayList<ArrayList<ClockConstraint>>>  T){
-//        System.out.println(ch);
-        APSet S = dta.getAP();
-        if(ch == S.bound()){
+    
+    public void dfs(
+    		int ch, ModelPTA dta,LocationPTABasic q,
+    		HashMap<LocationPTABasic,ArrayList<HashMap<ActionPTA, ClockConstraint>>> T)
+    {
+
+    	// @Jianlin: here I removed the APSet, and use actions instead
+    	// and we always assume that the actions are already filled with set of labels
+    	// automatically before executing this function
+    	
+        if(ch == dta.actions.size()){
 //            System.out.println("\nT_" + q.getName() +"  have");
 //            for (ClockConstraint g : this.h) {
 //                System.out.println(g);
 //            }
-            ArrayList<ArrayList<ClockConstraint>> Tq = T.get(q);
-            if(Tq == null){
+            ArrayList<HashMap<ActionPTA, ClockConstraint>> Tq = T.get(q);
+            if (Tq == null){
                 Tq = new ArrayList<>();
                 T.put(q,Tq);
             }
-            Tq.add((ArrayList<ClockConstraint>) this.h.clone());
 
+            // from ArrayList<CC> to HashMap<Action, CC>
+            // maybe we call it a schedule?
+            HashMap<ActionPTA, ClockConstraint> schedule =
+            		new HashMap<ActionPTA, ClockConstraint> ();
+            for (ActionPTA act : dta.actions) {
+            	schedule.put(act, h.get(dta.actions.indexOf(act)));
+            }
+            Tq.add(schedule);
             return;
         }
-        LabelPTA label = S.LabelWithSet(ch);
+        
+        LabelPTA label = (LabelPTA) dta.actions.get(ch);
         ArrayList<TransitionPTA> E_q = dta.transitions.get(q);
         ArrayList<ClockConstraint> guards = new ArrayList<>();
         for (TransitionPTA e_q : E_q) {
@@ -113,7 +160,7 @@ public class UtilProductV2 {
             }
         }
 //        assert guards.size() > 0;
-        System.out.println("sigma = " + ch + ", q = " + q.getName() + ", gurad size " + guards.size());
+//        System.out.println("sigma = " + ch + ", q = " + q.getName() + ", gurad size " + guards.size());
         if (guards.size() == 0){
             ClockConstraint TOP = ClockConstraint.TOP(dta.getSpace());
             this.h.add(TOP);

@@ -31,8 +31,10 @@ public class LocationsPTA implements ElementPTA {
 			locations.add(loc);
 			loc.setModel(this.model);
 			this.mapByName.put(loc.getName(), loc);
+		} else {
+			// returns the reference of previously existing object
+			return locations.get(locations.indexOf(loc));
 		}
-		
 		return loc;
 	}
 	

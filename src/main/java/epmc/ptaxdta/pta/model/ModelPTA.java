@@ -439,8 +439,8 @@ public class ModelPTA implements ElementPTA, Model {
 				}
 				
 				if (!ccRemain.toString().equals("false")) {
-					System.out.println(loc.getName() + " [" + act.contentString() + "]");
-					System.out.println(ccRemain.toString());
+//					System.out.println(loc.getName() + " [" + act.contentString() + "]");
+//					System.out.println(ccRemain.toString());
 					this.addConnectionFrom(loc, act, ccRemain)
 						.addTarget(1, new ClocksPTA(), traploc);
 				}

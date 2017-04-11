@@ -118,6 +118,7 @@ public class TransitionPTA implements ElementPTA {
 			Destination dest = new Destination();
 			dest.setLocation((Location) this.target.get(i).toJani(modelref));
 			dest.setProbability(new Probability());
+			dest.setModel(modelref);
 			
 			// use prism parser to deal with guard constraints, probabilities and so on
 			dest.getProbability().setExp(
