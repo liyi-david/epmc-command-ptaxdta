@@ -388,7 +388,31 @@ public class ModelPTA implements ElementPTA, Model {
 		return newtr;
 		
 	}
-	public void setFinalLocation(LocationPTA loc) {
+	public TransitionPTA addBranchingFrom(LocationPTA source, ActionPTA action, ClockConstraint guard) {
+
+
+		if (!this.transitions.containsKey(source)) {
+			this.transitions.put(source, new ArrayList<TransitionPTA>());
+		}
+
+		ArrayList<TransitionPTA> E = this.transitions.get(source);
+		for (TransitionPTA e : E){
+			if (e.action.equals(action)){ // Do not need to check guard.equals()
+				return e;
+			}
+		}
+
+		TransitionPTA newtr = new TransitionPTA();
+		newtr.setModel(this);
+		newtr.source = source;
+
+		newtr.guard = guard;
+		newtr.action = action;
+		this.transitions.get(source).add(newtr);
+
+		return newtr;
+	}
+		public void setFinalLocation(LocationPTA loc) {
 		
 		for (ActionPTA act : this.actions) {
 			ClockConstraint ccRemain = ClockConstraint.TOP(space);
