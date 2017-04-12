@@ -1,6 +1,7 @@
 package epmc.command;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
 import epmc.messages.OptionsMessages;
@@ -109,6 +110,14 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.println("[Result]");
 		System.out.println(result.toJani(null));
 
+		System.out.println("[Result to single]");
+		System.out.println(result.toSingleJani(null));
+
+        ModelPTA pta2 = ModelPTAExample2();
+        System.out.println(pta2.toJani(null));
+
+        ModelPTA dta2 = ModelDTAExample2();
+        System.out.println(dta2.toJani(null));
 	}
     
     private ModelPTA ModelDTAExample() {
@@ -278,6 +287,154 @@ public class CommandTaskPtaCheck implements CommandTask {
 		// TODO
 		*/
     }
+    private ModelPTA ModelDTAExample2() {
+        ModelPTA dta = new ModelPTA("Robot-Navigation-prop");
+        Model model = modelChecker.getModel();
+
+        dta.setContextValue(model.getContextValue());
+        dta.addLabels("alpha", "beta", "gamma");
+        dta.clocks.clocknames.add("y");
+        dta.clocks.clocknames.add("z");
+
+        LocationPTA q0 = dta.initialLocations.addLocation(
+                dta.locations.addLocation(new LocationPTABasic("q0"))
+        );
+        LocationPTA q1 = dta.locations.addLocation(new LocationPTABasic("q1"));
+        LocationPTA q2 = dta.locations.addLocation(new LocationPTABasic("q2"));
+        LocationPTA q3 = dta.locations.addLocation(new LocationPTABasic("q3"));
+
+        ClockSpace space = new ClockSpace(dta.clocks);
+        space.setModel(model);
+
+        dta.setSpace(space);
+        ClockConstraint top = ClockConstraint.TOP(space);
+
+        dta.invariants.put(q0,top);
+        dta.invariants.put(q1,top);
+        dta.invariants.put(q2,top);
+        dta.invariants.put(q3,top);
+
+        ClockConstraint g_0_y_4 = this.buildIntervalIneuality(space,"y",0,4);
+        ClockConstraint g_0_y_5 = this.buildIntervalIneuality(space,"y",0,5);
+
+        ClockConstraint g_y_4_z_30 = this.buildIntervalIneuality(space,"z",0,30).setAnd(
+                this.buildIntervalIneuality(space,"y",0,4)
+        );
+        ClockConstraint g_y_5_z_30 = this.buildIntervalIneuality(space,"z",0,30).setAnd(
+                this.buildIntervalIneuality(space,"y",0,5)
+        );
+
+
+        dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
+                .addTarget(1, new ClocksPTA("y"), q1);
+        dta.addConnectionFrom(q0, new LabelPTA("beta"), top)
+                .addTarget(1, new ClocksPTA("y"), q1);
+
+        //TODO check q2 ->
+        dta.addConnectionFrom(q1, new LabelPTA("alpha"), g_0_y_4)
+                .addTarget(1, new ClocksPTA("y"), q1);
+        dta.addConnectionFrom(q1, new LabelPTA("beta"), g_0_y_4)
+                .addTarget(1, new ClocksPTA("y"), q2);
+        dta.addConnectionFrom(q1, new LabelPTA("gamma"), g_y_4_z_30)
+                .addTarget(1, new ClocksPTA(), q3);
+
+        dta.addConnectionFrom(q2, new LabelPTA("alpha"), g_0_y_5)
+                .addTarget(1, new ClocksPTA("y"), q1);
+        dta.addConnectionFrom(q2, new LabelPTA("beta"), g_0_y_5)
+                .addTarget(1, new ClocksPTA("y"), q2);
+        dta.addConnectionFrom(q2, new LabelPTA("gamma"), g_y_5_z_30)
+                .addTarget(1, new ClocksPTA(), q3);
+
+        dta.setFinalLocation(q3);
+        dta.addTrapLocation();
+
+        dta.setAP(new APSet("alpha","beta","gamma"));
+
+
+        return dta;
+    }
+
+	public ModelPTA ModelPTAExample2() throws EPMCException {
+		Model model = modelChecker.getModel();
+		ModelPTA pta = new ModelPTA("Robot-Navigation");
+
+		pta.setContextValue(model.getContextValue());
+		pta.actions.add(new ActionStandardPTA("i"));
+		pta.clocks.clocknames.add("x");
+
+		LocationPTA l00 = pta.initialLocations.addLocation(
+				pta.locations.addLocation(new LocationPTABasic("l-0-0"))
+		);
+
+		LocationPTA l01 = pta.locations.addLocation(new LocationPTABasic("l-0-1"));
+		LocationPTA l02 = pta.locations.addLocation(new LocationPTABasic("l-0-2"));
+
+		LocationPTA l10 = pta.locations.addLocation(new LocationPTABasic("l-1-0"));
+		LocationPTA l11 = pta.locations.addLocation(new LocationPTABasic("l-1-1"));
+
+		LocationPTA l21 = pta.locations.addLocation(new LocationPTABasic("l-2-1"));
+		LocationPTA l22 = pta.locations.addLocation(new LocationPTABasic("l-2-2"));
+
+		ClockSpace space = new ClockSpace(pta.clocks);
+		space.setModel(model);
+
+		pta.setSpace(space);
+
+		ClockConstraint top = ClockConstraint.TOP(space);
+
+		pta.invariants.put(l00,top);
+		pta.invariants.put(l01,top);
+		pta.invariants.put(l02,top);
+
+		pta.invariants.put(l10,top);
+		pta.invariants.put(l11,top);
+
+		pta.invariants.put(l21,top);
+		pta.invariants.put(l22,top);
+
+		pta.label.put(l00,new LabelPTA("beta"));
+		pta.label.put(l01,new LabelPTA("alpha"));
+		pta.label.put(l02,new LabelPTA("alpha"));
+
+		pta.label.put(l10,new LabelPTA("beta"));
+		pta.label.put(l11,new LabelPTA("alpha"));
+
+		pta.label.put(l21,new LabelPTA("beta"));
+		pta.label.put(l22,new LabelPTA("gamma"));
+
+		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
+		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
+
+		pta.addConnectionFrom(l00, new ActionStandardPTA("i"), g2)
+				.addTarget(0.5, new ClocksPTA("x"), l01)
+				.addTarget(0.5, new ClocksPTA("x"), l11);
+		pta.addConnectionFrom(l01, new ActionStandardPTA("i"), g1)
+				.addTarget(1.0 / 3, new ClocksPTA("x"), l02)
+				.addTarget(1.0 / 3, new ClocksPTA("x"), l11)
+                .addTarget(1.0 / 3, new ClocksPTA("x"), l00);
+        pta.addConnectionFrom(l02, new ActionStandardPTA("i"), g1)
+                .addTarget(1.0, new ClocksPTA("x"), l01);
+
+        pta.addConnectionFrom(l10, new ActionStandardPTA("i"), g2)
+                .addTarget(0.5, new ClocksPTA("x"), l11)
+                .addTarget(0.5, new ClocksPTA("x"), l00);
+        pta.addConnectionFrom(l11, new ActionStandardPTA("i"), g1)
+                .addTarget(1.0 / 3, new ClocksPTA("x"), l21)
+                .addTarget(1.0 / 3, new ClocksPTA("x"), l10)
+                .addTarget(1.0 / 3, new ClocksPTA("x"), l01);
+
+        pta.addConnectionFrom(l21, new ActionStandardPTA("i"), g2)
+                .addTarget(0.5, new ClocksPTA("x"), l11)
+                .addTarget(0.5, new ClocksPTA("x"), l22);
+
+        pta.addConnectionFrom(l22, new ActionStandardPTA("i"),top)
+				.addTarget(1,new ClocksPTA(),l22);
+        //TODO l_2,2 x \in [2,3] ???
+
+		pta.setAP(new APSet("alpha","beta","gamma"));
+
+		return pta;
+	}
 
 	public ContextValue getContextValue() {
 		return contextValue;

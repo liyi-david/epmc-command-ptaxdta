@@ -95,7 +95,8 @@ public class LocationPTAProductV2 implements LocationPTA {
 		ArrayList<String> result = new ArrayList<String>();
 		result.addAll(varspta);
 		result.addAll(varsdta);
-		result.add("Region-Index-" + this.model.getName());
+//		FiXME still have problem
+//		result.add("Region-Index-" + this.model.getName());
 		return result;
 	}
 
