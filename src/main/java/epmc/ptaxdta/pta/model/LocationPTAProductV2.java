@@ -91,12 +91,10 @@ public class LocationPTAProductV2 implements LocationPTA {
 	@Override
 	public ArrayList<String> getVariables() {
 		ArrayList<String> varspta = this.PTAloc.getVariables();
-		ArrayList<String> varsdta = this.PTAloc.getVariables();
+		ArrayList<String> varsdta = this.DTAloc.getVariables();
 		ArrayList<String> result = new ArrayList<String>();
 		result.addAll(varspta);
 		result.addAll(varsdta);
-//		FiXME still have problem
-//		result.add("Region-Index-" + this.model.getName());
 		return result;
 	}
 

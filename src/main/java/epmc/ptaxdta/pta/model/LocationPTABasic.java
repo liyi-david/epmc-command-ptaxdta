@@ -65,7 +65,7 @@ public class LocationPTABasic implements LocationPTA {
 	@Override
 	public ArrayList<String> getVariables() {
 		ArrayList<String> result = new ArrayList<String>();
-		result.add("Location-Index-" + this.model.getName());
+		result.add("locindex-" + this.model.getName());
 		return result;
 	}
 

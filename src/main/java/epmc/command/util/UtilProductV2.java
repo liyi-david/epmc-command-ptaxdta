@@ -21,7 +21,10 @@ public class UtilProductV2 {
     private ArrayList<ClockConstraint> temph;
 
     public ModelPTA prod(ModelPTA pta, ModelPTA dta) throws EPMCException {
-        // TODO: assertions
+    	if (dta.getName() == pta.getName()) {
+    		dta.setName(dta.getName() + "-prop");
+    	}
+    	
         ModelPTA result = new ModelPTA("Product[" + pta.getName() + "," + dta.getName() + "]");
         result.setContextValue(pta.getContextValue());
 
@@ -80,28 +83,6 @@ public class UtilProductV2 {
 
             }
         }
-//        for (LocationPTA locpta : pta.locations.getLocations()) {
-//        	for (LocationPTA locdta : dta.locations.getLocations()) {
-//        		// -------------------------------- LOCATIONS --------------------------------------
-//        		// add this location to the result set
-//        		LocationPTA currentLoc =
-//        				result.locations.addLocation(new LocationPTAProductV2(locpta, locdta));
-//
-//        		// fix the corresponding invariants
-//        		// TODO: check if it is the proper way to convert a clock constraint in the
-//        		// original pta to a literally same constraint in the product pta
-//        		ClockConstraint newInv = ClockConstraint.TOP(space);
-//        		newInv.setAnd(UtilDBM.UDBMString2Federation(
-//						pta.invariants.get(locpta).toUDBMString(),
-//						result.getSpace()
-//						));
-//
-//        		result.invariants.put(
-//        				currentLoc,
-//        				newInv
-//        				);
-//        	}
-//        }
 
         // -------------------------------- TQ ACTIONS ------------------------------------
         // T is used to store all the possible (Tq)s
@@ -112,18 +93,13 @@ public class UtilProductV2 {
         for (LocationPTA locdta : dta.locations.getLocations()) {
             // find all possible actions (i.e. Tqs) from the current location
             // IMPORTANT !!! only if is hasn't been explored before
-//            if (!T.containsKey(locdta)) { // do not need now
-                assert (locdta instanceof LocationPTABasic);
-                this.temph = new ArrayList<>();
-                this.dfs(0, dta, (LocationPTABasic)locdta, T);
-                System.out.println("T_" + locdta.getName());
-                for (HashMap<ActionPTA, ClockConstraint> h : T.get(locdta)){
-                    System.out.println(h);
-                }
-//            }
+            assert (locdta instanceof LocationPTABasic);
+            this.temph = new ArrayList<>();
+            this.dfs(0, dta, (LocationPTABasic)locdta, T);
+            System.out.println("T_" + locdta.getName());
         }
 
-        // ------------------------------- TRANSITIONS ------------------------------------
+        // ------------------------------- ACTIONS ------------------------------------
         result.actions = new ArrayList<>();
         for (LocationPTA locdta : dta.locations.getLocations()) {
             for (ActionPTA actpta : pta.actions) {
@@ -131,9 +107,6 @@ public class UtilProductV2 {
                     result.actions.add(
                             new ActionStandardPTAProductV2(actpta, acttq)
                     );
-
-                    // TODO: calculate the guard of its corresponding transition
-                    // TODO: calculate the assignments of its corresponding transition
                 }
             }
         }

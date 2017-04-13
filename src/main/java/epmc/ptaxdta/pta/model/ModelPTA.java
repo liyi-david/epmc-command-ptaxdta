@@ -141,10 +141,19 @@ public class ModelPTA implements ElementPTA, Model {
 				var.setModel(jani);
 				var.setType(new JANITypeClock());
 				var.setName(clk);
+				var.setInitial(
+						new ExpressionLiteral.Builder()
+						.setValue(
+								UtilValue.newValue(
+										TypeInteger.get(this.contextValue),
+										0
+										)
+						)
+						.build()
+						);
 				vars.addVariable(var);
 			}
 			
-			// TODO somehow clocks are not written into the JANI model
 			automaton.setVariables(vars);
 
 			// convert edges
@@ -214,6 +223,16 @@ public class ModelPTA implements ElementPTA, Model {
 				var.setModel(jani);
 				var.setType(new JANITypeClock());
 				var.setName(clk);
+				var.setInitial(
+						new ExpressionLiteral.Builder()
+						.setValue(
+								UtilValue.newValue(
+										TypeInteger.get(this.contextValue),
+										0
+										)
+						)
+						.build()
+						);
 				vars.addVariable(var);
 			}
 			
@@ -243,7 +262,6 @@ public class ModelPTA implements ElementPTA, Model {
 					)
 					.build()
 					);
-				// TODO: use initial value to represent initial location
 				
 				vars.addVariable(var);
 				locIndexes.add(var);
@@ -314,6 +332,7 @@ public class ModelPTA implements ElementPTA, Model {
 						}
 						dest.setLocation(loc);
 					}
+					
 					automaton.getEdges().add(edge);
 				}
 				
