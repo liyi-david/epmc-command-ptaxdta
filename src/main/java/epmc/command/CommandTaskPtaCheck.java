@@ -1,6 +1,5 @@
 package epmc.command;
 
-
 import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
 import epmc.messages.OptionsMessages;
@@ -103,10 +102,14 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
 
+		ModelPTA res = UtilProduct.prod(pta,dta);
+		System.out.println("[Result Version 1]");
+		System.out.println(res.toJani(null));
+
 		UtilProductV2 util = new UtilProductV2();
 		ModelPTA result = util.prod(pta, dta);
 		
-		System.out.println("[Result]");
+		System.out.println("[Result Version 2]");
 		System.out.println(result.toJani(null));
 
 		System.out.println("[Result to single]");
