@@ -123,7 +123,16 @@ public class LocationPTAProduct implements LocationPTA {
 		ArrayList<Integer> valsdta = this.DTAloc.getSerialized();
 		result.addAll(valspta);
 		result.addAll(valsdta);
-//		result.add(this.cc == null ? -1 : this.cc.hashCode());
+		return result;
+	}
+
+	@Override
+	public ArrayList<Integer> getScopeSizes() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> valspta = this.PTAloc.getScopeSizes();
+		ArrayList<Integer> valsdta = this.DTAloc.getScopeSizes();
+		result.addAll(valspta);
+		result.addAll(valsdta);
 		return result;
 	}
 }

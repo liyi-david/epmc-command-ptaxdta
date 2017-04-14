@@ -19,6 +19,7 @@ import epmc.jani.model.Variable;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.value.TypeBoolean;
 import epmc.value.TypeDouble;
+import epmc.value.TypeInteger;
 import epmc.value.TypeReal;
 import epmc.value.UtilValue;
 
@@ -144,7 +145,7 @@ public class TransitionPTA implements ElementPTA {
 						);
 				asn.setValue(
 						new ExpressionLiteral.Builder()
-		                .setValue(UtilValue.newValue(TypeReal.get(this.model.getContextValue()), "0"))
+		                .setValue(UtilValue.newValue(TypeInteger.get(this.model.getContextValue()), "0"))
 		                .build()
 						);
 				asn.setModel(modelref);

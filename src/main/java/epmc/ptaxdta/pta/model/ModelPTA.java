@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import epmc.jani.model.*;
@@ -25,11 +26,14 @@ import epmc.expression.standard.ExpressionOperator;
 import epmc.graph.LowLevel;
 import epmc.graph.Semantics;
 import epmc.jani.model.component.ComponentAutomaton;
+import epmc.jani.model.component.ComponentSynchronisationVectors;
+import epmc.jani.model.component.SynchronisationVectorElement;
+import epmc.jani.model.type.JANITypeBounded;
 import epmc.jani.model.type.JANITypeInt;
 import epmc.modelchecker.Engine;
 import epmc.modelchecker.Model;
 import epmc.modelchecker.Properties;
-//import epmc.prism.exporter.processor.JANI2PRISMConverter;
+import epmc.prism.exporter.processor.JANI2PRISMConverter;
 
 /**
  * 
@@ -155,6 +159,7 @@ public class ModelPTA implements ElementPTA, Model {
 			}
 			
 			automaton.setVariables(vars);
+			jani.setGlobalVariables(new Variables());
 
 			// convert edges
 			automaton.setEdges(new Edges());
@@ -186,19 +191,22 @@ public class ModelPTA implements ElementPTA, Model {
 		
 		ModelJANI jani = new ModelJANI();
 		jani.setContext(this.contextValue);
+		jani.setModelConstants(new Constants());
+		jani.setActions(new Actions());
 		
 		
 		try {
 			jani.setSemantics("pta");
 			jani.setName(this.name);
 			
-			ComponentAutomaton system = new ComponentAutomaton();
+			ComponentSynchronisationVectors system = new ComponentSynchronisationVectors();
 			system.setModel(jani);
 			
 			Automaton automaton = new Automaton();
 			automaton.setModel(jani);
 			automaton.setName("main");
-			system.setAutomaton(automaton);
+			system.setElements(new ArrayList<>());
+			system.setSyncs(new ArrayList<>());
 			
 			Automata automata = new Automata();
 			automata.setModel(jani);
@@ -244,13 +252,40 @@ public class ModelPTA implements ElementPTA, Model {
 			ArrayList<Variable> locIndexes = new ArrayList<Variable> ();
 			ArrayList<String> varnames = this.initialLocations.getLocations().get(0).getVariables();
 			ArrayList<Integer> defaultvals = this.initialLocations.getLocations().get(0).getSerialized();
+			ArrayList<Integer> scopeSizes = this.initialLocations.getLocations().get(0).getScopeSizes();
 			
 			assert varnames.size() == defaultvals.size();
 			
 			for (int i = 0; i < varnames.size(); i ++) {
 				Variable var = new Variable();
 				var.setModel(jani);
-				var.setType(new JANITypeInt());
+				JANITypeBounded type = new JANITypeBounded();
+				
+				Expression lbound = new ExpressionLiteral.Builder()
+						.setValue(
+								UtilValue.newValue(
+										TypeInteger.get(this.contextValue),
+										0
+										)
+						)
+						.build();
+				
+				Expression ubound = new ExpressionLiteral.Builder()
+						.setValue(
+								UtilValue.newValue(
+										TypeInteger.get(this.contextValue),
+										scopeSizes.get(i) - 1
+										)
+						)
+						.build();
+				
+				type.setLowerBound(lbound);
+				type.setUpperBound(ubound);
+				type.setModel(jani);
+				
+				type.setContextValue(this.contextValue);
+				
+				var.setType(type);
 				var.setName(varnames.get(i));
 				var.setInitial(
 					new ExpressionLiteral.Builder()
@@ -267,15 +302,37 @@ public class ModelPTA implements ElementPTA, Model {
 				locIndexes.add(var);
 			}
 			
-			automaton.setVariables(vars);
+			// automaton.setVariables(vars);
+			jani.setGlobalVariables(vars);
 
 			// convert edges
 			automaton.setEdges(new Edges());
+			int numAct = 0;
+			HashMap<String, Action> formula2action = new HashMap<String, Action>(); 
 			
 			for (ArrayList<TransitionPTA> trs : this.transitions.values()) {
 				
 				for (TransitionPTA tr : trs) {
 					Edge edge = (Edge) tr.toJani(jani);
+					
+					// if this action is used before
+					if (formula2action.containsKey(edge.getAction().getName())) {
+						edge.setAction(formula2action.get(edge.getAction().getName()));
+					} else {
+						// register this action
+						Action act = new Action();
+						act.setComment(edge.getAction().getName());
+						act.setName("act" + formula2action.size());
+						act.setModel(jani);
+						formula2action.put(act.getComment(), act);
+						edge.setAction(act);
+					}
+					
+					if (!jani.getActions().containsKey(edge.getAction().getName())) {
+						jani.getActions().addAction(edge.getAction());
+					} else {
+						edge.setAction(jani.getActions().get(edge.getAction().getName()));
+					}
 					
 					// modify the guard, so that it can make sure it is only fired when
 					// the state satisfies the location constraint i.e. the guard must keeps its
@@ -559,5 +616,12 @@ public class ModelPTA implements ElementPTA, Model {
 
 	public void setAP(APSet AP) {
 		this.AP = AP;
+	}
+
+	public String toPrism() throws EPMCException {
+		ModelJANI singlejani = (ModelJANI) this.toSingleJani(null);
+		JANI2PRISMConverter converter = new JANI2PRISMConverter(singlejani);
+    	StringBuilder modelSB = converter.convertModel();
+		return modelSB.toString();
 	}
 }

@@ -107,4 +107,14 @@ public class LocationPTAProductV2 implements LocationPTA {
 		result.addAll(valsdta);
 		return result;
 	}
+	
+	@Override
+	public ArrayList<Integer> getScopeSizes() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> valspta = this.PTAloc.getScopeSizes();
+		ArrayList<Integer> valsdta = this.DTAloc.getScopeSizes();
+		result.addAll(valspta);
+		result.addAll(valsdta);
+		return result;
+	}
 }

@@ -1,7 +1,6 @@
 package epmc.command;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
 import epmc.messages.OptionsMessages;
@@ -112,6 +111,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 		System.out.println("[Result to single]");
 		System.out.println(result.toSingleJani(null));
+		System.out.println(result.toPrism());
 
         ModelPTA pta2 = ModelPTAExample2();
         System.out.println(pta2.toJani(null));
@@ -121,7 +121,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 	}
     
     private ModelPTA ModelDTAExample() {
-		ModelPTA dta = new ModelPTA("task-complete-prop");
+		ModelPTA dta = new ModelPTA("task_complete_prop");
 		Model model = modelChecker.getModel();
 		
 		dta.setContextValue(model.getContextValue());
@@ -176,7 +176,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 	public ModelPTA ModelPTAExample() throws EPMCException {
     	Model model = modelChecker.getModel();        
-        ModelPTA pta = new ModelPTA("task-complete");
+        ModelPTA pta = new ModelPTA("task_complete");
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add(new ActionStandardPTA("i"));
@@ -288,7 +288,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		*/
     }
     private ModelPTA ModelDTAExample2() {
-        ModelPTA dta = new ModelPTA("Robot-Navigation-prop");
+        ModelPTA dta = new ModelPTA("Navigation_prop");
         Model model = modelChecker.getModel();
 
         dta.setContextValue(model.getContextValue());
@@ -356,7 +356,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 	public ModelPTA ModelPTAExample2() throws EPMCException {
 		Model model = modelChecker.getModel();
-		ModelPTA pta = new ModelPTA("Robot-Navigation");
+		ModelPTA pta = new ModelPTA("Navigation");
 
 		pta.setContextValue(model.getContextValue());
 		pta.actions.add(new ActionStandardPTA("i"));

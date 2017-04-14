@@ -1,7 +1,6 @@
 package epmc.command.util;
 
 import epmc.error.EPMCException;
-import epmc.jani.model.Action;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;

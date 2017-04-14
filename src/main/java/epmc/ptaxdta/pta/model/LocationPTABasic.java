@@ -65,7 +65,7 @@ public class LocationPTABasic implements LocationPTA {
 	@Override
 	public ArrayList<String> getVariables() {
 		ArrayList<String> result = new ArrayList<String>();
-		result.add("locindex-" + this.model.getName());
+		result.add("locindex_" + this.model.getName());
 		return result;
 	}
 
@@ -74,6 +74,13 @@ public class LocationPTABasic implements LocationPTA {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		result.add(this.model.locations.getLocations().indexOf(this));
 		return result;
+	}
+
+	@Override
+	public ArrayList<Integer> getScopeSizes() {
+		ArrayList<Integer> sizes = new ArrayList<>();
+		sizes.add(this.model.locations.getLocations().size());
+		return sizes;
 	}
 
 

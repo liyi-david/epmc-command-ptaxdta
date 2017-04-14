@@ -3,8 +3,6 @@ package epmc.command.util;
 import java.util.*;
 
 import epmc.error.EPMCException;
-import epmc.jani.model.JANINode;
-import epmc.jani.model.ModelJANI;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;

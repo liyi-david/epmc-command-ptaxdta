@@ -25,5 +25,6 @@ public interface LocationPTA extends ElementPTA{
 //	public boolean equals(LocationPTA l);
 	
 	public ArrayList<String> getVariables();
+	public ArrayList<Integer> getScopeSizes();
 	public ArrayList<Integer> getSerialized();
 }
