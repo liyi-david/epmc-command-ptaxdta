@@ -325,5 +325,11 @@ public class UtilDBM {
 
 
     }
+
+	public static ClockConstraint UDBMString2CC(String f, ClockSpace space) {
+		ClockConstraint top = ClockConstraint.TOP(space);
+		top.setAnd(UDBMString2Federation(f, space));
+		return top;
+	}
 }
 

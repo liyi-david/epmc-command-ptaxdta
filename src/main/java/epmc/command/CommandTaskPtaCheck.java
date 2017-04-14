@@ -196,8 +196,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 
         ClockConstraint top = ClockConstraint.TOP(space);
 
-		pta.invariants.put(l0,top);
-		pta.invariants.put(l1,top);
+		pta.invariants.put(l0,UtilDBM.UDBMString2CC("(x <= 2)", space));
+		pta.invariants.put(l1,UtilDBM.UDBMString2CC("(x <= 3)", space));
 		pta.invariants.put(l2,top);
 
 		pta.label.put(l0,new LabelPTA("alpha"));
@@ -205,8 +205,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 		pta.label.put(l2,new LabelPTA("gamma"));
 
 
-		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
-		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
+		ClockConstraint g1 = UtilDBM.UDBMString2CC("(1 <= x) && (x <= 2)", space);
+		ClockConstraint g2 = UtilDBM.UDBMString2CC("(2 <= x) && (x <= 3)", space);
 
 		pta.addConnectionFrom(l0, new ActionStandardPTA("i"), g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)

@@ -3,6 +3,7 @@ package epmc.ptaxdta.pta.model;
 import java.util.ArrayList;
 
 import epmc.error.EPMCException;
+import epmc.expression.Expression;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
@@ -134,5 +135,11 @@ public class LocationPTAProduct implements LocationPTA {
 		result.addAll(valspta);
 		result.addAll(valsdta);
 		return result;
+	}
+
+	@Override
+	public Expression getInvariant() throws EPMCException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

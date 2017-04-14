@@ -5,6 +5,9 @@ package epmc.ptaxdta.pta.model;
 
 import java.util.ArrayList;
 
+import epmc.error.EPMCException;
+import epmc.expression.Expression;
+
 /**
  * @author liyi
  *
@@ -27,4 +30,6 @@ public interface LocationPTA extends ElementPTA{
 	public ArrayList<String> getVariables();
 	public ArrayList<Integer> getScopeSizes();
 	public ArrayList<Integer> getSerialized();
+	
+	public Expression getInvariant() throws EPMCException;
 }

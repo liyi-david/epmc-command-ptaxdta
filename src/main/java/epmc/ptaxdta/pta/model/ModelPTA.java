@@ -10,11 +10,14 @@ import java.util.Set;
 import epmc.jani.model.*;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
+import epmc.ptaxdta.UtilDBM;
 import epmc.time.JANITypeClock;
 import epmc.value.ContextValue;
 import epmc.value.OperatorAnd;
 import epmc.value.OperatorEq;
 import epmc.value.OperatorLe;
+import epmc.value.OperatorOr;
+import epmc.value.TypeBoolean;
 import epmc.value.TypeInteger;
 import epmc.value.TypeReal;
 import epmc.value.UtilValue;
@@ -217,11 +220,36 @@ public class ModelPTA implements ElementPTA, Model {
 			Location loc = new Location();
 			loc.setModel(jani);
 			loc.setName("single location (converted)");
+			
 			singleLocSet.add(loc);
 			
 			automaton.setLocations(singleLocSet);
 			automaton.setInitialLocations(new HashSet<Location>());
 			automaton.getInitialLocations().add(loc);
+			
+			// invariants
+			
+			Expression inv = new ExpressionLiteral.Builder()
+					.setValue(
+							UtilValue.newValue(
+									TypeBoolean.get(this.contextValue),
+									"true"
+									)
+					)
+					.build();
+			
+			for (LocationPTA location : this.locations.getLocations()) {
+				inv = new ExpressionOperator.Builder()
+						.setOperator(this.contextValue.getOperator(OperatorOr.IDENTIFIER))
+						.setOperands(inv, location.getInvariant()) 
+						.build();
+						
+			}
+			
+			loc.setTimeProgress(new TimeProgress());
+			loc.getTimeProgress().setExp(inv);
+			loc.getTimeProgress().setModel(jani);
+
 			
 			// add clocks
 			Variables vars = new Variables();
@@ -308,7 +336,8 @@ public class ModelPTA implements ElementPTA, Model {
 			// convert edges
 			automaton.setEdges(new Edges());
 			int numAct = 0;
-			HashMap<String, Action> formula2action = new HashMap<String, Action>(); 
+			HashMap<String, Action> formula2action = new HashMap<String, Action>();
+			
 			
 			for (ArrayList<TransitionPTA> trs : this.transitions.values()) {
 				
@@ -488,7 +517,8 @@ public class ModelPTA implements ElementPTA, Model {
 
 		return newtr;
 	}
-		public void setFinalLocation(LocationPTA loc) {
+	
+	public void setFinalLocation(LocationPTA loc) {
 		
 		for (ActionPTA act : this.actions) {
 			ClockConstraint ccRemain = ClockConstraint.TOP(space);
@@ -501,10 +531,11 @@ public class ModelPTA implements ElementPTA, Model {
 			}
 			
 			if (!ccRemain.toString().equals("false")) {
-//				System.out.println(loc.getName() + " [" + act.contentString() + "]");
-//				System.out.println(ccRemain.toString());
-				this.addConnectionFrom(loc, act, ccRemain)
-					.addTarget(1, new ClocksPTA(), loc);
+				String [] strCcRemains = ccRemain.toUDBMString().split("\\|\\|");
+				for (String subCcRemains : strCcRemains) {
+					this.addConnectionFrom(loc, act, UtilDBM.UDBMString2CC(subCcRemains, this.space))
+						.addTarget(1, new ClocksPTA(), loc);
+				}
 			}
 			
 		}
@@ -539,10 +570,11 @@ public class ModelPTA implements ElementPTA, Model {
 				}
 				
 				if (!ccRemain.toString().equals("false")) {
-//					System.out.println(loc.getName() + " [" + act.contentString() + "]");
-//					System.out.println(ccRemain.toString());
-					this.addConnectionFrom(loc, act, ccRemain)
-						.addTarget(1, new ClocksPTA(), traploc);
+					String [] strCcRemains = ccRemain.toUDBMString().split("\\|\\|");
+					for (String subCcRemains : strCcRemains) {
+						this.addConnectionFrom(loc, act, UtilDBM.UDBMString2CC(subCcRemains, this.space))
+							.addTarget(1, new ClocksPTA(), traploc);
+					}
 				}
 			}
 		}
