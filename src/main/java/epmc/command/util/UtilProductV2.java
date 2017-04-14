@@ -1,7 +1,6 @@
 package epmc.command.util;
 
 import epmc.error.EPMCException;
-import epmc.jani.model.Action;
 import epmc.modelchecker.Model;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
@@ -51,11 +50,12 @@ public class UtilProductV2 {
         
         // 3.2 construct clock spce
         ClockSpace space = new ClockSpace(result.clocks);
-        space.setModel((Model) pta);
+        space.setModel((Model) result);
         result.setSpace(space);
 
         Queue<LocationPTAProductV2> Q = new LinkedList<LocationPTAProductV2>();
 
+       
         // -------------------------------------- initial location ------------------------------------------
         for (LocationPTA initm : pta.initialLocations.getLocations()) {
             LabelPTA initmLable = pta.label.get(initm);
@@ -64,8 +64,10 @@ public class UtilProductV2 {
                 for (TransitionPTA e_initp : E_initp) {
                     LabelPTA b = (LabelPTA) e_initp.action;
                     if (initmLable.equals(b)) {
-                        ClockConstraint inv = (ClockConstraint) pta.invariants.get(initm).clone();
-                        // TODO: check if it is the proper way to convert a clock constraint in the original pta to a literally same constraint in the product pta
+                    	// ClockConstraint inv = (ClockConstraint) pta.invariants.get(initm).clone();
+                    	// FIXME use clone here will lead to error
+                        ClockConstraint inv = (ClockConstraint) pta.invariants.get(initm);
+                    	
                         ClockConstraint newInv = ClockConstraint.TOP(space);
                         newInv.setAnd(UtilDBM.UDBMString2Federation(
                                 inv.toUDBMString(),
@@ -163,8 +165,7 @@ public class UtilProductV2 {
                                                 pta.invariants.get(state.getPTAloc()).toUDBMString(),
                                                 result.getSpace()
                                         ));
-//                                        System.out.println(newInv.toUDBMString());
-
+                                        
                                         result.invariants.put(
                                                 state,
                                                 newInv

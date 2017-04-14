@@ -3,6 +3,7 @@ package epmc.ptaxdta.pta.model;
 import java.util.ArrayList;
 
 import epmc.error.EPMCException;
+import epmc.expression.Expression;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
@@ -123,7 +124,22 @@ public class LocationPTAProduct implements LocationPTA {
 		ArrayList<Integer> valsdta = this.DTAloc.getSerialized();
 		result.addAll(valspta);
 		result.addAll(valsdta);
-//		result.add(this.cc == null ? -1 : this.cc.hashCode());
 		return result;
+	}
+
+	@Override
+	public ArrayList<Integer> getScopeSizes() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> valspta = this.PTAloc.getScopeSizes();
+		ArrayList<Integer> valsdta = this.DTAloc.getScopeSizes();
+		result.addAll(valspta);
+		result.addAll(valsdta);
+		return result;
+	}
+
+	@Override
+	public Expression getInvariant() throws EPMCException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

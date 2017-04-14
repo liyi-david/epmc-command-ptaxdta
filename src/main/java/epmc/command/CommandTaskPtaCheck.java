@@ -1,8 +1,5 @@
 package epmc.command;
 
-
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import epmc.command.util.UtilProduct;
 import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
 import epmc.messages.OptionsMessages;
@@ -117,6 +114,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 		System.out.println("[Result to single]");
 		System.out.println(result.toSingleJani(null));
+		System.out.println(result.toPrism());
 
         ModelPTA pta2 = ModelPTAExample2();
         System.out.println(pta2.toJani(null));
@@ -126,7 +124,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 	}
     
     private ModelPTA ModelDTAExample() {
-		ModelPTA dta = new ModelPTA("task-complete-prop");
+		ModelPTA dta = new ModelPTA("task_complete_prop");
 		Model model = modelChecker.getModel();
 		
 		dta.setContextValue(model.getContextValue());
@@ -181,7 +179,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 	public ModelPTA ModelPTAExample() throws EPMCException {
     	Model model = modelChecker.getModel();        
-        ModelPTA pta = new ModelPTA("task-complete");
+        ModelPTA pta = new ModelPTA("task_complete");
         
         pta.setContextValue(model.getContextValue());
 		pta.actions.add(new ActionStandardPTA("i"));
@@ -201,8 +199,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 
         ClockConstraint top = ClockConstraint.TOP(space);
 
-		pta.invariants.put(l0,top);
-		pta.invariants.put(l1,top);
+		pta.invariants.put(l0,UtilDBM.UDBMString2CC("(x <= 2)", space));
+		pta.invariants.put(l1,UtilDBM.UDBMString2CC("(x <= 3)", space));
 		pta.invariants.put(l2,top);
 
 		pta.label.put(l0,new LabelPTA("alpha"));
@@ -210,8 +208,8 @@ public class CommandTaskPtaCheck implements CommandTask {
 		pta.label.put(l2,new LabelPTA("gamma"));
 
 
-		ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
-		ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
+		ClockConstraint g1 = UtilDBM.UDBMString2CC("(1 <= x) && (x <= 2)", space);
+		ClockConstraint g2 = UtilDBM.UDBMString2CC("(2 <= x) && (x <= 3)", space);
 
 		pta.addConnectionFrom(l0, new ActionStandardPTA("i"), g1)
 			.addTarget(0.1, new ClocksPTA("x"), l0)
@@ -293,7 +291,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		*/
     }
     private ModelPTA ModelDTAExample2() {
-        ModelPTA dta = new ModelPTA("Robot-Navigation-prop");
+        ModelPTA dta = new ModelPTA("Navigation_prop");
         Model model = modelChecker.getModel();
 
         dta.setContextValue(model.getContextValue());
@@ -361,7 +359,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 	public ModelPTA ModelPTAExample2() throws EPMCException {
 		Model model = modelChecker.getModel();
-		ModelPTA pta = new ModelPTA("Robot-Navigation");
+		ModelPTA pta = new ModelPTA("Navigation");
 
 		pta.setContextValue(model.getContextValue());
 		pta.actions.add(new ActionStandardPTA("i"));

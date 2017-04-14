@@ -6,7 +6,6 @@ import epmc.expression.Expression;
 import epmc.expression.standard.ExpressionIdentifierStandard;
 import epmc.expression.standard.ExpressionLiteral;
 import epmc.expression.standard.ExpressionOperator;
-import epmc.jani.model.ModelJANI;
 import epmc.modelchecker.Model;
 import epmc.udbm.AtomConstraint;
 import epmc.udbm.Federation;
@@ -326,5 +325,11 @@ public class UtilDBM {
 
 
     }
+
+	public static ClockConstraint UDBMString2CC(String f, ClockSpace space) {
+		ClockConstraint top = ClockConstraint.TOP(space);
+		top.setAnd(UDBMString2Federation(f, space));
+		return top;
+	}
 }
 

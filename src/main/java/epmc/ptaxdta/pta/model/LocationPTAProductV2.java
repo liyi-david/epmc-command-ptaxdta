@@ -3,10 +3,13 @@ package epmc.ptaxdta.pta.model;
 import java.util.ArrayList;
 
 import epmc.error.EPMCException;
+import epmc.expression.Expression;
+import epmc.expression.standard.ExpressionOperator;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.TimeProgress;
+import epmc.value.OperatorAnd;
 
 public class LocationPTAProductV2 implements LocationPTA {
 	
@@ -105,6 +108,25 @@ public class LocationPTAProductV2 implements LocationPTA {
 		ArrayList<Integer> valsdta = this.DTAloc.getSerialized();
 		result.addAll(valspta);
 		result.addAll(valsdta);
+		return result;
+	}
+	
+	@Override
+	public ArrayList<Integer> getScopeSizes() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> valspta = this.PTAloc.getScopeSizes();
+		ArrayList<Integer> valsdta = this.DTAloc.getScopeSizes();
+		result.addAll(valspta);
+		result.addAll(valsdta);
+		return result;
+	}
+
+	@Override
+	public Expression getInvariant() throws EPMCException {
+		Expression result = new ExpressionOperator.Builder()
+				.setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+				.setOperands(this.PTAloc.getInvariant(), this.DTAloc.getInvariant()) 
+				.build();
 		return result;
 	}
 }
