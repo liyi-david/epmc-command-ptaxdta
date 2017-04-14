@@ -6,19 +6,21 @@ import epmc.ptaxdta.Region;
  * Created by lijianlin on 17/4/5.
  */
 public class ActionStandardPTAProduct implements ActionPTA {
-    private String action;// ActionStandardPTA action
+    private ActionPTA action;
     private Region region;
 
-    public ActionStandardPTAProduct(String action, Region region) {
+    public ActionStandardPTAProduct(ActionPTA action, Region region) {
         this.action = action;
         this.region = region;
     }
 
     public String contentString(){
-            return this.action + this.region.toUDBMString();
-        }
+        return "（" + this.action.contentString() + "," + this.region.toUDBMString() +")";
+//        String udbmString = this.region.toUDBMString();
+//        return "（" + this.action.contentString() + ", R " + this.region.getName() + "= " + udbmString + ")";
+    }
 
-    public String getAction() {
+    public ActionPTA getAction() {
         return action;
     }
 

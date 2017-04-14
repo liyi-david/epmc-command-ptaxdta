@@ -84,12 +84,9 @@ public class UtilProduct {
 
         while (!Q.isEmpty()) {
 
-//		    if(visited.size()>100) continue;
-
             LocationPTAProduct head = Q.poll();
             LocationPTA l0 = head.getPTAloc();
             LocationPTA q0 = head.getDTAloc();
-//            Region      R0 = head.getRegion();
 
             ArrayList<TransitionPTA> E_l0 = pta.transitions.get(l0);
             ArrayList<TransitionPTA> E_q0 = dta.transitions.get(q0);
@@ -122,33 +119,49 @@ public class UtilProduct {
                                 // DTA q0 --- g1 : b , Y2 ---> q1
 
                                 if ((Ll1.equals(b)) && (R0.isModelof(g1))) {
-//                                    Region R1 = R0.clone();
-//                                    R1.reset(dta.getSpace().findClockbyName(Y2));
-//								System.out.println("R1.equals(R0)" + R1.equals(R0));
-
                                     // (l0,q0) --- g0 and R0 : (a,R0) --- * prob1,Y1 U Y2 ---> (l1,q1)
 
                                     LocationPTAProduct state = new LocationPTAProduct(l1, q1);
                                     int idx = result.locations.getLocations().indexOf(state);
+
+                                    Boolean isVisited = idx >= 0;
+                                    if (!isVisited) {
+                                        result.locations.addLocation(state);
+                                        ClockConstraint newInv = ClockConstraint.TOP(space);
+                                        newInv.setAnd(UtilDBM.UDBMString2Federation(
+                                                pta.invariants.get(state.getPTAloc()).toUDBMString(),
+                                                result.getSpace()
+                                        ));
+                                        result.invariants.put(
+                                                state,
+                                                newInv
+                                        );
+                                        Q.add(state);
+                                    }
+                                    else {
+                                        state = (LocationPTAProduct) result.locations.getLocations().get(idx);
+                                    }
+                                    ClocksPTA Y = new ClocksPTA();
+                                    Y.clocknames.addAll(Y1.clocknames);
+                                    Y.clocknames.addAll(Y2.clocknames);
+
                                     ClockConstraint guard = ClockConstraint.TOP(result.getSpace());
                                     guard.setAnd(R0Fed.andOp(g0Fed));
 
-                                    System.out.println(head + "   --- R " + R0.getName() + " " + R0.toUDBMString() + " and gurd" + g0.toString() + " : " + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state);
-//                                    System.out.println(guard.toUDBMString()+"\n");
-                                    //TODO LocationPTAProduct equals
-//                                    int idx = visited.indexOf(state);
-                                    Boolean isVisited = idx >= 0; //TODO visited
-                                    if (!isVisited) {
-//                                        System.out.println(visited.size() + 1);
-//                                    System.out.println(head + "---" + g0.toExpression().toString() + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " ---> " + state );
-//                                        System.out.println(head + "   ---" + g0.toString() + " and " + R0 + ":" + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state );
-
-                                        //TODO set visited
-                                        Q.add(state);
-//                                        visited.add(state);
-                                        result.locations.addLocation(state);
+                                    //---------- Act ----------
+                                    ActionStandardPTAProduct act = new ActionStandardPTAProduct(e_l.action,R0);
+                                    int act_idx = result.actions.indexOf(act);
+                                    if(act_idx >=0){
+                                        act = (ActionStandardPTAProduct) result.actions.get(act_idx);
                                     }
-//                                    System.out.println();
+                                    else {
+                                        result.actions.add(act);
+                                    }
+
+                                    result.addBranchingFrom(head,act,guard)
+                                            .addTarget(prob0,Y,state);
+//                                    System.out.println(head + "   --- R " + R0.getName() + " " + R0.toUDBMString() + " and gurd" + g0.toString() + " : " + e_l.action.contentString() + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state);
+
                                 }
 
                             }
@@ -184,7 +197,7 @@ public class UtilProduct {
 
 
         // NOTE: actions of dta are actually labels or atomic propositions
-        result.actions = (ArrayList<ActionPTA>) pta.actions.clone();
+//        result.actions = (ArrayList<ActionPTA>) pta.actions.clone();
         return result;
     }
 
