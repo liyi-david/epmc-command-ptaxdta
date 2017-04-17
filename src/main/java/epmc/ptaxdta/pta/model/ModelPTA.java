@@ -1,11 +1,17 @@
 package epmc.ptaxdta.pta.model;
 
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 import epmc.jani.model.*;
 import epmc.ptaxdta.ClockConstraint;
@@ -110,6 +116,7 @@ public class ModelPTA implements ElementPTA, Model {
 		
 		ModelJANI jani = new ModelJANI();
 		jani.setContext(this.contextValue);
+		jani.setVersion(1);
 		
 //		ClockConstraint.context = this.contextValue;
 //		ClockConstraint.model = jani;
@@ -196,6 +203,7 @@ public class ModelPTA implements ElementPTA, Model {
 		jani.setContext(this.contextValue);
 		jani.setModelConstants(new Constants());
 		jani.setActions(new Actions());
+		jani.setVersion(1);
 		
 		
 		try {
@@ -330,7 +338,7 @@ public class ModelPTA implements ElementPTA, Model {
 				locIndexes.add(var);
 			}
 			
-			// automaton.setVariables(vars);
+//			automaton.setVariables(vars);
 			jani.setGlobalVariables(vars);
 
 			// convert edges
@@ -434,11 +442,7 @@ public class ModelPTA implements ElementPTA, Model {
 		return jani;
 	}
 
-//	public String toPrism() throws EPMCException {
-//		JANI2PRISMConverter converter = new JANI2PRISMConverter((ModelJANI) this.toSingleJani(null));
-//		StringBuilder builderModel = converter.convertModel();
-//		return builderModel.toString();
-//	}
+
 	@Override
 	/**
 	 * this function should never be invoked
@@ -651,7 +655,15 @@ public class ModelPTA implements ElementPTA, Model {
 	}
 
 	public String toPrism() throws EPMCException {
-		ModelJANI singlejani = (ModelJANI) this.toSingleJani(null);
+		String strJani = ((ModelJANI) this.toSingleJani(null)).toString();
+		ModelJANI singlejani = new ModelJANI();
+		singlejani.setContext(this.getContextValue());
+		
+		JsonReader jsonReader = Json.createReader(new StringReader(strJani));
+		JsonValue jsv = (JsonValue) jsonReader.readObject();
+		jsonReader.close();
+		
+		singlejani.parse(jsv);
 		JANI2PRISMConverter converter = new JANI2PRISMConverter(singlejani);
     	StringBuilder modelSB = converter.convertModel();
 		return modelSB.toString();

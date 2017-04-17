@@ -98,7 +98,7 @@ public class UtilProductV2 {
             assert (locdta instanceof LocationPTABasic);
             this.temph = new ArrayList<>();
             this.dfs(0, dta, (LocationPTABasic)locdta, T);
-            System.out.println("T_" + locdta.getName());
+            // System.out.println("T_" + locdta.getName());
         }
 
         // ------------------------------- ACTIONS ------------------------------------
@@ -193,8 +193,8 @@ public class UtilProductV2 {
                                     Y.clocknames.addAll(Y1.clocknames);
                                     Y.clocknames.addAll(Y2.clocknames);
 
-                                    System.out.println(head + "   ---  gurd " + guard.toString() + " = " + g0.toString() + " and " + conj_h.toString() + " : (" + e_l.action.contentString() + ", "+ h +")"
-                                                            + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state);
+//                                    System.out.println(head + "   ---  gurd " + guard.toString() + " = " + g0.toString() + " and " + conj_h.toString() + " : (" + e_l.action.contentString() + ", "+ h +")"
+//                                                            + "---*---" + prob0 + "," + Y1 + " U " + Y2 + " --->   " + state);
                                     result.addBranchingFrom(head,new ActionStandardPTAProductV2(e_l.action,h),guard)
                                             .addTarget(prob0,Y,state);
 
