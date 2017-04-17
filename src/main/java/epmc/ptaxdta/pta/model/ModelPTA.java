@@ -57,6 +57,7 @@ public class ModelPTA implements ElementPTA, Model {
 	public ArrayList<ActionPTA> actions = new ArrayList<ActionPTA>();
 	public ClocksPTA clocks = new ClocksPTA();
 	public APSet AP = null;
+    public int flag = 0;
 
 	public LocationsPTA initialLocations = new LocationsPTA(this);
 	
@@ -86,8 +87,17 @@ public class ModelPTA implements ElementPTA, Model {
 		
 		this.initialLocations.setInitFlag();
 	}
-	
-	public boolean isDTA() {
+	public boolean isDTA(){
+        if (this.flag == 0){
+            boolean res = this.isDTAImp();
+            flag = res ? 1 : -1;
+            return res;
+        }
+        else {
+            return this.flag == 1 ? true : false;
+        }
+    }
+	public boolean isDTAImp() {
 		for (LocationPTA loc : locations.getLocations()) {
 			
 			HashMap<String, TransitionPTA> trmap = new HashMap<String, TransitionPTA>();
@@ -259,26 +269,8 @@ public class ModelPTA implements ElementPTA, Model {
 			loc.getTimeProgress().setModel(jani);
 
 			
-			// add clocks
 			Variables vars = new Variables();
-			
-			for (String clk : this.clocks.clocknames) {
-				Variable var = new Variable();
-				var.setModel(jani);
-				var.setType(new JANITypeClock());
-				var.setName(clk);
-				var.setInitial(
-						new ExpressionLiteral.Builder()
-						.setValue(
-								UtilValue.newValue(
-										TypeInteger.get(this.contextValue),
-										0
-										)
-						)
-						.build()
-						);
-				vars.addVariable(var);
-			}
+
 			
 			// add location-relative variables
 			// this function only handles the automata with only one initial location
@@ -337,7 +329,25 @@ public class ModelPTA implements ElementPTA, Model {
 				vars.addVariable(var);
 				locIndexes.add(var);
 			}
-			
+
+            // add clocks
+            for (String clk : this.clocks.clocknames) {
+                Variable var = new Variable();
+                var.setModel(jani);
+                var.setType(new JANITypeClock());
+                var.setName(clk);
+                var.setInitial(
+                        new ExpressionLiteral.Builder()
+                                .setValue(
+                                        UtilValue.newValue(
+                                                TypeInteger.get(this.contextValue),
+                                                0
+                                        )
+                                )
+                                .build()
+                );
+                vars.addVariable(var);
+            }
 //			automaton.setVariables(vars);
 			jani.setGlobalVariables(vars);
 
@@ -397,7 +407,7 @@ public class ModelPTA implements ElementPTA, Model {
 						
 						Expression finalexp = new ExpressionOperator.Builder()
 								.setOperator(this.contextValue.getOperator(OperatorAnd.IDENTIFIER))
-								.setOperands(edge.getGuard().getExp(), expeq) 
+								.setOperands(expeq, edge.getGuard().getExp())
 								.build();
 						
 						edge.getGuard().setExp(finalexp);
@@ -656,6 +666,7 @@ public class ModelPTA implements ElementPTA, Model {
 
 	public String toPrism() throws EPMCException {
 		String strJani = ((ModelJANI) this.toSingleJani(null)).toString();
+		System.out.println(strJani);
 		ModelJANI singlejani = new ModelJANI();
 		singlejani.setContext(this.getContextValue());
 		

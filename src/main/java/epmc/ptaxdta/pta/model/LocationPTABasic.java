@@ -13,6 +13,7 @@ import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.TimeProgress;
 import epmc.ptaxdta.ClockConstraint;
+import epmc.ptaxdta.Pair;
 import epmc.value.OperatorAnd;
 import epmc.value.OperatorEq;
 import epmc.value.TypeInteger;
@@ -70,10 +71,18 @@ public class LocationPTABasic implements LocationPTA {
 		return this.name.equals(l.getName());
 	}
 
+	public String getLocindexName() {
+		if (this.model.isDTA()) {
+			return "q";
+		} else {
+			return "l";
+		}
+	}
 	@Override
 	public ArrayList<String> getVariables() {
 		ArrayList<String> result = new ArrayList<String>();
-		result.add("locindex_" + this.model.getName());
+		result.add(this.getLocindexName());
+//		result.add("locindex_" + this.model.getName());
 		return result;
 	}
 
@@ -97,8 +106,9 @@ public class LocationPTABasic implements LocationPTA {
 				.setOperator(this.model.getContextValue().getOperator(OperatorEq.IDENTIFIER))
 				.setOperands(
 						new ExpressionIdentifierStandard.Builder()
-							.setName("locindex_" + this.model.getName())
-							.build(),
+//							.setName("locindex_" + this.model.getName())
+                            .setName(this.getLocindexName())
+								.build(),
 						new ExpressionLiteral.Builder()
 							.setValue(
 									UtilValue.newValue(
