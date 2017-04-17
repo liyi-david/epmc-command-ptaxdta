@@ -123,10 +123,11 @@ public class LocationPTAProductV2 implements LocationPTA {
 
 	@Override
 	public Expression getInvariant() throws EPMCException {
-		Expression result = new ExpressionOperator.Builder()
-				.setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
-				.setOperands(this.PTAloc.getInvariant(), this.DTAloc.getInvariant()) 
-				.build();
-		return result;
+//		Expression result = new ExpressionOperator.Builder()
+//				.setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+//				.setOperands(this.PTAloc.getInvariant(), this.DTAloc.getInvariant())
+//				.build();
+//		return result;
+		return this.PTAloc.getInvariant();
 	}
 }

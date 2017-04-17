@@ -1,7 +1,9 @@
 package epmc.command;
 
+import epmc.command.util.UtilProduct;
 import epmc.command.util.UtilProductV2;
 import epmc.error.EPMCException;
+import epmc.jani.model.UtilModelParser;
 import epmc.messages.OptionsMessages;
 import epmc.modelchecker.CommandTask;
 import epmc.modelchecker.Log;
@@ -104,23 +106,29 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 		ModelPTA res = UtilProduct.prod(pta,dta);
 		System.out.println("[Result Version 1]");
-		System.out.println(res.toJani(null));
+		System.out.println(res.toSingleJani(null));
+		System.out.println(res.toPrism());
 
 		UtilProductV2 util = new UtilProductV2();
 		ModelPTA result = util.prod(pta, dta);
 		
 		System.out.println("[Result Version 2]");
+		System.out.println(result.toPrism());
+		
+		System.out.println("[Corresponding Jani]");
 		System.out.println(result.toJani(null));
 
-		System.out.println("[Result to single]");
-		System.out.println(result.toSingleJani(null));
-		System.out.println(result.toPrism());
+//		System.out.println(UtilModelParser.prettyString(result.toSingleJani(null)));
 
-        ModelPTA pta2 = ModelPTAExample2();
-        System.out.println(pta2.toJani(null));
+//		System.out.println("[Result to single]");
+//		System.out.println(result.toSingleJani(null));
+//		System.out.println(result.toPrism());
 
-        ModelPTA dta2 = ModelDTAExample2();
-        System.out.println(dta2.toJani(null));
+//        ModelPTA pta2 = ModelPTAExample2();
+//        System.out.println(pta2.toJani(null));
+//
+//        ModelPTA dta2 = ModelDTAExample2();
+//        System.out.println(dta2.toJani(null));
 	}
     
     private ModelPTA ModelDTAExample() {
@@ -341,7 +349,7 @@ public class CommandTaskPtaCheck implements CommandTask {
         dta.addConnectionFrom(q1, new LabelPTA("gamma"), g_y_4_z_30)
                 .addTarget(1, new ClocksPTA(), q3);
 
-        dta.addConnectionFrom(q2, new LabelPTA("alpha"), g_0_y_5)
+        dta.addConnectionFrom(q2, new LabelPTA("beta"), g_0_y_5)
                 .addTarget(1, new ClocksPTA("y"), q1);
         dta.addConnectionFrom(q2, new LabelPTA("beta"), g_0_y_5)
                 .addTarget(1, new ClocksPTA("y"), q2);

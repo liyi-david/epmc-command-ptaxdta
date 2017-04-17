@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import epmc.error.EPMCException;
 import epmc.expression.Expression;
+import epmc.expression.standard.ExpressionOperator;
 import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.TimeProgress;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.Region;
+import epmc.value.OperatorAnd;
 
 public class LocationPTAProduct implements LocationPTA {
 	
@@ -113,7 +115,7 @@ public class LocationPTAProduct implements LocationPTA {
 		ArrayList<String> result = new ArrayList<String>();
 		result.addAll(varspta);
 		result.addAll(varsdta);
-		result.add("Region-Index-" + this.model.getName());
+//		result.add("Region-Index-" + this.model.getName());
 		return result;
 	}
 
@@ -139,7 +141,6 @@ public class LocationPTAProduct implements LocationPTA {
 
 	@Override
 	public Expression getInvariant() throws EPMCException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.PTAloc.getInvariant();
 	}
 }
