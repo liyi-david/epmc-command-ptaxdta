@@ -1,12 +1,17 @@
 package epmc.command.util;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import epmc.error.EPMCException;
+import epmc.jani.model.UtilModelParser;
 import epmc.modelchecker.Model;
+import epmc.modelchecker.UtilModelChecker;
+import epmc.prism.model.convert.UtilPrismConverter;
 import epmc.ptaxdta.ClockConstraint;
 import epmc.ptaxdta.ClockSpace;
 import epmc.ptaxdta.UtilDBM;
 import epmc.ptaxdta.pta.model.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,7 +19,7 @@ import java.util.Random;
  */
 public class UtilTest {
     public static class TaskComplete {
-        static public ModelPTA generatePTA(Model model, int n) {
+        static public ArrayList<ModelPTA> generatePTA(Model model, int n) {
 
             ModelPTA pta = new ModelPTA("task_complete_" + n);
 
@@ -27,15 +32,15 @@ public class UtilTest {
             l[0] = pta.initialLocations.addLocation(
                     pta.locations.addLocation(new LocationPTABasic("l0"))
             );
-            for (int i = 0; i <= n; i++){
+            for (int i = 1; i <= n; i++){ // !!!
                 l[i] = pta.locations.addLocation(new LocationPTABasic("l" + i));
             }
 
-            ClockSpace space = new ClockSpace(pta.clocks);
-            space.setModel(model);
-            pta.setSpace(space);
+            ClockSpace ptaspace = new ClockSpace(pta.clocks);
+            ptaspace.setModel(model);
+            pta.setSpace(ptaspace);
 
-            ClockConstraint top = ClockConstraint.TOP(space);
+            ClockConstraint ptatop = ClockConstraint.TOP(ptaspace);
 
             Random r = new Random();
             int use[] = new int[30];
@@ -51,17 +56,19 @@ public class UtilTest {
                 use[t + MIN]++;
 //                System.out.println(t + MIN);
             }
-
+            int sum = 0;
             int start[] = new int[n];
             int end[] = new int[n];
             int idx = MIN;
             for (int i = 0; i <n ; i++) {
                 while(use[idx]<=0) idx++;
+                int len = r.nextInt(3) + 2;
                 end[i] = idx;
-                start[i] = idx - r.nextInt(3) - 1;
-                pta.invariants.put(l[i],UtilDBM.UDBMString2CC("(x <= " + end[i] + ")", space));
+                start[i] = idx - len;
+                sum += len;
+                pta.invariants.put(l[i],UtilDBM.UDBMString2CC("(x <= " + end[i] + ")", ptaspace));
                 pta.label.put(l[i], new LabelPTA( i % 2 == 0 ? "alpha" : "beta"));
-                ClockConstraint g = UtilDBM.UDBMString2CC("(" + start[i] +" <= x) && (x <= " + end[i] + ")", space);
+                ClockConstraint g = UtilDBM.UDBMString2CC("(" + start[i] +" <= x) && (x <= " + end[i] + ")", ptaspace);
 
                 int lose_prob = r.nextInt(15) + 5;
                 int win_prob  = 100 - lose_prob - 5 ;
@@ -74,18 +81,78 @@ public class UtilTest {
                 idx += (use[idx] == 0) ? 1 : 0;
             }
 
-            pta.invariants.put(l[n], top);
+            pta.invariants.put(l[n],ptatop);
             pta.label.put(l[n], new LabelPTA());
+            ModelPTA dta = new ModelPTA("task_complete_prop_" + n);
+            dta.setContextValue(model.getContextValue());
+            dta.addLabels("alpha", "beta");
+            dta.clocks.clocknames.add("y");
+            dta.clocks.clocknames.add("z");
+            ClockSpace dtaspace = new ClockSpace(dta.clocks);
+            dtaspace.setModel(model);
+
+            dta.setSpace(dtaspace);
+            ClockConstraint dtatop = ClockConstraint.TOP(dtaspace);
+
+            LocationPTA q[] = new LocationPTA[n + 2];
+            q[0] = dta.initialLocations.addLocation(
+                    dta.locations.addLocation(new LocationPTABasic("q0"))
+            );
+            dta.invariants.put(q[0],dtatop);
+            for (int i = 1; i <= n + 1; i++){
+                q[i] = dta.locations.addLocation(new LocationPTABasic("q" + i));
+                dta.invariants.put(q[i],dtatop);
+            }
+
+
+            for (int i = 0; i < n ; i++) {
+                ClockConstraint g;
+                if(i ==0){
+                    g = ClockConstraint.TOP(dtaspace);
+                }
+                else {
+                    g = UtilDBM.UDBMString2CC("(y <= " + 3 * end[i-1] + ")", dtaspace);
+                }
+                String a = i % 2 == 0 ? "alpha" : "beta";
+                dta.addConnectionFrom(q[i], new LabelPTA(a), g)
+                        .addTarget(1, new ClocksPTA("y"), q[i+1]);
+
+                dta.addConnectionFrom(q[i+1], new LabelPTA(a), dtatop)
+                        .addTarget(1, new ClocksPTA(), q[i+1]);
+            }
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 3 * end[ n - 1 ] + ") && (z <= " + 3 * sum + ")", dtaspace);
+
+            dta.addConnectionFrom(q[n], new LabelPTA(), g)
+                .addTarget(1, new ClocksPTA("y"), q[n+1]);
+
 
 //            pta.setAP(new APSet("alpha", "beta"));
-
-            return pta;
+//            dta.setAP(new APSet("alpha","beta","gamma"));
+            dta.setFinalLocation(q[n+1]);
+            dta.addTrapLocation();
+            dta.dtaflag = 1;
+            ArrayList<ModelPTA> res = new ArrayList<>();
+            res.add(pta);
+            res.add(dta);
+            return res;
         }
     }
     public static void main(Model model) throws EPMCException {
-        for (int i = 6; i <= 20; i+= 2) {
-            ModelPTA pta = TaskComplete.generatePTA(model,i);
+        for (int i = 5; i <= 5; i+= 2) {
+            System.out.println("==========  " + i + "  ==========");
+            ArrayList<ModelPTA> res = TaskComplete.generatePTA(model,i);
+            ModelPTA pta = res.get(0);
+            ModelPTA dta = res.get(1);
+            System.out.println(pta.toJani(null));
             System.out.println(pta.toPrism());
+            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
+//            System.out.println(dta.toPrism());
+            UtilProductV2 util = new UtilProductV2();
+            ModelPTA result = util.prod(pta,dta);
+
+            System.out.println(dta.isDTA());
+            System.out.println(result.toJani(null));
+            System.out.println(result.toPrism());
         }
     }
 }

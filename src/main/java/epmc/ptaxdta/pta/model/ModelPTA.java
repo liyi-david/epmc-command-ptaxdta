@@ -58,7 +58,7 @@ public class ModelPTA implements ElementPTA, Model {
 	public ClocksPTA clocks = new ClocksPTA();
 	public APSet AP = null;
     public int flag = 0;
-
+    public int dtaflag = 0;
 	public LocationsPTA initialLocations = new LocationsPTA(this);
 	
 	public HashMap<LocationPTA, ClockConstraint> invariants =
@@ -666,7 +666,7 @@ public class ModelPTA implements ElementPTA, Model {
 
 	public String toPrism() throws EPMCException {
 		String strJani = ((ModelJANI) this.toSingleJani(null)).toString();
-		System.out.println(strJani);
+//		System.out.println(strJani);
 		ModelJANI singlejani = new ModelJANI();
 		singlejani.setContext(this.getContextValue());
 		

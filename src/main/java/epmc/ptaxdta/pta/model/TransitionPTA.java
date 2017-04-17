@@ -62,7 +62,7 @@ public class TransitionPTA implements ElementPTA {
 		}
 		
 		// TODO sum of probabilities should be 1
-		double sumprob = 1;
+		double sumprob = 0;
 		for (Double pr : prob) sumprob += pr;
 		if (sumprob != 1.0) return false;
 		

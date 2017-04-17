@@ -72,7 +72,7 @@ public class LocationPTABasic implements LocationPTA {
 	}
 
 	public String getLocindexName() {
-		if (this.model.isDTA()) {
+		if (this.model.dtaflag == 1) {
 			return "q";
 		} else {
 			return "l";
