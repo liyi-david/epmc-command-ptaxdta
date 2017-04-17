@@ -2,6 +2,7 @@ package epmc.command;
 
 import epmc.command.util.UtilProduct;
 import epmc.command.util.UtilProductV2;
+import epmc.command.util.UtilTest;
 import epmc.error.EPMCException;
 import epmc.jani.model.UtilModelParser;
 import epmc.messages.OptionsMessages;
@@ -45,7 +46,10 @@ public class CommandTaskPtaCheck implements CommandTask {
     public void executeInServer() {
     	initialize();
     	try {
-			check();
+            UtilDBM.LoadUDBM();
+
+            UtilTest.main(modelChecker.getModel());
+//			check();
 		} catch (EPMCException e) {
 			log.send(e);
 		}
@@ -105,18 +109,20 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
 
 		ModelPTA res = UtilProduct.prod(pta,dta);
-		System.out.println("[Result Version 1]");
-		System.out.println(res.toSingleJani(null));
-		System.out.println(res.toPrism());
+//		System.out.println("[Result Version 1]");
+//		System.out.println(res.toSingleJani(null));
+//		System.out.println(res.toPrism());
 
 		UtilProductV2 util = new UtilProductV2();
 		ModelPTA result = util.prod(pta, dta);
 		
 		System.out.println("[Result Version 2]");
 		System.out.println(result.toPrism());
-		
-		System.out.println("[Corresponding Jani]");
-		System.out.println(result.toJani(null));
+        System.out.println(result.toPrism());
+
+
+        System.out.println("[Corresponding Jani]");
+		System.out.println(result.toSingleJani(null));
 
 //		System.out.println(UtilModelParser.prettyString(result.toSingleJani(null)));
 
