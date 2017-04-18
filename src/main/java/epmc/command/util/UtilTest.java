@@ -72,7 +72,7 @@ public class UtilTest {
                 ClockConstraint g = UtilDBM.UDBMString2CC("(" + start[i] +" <= x) && (x <= " + end[i] + ")", ptaspace);
 
                 int lose_prob = r.nextInt(15) + 5;
-                int win_prob  = 100 - lose_prob - 5 ;
+                int win_prob  = 100 - lose_prob;
 
                 pta.addConnectionFrom(l[i], new ActionStandardPTA("i"), g)
                         .addTarget((double)lose_prob / 100, new ClocksPTA("x"), l[i])
@@ -129,7 +129,7 @@ public class UtilTest {
 
 //            pta.setAP(new APSet("alpha", "beta"));
 //            dta.setAP(new APSet("alpha","beta","gamma"));
-//            dta.setFinalLocation(q[n+1]);
+//            dta.setFinalLocation(q[n+1]); WRONG
             dta.addTrapLocation();
             dta.dtaflag = 1;
             ArrayList<ModelPTA> res = new ArrayList<>();
@@ -137,25 +137,82 @@ public class UtilTest {
             res.add(dta);
             return res;
         }
-    }
-    public static void main(Model model) throws EPMCException {
-        for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
-            System.out.println("==========  " + i + "  ==========");
-            ArrayList<ModelPTA> res = TaskComplete.generatePTA(model,i);
-            ModelPTA pta = res.get(0);
-            ModelPTA dta = res.get(1);
-            System.out.println(pta.toJani(null));
-            System.out.println(dta.toJani(null));
+        public static void main(Model model) throws EPMCException {
+            for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
+                System.out.println("==========  " + i + "  ==========");
+                ArrayList<ModelPTA> res = TaskComplete.generatePTA(model,i);
+                ModelPTA pta = res.get(0);
+                ModelPTA dta = res.get(1);
+                System.out.println(pta.toJani(null));
+                System.out.println(dta.toJani(null));
 
-            //            System.out.println(pta.toPrism());
+                //            System.out.println(pta.toPrism());
 //            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
 //            System.out.println(dta.toPrism());
-            UtilProductV2 util = new UtilProductV2();
-            ModelPTA result = util.prod(pta,dta);
+                UtilProductV2 util = new UtilProductV2();
+                ModelPTA result = util.prod(pta,dta);
 
 //FIXME            System.out.println(dta.isDTA());
-            System.out.println(result.toJani(null));
-            System.out.println(result.toPrism());
+                System.out.println(result.toJani(null));
+                System.out.println(result.toSingleJani(null));
+                System.out.println(result.toPrism());
+            }
         }
+    }
+    public static class RobotNavigate {
+        static void dfs(int x,int y,int n,boolean vis[][],int [][] map){
+            int [] dx = new int[] {-1,0,1,0};
+            int [] dy = new int[] {0,-1,0,1};
+            vis[x][y] = true;
+            map[x][y] = 1;
+            if ((x == n -1 ) && (y == n -1 )) return;
+
+            Random r = new Random();
+            int s = r.nextInt(3) ;
+            int d = r.nextInt(1)  == 1 ? 1 : 3;
+            for (int i = 0; (i < 4) && (!vis[n-1][n-1]); i++) {
+//                System.out.println(s);
+                int nx = x + dx[s];
+                int ny = y + dy[s];
+                if (( 0 <= nx) && (nx < n) &&
+                    ( 0 <= ny) && (ny < n) &&
+                    (!vis[nx][ny])){
+                    dfs(nx,ny,n,vis,map);
+                }
+                s = ( s + d ) % 4;
+            }
+        }
+        static public int[][] maze(int n){
+            int [][] map = new int[n][n];
+            boolean [][] vis = new boolean[n][n];
+            dfs(0,0,n,vis,map);
+
+            for (int i=0;i<n;i++){
+                for (int j = 0; j < n; j++) {
+                    System.out.print(map[i][j] + " ");
+                }
+                System.out.println();
+            }
+            return map;
+        }
+        static public ArrayList<ModelPTA> generatePTA(Model model, int n) {
+
+            ArrayList<ModelPTA> res = new ArrayList<>();
+            return res;
+        }
+        public static void main(Model model) throws EPMCException {
+            for (int i = 5; i < 20; i += 2) {
+                System.out.println("==========" + i + "==========");
+                RobotNavigate.maze(i);
+                System.out.println();
+
+            }
+
+        }
+
+    }
+    public static void main(Model model) throws EPMCException {
+        RobotNavigate.main(null);
+        TaskComplete.main(model);
     }
 }
