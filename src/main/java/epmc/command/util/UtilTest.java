@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class UtilTest {
     public static class TaskComplete {
-        static public ArrayList<ModelPTA> generatePTA(Model model, int n) {
+        static public ArrayList<ModelPTA> generate(Model model, int n) {
 
             ModelPTA pta = new ModelPTA("task_complete_" + n);
 
@@ -140,7 +140,7 @@ public class UtilTest {
         public static void main(Model model) throws EPMCException {
             for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
                 System.out.println("==========  " + i + "  ==========");
-                ArrayList<ModelPTA> res = TaskComplete.generatePTA(model,i);
+                ArrayList<ModelPTA> res = TaskComplete.generate(model,i);
                 ModelPTA pta = res.get(0);
                 ModelPTA dta = res.get(1);
                 System.out.println(pta.toJani(null));
@@ -184,27 +184,116 @@ public class UtilTest {
         }
         static public int[][] maze(int n){
             int [][] map = new int[n][n];
-            boolean [][] vis = new boolean[n][n];
-            dfs(0,0,n,vis,map);
+            // 0 for {}
+            // 1 for {alpha}
+            // 2 for {beta}
+            // 3 for block
 
-            for (int i=0;i<n;i++){
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < n; j++) {
+                    map[i][j] = ( i + j ) % 2 == 0 ? 1 : 2;
+                }
+            }
+            map[ n - 1 ][ n - 1 ] = 0;
+            Random r = new Random();
+            for (int i = 0; i < n - 1; i++){ // TODO n or n-1
+                int x, y;
+                do {
+                    x = r.nextInt(n-1);
+                    y = r.nextInt(n-1);
+                } while ((map[x][y] == 0) || (map[x][y] == 3) || (x == 0 && y == 0) );// TODO not in edge
+                map[x][y] = 3;
+            }
+            //TODO check reachability
+            return map;
+        }
+        static public ArrayList<ModelPTA> generate(Model model, int n) {
+            int [][] map = RobotNavigate.maze(n);
+
+            for (int i = 0; i < n; i++){
                 for (int j = 0; j < n; j++) {
                     System.out.print(map[i][j] + " ");
                 }
                 System.out.println();
             }
-            return map;
-        }
-        static public ArrayList<ModelPTA> generatePTA(Model model, int n) {
+            System.out.println();
 
+            ModelPTA pta = new ModelPTA("Navigation");
+
+            pta.setContextValue(model.getContextValue());
+            pta.actions.add(new ActionStandardPTA("i"));
+            pta.clocks.clocknames.add("x");
+
+            ClockSpace space = new ClockSpace(pta.clocks);
+            space.setModel(model);
+
+            pta.setSpace(space);
+
+            ClockConstraint top = ClockConstraint.TOP(space);
+
+
+//            ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
+//            ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
+
+            LocationPTA[][] l = new LocationPTA[n][n];
+
+            int [] dx = new int[] {-1,0,1,0};
+            int [] dy = new int[] {0,-1,0,1};
+            int [][] cnt = new int[n][n];
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < n; j++) {
+                    if (map[i][j] != 3){
+                        l[i][j] = pta.locations.addLocation(new LocationPTABasic("l-" + i + "-" + j));
+                        pta.invariants.put(l[i][j],top); //TODO inv
+                        pta.label.put(l[i][j], map[i][j] == 0 ? new LabelPTA() :
+                                               map[i][j] == 1 ? new LabelPTA("alpha") :
+                                                                new LabelPTA(("beta")));
+
+                        cnt[i][j] = 0;
+                        for (int k = 0; k < 4; k++) {
+                            int x = i + dx[k];
+                            int y = j + dy[k];
+                            if ((0 <= x) && (x < n) &&
+                                    (0 <= y) && (y < n) &&
+                                    map[x][y] != 3) {
+                                cnt[i][j]++;
+                            }
+
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < n; j++) {
+                    if (map[i][j] != 3){
+                        if (cnt[i][j] > 0){
+                            TransitionPTA tran = pta.addConnectionFrom(l[i][j], new ActionStandardPTA("i"), top); // TODO guard
+                            for (int k = 0; k < 4; k++) {
+                                int x = i + dx[k];
+                                int y = j + dy[k];
+                                if (( 0 <= x) && (x < n) &&
+                                        ( 0 <= y) && (y < n) &&
+                                        map[x][y] != 3) {
+                                    tran.addTarget(1.0 / cnt[i][j],new ClocksPTA("x"),l[x][y]); //TODO prob
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            LocationPTA l00 = pta.initialLocations.addLocation(l[0][0]);
+
+            System.out.println(pta.toJani(null));
             ArrayList<ModelPTA> res = new ArrayList<>();
+            res.add(pta);
             return res;
         }
         public static void main(Model model) throws EPMCException {
-            for (int i = 5; i < 20; i += 2) {
-                System.out.println("==========" + i + "==========");
-                RobotNavigate.maze(i);
-                System.out.println();
+            for (int n = 3; n < 6; n += 2) {
+                System.out.println("==========" + n + "==========");
+                RobotNavigate.generate(model,n);
 
             }
 
@@ -212,7 +301,7 @@ public class UtilTest {
 
     }
     public static void main(Model model) throws EPMCException {
-        RobotNavigate.main(null);
-        TaskComplete.main(model);
+        RobotNavigate.main(model);
+//        TaskComplete.main(model);
     }
 }
