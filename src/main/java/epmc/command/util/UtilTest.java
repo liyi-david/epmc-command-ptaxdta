@@ -65,7 +65,8 @@ public class UtilTest {
                 int len = r.nextInt(3) + 2;
                 end[i] = idx;
                 start[i] = idx - len;
-                sum += len;
+                sum += end[i];
+                System.out.println(start[i] + " " + end[i] + " " + len);
                 pta.invariants.put(l[i],UtilDBM.UDBMString2CC("(x <= " + end[i] + ")", ptaspace));
                 pta.label.put(l[i], new LabelPTA( i % 2 == 0 ? "alpha" : "beta"));
                 ClockConstraint g = UtilDBM.UDBMString2CC("(" + start[i] +" <= x) && (x <= " + end[i] + ")", ptaspace);
@@ -128,7 +129,7 @@ public class UtilTest {
 
 //            pta.setAP(new APSet("alpha", "beta"));
 //            dta.setAP(new APSet("alpha","beta","gamma"));
-            dta.setFinalLocation(q[n+1]);
+//            dta.setFinalLocation(q[n+1]);
             dta.addTrapLocation();
             dta.dtaflag = 1;
             ArrayList<ModelPTA> res = new ArrayList<>();
@@ -144,13 +145,15 @@ public class UtilTest {
             ModelPTA pta = res.get(0);
             ModelPTA dta = res.get(1);
             System.out.println(pta.toJani(null));
-            System.out.println(pta.toPrism());
-            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
-//            System.out.println(dta.toPrism());
+            System.out.println(dta.toJani(null));
+
+            //            System.out.println(pta.toPrism());
+//            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
+            System.out.println(dta.toPrism());
             UtilProductV2 util = new UtilProductV2();
             ModelPTA result = util.prod(pta,dta);
 
-            System.out.println(dta.isDTA());
+//FIXME            System.out.println(dta.isDTA());
             System.out.println(result.toJani(null));
             System.out.println(result.toPrism());
         }

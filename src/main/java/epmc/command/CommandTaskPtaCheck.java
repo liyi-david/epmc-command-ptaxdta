@@ -46,10 +46,10 @@ public class CommandTaskPtaCheck implements CommandTask {
     public void executeInServer() {
     	initialize();
     	try {
-            UtilDBM.LoadUDBM();
+//            UtilDBM.LoadUDBM();
 
-            UtilTest.main(modelChecker.getModel());
-//			check();
+//            UtilTest.main(modelChecker.getModel());
+			check();
 		} catch (EPMCException e) {
 			log.send(e);
 		}
@@ -108,7 +108,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		System.out.println("[Source Model as PTA] \n" + pta.toJani(null).toString());
 		System.out.println("[Property as DTA] \n" + dta.toJani(null).toString());
 
-		ModelPTA res = UtilProduct.prod(pta,dta);
+//		ModelPTA res = UtilProduct.prod(pta,dta);
 //		System.out.println("[Result Version 1]");
 //		System.out.println(res.toSingleJani(null));
 //		System.out.println(res.toPrism());
@@ -117,7 +117,6 @@ public class CommandTaskPtaCheck implements CommandTask {
 		ModelPTA result = util.prod(pta, dta);
 		
 		System.out.println("[Result Version 2]");
-		System.out.println(result.toPrism());
         System.out.println(result.toPrism());
 
 
@@ -142,7 +141,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		Model model = modelChecker.getModel();
 		
 		dta.setContextValue(model.getContextValue());
-		dta.addLabels("alpha", "beta", "gamma");
+		dta.addLabels("alpha", "beta");
 		dta.clocks.clocknames.add("y");
 		dta.clocks.clocknames.add("z");
 		
@@ -181,13 +180,14 @@ public class CommandTaskPtaCheck implements CommandTask {
 		dta.addConnectionFrom(q2, new LabelPTA("beta"), top)
 			.addTarget(1, new ClocksPTA(), q2);
 		
-		dta.addConnectionFrom(q2, new LabelPTA("gamma"), g23)
+		dta.addConnectionFrom(q2, new LabelPTA(), g23)
 			.addTarget(1, new ClocksPTA(), q3);
 
-		dta.setAP(new APSet("alpha","beta","gamma"));
+		dta.setAP(new APSet("alpha","beta"));
 		
-		dta.setFinalLocation(q3);
+//		dta.setFinalLocation(q3);
 		dta.addTrapLocation();
+		dta.dtaflag = 1;
 		return dta;
 	}
 
@@ -219,7 +219,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 
 		pta.label.put(l0,new LabelPTA("alpha"));
 		pta.label.put(l1,new LabelPTA("beta"));
-		pta.label.put(l2,new LabelPTA("gamma"));
+		pta.label.put(l2,new LabelPTA());
 
 
 		ClockConstraint g1 = UtilDBM.UDBMString2CC("(1 <= x) && (x <= 2)", space);
@@ -236,7 +236,7 @@ public class CommandTaskPtaCheck implements CommandTask {
 		pta.addConnectionFrom(l2, new ActionStandardPTA("i"),top)
 				.addTarget(1,new ClocksPTA(),l2);
 
-		pta.setAP(new APSet("alpha","beta","gamma"));
+		pta.setAP(new APSet("alpha","beta"));
 
 		return pta;
     }

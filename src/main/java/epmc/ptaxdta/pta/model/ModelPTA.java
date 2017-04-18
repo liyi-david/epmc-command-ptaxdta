@@ -271,7 +271,7 @@ public class ModelPTA implements ElementPTA, Model {
 			
 			Variables vars = new Variables();
 
-			
+
 			// add location-relative variables
 			// this function only handles the automata with only one initial location
 			// otherwise we may need a set of internal transitions to randomly initialize it
@@ -386,7 +386,7 @@ public class ModelPTA implements ElementPTA, Model {
 					// source location
 					
 					ArrayList<Integer> sourcevals = this.locations.getLocationByName(edge.getLocation().getName()).getSerialized();
-					for (int i = 0; i < sourcevals.size(); i ++) {
+					for (int i = sourcevals.size() - 1; i >= 0 ; i --) {
 						Expression varid = new ExpressionIdentifierStandard.Builder()
 								.setName(locIndexes.get(i).getName())
 								.build();
