@@ -143,4 +143,9 @@ public class LocationPTAProduct implements LocationPTA {
 	public Expression getInvariant() throws EPMCException {
 		return this.PTAloc.getInvariant();
 	}
+
+	@Override
+	public Expression getCurrLoc() {
+		return null;
+	}
 }

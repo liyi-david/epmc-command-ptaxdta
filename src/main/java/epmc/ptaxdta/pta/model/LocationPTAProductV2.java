@@ -9,6 +9,7 @@ import epmc.jani.model.JANINode;
 import epmc.jani.model.Location;
 import epmc.jani.model.ModelJANI;
 import epmc.jani.model.TimeProgress;
+import epmc.ptaxdta.ClockConstraint;
 import epmc.value.OperatorAnd;
 
 public class LocationPTAProductV2 implements LocationPTA {
@@ -128,6 +129,27 @@ public class LocationPTAProductV2 implements LocationPTA {
 //				.setOperands(this.PTAloc.getInvariant(), this.DTAloc.getInvariant())
 //				.build();
 //		return result;
-		return this.PTAloc.getInvariant();
+//		return this.PTAloc.getInvariant();
+		ClockConstraint cc = null;
+		if (this.PTAloc.getModel().invariants.containsKey(this.PTAloc)) {
+			cc = this.PTAloc.getModel().invariants.get(this.PTAloc);
+		}
+		Expression result = new ExpressionOperator.Builder()
+				.setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+				.setOperands(this.getCurrLoc(), cc.toExpression())
+				.build();
+
+		return result;
+	}
+
+	@Override
+	public Expression getCurrLoc() {
+		Expression ptaloc = this.PTAloc.getCurrLoc();
+		Expression dtaloc = this.DTAloc.getCurrLoc();
+		Expression loc    = new ExpressionOperator.Builder()
+				.setOperator(this.model.getContextValue().getOperator(OperatorAnd.IDENTIFIER))
+				.setOperands(ptaloc, dtaloc)
+				.build();
+		return loc;
 	}
 }

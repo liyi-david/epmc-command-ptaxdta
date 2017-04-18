@@ -139,7 +139,7 @@ public class UtilTest {
         }
     }
     public static void main(Model model) throws EPMCException {
-        for (int i = 5; i <= 5; i+= 2) {
+        for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
             System.out.println("==========  " + i + "  ==========");
             ArrayList<ModelPTA> res = TaskComplete.generatePTA(model,i);
             ModelPTA pta = res.get(0);
@@ -149,7 +149,7 @@ public class UtilTest {
 
             //            System.out.println(pta.toPrism());
 //            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
-            System.out.println(dta.toPrism());
+//            System.out.println(dta.toPrism());
             UtilProductV2 util = new UtilProductV2();
             ModelPTA result = util.prod(pta,dta);
 

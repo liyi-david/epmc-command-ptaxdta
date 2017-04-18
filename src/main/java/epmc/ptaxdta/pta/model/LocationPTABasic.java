@@ -99,6 +99,26 @@ public class LocationPTABasic implements LocationPTA {
 		sizes.add(this.model.locations.getLocations().size());
 		return sizes;
 	}
+	@Override
+	public Expression getCurrLoc() {
+		Expression currLoc = new ExpressionOperator.Builder()
+				.setOperator(this.model.getContextValue().getOperator(OperatorEq.IDENTIFIER))
+				.setOperands(
+						new ExpressionIdentifierStandard.Builder()
+//							.setName("locindex_" + this.model.getName())
+								.setName(this.getLocindexName())
+								.build(),
+						new ExpressionLiteral.Builder()
+								.setValue(
+										UtilValue.newValue(
+												TypeInteger.get(this.model.getContextValue()),
+												this.model.locations.getLocations().indexOf(this)
+										)
+								)
+								.build()
+				).build();
+		return currLoc;
+	}
 
 	@Override
 	public Expression getInvariant() throws EPMCException {

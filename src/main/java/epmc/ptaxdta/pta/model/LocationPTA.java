@@ -32,4 +32,6 @@ public interface LocationPTA extends ElementPTA{
 	public ArrayList<Integer> getSerialized();
 	
 	public Expression getInvariant() throws EPMCException;
+	public Expression getCurrLoc();
+
 }

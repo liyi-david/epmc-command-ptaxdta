@@ -46,10 +46,9 @@ public class CommandTaskPtaCheck implements CommandTask {
     public void executeInServer() {
     	initialize();
     	try {
-//            UtilDBM.LoadUDBM();
-
-//            UtilTest.main(modelChecker.getModel());
-			check();
+            UtilDBM.LoadUDBM();
+            UtilTest.main(modelChecker.getModel());
+//			check();
 		} catch (EPMCException e) {
 			log.send(e);
 		}
