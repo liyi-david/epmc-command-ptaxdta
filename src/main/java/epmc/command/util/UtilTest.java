@@ -229,7 +229,7 @@ public class UtilTest {
             //TODO check reachability
             return map;
         }
-        static public ArrayList<ModelPTA> generate(Model model, int n) {
+        static public ArrayList<ModelPTA> generate(Model model, int n,int lbound, int ubound) {
             int [][] map = RobotNavigate.maze(n);
 
             for (int i = 0; i < n; i++){
@@ -246,16 +246,16 @@ public class UtilTest {
             pta.actions.add(new ActionStandardPTA("i"));
             pta.clocks.clocknames.add("x");
 
-            ClockSpace space = new ClockSpace(pta.clocks);
-            space.setModel(model);
+            ClockSpace ptaspace = new ClockSpace(pta.clocks);
+            ptaspace.setModel(model);
 
-            pta.setSpace(space);
+            pta.setSpace(ptaspace);
 
-            ClockConstraint top = ClockConstraint.TOP(space);
+            ClockConstraint top = ClockConstraint.TOP(ptaspace);
 
 
-//            ClockConstraint g1 = this.buildIntervalIneuality(space,"x",1,2);
-//            ClockConstraint g2 = this.buildIntervalIneuality(space,"x",2,3);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(" + lbound +" <= x) && (x <= " + ubound + ")", ptaspace);
+            ClockConstraint inv = UtilDBM.UDBMString2CC("(x <= " + ubound + ")", ptaspace);
 
             LocationPTA[][] l = new LocationPTA[n][n];
 
@@ -266,7 +266,7 @@ public class UtilTest {
                 for (int j = 0; j < n; j++) {
                     if (map[i][j] != 3){
                         l[i][j] = pta.locations.addLocation(new LocationPTABasic("l-" + i + "-" + j));
-                        pta.invariants.put(l[i][j],top); //TODO inv
+                        pta.invariants.put(l[i][j],inv);
                         pta.label.put(l[i][j], map[i][j] == 0 ? new LabelPTA() :
                                                map[i][j] == 1 ? new LabelPTA("alpha") :
                                                                 new LabelPTA(("beta")));
@@ -289,14 +289,23 @@ public class UtilTest {
                 for (int j = 0; j < n; j++) {
                     if (map[i][j] != 3){
                         if (cnt[i][j] > 0){
-                            TransitionPTA tran = pta.addConnectionFrom(l[i][j], new ActionStandardPTA("i"), top); // TODO guard
+
+                            TransitionPTA tran = pta.addConnectionFrom(l[i][j], new ActionStandardPTA("i"), g);
+                            tran.addTarget(0.1,new ClocksPTA("x"),l[i][j]);
+
+                            int sum = 90;
+                            int prob = 90 / cnt[i][j];
+                            int rest = 90 % cnt[i][j];
+
                             for (int k = 0; k < 4; k++) {
                                 int x = i + dx[k];
                                 int y = j + dy[k];
                                 if (( 0 <= x) && (x < n) &&
                                         ( 0 <= y) && (y < n) &&
                                         map[x][y] != 3) {
-                                    tran.addTarget(1.0 / cnt[i][j],new ClocksPTA("x"),l[x][y]); //TODO prob
+                                    cnt[i][j] --;
+                                    int t = cnt[i][j] == 0 ? prob + rest : prob;
+                                    tran.addTarget(t / 100.00,new ClocksPTA("x"),l[x][y]); //TODO prob
                                 }
                             }
                         }
@@ -305,7 +314,7 @@ public class UtilTest {
                 }
             }
 
-            LocationPTA l00 = pta.initialLocations.addLocation(l[0][0]);
+            pta.initialLocations.addLocation(l[0][0]);
 
             System.out.println(pta.toJani(null));
             ArrayList<ModelPTA> res = new ArrayList<>();
@@ -315,7 +324,7 @@ public class UtilTest {
         public static void main(Model model) throws EPMCException {
             for (int n = 5; n < 20; n += 2) {
                 System.out.println("==========" + n + "==========");
-                ArrayList<ModelPTA> res = RobotNavigate.generate(model,n);
+                ArrayList<ModelPTA> res = RobotNavigate.generate(model,n,2,3);
                 ModelPTA pta= res.get(0);
                 System.out.println(pta.toPrism());
             }
