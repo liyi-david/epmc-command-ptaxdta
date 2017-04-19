@@ -164,24 +164,20 @@ public class UtilTest {
             int [] dx = new int[] {-1,0,1,0};
             int [] dy = new int[] {0,-1,0,1};
             vis[x][y] = true;
-            map[x][y] = 1;
-            if ((x == n -1 ) && (y == n -1 )) return;
-
-            Random r = new Random();
-            int s = r.nextInt(3) ;
-            int d = r.nextInt(1)  == 1 ? 1 : 3;
-            for (int i = 0; (i < 4) && (!vis[n-1][n-1]); i++) {
+//            if ((x == n -1 ) && (y == n -1 )) return ;
+            for (int i = 0; (i < 4); i++) {
 //                System.out.println(s);
-                int nx = x + dx[s];
-                int ny = y + dy[s];
+                int nx = x + dx[i];
+                int ny = y + dy[i];
                 if (( 0 <= nx) && (nx < n) &&
                     ( 0 <= ny) && (ny < n) &&
+                    ( map[nx][ny] != 3)    &&
                     (!vis[nx][ny])){
                     dfs(nx,ny,n,vis,map);
                 }
-                s = ( s + d ) % 4;
             }
         }
+
         static public int[][] maze(int n){
             int [][] map = new int[n][n];
             // 0 for {}
@@ -196,12 +192,38 @@ public class UtilTest {
             }
             map[ n - 1 ][ n - 1 ] = 0;
             Random r = new Random();
-            for (int i = 0; i < n - 1; i++){ // TODO n or n-1
+            for (int i = 0; i < n; i++){ // TODO n or n-1
                 int x, y;
+                boolean connected = true;
                 do {
-                    x = r.nextInt(n-1);
-                    y = r.nextInt(n-1);
-                } while ((map[x][y] == 0) || (map[x][y] == 3) || (x == 0 && y == 0) );// TODO not in edge
+                    x = r.nextInt(n);
+                    y = r.nextInt(n);
+//                    System.out.println(x + "," + y);
+                    if(((map[x][y] == 1) || (map[x][y] == 2)) &&
+                        (!((x == 0) && (y == 0)) )){
+                        boolean[][] vis = new boolean[n][n];
+                        int old = map[x][y];
+                        map[x][y] = 3;
+                        int cnt = 0;
+                        for (int nx = 0; nx < n; nx++) {
+                            for (int ny = 0; ny < n; ny++) {
+                                if ((map[nx][ny] != 3) && (!vis[nx][ny])) {
+                                    dfs(nx,ny,n,vis,map);
+                                    cnt ++;
+                                }
+                            }
+                        }
+                        connected = cnt == 1;
+                        map[x][y] = old;
+//                        System.out.println("cnt = " + cnt);
+                    }
+
+                } while ((map[x][y] == 0)       ||
+                         (map[x][y] == 3)       ||
+                         ((x == 0) && (y == 0)) ||
+                         (!connected)           ||
+//                         (x - y == 1)         ||
+                         ((n >= 5) && (x * y == 0) || (x == n-1) || (y == n-1)) );// TODO not in edge
                 map[x][y] = 3;
             }
             //TODO check reachability
@@ -291,10 +313,11 @@ public class UtilTest {
             return res;
         }
         public static void main(Model model) throws EPMCException {
-            for (int n = 3; n < 6; n += 2) {
+            for (int n = 5; n < 20; n += 2) {
                 System.out.println("==========" + n + "==========");
-                RobotNavigate.generate(model,n);
-
+                ArrayList<ModelPTA> res = RobotNavigate.generate(model,n);
+                ModelPTA pta= res.get(0);
+                System.out.println(pta.toPrism());
             }
 
         }
