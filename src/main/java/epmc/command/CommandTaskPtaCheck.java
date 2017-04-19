@@ -46,8 +46,8 @@ public class CommandTaskPtaCheck implements CommandTask {
     public void executeInServer() {
     	initialize();
     	try {
-//            UtilDBM.LoadUDBM();
-//            UtilTest.main(modelChecker.getModel());
+            UtilDBM.LoadUDBM();
+            UtilTest.main(modelChecker.getModel());
 			check();
 		} catch (EPMCException e) {
 			log.send(e);
@@ -361,9 +361,9 @@ public class CommandTaskPtaCheck implements CommandTask {
         dta.addConnectionFrom(q2, new LabelPTA("gamma"), g_y_5_z_30)
                 .addTarget(1, new ClocksPTA(), q3);
 
-        dta.setFinalLocation(q3);
+//        dta.setFinalLocation(q3);
         dta.addTrapLocation();
-
+		dta.dtaflag = 1;
         dta.setAP(new APSet("alpha","beta","gamma"));
 
 

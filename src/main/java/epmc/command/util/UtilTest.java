@@ -44,14 +44,14 @@ public class UtilTest {
 
             Random r = new Random();
             int use[] = new int[30];
-            int MIN = 5;
-            int MAX = 20;
+            int MIN = 3;
+            int MAX = 10;
             int DIFF = MAX - MIN;
 
             for (int cnt = 0; cnt < n; cnt++){
                 int  t = 0;
                 do {
-                    t = r.nextInt(DIFF);
+                    t = r.nextInt(DIFF + 1);
                 } while (use[t + MIN] > 2);
                 use[t + MIN]++;
 //                System.out.println(t + MIN);
@@ -62,14 +62,14 @@ public class UtilTest {
             int idx = MIN;
             for (int i = 0; i <n ; i++) {
                 while(use[idx]<=0) idx++;
-                int len = r.nextInt(3) + 2;
+                int len = r.nextInt(3) + 1;
                 end[i] = idx;
                 start[i] = idx - len;
                 sum += end[i];
-                System.out.println(start[i] + " " + end[i] + " " + len);
-                pta.invariants.put(l[i],UtilDBM.UDBMString2CC("(x <= " + end[i] + ")", ptaspace));
+//                System.out.println(start[i] + " " + end[i] + " " + len);
+                pta.invariants.put(l[i],UtilDBM.UDBMString2CC("(x <= 3)", ptaspace));
                 pta.label.put(l[i], new LabelPTA( i % 2 == 0 ? "alpha" : "beta"));
-                ClockConstraint g = UtilDBM.UDBMString2CC("(" + start[i] +" <= x) && (x <= " + end[i] + ")", ptaspace);
+                ClockConstraint g = UtilDBM.UDBMString2CC("(2 <= x) && (x <= 3)", ptaspace);
 
                 int lose_prob = r.nextInt(15) + 5;
                 int win_prob  = 100 - lose_prob;
@@ -84,6 +84,12 @@ public class UtilTest {
 
             pta.invariants.put(l[n],ptatop);
             pta.label.put(l[n], new LabelPTA());
+
+//            ClockConstraint gg = UtilDBM.UDBMString2CC("(" + start[0] +" <= x) && (x <= " + end[0] + ")", ptaspace);
+//            pta.addConnectionFrom(l[n],new ActionStandardPTA("i"),gg)
+//                    .addTarget(1,new ClocksPTA("x"),l[n]);
+
+
             ModelPTA dta = new ModelPTA("task_complete_prop_" + n);
             dta.setContextValue(model.getContextValue());
             dta.addLabels("alpha", "beta");
@@ -112,7 +118,7 @@ public class UtilTest {
                     g = ClockConstraint.TOP(dtaspace);
                 }
                 else {
-                    g = UtilDBM.UDBMString2CC("(y <= " + 3 * end[i-1] + ")", dtaspace);
+                    g = UtilDBM.UDBMString2CC("(y <= 9)", dtaspace);
                 }
                 String a = i % 2 == 0 ? "alpha" : "beta";
                 dta.addConnectionFrom(q[i], new LabelPTA(a), g)
@@ -121,7 +127,7 @@ public class UtilTest {
                 dta.addConnectionFrom(q[i+1], new LabelPTA(a), dtatop)
                         .addTarget(1, new ClocksPTA(), q[i+1]);
             }
-            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 3 * end[ n - 1 ] + ") && (z <= " + 3 * sum + ")", dtaspace);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= 9) && (z <= " + (9 * n) +  ")", dtaspace);
 
             dta.addConnectionFrom(q[n], new LabelPTA(), g)
                 .addTarget(1, new ClocksPTA("y"), q[n+1]);
@@ -229,6 +235,65 @@ public class UtilTest {
             //TODO check reachability
             return map;
         }
+        static public ModelPTA DTA(Model model,int n) {
+            ModelPTA dta = new ModelPTA("Navigation_prop");
+
+            dta.setContextValue(model.getContextValue());
+            dta.addLabels("alpha", "beta");
+            dta.clocks.clocknames.add("y");
+            dta.clocks.clocknames.add("z");
+
+            LocationPTA q0 = dta.initialLocations.addLocation(
+                    dta.locations.addLocation(new LocationPTABasic("q0"))
+            );
+            LocationPTA q1 = dta.locations.addLocation(new LocationPTABasic("q1"));
+            LocationPTA q2 = dta.locations.addLocation(new LocationPTABasic("q2"));
+            LocationPTA q3 = dta.locations.addLocation(new LocationPTABasic("q3"));
+
+            ClockSpace space = new ClockSpace(dta.clocks);
+            space.setModel(model);
+
+            dta.setSpace(space);
+            ClockConstraint top = ClockConstraint.TOP(space);
+
+            dta.invariants.put(q0,top);
+            dta.invariants.put(q1,top);
+            dta.invariants.put(q2,top);
+            dta.invariants.put(q3,top);
+
+            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 6 + ")", space);
+            ClockConstraint g_z = UtilDBM.UDBMString2CC("(z <= " + (5 * n) + ")", space);
+
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 6 + ") && ( z <=" + (5 * n) + ")", space);
+
+
+            dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
+                    .addTarget(1, new ClocksPTA("y"), q1);
+            dta.addConnectionFrom(q0, new LabelPTA("beta"), top)
+                    .addTarget(1, new ClocksPTA("y"), q1);
+
+            dta.addConnectionFrom(q1, new LabelPTA("alpha"), g_y)
+                    .addTarget(1, new ClocksPTA("y"), q1);
+            dta.addConnectionFrom(q1, new LabelPTA("beta"), g_y)
+                    .addTarget(1, new ClocksPTA("y"), q2);
+            dta.addConnectionFrom(q1, new LabelPTA(), g)
+                    .addTarget(1, new ClocksPTA(), q3);
+
+            dta.addConnectionFrom(q2, new LabelPTA("beta"), g_y)
+                    .addTarget(1, new ClocksPTA("y"), q1);
+            dta.addConnectionFrom(q2, new LabelPTA("alpha"), g_y)
+                    .addTarget(1, new ClocksPTA("y"), q2);
+            dta.addConnectionFrom(q2, new LabelPTA(), g)
+                    .addTarget(1, new ClocksPTA(), q3);
+
+//            dta.setFinalLocation(q3); WRONG
+            dta.addTrapLocation();
+            dta.dtaflag = 1;
+//            dta.setAP(new APSet("alpha","beta","gamma"));
+
+
+            return dta;
+        }
         static public ArrayList<ModelPTA> generate(Model model, int n,int lbound, int ubound) {
             int [][] map = RobotNavigate.maze(n);
 
@@ -316,17 +381,34 @@ public class UtilTest {
 
             pta.initialLocations.addLocation(l[0][0]);
 
-            System.out.println(pta.toJani(null));
+//            System.out.println(pta.toJani(null));
             ArrayList<ModelPTA> res = new ArrayList<>();
             res.add(pta);
+            ModelPTA dta = DTA(model,n);
+            res.add(dta);
             return res;
         }
         public static void main(Model model) throws EPMCException {
-            for (int n = 5; n < 20; n += 2) {
+            for (int n = 5; n < 6; n += 2) {
                 System.out.println("==========" + n + "==========");
                 ArrayList<ModelPTA> res = RobotNavigate.generate(model,n,2,3);
-                ModelPTA pta= res.get(0);
-                System.out.println(pta.toPrism());
+                ModelPTA pta = res.get(0);
+                ModelPTA dta = res.get(1);
+//                System.out.println(pta.toPrism());
+                System.out.println(pta.toJani(null));
+                System.out.println(dta.toJani(null));
+
+                //            System.out.println(pta.toPrism());
+//            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
+//            System.out.println(dta.toPrism());
+                UtilProductV2 util = new UtilProductV2();
+                ModelPTA result = util.prod(pta,dta);
+                int num = result.locations.getLocations().size();
+                System.out.println(num + " locations");
+//FIXME            System.out.println(dta.isDTA());
+                System.out.println(result.toJani(null));
+                System.out.println(result.toSingleJani(null));
+                System.out.println(result.toPrism());
             }
 
         }
