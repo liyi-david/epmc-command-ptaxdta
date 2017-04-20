@@ -11,6 +11,9 @@ import epmc.ptaxdta.ClockSpace;
 import epmc.ptaxdta.UtilDBM;
 import epmc.ptaxdta.pta.model.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -261,10 +264,10 @@ public class UtilTest {
             dta.invariants.put(q2,top);
             dta.invariants.put(q3,top);
 
-            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 6 + ")", space);
-            ClockConstraint g_z = UtilDBM.UDBMString2CC("(z <= " + (5 * n) + ")", space);
+            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 24 + ")", space);
+//            ClockConstraint g_z = UtilDBM.UDBMString2CC("(z <= " + (15 * n) + ")", space);
 
-            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 6 + ") && ( z <=" + (5 * n) + ")", space);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 24 + ") && ( z <=" + (15 * n) + ")", space);
 
 
             dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
@@ -294,16 +297,7 @@ public class UtilTest {
 
             return dta;
         }
-        static public ArrayList<ModelPTA> generate(Model model, int n,int lbound, int ubound) {
-            int [][] map = RobotNavigate.maze(n);
-
-            for (int i = 0; i < n; i++){
-                for (int j = 0; j < n; j++) {
-                    System.out.print(map[i][j] + " ");
-                }
-                System.out.println();
-            }
-            System.out.println();
+        static public ArrayList<ModelPTA> generate(int[][] map,Model model, int n,int lbound, int ubound) {
 
             ModelPTA pta = new ModelPTA("Navigation");
 
@@ -389,26 +383,59 @@ public class UtilTest {
             return res;
         }
         public static void main(Model model) throws EPMCException {
-            for (int n = 5; n < 6; n += 2) {
-                System.out.println("==========" + n + "==========");
-                ArrayList<ModelPTA> res = RobotNavigate.generate(model,n,2,3);
-                ModelPTA pta = res.get(0);
-                ModelPTA dta = res.get(1);
-//                System.out.println(pta.toPrism());
-                System.out.println(pta.toJani(null));
-                System.out.println(dta.toJani(null));
+            try {
+//                File file = new File("");
+//                file.createNewFile();
+                FileWriter writer = new FileWriter("/Users/lijianlin/RobotNaviLog.txt");
+//                writer.write("This\n is\n an\n example\n");
+                for (int n = 5; n < 20; n += 2) {
+                    System.out.println("==========" + n + "==========");
+                    writer.write("==========" + n + "==========");
+                    writer.write("\n");
 
-                //            System.out.println(pta.toPrism());
+                    int [][] map = RobotNavigate.maze(n);
+
+                    for (int i = 0; i < n; i++){
+                        for (int j = 0; j < n; j++) {
+                            System.out.print(map[i][j] + " ");
+                            writer.write(map[i][j] + " ");
+                        }
+                        System.out.println();
+                        writer.write("\n");
+                    }
+                    System.out.println();
+                    writer.write("\n");
+
+                    ArrayList<ModelPTA> res = RobotNavigate.generate(map,model,n,2,3);
+                    ModelPTA pta = res.get(0);
+                    ModelPTA dta = res.get(1);
+//                System.out.println(pta.toPrism());
+//                    System.out.println(pta.toJani(null));
+//                    System.out.println(dta.toJani(null));
+                    writer.write(pta.toJani(null).toString() + "\n");
+                    writer.write(dta.toJani(null).toString() + "\n");
+                    //            System.out.println(pta.toPrism());
 //            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
 //            System.out.println(dta.toPrism());
-                UtilProductV2 util = new UtilProductV2();
-                ModelPTA result = util.prod(pta,dta);
-                int num = result.locations.getLocations().size();
-                System.out.println(num + " locations");
+                    UtilProductV2 util = new UtilProductV2();
+                    ModelPTA result = util.prod(pta,dta);
+                    int num = result.locations.getLocations().size();
+                    System.out.println(num + " locations");
+                    writer.write(num + "locations\n");
 //FIXME            System.out.println(dta.isDTA());
-                System.out.println(result.toJani(null));
-                System.out.println(result.toSingleJani(null));
-                System.out.println(result.toPrism());
+//                    System.out.println(result.toJani(null));
+//                    System.out.println(result.toSingleJani(null));
+//                    System.out.println(result.toPrism());
+                    writer.write(result.toJani(null).toString() + "\n");
+//                    writer.write(result.toSingleJani(null).toString() + "\n");
+                    writer.write(result.toPrism().toString() + "\n");
+
+                }
+                writer.flush();
+                writer.close();
+            }
+            catch (IOException e){
+                e.printStackTrace();
             }
 
         }
