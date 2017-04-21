@@ -264,10 +264,10 @@ public class UtilTest {
             dta.invariants.put(q2,top);
             dta.invariants.put(q3,top);
 
-            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 24 + ")", space);
+            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 9 + ")", space);
 //            ClockConstraint g_z = UtilDBM.UDBMString2CC("(z <= " + (15 * n) + ")", space);
 
-            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 24 + ") && ( z <=" + (15 * n) + ")", space);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 9 + ") && ( z <=" + (15 * n) + ")", space);
 
 
             dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
@@ -386,7 +386,7 @@ public class UtilTest {
             try {
 //                File file = new File("");
 //                file.createNewFile();
-                FileWriter writer = new FileWriter("/Users/lijianlin/RobotNaviLog.txt");
+                FileWriter writer = new FileWriter("/Users/lijianlin/RobotNavi_y9_z15n/ALL2.txt");
 //                writer.write("This\n is\n an\n example\n");
                 for (int n = 5; n < 20; n += 2) {
                     System.out.println("==========" + n + "==========");
@@ -428,7 +428,16 @@ public class UtilTest {
 //                    System.out.println(result.toPrism());
                     writer.write(result.toJani(null).toString() + "\n");
 //                    writer.write(result.toSingleJani(null).toString() + "\n");
-                    writer.write(result.toPrism().toString() + "\n");
+                    String Prism = result.toPrism().toString();
+                    writer.write(Prism + "\n");
+
+                    String pname = n + ".model";
+                    if(n<10) pname = "0" + pname;
+
+                    FileWriter pwriter = new FileWriter("/Users/lijianlin/RobotNavi_y9_z15n/" + pname);
+                    pwriter.write(Prism + "\n");
+                    pwriter.flush();
+                    pwriter.close();
 
                 }
                 writer.flush();

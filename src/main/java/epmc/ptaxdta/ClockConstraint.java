@@ -69,6 +69,10 @@ public class ClockConstraint  implements Cloneable {
         this.fed = this.fed.andOp(R.fed);
         return this;
     }
+    public boolean isBot(){
+        ClockConstraint bot = ClockConstraint.BOT(this.space);
+        return this.fed.eq(bot.getFed());
+    }
 
     public Expression toExpression() throws EPMCException {
         VarNamesAccessor v = this.space.getVarNamesAccessor();

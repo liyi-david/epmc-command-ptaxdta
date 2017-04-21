@@ -129,6 +129,21 @@ public class UtilProductV2 {
 
                 for (HashMap<ActionPTA, ClockConstraint> h : T.get(q0)) { // (l,q) \in L_x and  temph \in Tq
 
+                    ClockConstraint guard = ClockConstraint.TOP(result.getSpace());
+                    guard.setAnd(
+                            UtilDBM.UDBMString2Federation(g0.toUDBMString(),
+                                    result.getSpace()
+                            )
+                    );
+                    ClockConstraint conj_h = this.h_conjunction(h,dta.getSpace());
+                    guard.setAnd(
+                            UtilDBM.UDBMString2Federation(conj_h.toUDBMString(),
+                                    result.getSpace()
+                            )
+                    );
+
+                    if(guard.isBot()) continue;
+
                     for (int i = 0; i < e_l.target.size(); i++) {
                         LocationPTA l1 = e_l.target.get(i);
                         ClocksPTA Y1 = e_l.rstClock.get(i);
@@ -176,18 +191,7 @@ public class UtilProductV2 {
                                         state = (LocationPTAProductV2) result.locations.getLocations().get(idx);
                                     }
 
-                                    ClockConstraint guard = ClockConstraint.TOP(result.getSpace());
-                                    guard.setAnd(
-                                            UtilDBM.UDBMString2Federation(g0.toUDBMString(),
-                                                    result.getSpace()
-                                            )
-                                    );
-                                    ClockConstraint conj_h = this.h_conjunction(h,dta.getSpace());
-                                    guard.setAnd(
-                                            UtilDBM.UDBMString2Federation(conj_h.toUDBMString(),
-                                                    result.getSpace()
-                                            )
-                                    );
+
 
                                     ClocksPTA Y = new ClocksPTA();
                                     Y.clocknames.addAll(Y1.clocknames);
