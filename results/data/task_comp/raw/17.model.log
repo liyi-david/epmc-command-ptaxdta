@@ -1,0 +1,35 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Fri Apr 21 12:07:00 CST 2017
+Hostname: mu01
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 17.model temp.prop -ptamethod games
+
+Parsing model file "17.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=18 ]
+(2) Pmin=? [ F q=18 ]
+(3) Pmax=? [ F q=19 ]
+(4) Pmin=? [ F q=19 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z x l q y 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=18 ]
+
+Building PTA...
+
+PTA: 3 clocks, 35 locations, 51 transitions
+Target (q=18) satisfied by 1 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 447705

@@ -1,0 +1,9 @@
+
+// maximum probability of success
+Pmax=? [F q = 21]
+// minimum probability of success
+Pmin=? [F q = 21]
+// maximum probability of being trapped
+Pmax=? [F q = 22]
+// minimum probability of being trapped
+Pmin=? [F q = 22]

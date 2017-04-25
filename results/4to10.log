@@ -1,0 +1,29 @@
+nohup: 忽略输入
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 04.model : started at 2017年 04月 23日 星期日 23:51:47 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:52:04 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 05.model : started at 2017年 04月 23日 星期日 23:52:04 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:33 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 06.model : started at 2017年 04月 23日 星期日 23:53:33 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:34 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 07.model : started at 2017年 04月 23日 星期日 23:53:34 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:34 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 08.model : started at 2017年 04月 23日 星期日 23:53:34 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:35 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 09.model : started at 2017年 04月 23日 星期日 23:53:35 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:36 CST.
+-------------------------------------------------------------------------------
+model checking data/robot_navi/y9_z15n_4to10 10.model : started at 2017年 04月 23日 星期日 23:53:36 CST
+(this is a robot navigation model)
+finished at 2017年 04月 23日 星期日 23:53:36 CST.
