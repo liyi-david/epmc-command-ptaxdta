@@ -1,0 +1,78 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Fri Apr 21 11:57:35 CST 2017
+Hostname: mu01
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 05.model temp.prop -ptamethod games
+
+Parsing model file "05.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=6 ]
+(2) Pmin=? [ F q=6 ]
+(3) Pmax=? [ F q=7 ]
+(4) Pmin=? [ F q=7 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z q x l y 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=6 ]
+
+Building PTA...
+
+PTA: 3 clocks, 11 locations, 15 transitions
+Target (q=6) satisfied by 1 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 86426 states
+Graph constructed in 1.003 secs.
+Graph: 86426 symbolic states (1 initial, 853 target)
+
+Model checking STPG...
+STPG model checked in 2.772 secs.
+85941/86426 states converged.
+Diff across 1 initial state: 0.010034681598557027
+Lower/upper bounds for 1 initial state: 0.9884732144761379 - 0.9985078960746949
+Max diff over all states: 0.992824715699712
+137 refineable states.
+
+Refinement 1...
+116 states successfully refined in 1.286 secs.
+348+0=348 states of STPG rebuilt in 0.001 secs.
+New STPG has 86542 states.
+
+Model checking STPG...
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x00002b62339e2ef5, pid=5505, tid=0x00002b62337fa200
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_131-b11) (build 1.8.0_131-b11)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.131-b11 mixed mode linux-amd64 )
+# Problematic frame:
+# C  [libpthread.so.0+0x8ef5]  pthread_join+0xa5
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# An error report file with more information is saved as:
+# /home/liyi/Projects/ptaxdta/data/task_comp/raw/hs_err_pid5505.log
+STPG model checked in 2.228 secs.
+86147/86542 states converged.
+Diff across 1 initial state: 0.010034681489557551
+Lower/upper bounds for 1 initial state: 0.9884732145851374 - 0.9985078960746949
+Max diff over all states: 0.992824715699712
+121 refineable states.
+
+Refinement 2...
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#

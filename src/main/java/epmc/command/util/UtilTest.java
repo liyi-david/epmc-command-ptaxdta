@@ -238,7 +238,7 @@ public class UtilTest {
             //TODO check reachability
             return map;
         }
-        static public ModelPTA DTA(Model model,int n) {
+        static public ModelPTA DTA(Model model, int n, int ybound) { // 9 12
             ModelPTA dta = new ModelPTA("Navigation_prop");
 
             dta.setContextValue(model.getContextValue());
@@ -264,10 +264,10 @@ public class UtilTest {
             dta.invariants.put(q2,top);
             dta.invariants.put(q3,top);
 
-            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + 9 + ")", space);
+            ClockConstraint g_y = UtilDBM.UDBMString2CC("(y <= " + ybound + ")", space);
 //            ClockConstraint g_z = UtilDBM.UDBMString2CC("(z <= " + (15 * n) + ")", space);
 
-            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + 9 + ") && ( z <=" + (15 * n) + ")", space);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= " + ybound + ") && ( z <=" + (15 * n) + ")", space);
 
 
             dta.addConnectionFrom(q0, new LabelPTA("alpha"), top)
@@ -297,7 +297,7 @@ public class UtilTest {
 
             return dta;
         }
-        static public ArrayList<ModelPTA> generate(int[][] map,Model model, int n,int lbound, int ubound) {
+        static public ArrayList<ModelPTA> generate(int[][] map,Model model, int n,int lbound, int ubound,int ybound) {
 
             ModelPTA pta = new ModelPTA("Navigation");
 
@@ -378,7 +378,7 @@ public class UtilTest {
 //            System.out.println(pta.toJani(null));
             ArrayList<ModelPTA> res = new ArrayList<>();
             res.add(pta);
-            ModelPTA dta = DTA(model,n);
+            ModelPTA dta = DTA(model,n,ybound);
             res.add(dta);
             return res;
         }
@@ -386,9 +386,10 @@ public class UtilTest {
             try {
 //                File file = new File("");
 //                file.createNewFile();
-                FileWriter writer = new FileWriter("/Users/lijianlin/RobotNavi_y9_z15n/ALL2.txt");
+                String path = "/Users/lijianlin/RobotNavi_y12_z15n_4-10/";
+                FileWriter writer = new FileWriter(path + "ALL.txt");
 //                writer.write("This\n is\n an\n example\n");
-                for (int n = 5; n < 20; n += 2) {
+                for (int n = 4; n <= 10; n ++) {
                     System.out.println("==========" + n + "==========");
                     writer.write("==========" + n + "==========");
                     writer.write("\n");
@@ -406,7 +407,7 @@ public class UtilTest {
                     System.out.println();
                     writer.write("\n");
 
-                    ArrayList<ModelPTA> res = RobotNavigate.generate(map,model,n,2,3);
+                    ArrayList<ModelPTA> res = RobotNavigate.generate(map,model,n,2,3,12);
                     ModelPTA pta = res.get(0);
                     ModelPTA dta = res.get(1);
 //                System.out.println(pta.toPrism());
@@ -434,7 +435,7 @@ public class UtilTest {
                     String pname = n + ".model";
                     if(n<10) pname = "0" + pname;
 
-                    FileWriter pwriter = new FileWriter("/Users/lijianlin/RobotNavi_y9_z15n/" + pname);
+                    FileWriter pwriter = new FileWriter(path + pname);
                     pwriter.write(Prism + "\n");
                     pwriter.flush();
                     pwriter.close();

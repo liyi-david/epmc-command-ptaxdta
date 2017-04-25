@@ -1,0 +1,93 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Fri Apr 21 09:01:54 CST 2017
+Hostname: mu01
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 07.model temp.prop -ptamethod backwards
+
+Parsing model file "07.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=3 ]
+(2) Pmin=? [ F q=3 ]
+(3) Pmax=? [ F q=4 ]
+(4) Pmin=? [ F q=4 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z q l x y 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=3 ]
+
+Building PTA...
+
+PTA: 3 clocks, 125 locations, 289 transitions
+Target (q=3) satisfied by 1 locations.
+
+Building backwards reachability graph... 3293 3925 states
+Graph constructed in 4.621 secs.
+Graph: 3925 symbolic states (41 initial, 1 target)
+Building MDP... 17962 states (41 initial), 358639 transitions, 351934 choices, dist max/avg = 52/19.59
+
+Starting probabilistic reachability (max)...
+target=1, yes=1, no=0, maybe=17961
+Starting value iteration (max)...
+Value iteration (max) took 105 iterations and 2.621 seconds.
+Probabilistic reachability took 2.627 seconds.
+
+Model checking completed in 7.99 secs.
+
+Result (maximum probability): 0.128142415856155
+
+---------------------------------------------------------------------
+
+Model checking: Pmin=? [ F q=3 ]
+
+Building PTA...
+
+PTA: 3 clocks, 125 locations, 289 transitions
+Target (q=3) satisfied by 1 locations.
+
+Error: Backwards reachability does not yet support minmum probabilities.
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=4 ]
+
+Building PTA...
+
+PTA: 3 clocks, 125 locations, 289 transitions
+Target (q=4) satisfied by 42 locations.
+
+Building backwards reachability graph... 6267 8323 9453 10668 11560 12353 13091 13611 14283 14825 15285 15854 16217 16717 17135 17448 17921 18218 18663 19035 19299 19681 20005 20269 20469 20915 21215 21407 21701 22052 22273 22442 22585 22721 23057 23252 23434 23590 23720 23811 24099 24315 24519 24663 24795 25083 25299 25467 25599 25731 25933 26164 26329 26461 26582 26681 26971 27131 27291 27411 27581 27811 27961 28111 28211 28321 28564 28726 28870 28960 29059 29315 29459 29595 29707 29891 30035 30171 30283 30371 30595 30735 30854 30945 31167 31311 31437 31641 31791 31917 32124 32264 32411 32607 32835 33022 33223 33517 33569 states
+Graph constructed in 295.44 secs.
+Graph: 33569 symbolic states (59 initial, 42 target)
+Building MDP... 155584 states (59 initial), 6097774 transitions, 6038402 choices, dist max/avg = 144/38.81
+
+Starting probabilistic reachability (max)...
+target=42, yes=42, no=0, maybe=155542
+Starting value iteration (max)...
+Value iteration (max) took 1500 iterations and 786.535 seconds.
+Probabilistic reachability took 786.544 seconds.
+
+Model checking completed in 1091.947 secs.
+
+Result (maximum probability): 0.9998379235593002
+
+---------------------------------------------------------------------
+
+Model checking: Pmin=? [ F q=4 ]
+
+Building PTA...
+
+PTA: 3 clocks, 125 locations, 289 transitions
+Target (q=4) satisfied by 42 locations.
+
+Error: Backwards reachability does not yet support minmum probabilities.
+
