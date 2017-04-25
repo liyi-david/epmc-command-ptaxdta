@@ -1,0 +1,777 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Tue Apr 25 17:01:08 CST 2017
+Hostname: cu13
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 07.model temp.prop -ptamethod games
+
+Parsing model file "07.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=8 ]
+(2) Pmin=? [ F q=8 ]
+(3) Pmax=? [ F q=9 ]
+(4) Pmin=? [ F q=9 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z q x l y 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=8 ]
+
+Building PTA...
+
+PTA: 3 clocks, 15 locations, 21 transitions
+Target (q=8) satisfied by 1 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 11652 states
+Graph constructed in 0.283 secs.
+Graph: 11652 symbolic states (1 initial, 24 target)
+
+Model checking STPG...
+STPG model checked in 0.316 secs.
+11206/11652 states converged.
+Diff across 1 initial state: 0.012278591238489955
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9976643355236565
+Max diff over all states: 0.9999343900000001
+132 refineable states.
+
+Refinement 1...
+107 states successfully refined in 0.202 secs.
+343+0=343 states of STPG rebuilt in 0.0 secs.
+New STPG has 11759 states.
+
+Model checking STPG...
+STPG model checked in 0.155 secs.
+11334/11759 states converged.
+Diff across 1 initial state: 0.012278591282638862
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9976643355678054
+Max diff over all states: 0.9999343900000001
+215 refineable states.
+
+Refinement 2...
+118 states successfully refined in 0.113 secs.
+414+0=414 states of STPG rebuilt in 0.0 secs.
+New STPG has 11899 states.
+
+Model checking STPG...
+STPG model checked in 0.169 secs.
+11507/11899 states converged.
+Diff across 1 initial state: 3.3739545145516914E-6
+Lower/upper bounds for 1 initial state: 0.9976609616132909 - 0.9976643355678054
+Max diff over all states: 0.9994281732150625
+269 refineable states.
+
+Refinement 3...
+59 states successfully refined in 0.117 secs.
+256+0=256 states of STPG rebuilt in 0.0 secs.
+New STPG has 12008 states.
+
+Model checking STPG...
+STPG model checked in 0.184 secs.
+11643/12008 states converged.
+Diff across 1 initial state: 1.769067511592226E-6
+Lower/upper bounds for 1 initial state: 0.9976620005326549 - 0.9976637696001665
+Max diff over all states: 0.9994281732150625
+261 refineable states.
+
+Refinement 4...
+62 states successfully refined in 0.151 secs.
+261+0=261 states of STPG rebuilt in 0.0 secs.
+New STPG has 12111 states.
+
+Model checking STPG...
+STPG model checked in 0.197 secs.
+11775/12111 states converged.
+Diff across 1 initial state: 1.7123892962489506E-6
+Lower/upper bounds for 1 initial state: 0.9976620278224854 - 0.9976637402117816
+Max diff over all states: 0.9994281732150625
+245 refineable states.
+
+Refinement 5...
+69 states successfully refined in 0.209 secs.
+261+0=261 states of STPG rebuilt in 0.0 secs.
+New STPG has 12225 states.
+
+Model checking STPG...
+STPG model checked in 0.182 secs.
+11882/12225 states converged.
+Diff across 1 initial state: 1.6857619211663177E-6
+Lower/upper bounds for 1 initial state: 0.9976620544498604 - 0.9976637402117816
+Max diff over all states: 0.9994281732150625
+250 refineable states.
+
+Refinement 6...
+60 states successfully refined in 0.181 secs.
+291+0=291 states of STPG rebuilt in 0.0 secs.
+New STPG has 12333 states.
+
+Model checking STPG...
+STPG model checked in 0.192 secs.
+11982/12333 states converged.
+Diff across 1 initial state: 1.0509557576421358E-6
+Lower/upper bounds for 1 initial state: 0.997662689256024 - 0.9976637402117816
+Max diff over all states: 0.94942281536375
+273 refineable states.
+
+Refinement 7...
+49 states successfully refined in 0.154 secs.
+229+0=229 states of STPG rebuilt in 0.0 secs.
+New STPG has 12406 states.
+
+Model checking STPG...
+STPG model checked in 0.199 secs.
+12060/12406 states converged.
+Diff across 1 initial state: 1.0013989741874951E-6
+Lower/upper bounds for 1 initial state: 0.9976627388128074 - 0.9976637402117816
+Max diff over all states: 0.94942281536375
+283 refineable states.
+
+Refinement 8...
+57 states successfully refined in 0.134 secs.
+252+0=252 states of STPG rebuilt in 0.0 secs.
+New STPG has 12487 states.
+
+Model checking STPG...
+STPG model checked in 0.216 secs.
+12190/12487 states converged.
+Diff across 1 initial state: 3.880522514432272E-8
+Lower/upper bounds for 1 initial state: 0.9976637008669953 - 0.9976637396722204
+
+Initial STPG: 11652 states (1 initial), 21863 transitions, 12127 choices, 11952 choice sets, p1max/avg = 7/1.03, p2max/avg = 3/1.01
+Final STPG: 12487 states (1 initial), 32307 transitions, 17349 choices, 14634 choice sets, p1max/avg = 39/1.17, p2max/avg = 3/1.19
+
+Terminated after 8 refinements in 3.65 secs.
+
+Abstraction-refinement time breakdown:
+* 0.57 secs (15.6%) = Building initial STPG
+* 0.00 secs (0.0%) = Rebuilding STPG (8 x avg 0.00 secs)
+* 1.81 secs (49.6%) = model checking STPG (9 x avg 0.20 secs) (lb=51.2%) (prob0=22.0%) (pre=92.8%) (iters=287)
+* 1.26 secs (34.6%) = refinement (8 x avg 0.16 secs)
+
+Final diff across 1 initial state: 3.880522514432272E-8
+Final lower/upper bounds for 1 initial state: 0.9976637008669953 - 0.9976637396722204
+
+Model checking completed in 3.706 secs.
+
+Result (maximum probability): 0.9976637202696079
+
+---------------------------------------------------------------------
+
+Model checking: Pmin=? [ F q=8 ]
+
+Building PTA...
+
+PTA: 3 clocks, 15 locations, 21 transitions
+Target (q=8) satisfied by 1 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 11652 states
+Graph constructed in 0.142 secs.
+Graph: 11652 symbolic states (1 initial, 24 target)
+
+Model checking STPG...
+STPG model checked in 0.233 secs.
+11221/11652 states converged.
+Diff across 1 initial state: 0.012278591238489955
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9976643355236565
+Max diff over all states: 0.9999343900000001
+124 refineable states.
+
+Refinement 1...
+101 states successfully refined in 0.074 secs.
+328+0=328 states of STPG rebuilt in 0.0 secs.
+New STPG has 11753 states.
+
+Model checking STPG...
+STPG model checked in 0.175 secs.
+11422/11753 states converged.
+Diff across 1 initial state: 2.4019586263301917E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853881462437929
+Max diff over all states: 0.999271
+105 refineable states.
+
+Refinement 2...
+46 states successfully refined in 0.065 secs.
+199+0=199 states of STPG rebuilt in 0.0 secs.
+New STPG has 11807 states.
+
+Model checking STPG...
+STPG model checked in 0.129 secs.
+11496/11807 states converged.
+Diff across 1 initial state: 2.0219860039638604E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877662711705
+Max diff over all states: 0.9958984603750001
+132 refineable states.
+
+Refinement 3...
+58 states successfully refined in 0.062 secs.
+231+0=231 states of STPG rebuilt in 0.0 secs.
+New STPG has 11879 states.
+
+Model checking STPG...
+STPG model checked in 0.134 secs.
+11592/11879 states converged.
+Diff across 1 initial state: 2.0222136847269923E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877664988513
+Max diff over all states: 0.9957609900875001
+128 refineable states.
+
+Refinement 4...
+54 states successfully refined in 0.063 secs.
+246+0=246 states of STPG rebuilt in 0.0 secs.
+New STPG has 11944 states.
+
+Model checking STPG...
+STPG model checked in 0.128 secs.
+11684/11944 states converged.
+Diff across 1 initial state: 2.02222477352354E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877665099401
+Max diff over all states: 0.99575749
+135 refineable states.
+
+Refinement 5...
+57 states successfully refined in 0.056 secs.
+216+0=216 states of STPG rebuilt in 0.0 secs.
+New STPG has 12011 states.
+
+Model checking STPG...
+STPG model checked in 0.132 secs.
+11767/12011 states converged.
+Diff across 1 initial state: 2.0222136847269923E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877664988513
+Max diff over all states: 0.99325135
+129 refineable states.
+
+Refinement 6...
+46 states successfully refined in 0.056 secs.
+225+0=225 states of STPG rebuilt in 0.0 secs.
+New STPG has 12082 states.
+
+Model checking STPG...
+STPG model checked in 0.215 secs.
+11857/12082 states converged.
+Diff across 1 initial state: 2.022119814260037E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877664049808
+Max diff over all states: 0.9435887824999999
+137 refineable states.
+
+Refinement 7...
+41 states successfully refined in 0.061 secs.
+179+0=179 states of STPG rebuilt in 0.0 secs.
+New STPG has 12129 states.
+
+Model checking STPG...
+STPG model checked in 0.172 secs.
+11933/12129 states converged.
+Diff across 1 initial state: 2.02101141044686E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.985387765296577
+Max diff over all states: 0.9435887824999999
+117 refineable states.
+
+Refinement 8...
+39 states successfully refined in 0.059 secs.
+179+0=179 states of STPG rebuilt in 0.0 secs.
+New STPG has 12174 states.
+
+Model checking STPG...
+STPG model checked in 0.175 secs.
+12027/12174 states converged.
+Diff across 1 initial state: 2.0217012068890483E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877659863735
+Max diff over all states: 0.6980837499999999
+88 refineable states.
+
+Refinement 9...
+33 states successfully refined in 0.042 secs.
+143+0=143 states of STPG rebuilt in 0.0 secs.
+New STPG has 12211 states.
+
+Model checking STPG...
+STPG model checked in 0.135 secs.
+12106/12211 states converged.
+Diff across 1 initial state: 2.02186675801741E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877661519246
+Max diff over all states: 0.060192245165609615
+52 refineable states.
+
+Refinement 10...
+23 states successfully refined in 0.023 secs.
+93+0=93 states of STPG rebuilt in 0.0 secs.
+New STPG has 12242 states.
+
+Model checking STPG...
+STPG model checked in 0.134 secs.
+12182/12242 states converged.
+Diff across 1 initial state: 2.016378015001763E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877606631816
+Max diff over all states: 0.05418735492625015
+34 refineable states.
+
+Refinement 11...
+15 states successfully refined in 0.016 secs.
+53+0=53 states of STPG rebuilt in 0.0 secs.
+New STPG has 12259 states.
+
+Model checking STPG...
+STPG model checked in 0.133 secs.
+12206/12259 states converged.
+Diff across 1 initial state: 2.0107871666619204E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853877550723332
+Max diff over all states: 0.05418735492625015
+30 refineable states.
+
+Refinement 12...
+13 states successfully refined in 0.014 secs.
+61+0=61 states of STPG rebuilt in 0.0 secs.
+New STPG has 12281 states.
+
+Model checking STPG...
+STPG model checked in 0.156 secs.
+12250/12281 states converged.
+Diff across 1 initial state: 1.9537578385131482E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853876980430051
+Max diff over all states: 0.011612642378553195
+19 refineable states.
+
+Refinement 13...
+9 states successfully refined in 0.008 secs.
+35+0=35 states of STPG rebuilt in 0.0 secs.
+New STPG has 12292 states.
+
+Model checking STPG...
+STPG model checked in 0.13 secs.
+12278/12292 states converged.
+Diff across 1 initial state: 1.8744038937645868E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853876186890603
+Max diff over all states: 3.4410952631658276E-4
+7 refineable states.
+
+Refinement 14...
+4 states successfully refined in 0.005 secs.
+13+0=13 states of STPG rebuilt in 0.0 secs.
+New STPG has 12296 states.
+
+Model checking STPG...
+STPG model checked in 0.129 secs.
+12288/12296 states converged.
+Diff across 1 initial state: 1.8744038937645868E-6
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853876186890603
+Max diff over all states: 7.27223625013318E-5
+4 refineable states.
+
+Refinement 15...
+3 states successfully refined in 0.004 secs.
+9+0=9 states of STPG rebuilt in 0.0 secs.
+New STPG has 12299 states.
+
+Model checking STPG...
+STPG model checked in 0.128 secs.
+12299/12299 states converged.
+Diff across 1 initial state: 0.0
+Lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853857442851666
+
+Initial STPG: 11652 states (1 initial), 21863 transitions, 12127 choices, 11952 choice sets, p1max/avg = 7/1.03, p2max/avg = 3/1.01
+Final STPG: 12299 states (1 initial), 28279 transitions, 15335 choices, 13707 choice sets, p1max/avg = 18/1.11, p2max/avg = 3/1.12
+
+Terminated after 15 refinements in 3.36 secs.
+
+Abstraction-refinement time breakdown:
+* 0.31 secs (9.1%) = Building initial STPG
+* 0.00 secs (0.0%) = Rebuilding STPG (15 x avg 0.00 secs)
+* 2.44 secs (72.6%) = model checking STPG (16 x avg 0.15 secs) (lb=51.0%) (prob0=23.9%) (pre=97.7%) (iters=376)
+* 0.61 secs (18.1%) = refinement (15 x avg 0.04 secs)
+
+Final diff across 1 initial state: 0.0
+Final lower/upper bounds for 1 initial state: 0.9853857442851666 - 0.9853857442851666
+
+Model checking completed in 3.363 secs.
+
+Result (minimum probability): 0.9853857442851666
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=9 ]
+
+Building PTA...
+
+PTA: 3 clocks, 15 locations, 21 transitions
+Target (q=9) satisfied by 7 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 9383 states
+Graph constructed in 0.112 secs.
+Graph: 9383 symbolic states (1 initial, 4392 target)
+
+Model checking STPG...
+STPG model checked in 0.111 secs.
+8952/9383 states converged.
+Diff across 1 initial state: 0.01227859136778188
+Lower/upper bounds for 1 initial state: 0.0023356643470515454 - 0.014614255714833425
+Max diff over all states: 0.99993439
+124 refineable states.
+
+Refinement 1...
+101 states successfully refined in 0.048 secs.
+328+0=328 states of STPG rebuilt in 0.0 secs.
+New STPG has 9484 states.
+
+Model checking STPG...
+STPG model checked in 0.026 secs.
+9153/9484 states converged.
+Diff across 1 initial state: 2.4022216875072E-6
+Lower/upper bounds for 1 initial state: 0.014611853493145917 - 0.014614255714833425
+Max diff over all states: 0.999271
+105 refineable states.
+
+Refinement 2...
+46 states successfully refined in 0.041 secs.
+199+0=199 states of STPG rebuilt in 0.0 secs.
+New STPG has 9538 states.
+
+Model checking STPG...
+STPG model checked in 0.023 secs.
+9227/9538 states converged.
+Diff across 1 initial state: 2.0222250617912135E-6
+Lower/upper bounds for 1 initial state: 0.014611853638864587 - 0.014613875863926378
+Max diff over all states: 0.995898460375
+132 refineable states.
+
+Refinement 3...
+58 states successfully refined in 0.056 secs.
+231+0=231 states of STPG rebuilt in 0.0 secs.
+New STPG has 9610 states.
+
+Model checking STPG...
+STPG model checked in 0.025 secs.
+9323/9610 states converged.
+Diff across 1 initial state: 2.0222258137001653E-6
+Lower/upper bounds for 1 initial state: 0.014611853638112678 - 0.014613875863926378
+Max diff over all states: 0.9957609900875
+128 refineable states.
+
+Refinement 4...
+54 states successfully refined in 0.066 secs.
+246+0=246 states of STPG rebuilt in 0.0 secs.
+New STPG has 9675 states.
+
+Model checking STPG...
+STPG model checked in 0.031 secs.
+9415/9675 states converged.
+Diff across 1 initial state: 2.0222303323391005E-6
+Lower/upper bounds for 1 initial state: 0.01461185363359404 - 0.014613875863926378
+Max diff over all states: 0.99575749
+135 refineable states.
+
+Refinement 5...
+57 states successfully refined in 0.056 secs.
+216+0=216 states of STPG rebuilt in 0.0 secs.
+New STPG has 9742 states.
+
+Model checking STPG...
+STPG model checked in 0.03 secs.
+9498/9742 states converged.
+Diff across 1 initial state: 2.0222136846558686E-6
+Lower/upper bounds for 1 initial state: 0.014611853650241723 - 0.014613875863926378
+Max diff over all states: 0.99325135
+129 refineable states.
+
+Refinement 6...
+46 states successfully refined in 0.058 secs.
+225+0=225 states of STPG rebuilt in 0.0 secs.
+New STPG has 9813 states.
+
+Model checking STPG...
+STPG model checked in 0.035 secs.
+9588/9813 states converged.
+Diff across 1 initial state: 2.022195899667109E-6
+Lower/upper bounds for 1 initial state: 0.014611853668026711 - 0.014613875863926378
+Max diff over all states: 0.9435887825
+137 refineable states.
+
+Refinement 7...
+41 states successfully refined in 0.049 secs.
+179+0=179 states of STPG rebuilt in 0.0 secs.
+New STPG has 9860 states.
+
+Model checking STPG...
+STPG model checked in 0.034 secs.
+9664/9860 states converged.
+Diff across 1 initial state: 2.022195899667109E-6
+Lower/upper bounds for 1 initial state: 0.014611853668026711 - 0.014613875863926378
+Max diff over all states: 0.9435887825
+117 refineable states.
+
+Refinement 8...
+39 states successfully refined in 0.046 secs.
+181+0=181 states of STPG rebuilt in 0.0 secs.
+New STPG has 9906 states.
+
+Model checking STPG...
+STPG model checked in 0.037 secs.
+9760/9906 states converged.
+Diff across 1 initial state: 2.022175356579045E-6
+Lower/upper bounds for 1 initial state: 0.0146118536885698 - 0.014613875863926378
+Max diff over all states: 0.69808375
+87 refineable states.
+
+Refinement 9...
+32 states successfully refined in 0.04 secs.
+140+0=140 states of STPG rebuilt in 0.0 secs.
+New STPG has 9943 states.
+
+Model checking STPG...
+STPG model checked in 0.036 secs.
+9835/9943 states converged.
+Diff across 1 initial state: 2.0220033488185796E-6
+Lower/upper bounds for 1 initial state: 0.01461185386057756 - 0.014613875863926378
+Max diff over all states: 0.054774943100704535
+56 refineable states.
+
+Refinement 10...
+26 states successfully refined in 0.027 secs.
+112+0=112 states of STPG rebuilt in 0.0 secs.
+New STPG has 9978 states.
+
+Model checking STPG...
+STPG model checked in 0.035 secs.
+9917/9978 states converged.
+Diff across 1 initial state: 2.021866757953225E-6
+Lower/upper bounds for 1 initial state: 0.014611853997168425 - 0.014613875863926378
+Max diff over all states: 0.011699254798705906
+34 refineable states.
+
+Refinement 11...
+18 states successfully refined in 0.034 secs.
+64+0=64 states of STPG rebuilt in 0.0 secs.
+New STPG has 10000 states.
+
+Model checking STPG...
+STPG model checked in 0.055 secs.
+9955/10000 states converged.
+Diff across 1 initial state: 2.014392204865642E-6
+Lower/upper bounds for 1 initial state: 0.014611861471721513 - 0.014613875863926378
+Max diff over all states: 0.004537195333125001
+24 refineable states.
+
+Refinement 12...
+10 states successfully refined in 0.015 secs.
+47+0=47 states of STPG rebuilt in 0.0 secs.
+New STPG has 10016 states.
+
+Model checking STPG...
+STPG model checked in 0.044 secs.
+9993/10016 states converged.
+Diff across 1 initial state: 1.8783808725733597E-6
+Lower/upper bounds for 1 initial state: 0.014611997483053805 - 0.014613875863926378
+Max diff over all states: 0.00122907726680907
+13 refineable states.
+
+Refinement 13...
+7 states successfully refined in 0.007 secs.
+23+0=23 states of STPG rebuilt in 0.0 secs.
+New STPG has 10023 states.
+
+Model checking STPG...
+STPG model checked in 0.044 secs.
+10009/10023 states converged.
+Diff across 1 initial state: 1.8783808725733597E-6
+Lower/upper bounds for 1 initial state: 0.014611997483053805 - 0.014613875863926378
+Max diff over all states: 3.443439715921093E-4
+7 refineable states.
+
+Refinement 14...
+4 states successfully refined in 0.004 secs.
+13+0=13 states of STPG rebuilt in 0.0 secs.
+New STPG has 10027 states.
+
+Model checking STPG...
+STPG model checked in 0.044 secs.
+10019/10027 states converged.
+Diff across 1 initial state: 1.8783808725733597E-6
+Lower/upper bounds for 1 initial state: 0.014611997483053805 - 0.014613875863926378
+Max diff over all states: 7.282245760917468E-5
+4 refineable states.
+
+Refinement 15...
+3 states successfully refined in 0.002 secs.
+9+0=9 states of STPG rebuilt in 0.0 secs.
+New STPG has 10030 states.
+
+Model checking STPG...
+STPG model checked in 0.044 secs.
+10030/10030 states converged.
+Diff across 1 initial state: 0.0
+Lower/upper bounds for 1 initial state: 0.014613875863926378 - 0.014613875863926378
+
+Initial STPG: 9383 states (1 initial), 10956 transitions, 5490 choices, 5315 choice sets, p1max/avg = 7/0.57, p2max/avg = 3/1.03
+Final STPG: 10030 states (1 initial), 17372 transitions, 8698 choices, 7070 choice sets, p1max/avg = 18/0.70, p2max/avg = 3/1.23
+
+Terminated after 15 refinements in 1.39 secs.
+
+Abstraction-refinement time breakdown:
+* 0.19 secs (13.3%) = Building initial STPG
+* 0.00 secs (0.0%) = Rebuilding STPG (15 x avg 0.00 secs)
+* 0.65 secs (46.9%) = model checking STPG (16 x avg 0.04 secs) (lb=51.8%) (prob0=10.1%) (pre=92.4%) (iters=393)
+* 0.55 secs (39.4%) = refinement (15 x avg 0.04 secs)
+
+Final diff across 1 initial state: 0.0
+Final lower/upper bounds for 1 initial state: 0.014613875863926378 - 0.014613875863926378
+
+Model checking completed in 1.397 secs.
+
+Result (maximum probability): 0.014613875863926378
+
+---------------------------------------------------------------------
+
+Model checking: Pmin=? [ F q=9 ]
+
+Building PTA...
+
+PTA: 3 clocks, 15 locations, 21 transitions
+Target (q=9) satisfied by 7 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 9383 states
+Graph constructed in 0.16 secs.
+Graph: 9383 symbolic states (1 initial, 4392 target)
+
+Model checking STPG...
+STPG model checked in 0.088 secs.
+8937/9383 states converged.
+Diff across 1 initial state: 0.012278591377119742
+Lower/upper bounds for 1 initial state: 0.002335664337713683 - 0.014614255714833425
+Max diff over all states: 0.99993439
+132 refineable states.
+
+Refinement 1...
+107 states successfully refined in 0.036 secs.
+343+0=343 states of STPG rebuilt in 0.0 secs.
+New STPG has 9490 states.
+
+Model checking STPG...
+STPG model checked in 0.025 secs.
+9065/9490 states converged.
+Diff across 1 initial state: 0.012278591376279334
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.014614255714833425
+Max diff over all states: 0.99993439
+215 refineable states.
+
+Refinement 2...
+118 states successfully refined in 0.062 secs.
+414+0=414 states of STPG rebuilt in 0.0 secs.
+New STPG has 9630 states.
+
+Model checking STPG...
+STPG model checked in 0.043 secs.
+9238/9630 states converged.
+Diff across 1 initial state: 3.3740480302854765E-6
+Lower/upper bounds for 1 initial state: 0.0023356643378453913 - 0.0023390383858756768
+Max diff over all states: 0.9994281732150625
+269 refineable states.
+
+Refinement 3...
+62 states successfully refined in 0.079 secs.
+268+0=268 states of STPG rebuilt in 0.0 secs.
+New STPG has 9741 states.
+
+Model checking STPG...
+STPG model checked in 0.054 secs.
+9370/9741 states converged.
+Diff across 1 initial state: 1.7675806211528942E-6
+Lower/upper bounds for 1 initial state: 0.002335664335264148 - 0.002337431915885301
+Max diff over all states: 0.9994281732150625
+268 refineable states.
+
+Refinement 4...
+64 states successfully refined in 0.135 secs.
+270+0=270 states of STPG rebuilt in 0.0 secs.
+New STPG has 9847 states.
+
+Model checking STPG...
+STPG model checked in 0.069 secs.
+9501/9847 states converged.
+Diff across 1 initial state: 1.7103722415091373E-6
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.0023373747107955996
+Max diff over all states: 0.9994281732150625
+251 refineable states.
+
+Refinement 5...
+67 states successfully refined in 0.14 secs.
+252+0=252 states of STPG rebuilt in 0.0 secs.
+New STPG has 9956 states.
+
+Model checking STPG...
+STPG model checked in 0.076 secs.
+9624/9956 states converged.
+Diff across 1 initial state: 1.6847157610034788E-6
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.002337349054315094
+Max diff over all states: 0.9994281732150625
+243 refineable states.
+
+Refinement 6...
+56 states successfully refined in 0.128 secs.
+258+0=258 states of STPG rebuilt in 0.0 secs.
+New STPG has 10054 states.
+
+Model checking STPG...
+STPG model checked in 0.082 secs.
+9734/10054 states converged.
+Diff across 1 initial state: 1.0632852942161347E-6
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.0023367276238483066
+Max diff over all states: 0.9992985607206875
+247 refineable states.
+
+Refinement 7...
+51 states successfully refined in 0.123 secs.
+233+0=233 states of STPG rebuilt in 0.0 secs.
+New STPG has 10133 states.
+
+Model checking STPG...
+STPG model checked in 0.088 secs.
+9826/10133 states converged.
+Diff across 1 initial state: 1.0142711014916525E-6
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.002336678609655582
+Max diff over all states: 0.26459669259034374
+251 refineable states.
+
+Refinement 8...
+54 states successfully refined in 0.111 secs.
+238+0=238 states of STPG rebuilt in 0.0 secs.
+New STPG has 10216 states.
+
+Model checking STPG...
+STPG model checked in 0.091 secs.
+9928/10216 states converged.
+Diff across 1 initial state: 6.040051774534871E-8
+Lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.002335724739071836
+
+Initial STPG: 9383 states (1 initial), 10956 transitions, 5490 choices, 5315 choice sets, p1max/avg = 7/0.57, p2max/avg = 3/1.03
+Final STPG: 10216 states (1 initial), 21502 transitions, 10763 choices, 8005 choice sets, p1max/avg = 39/0.78, p2max/avg = 4/1.34
+
+Terminated after 8 refinements in 1.72 secs.
+
+Abstraction-refinement time breakdown:
+* 0.29 secs (16.6%) = Building initial STPG
+* 0.00 secs (0.0%) = Rebuilding STPG (8 x avg 0.00 secs)
+* 0.62 secs (35.9%) = model checking STPG (9 x avg 0.07 secs) (lb=51.5%) (prob0=9.7%) (pre=84.9%) (iters=298)
+* 0.81 secs (47.4%) = refinement (8 x avg 0.10 secs)
+
+Final diff across 1 initial state: 6.040051774534871E-8
+Final lower/upper bounds for 1 initial state: 0.0023356643385540905 - 0.002335724739071836
+
+Model checking completed in 1.721 secs.
+
+Result (minimum probability): 0.002335694538812963
+
