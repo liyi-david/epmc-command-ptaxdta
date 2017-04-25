@@ -1,0 +1,12 @@
+#!/bin/sh
+#PBS -N ptaxdta
+#PBS -q cu
+#PBS -l walltime=48:00:00
+#PBS -l nodes=1:ppn=16
+#PBS -l mem=128000
+
+#PBS -o ./ptaxdta.stdout
+#PBS -e ./ptaxdta.stderr
+
+cd /home/liyi/Projects/ptaxdta/
+./run.sh /home/liyi/Projects/ptaxdta/data/robot_navi/y9_z15n_4-10 games
