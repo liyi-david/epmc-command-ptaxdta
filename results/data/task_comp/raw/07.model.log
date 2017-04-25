@@ -1,0 +1,55 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Fri Apr 21 11:57:45 CST 2017
+Hostname: mu01
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 07.model temp.prop -ptamethod games
+
+Parsing model file "07.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=8 ]
+(2) Pmin=? [ F q=8 ]
+(3) Pmax=? [ F q=9 ]
+(4) Pmin=? [ F q=9 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z y q l x 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=8 ]
+
+Building PTA...
+
+PTA: 3 clocks, 15 locations, 21 transitions
+Target (q=8) satisfied by 1 locations.
+
+Building initial STPG...
+
+Building forwards reachability graph... 365775 states
+Graph constructed in 2.887 secs.
+Graph: 365775 symbolic states (1 initial, 1062 target)
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x00002b81c52976d3, pid=5561, tid=0x00002b81c7ee9700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_131-b11) (build 1.8.0_131-b11)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.131-b11 mixed mode linux-amd64 )
+# Problematic frame:
+# C  [libpthread.so.0+0xb6d3]  pthread_cond_wait+0xc3
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# An error report file with more information is saved as:
+# /home/liyi/Projects/ptaxdta/data/task_comp/raw/hs_err_pid5561.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#

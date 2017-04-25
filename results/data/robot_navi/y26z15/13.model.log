@@ -1,0 +1,50 @@
+PRISM
+=====
+
+Version: 4.3.1
+Date: Fri Apr 21 11:59:14 CST 2017
+Hostname: mu01
+Memory limits: cudd=1g, java(heap)=56.9g
+Command line: prism 13.model temp.prop -ptamethod backwards
+
+Parsing model file "13.model"...
+
+Parsing properties file "temp.prop"...
+
+4 properties:
+(1) Pmax=? [ F q=3 ]
+(2) Pmin=? [ F q=3 ]
+(3) Pmax=? [ F q=4 ]
+(4) Pmin=? [ F q=4 ]
+
+Type:        PTA
+Modules:     main 
+Variables:   z q x y l 
+
+---------------------------------------------------------------------
+
+Model checking: Pmax=? [ F q=3 ]
+
+Building PTA...
+
+PTA: 3 clocks, 467 locations, 1087 transitions
+Target (q=3) satisfied by 1 locations.
+
+Building backwards reachability graph... 5805 8176 9831 11104#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x00002b09b2ebdef5, pid=5717, tid=0x00002b09b2cd5200
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_131-b11) (build 1.8.0_131-b11)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.131-b11 mixed mode linux-amd64 )
+# Problematic frame:
+# C  [libpthread.so.0+0x8ef5]  pthread_join+0xa5
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# An error report file with more information is saved as:
+# /home/liyi/Projects/ptaxdta/data/robot_navi/y26z15/hs_err_pid5717.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
