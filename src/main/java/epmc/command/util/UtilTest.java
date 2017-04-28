@@ -130,7 +130,7 @@ public class UtilTest {
                 dta.addConnectionFrom(q[i+1], new LabelPTA(a), dtatop)
                         .addTarget(1, new ClocksPTA(), q[i+1]);
             }
-            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= 9) && (z <= " + (9 * n) +  ")", dtaspace);
+            ClockConstraint g = UtilDBM.UDBMString2CC("(y <= 9) && (z <= " + (6 * n) +  ")", dtaspace);
 
             dta.addConnectionFrom(q[n], new LabelPTA(), g)
                 .addTarget(1, new ClocksPTA("y"), q[n+1]);
@@ -147,25 +147,47 @@ public class UtilTest {
             return res;
         }
         public static void main(Model model) throws EPMCException {
-            for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
-                System.out.println("==========  " + i + "  ==========");
-                ArrayList<ModelPTA> res = TaskComplete.generate(model,i);
-                ModelPTA pta = res.get(0);
-                ModelPTA dta = res.get(1);
-                System.out.println(pta.toJani(null));
-                System.out.println(dta.toJani(null));
 
-                //            System.out.println(pta.toPrism());
-//            System.out.println(UtilModelParser.prettyString(dta.toJani(null)));
-//            System.out.println(dta.toPrism());
-                UtilProductV2 util = new UtilProductV2();
-                ModelPTA result = util.prod(pta,dta);
+            try {
+//                File file = new File("");
+//                file.createNewFile();
+                String path = "/Users/lijianlin/task_complete_z6n/";
+                FileWriter writer = new FileWriter(path + "ALL.txt");
+//                writer.write("This\n is\n an\n example\n");
+                for (int i = 5; i <= 20; i+= (i<19) ? 2 : 1) {
+                    System.out.println("==========  " + i + "  ==========");
+                    writer.write("==========  " + i + "  ==========\n");
 
-//FIXME            System.out.println(dta.isDTA());
-                System.out.println(result.toJani(null));
-                System.out.println(result.toSingleJani(null));
-                System.out.println(result.toPrism());
+                    ArrayList<ModelPTA> res = TaskComplete.generate(model,i);
+                    ModelPTA pta = res.get(0);
+                    ModelPTA dta = res.get(1);
+                    writer.write(pta.toJani(null) + "\n");
+                    writer.write(dta.toJani(null) + "\n");
+
+                    UtilProductV2 util = new UtilProductV2();
+                    ModelPTA result = util.prod(pta,dta);
+
+                    writer.write(result.toJani(null) + "\n");
+                    writer.write(result.toSingleJani(null) + "\n");
+                    String Prism = result.toPrism() + "\n";
+                    writer.write(Prism);
+
+                    String pname = i + ".model";
+                    if(i<10) pname = "0" + pname;
+
+                    FileWriter pwriter = new FileWriter(path + pname);
+                    pwriter.write(Prism + "\n");
+                    pwriter.flush();
+                    pwriter.close();
+
+                }
+                writer.flush();
+                writer.close();
             }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+
         }
     }
     public static class RobotNavigate {
@@ -452,7 +474,7 @@ public class UtilTest {
 
     }
     public static void main(Model model) throws EPMCException {
-        RobotNavigate.main(model);
-//        TaskComplete.main(model);
+//        RobotNavigate.main(model);
+        TaskComplete.main(model);
     }
 }
