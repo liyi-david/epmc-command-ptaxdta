@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: pta-dta.aux
+The style file: splncs03.bst
+Database file #1: pta.bib
+Repeated entry---line 1073 of file pta.bib
+ : @article{DBLP:journals/tcs/AlurD94
+ :                                   ,
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "DBLP:conf/qest/Sproston11"
+refers to entry "DBLP:conf/qest/2011", which doesn't exist
+A bad cross reference---entry "DBLP:conf/tapsoft/Vaandrager97"
+refers to entry "DBLP:conf/tapsoft/1997", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/qest/2011"
+Warning--I didn't find a database entry for "DBLP:conf/tapsoft/1997"
+You've used 27 entries,
+            2785 wiz_defined-function locations,
+            818 strings with 12725 characters,
+and the built_in function-call counts, 16238 in all, are:
+= -- 1391
+> -- 464
+< -- 40
++ -- 187
+- -- 157
+* -- 1093
+:= -- 2037
+add.period$ -- 45
+call.type$ -- 27
+change.case$ -- 173
+chr.to.int$ -- 0
+cite$ -- 27
+duplicate$ -- 1430
+empty$ -- 1411
+format.name$ -- 190
+if$ -- 3566
+int.to.chr$ -- 0
+int.to.str$ -- 27
+missing$ -- 297
+newline$ -- 86
+num.names$ -- 71
+pop$ -- 475
+preamble$ -- 1
+purify$ -- 125
+quote$ -- 0
+skip$ -- 475
+stack$ -- 0
+substring$ -- 960
+swap$ -- 862
+text.length$ -- 38
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 101
+warning$ -- 0
+while$ -- 147
+width$ -- 29
+write$ -- 306
+(There were 3 error messages)

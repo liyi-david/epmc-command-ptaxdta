@@ -1,0 +1,125 @@
+
+\vspace{-0.8em}
+\section{The PTA-DTA Problem}
+\vspace{-0.8em}
+
+In this section, we define the problem of model-checking PTAs against DTA-specifications.
+The problem takes a PTA and a DTA as input, and computes the probability that infinite paths under the PTA are accepted by the DTA.
+Informally, the DTA encodes the linear-time property by judging whether an infinite path is accepted or not through the external behaviour of the path,
+thus the problem is to compute the probability that the external behaviour of PTA meets the criterion specified by the DTA.
+In practice, the DTA is often used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluated to what extent the PTA behaves in a good (or bad) way.
+
+Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a DTA $\dta$ taking the form (\ref{eq:dta}) 
+with the difference that the set of clocks for $\pta$ (resp. for $\dta$) is denoted by $\clocks_1$ (resp. $\clocks_2$).
+W.l.o.g., we assume that $\clocks_1\cap\clocks_2=\emptyset$ and $\alphabet=2^{\ap}$.
+%We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
+We first show how an infinite path in $\infpaths{\pta}$ can be interpreted as an infinite word.
+
+\vspace{-0.8em}
+\begin{definition}[Infinite Paths as Infinite Words]\label{def:interpretation}
+Given an infinite path
+\[
+\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1(\loc_2,\nu_2)a_2\dots a_{2n}(\loc_{2n+1},\nu_{2n+1})a_{2n+1}(\loc_{2n+2},\nu_{2n+2})\dots
+\]
+under $\pta$ (note that $\nu_0=\zero$), the infinite word $\lbfunc(\infpath)$ over $2^{\ap}\cup[0,\infty)$ is defined as 
+\[
+\lbfunc(\infpath):=a_0\lbfunc(\loc_2)a_2\lbfunc(\loc_4)\dots a_{2n}\lbfunc(\loc_{2n+2}) \dots\enskip.
+\]
+Recall that $a_{2n}\in [0,\infty)$ and $a_{2n+1}\in\acts$. 
+%where $a'_n:= a_n$ if $a_n\in [0,\infty)$ and $a'_n:=\varepsilon$ otherwise ($\varepsilon$ is the empty word).
+\end{definition}
+
+\begin{remark}
+Informally, the interpretation in Definition~\ref{def:interpretation} works
+by (i) dropping (a) the initial location $\loc_0$, (b) all clock valuations $\nu_n$'s, 
+(c) all locations $\loc_{2n+1}$'s following a time-elapse,
+(d) all internal actions $a_{2n+1}$'s of $\pta$ and (ii) replacing every $\loc_{2n}$ ($n\ge 1$) by $\lbfunc(\loc_{2n})$.
+The interpretation captures only external behaviours including time-elapses and labels of locations upon state-change, and discards internal behaviours such as the concrete locations, clock valuations and actions.
+Although the interpretation ignores the initial location,
+we deal with it in our acceptance condition where the initial location is preprocessed by the DTA.
+\end{remark}
+
+\begin{remark}
+Our interpretation is different from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}.
+In the style from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}, an infinite path
+$(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ is interpreted as $a_0 \lbfunc(\loc_0)a_2 \lbfunc(\loc_2)\dots$,
+reversing the locations and actions/time-elapses.
+In contrast, our interpretation follows a natural way that preserves the order of external events in an infinite path.
+This advantage allows one to specify DTAs (for linear-time properties) in a straightforward way.
+\end{remark}
+
+Based on Definition~\ref{def:interpretation}, we define the finite acceptance condition as follows.
+For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by $\initloc{\infpath}$ the initial location $\loc_0$.
+
+\vspace{-0.8em}
+\begin{definition}[Path Acceptance]\label{def:fnacc}
+An infinite path $\infpath$ under $\pta$ is \emph{infinitely accepted} by $\dta$ w.r.t initial configuration $(\dtloc,\nu)$ and a Rabin acceptance condition $\rabin$ if the infinite word $\lbfunc(\infpath)$ is accepted by $\dta$ w.r.t $\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)$ and $\rabin$.
+\end{definition}
+
+%\begin{definition}[Rabin Acceptance]\label{def:infacc}
+%Let $\Gamma=\{(E_i,F_i)\}_{i\in I}$ be a finite collection of set pairs indexed by $I$ such that $E_i,F_i\subseteq\cstates$ for all $i\in I$.
+%An infinite path $\infpath$ under $\pta$ is \emph{infinitely accepted} by $\dta$ w.r.t initial configuration $(\dtloc,\nu)$ and $\Gamma$ if the infinite word $\lbfunc(\infpath)$ is accepted by $\dta$ w.r.t $\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\pi})\right),\zero\right)$ and $\Gamma$.
+%\end{definition}
+
+In the definitions above, the initial location omitted in Definition~\ref{def:interpretation} is preprocessed by specifying explicitly that the initial configuration is $\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)$.
+
+Now we define the notion of acceptance probabilities over infinite paths under $\pta$.
+\vspace{-0.8em}
+\begin{definition}[Acceptance Probabilities]
+Let $F$ be a Rain acceptance condition.
+The probability that $\pta$ \emph{observes} $\dta$ under scheduler $\sigma$, initial mode $\dtloc\in\cstates$ and $F$, denoted by $\pr{\dtloc,F}{\sigma}$, is defined by:
+\[
+    \pr{\dtloc,\rabin}{\sigma}
+        :=
+            \probm^{\pta,\sigma}\left(
+                % \acc{\pta,\sigma}{\dta,q,F}
+                \LangCsAqF
+            \right)
+\]
+% \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\dta,q,F}\right)
+where $\LangCsAqF$ is paths in $\pta$ that falls into the Rabin-accepted language of $\dta$
+$$
+    \LangCsAqF = \left \{ 
+        \infpath \in \infpaths{\pta,\sigma} \mid 
+        \infpath
+        \mbox{ is accepted by } \dta \mbox{ w.r.t. } (q,\zero) \mbox{ and } \rabin 
+    \right\}
+$$
+% $\acc{\pta,\sigma}{\dta,q,F}:=\left\{\infpath\in\infpaths{\pta,\sigma}\mid \infpath\mbox{ is accepted by }\dta\mbox{ w.r.t. }(q,\zero)\mbox{ and }F\right\}$.
+\end{definition}
+Again, from the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, 
+$\acc{\pta,\sigma}{\dta,q,F}$ is \textcolor[rgb]{1,0,0}{measurable since it can be represent int the 
+form of a countable intersect and countable union of some cylinder sets}.
+
+Now the {\sc PTA-DTA} problem is as follows.
+
+\begin{compactitem}
+\item {\bf Input:} a well-formed PTA $\pta$, a DTA $\dta$, an initial mode $\dtloc$ and a subset $\rabin$ of modes;
+\item {\bf Output:} $\inf_\sigma \pr{\dtloc,\rabin}{\sigma}$ and $\sup_\sigma  \pr{\dtloc,\rabin}{\sigma}$, where $\sigma$ ranges over all time-divergent schedulers.
+\end{compactitem}
+
+%In this paper, we also consider a variant of {\sc PTA-DTA} which incorporates rewards.
+%We first migrate the notion of cumulative reward to DTAs.
+
+%\begin{definition}[Cumulative Reward Until Acceptance]
+%Let $\Gamma$ be a subset of $\locs$ and $(\rcum,\rinst)$ be a reward structure for $\pta$.
+%The random variable $\accum{F}$ over infinite paths is defined as follows:
+%for any infinite path $\infpath$ and its associated run
+%$\run{\dta}{\dtloc,\nu}{\lbfunc(\infpath)}=\{(\dtloc_n,\nu_n,a_n)\}_{n\in\Nset_0}$,
+%\[
+%\accum{F}(\infpath):=
+%\begin{cases}
+%\sum_{k=0}^{n^*-1} \ronestep(\loc_k, a_k) & \mbox{if }\{n\mid \dtloc_n\in F\}\ne\emptyset\mbox{ and }n^*=\min\{n\mid \dtloc_n\in F\}\\
+%\infty & \mbox{otherwise}
+%\end{cases}\enskip.
+%\]
+%Then the \emph{expected cumulative reward} $\rd{\dtloc}{\sigma,\Gamma}$ is defined as $\rd{\dtloc}{\sigma,\Gamma}:=\expv^{\pta,\sigma}(\accum{F})$, where $\expv^{\pta,\sigma}$ is the expectation operator for $\probm^{\pta,\sigma}$\enskip.
+%\end{definition}
+
+%Then we integrate reward into the {\sc PTA-DTA} problem. We call it {\sc REWARD-PTA-DTA} problem.
+
+%\begin{compactitem}
+%\item {\bf Input:} a PTA $\pta$, a DTA $\dta$, a reward structure $(\rcum,\rinst)$, an initial mode $\dtloc$ and a $\Gamma$ given as in either Definition~\ref{def:fnacc} or Definition~\ref{def:infacc} such that $\inf_\sigma \pr{\dtloc,\Gamma}{\sigma}=1$;
+%\item {\bf Output:} $\inf_\sigma \rd{\dtloc}{\sigma,\Gamma}$ and $\sup_\sigma  \rd{\dtloc}{\sigma,\Gamma}$, where $\sigma$ ranges over all schedulers.
+%\end{compactitem}
+

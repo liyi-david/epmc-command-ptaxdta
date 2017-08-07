@@ -1,0 +1,451 @@
+\documentclass{llncs}
+
+\usepackage{makeidx}
+
+\usepackage{bm}
+\usepackage{pgfplots}
+\usepackage{enumerate,paralist}
+\usepackage{pbox}
+\usepackage{parskip}
+\usepackage{multirow}
+\usepackage{url}
+
+%\usepackage{subfigure}
+%\usepackage{appendix}
+%\usepackage{comment}
+
+\usepackage{graphicx}
+\usepackage{tikz,pgffor}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{calc}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+
+\tikzstyle{location}=[rectangle, rounded corners, draw=black, very thick, minimum height=2em, inner sep=0pt,text centered]
+\tikzstyle{tran}=[draw,->,>=stealth, rounded corners]
+\tikzstyle{dec}=[inner sep=0pt]
+\tikzstyle{mode}=[shape=circle,draw,inner sep=0pt,minimum size=5mm]
+
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{amsthm}
+
+\usepackage{mathtools}
+\usepackage{times}
+\usepackage{stmaryrd}
+
+%\theoremstyle{plain}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{claim}{Claim}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{definition}{Definition}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{example}{Example}
+%\newtheorem{remark}{Remark}
+%\newtheorem{observation}{Observation}
+%\newtheorem{assumption}{Assumption}
+
+%% Notations
+
+%%General Notations
+
+\newcommand{\Rset}{\mathbb{R}}
+\newcommand{\Nset}{\mathbb{N}}
+\newcommand{\Zset}{\mathbb{Z}}
+\newcommand{\ap}{\mbox{\sl AP}}
+\newcommand{\opt}{\mbox{\sl opt}}
+
+%%Clocks and Clock Constraints
+
+\newcommand{\clocks}{\mathcal{X}}
+\newcommand{\val}[1]{\mbox{\sl Val}\left(#1\right)}
+\newcommand{\reset}[2]{{#1}{\left[#2:=0\right]}}
+\newcommand{\add}[2]{{#1}{+}{#2}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\true}{\mathbf{true}}
+\newcommand{\false}{\mathbf{false}}
+\newcommand{\supp}[1]{{\mbox{\sl supp}}(#1)}
+\newcommand{\dist}[1]{{\mathcal{D}}{\left(#1\right)}}
+\newcommand{\sat}[1]{{\llbracket}{#1}{\rrbracket}}
+\newcommand{\intp}[1]{{\lfloor}{#1}{\rfloor}}
+\newcommand{\fracp}[1]{\mbox{\sl frac}(#1)}
+\newcommand{\evclass}[1]{\left[#1\right]}
+
+%%PTAs
+
+\newcommand{\pta}{\mathcal{C}}
+\newcommand{\locs}{L}
+\newcommand{\loc}{\ell}
+\newcommand{\acts}{\mbox{\sl Act}}
+\newcommand{\inv}{\mbox{\sl inv}}
+\newcommand{\enab}{\mbox{\sl enab}}
+\newcommand{\prob}{\mbox{\sl prob}}
+\newcommand{\lbfunc}{\mathcal{L}}
+\newcommand{\clcons}[1]{\mbox{\sl CC}\left(#1\right)}
+\newcommand{\istate}{\left(\loc^*,\mathbf{0}\right)}
+
+%% Semantics of PTAs
+
+\newcommand{\states}{S}
+\newcommand{\trans}{\rightarrow}
+\newcommand{\tran}[3]{{#1}{\xrightarrow{#2}}{#3}}
+\newcommand{\probk}{\mathbf{P}}
+\newcommand{\fnpaths}[1]{\mbox{\sl Paths}^*_{#1}}
+\newcommand{\infpaths}[1]{\mbox{\sl Paths}^\omega_{#1}}
+\newcommand{\omgpaths}[2]{\mbox{\sl Reach}^{#2}_{#1}}
+\newcommand{\initloc}[1]{\mbox{\sl init}\left(#1\right)}
+
+\newcommand{\fnpath}{\rho}
+\newcommand{\infpath}{\pi}
+
+%% Notations for Probability Space
+
+\newcommand{\probm}{\mathbb{P}}
+\newcommand{\expv}{\mathbb{E}}
+\newcommand{\cyl}{\mbox{\sl Cyl}}
+
+%% Notations for DTAs
+
+\newcommand{\dta}{\mathcal{A}}
+\newcommand{\dtloc}{q}
+\newcommand{\cstates}{Q}
+\newcommand{\alphabet}{\Sigma}
+\newcommand{\fstates}{F}
+\newcommand{\rules}{\Delta}
+\newcommand{\dtphi}[3]{\Phi_{#1,#2}^{#3}}
+\newcommand{\dtx}[3]{\mathbf{X}_{#1,#2}^{#3}}
+\newcommand{\dtq}[3]{\mathbf{q}_{#1,#2}^{#3}}
+\newcommand{\trfunc}{\kappa}
+\newcommand{\dtatr}[3]{{#1}{\xRightarrow{#2}}{#3}}
+\newcommand{\regions}{\mathcal{G}}
+
+\newcommand{\run}[3]{{#1}_{#2}\left(#3\right)}
+\newcommand{\iconfig}{\left(\dtloc^*,\mathbf{0}\right)}
+
+%%Product Constrution
+\newcommand{\product}[2]{{#1}{\otimes}{#2}}
+\newcommand{\pr}[2]{\mathfrak{p}_{#1}^{#2}}
+\newcommand{\pfunc}{\mathcal{T}}
+\newcommand{\sfunc}{\theta}
+\newcommand{\acc}[2]{{\mbox{\sl AccPaths}}_{#1}^{#2}}
+\newcommand{\extactions}{\mathcal{B}}
+\newcommand{\exttuples}{\mathcal{T}}
+
+%%Reward Structure
+\newcommand{\rcum}{\mathbf{r}_{\locs}}
+\newcommand{\rinst}{\mathbf{r}_{\acts}}
+\newcommand{\ronestep}{\mathbf{r}}
+\newcommand{\accum}[1]{\mbox{\sl Cum}_{#1}}
+\newcommand{\rd}[2]{\mathsf{R}_{#1}^{#2}}
+
+%%Rabin acceptance
+
+% \newcommand{\infset}[1]{\mbox{\sl{inf  }} ( #1 )}
+% \newcommand{\trace }[1]{\mbox{\sl{trace}} ( #1 )}
+% \newcommand{\traj  }[1]{\mbox{\sl{traj }} ( #1 )}
+\newcommand{\infset}[1]{inf  ( #1 )}
+\newcommand{\trace }[1]{trace( #1 )}
+\newcommand{\traj  }[1]{traj ( #1 )}
+\newcommand{\rabin}{\mathcal{F}}
+
+\newcommand{\Lang}[2] {
+    Lang
+        _{#1}
+        ^{#2}
+}
+
+\newcommand{\Accept}[2]{
+    Accept
+        _{#1}
+        ^{#2}   
+}
+
+\newcommand{\LangCsAqF}{
+    \Lang
+        {\pta,\sigma}
+        {\dta,\dtloc,\rabin}
+}
+
+\newcommand{\AcceptCxAqsF}{
+    \Accept
+        {
+            \product{\pta}{\dta_\dtloc},
+            \sigma
+        }
+        {\rabin}
+}
+
+\newcommand{\TLang}{
+    \pfunc\left(
+        \LangCsAqF
+    \right)
+}
+
+\newcommand{\TAcc}{
+    \Accept
+        {
+            \product{\pta}{\dta_\dtloc},
+            \sfunc \left( 
+                \sigma
+            \right)
+        }
+        {\rabin}
+}
+
+
+%%For drawing grids
+
+\newcounter{row}
+\newcounter{col}
+
+\newcommand\setrow[3]{
+  \setcounter{col}{1}
+  \foreach \n in {#1, #2, #3} {
+    \edef\x{\value{col} - 0.5}
+    \edef\y{3.5 - \value{row}}
+    \node[anchor=center] at (\x, \y) {\n};
+    \stepcounter{col}
+  }
+  \stepcounter{row}
+}
+
+% Undecidability
+\newcommand{\nta}{\mathcal{A}}
+\newcommand{\qinit}{q_{init}}
+\newcommand{\ntaap}[1]{p_{#1}}
+\newcommand{\PCswLang}{
+    \probm^{\pta,\sigma_w }\left(
+    \Lang
+        {\pta,\sigma_w}
+        {\nta',\qinit,\rabin}
+    \right)
+}
+%%adjusting layout
+
+%\renewcommand{\baselinestretch}{0.96}
+%\addtolength{\textheight}{0.1in}
+%\addtolength{\voffset}{-0.05in}
+%\addtolength{\oddsidemargin}{-0.05in}
+%\addtolength{\evensidemargin}{-0.05in}
+%\addtolength{\textwidth}{0.1in}
+\addtolength{\parskip}{-0.5mm}
+%\setlength{\textfloatsep}{0.2cm}
+
+\begin{document}
+
+\title{Verifying Probabilistic Timed Automata Against \\Deterministic-Timed-Automata Specifications}
+\titlerunning{Verifying PTAs against DTA specifications}
+
+\author{Hongfei Fu\inst{1}, Yi Li\inst{2}, Jianlin Li\inst{3}, Lijun Zhang\inst{1}}
+\authorrunning{Hongfei Fu et al.}
+
+\institute{State Key Laboratory of Computer Science\\ Institute of Software, Chinese Academy of Sciences, Beijing, China
+\and
+Department of Informatics, School of Mathematical Sciences\\ Peking University, Beijing, China,
+\and
+College of Computer Science and Technology \\Nanjing University of Aeronautics and Astronautics, Nanjing, China}
+%Formal Methods and Tools Group, The University of Twente, The Netherlands}
+%College of computer science and technology, Nanjing University of Aeronautics and Astronautics, Nanjing, P.R. China
+\maketitle
+
+\input{abstract}
+\input{introduction}
+\input{preliminaries}
+\input{problem}
+\input{product}
+\input{omegaacc}
+\input{casestudies}
+\input{experiments}
+\input{conclusion}
+
+\clearpage
+
+\bibliographystyle{splncs03}
+\bibliography{pta}
+
+\end{document}
+
+
+%%Previous Figures
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[x=2cm, y=2cm]
+
+\node[location] (q00)         at (0,0)
+{
+\begin{tabular}{l}
+$\loc_{0,0}$\\
+\hline
+$\true$ \\
+$x\in [2,3]$ \\
+$\{\beta\}$
+\end{tabular}
+};
+
+\node[location] (q01)         at (0,2)
+{
+\begin{tabular}{l}
+$\loc_{0,1}$\\
+\hline
+$\true$ \\
+$x\in [1,2]$ \\
+$\{\alpha\}$
+\end{tabular}
+};
+
+\node[location] (q02)         at (0,4)
+{
+\begin{tabular}{l}
+$\loc_{0,2}$\\
+\hline
+$\true$ \\
+$x\in [1,2]$ \\
+$\{\alpha\}$
+\end{tabular}
+};
+
+\node[location] (q10)         at (2,0)
+{
+\begin{tabular}{l}
+$\loc_{1,0}$\\
+\hline
+$\true$ \\
+$x\in [2,3]$ \\
+$\{\beta\}$
+\end{tabular}
+};
+
+
+
+\node[location] (q11)         at (2,2)
+{
+\begin{tabular}{l}
+$\loc_{1,1}$\\
+\hline
+$\true$ \\
+$x\in [1,2]$ \\
+$\{\alpha\}$
+\end{tabular}
+};
+
+\node[location] (q21)         at (4,2)
+{
+\begin{tabular}{l}
+$\loc_{2,1}$\\
+\hline
+$\true$ \\
+$x\in [2,3]$ \\
+$\{\beta\}$
+\end{tabular}
+};
+
+\node[location] (q22)         at (4,4)
+{
+\begin{tabular}{l}
+$\loc_{2,2}$\\
+\hline
+$\true$ \\
+$x\in [2,3]$ \\
+$\{\gamma\}$
+\end{tabular}
+};
+
+\draw[tran, bend left] (q00)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q01);
+\draw[tran, bend left] (q00)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q10);
+\draw[tran, bend left] (q01)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q11);
+\draw[tran, bend left] (q01)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q00);
+\draw[tran, bend left] (q01)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q02);
+\draw[tran, bend left] (q02)       to node[auto, font=\scriptsize] {$a, 1, \{x\}$}      (q01);
+\draw[tran, bend left] (q10)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q00);
+\draw[tran, bend left] (q10)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q11);
+\draw[tran, bend left] (q11)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q01);
+\draw[tran, bend left] (q11)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q10);
+\draw[tran, bend left] (q11)       to node[auto, font=\scriptsize] {$a, \frac{1}{3}, \{x\}$}      (q21);
+\draw[tran, bend left] (q21)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q11);
+\draw[tran] (q21)       to node[auto, font=\scriptsize] {$a, \frac{1}{2}, \{x\}$}      (q22);
+
+\end{tikzpicture}
+\caption{The PTA for Example~\ref{ex:robotnavigation}}
+\label{fig:ptarobotnavigation}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[x = 1cm]
+\begin{scope}
+    \draw (0, 1) grid (3, 3);
+
+    \setcounter{row}{1}
+    \setrow{A}{ }{B}
+    \setrow{B}{B}{A}
+%    \node[anchor=center] at (1.5, -0.5) {Robot Navigation};
+\end{scope}
+
+\fill[black] (1,2) rectangle (2,3);
+
+\end{tikzpicture}
+\caption{A Robot-Navigation Example}
+\label{fig:robotnavigation}
+\end{figure}
+
+
+%% A Previous Table
+
+\begin{table}
+\centering
+\caption{Experimental Results for Task-Completion and Robot-Navigation}
+\label{tab:er}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{5}{|c|}{Task-Completion} & \multicolumn{5}{|c|}{Robot-Navigation}\\
+\hline
+$N$ & Size & Time & max & min & $N$ & Size & Time & max & min \\
+\hline
+5& & & & & 4& & & &\\
+\hline
+7& & & & & 5& & & &\\
+\hline
+9& & & & & 6& & & &\\
+\hline
+11& & & & & 7& & & &\\
+\hline
+13& & & & & 8& & & &\\
+\hline
+15& & & & & 9& & & &\\
+\hline
+15& & & & & 10& & & &\\
+\hline
+\end{tabular}
+\end{table}
+
+%% Another Previous Table
+
+\begin{table}
+\caption{Experimental Results for Robot-Navigation}
+\label{tab:robotnavigation}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$N$ & Size & Time & min & max \\
+\hline
+4& 1971 & 14s & 0.2166 & 0.3799 \\
+\hline
+5& 3390 & 54s & 0.1672 & 0.3146 \\
+\hline
+6& 7368 & 339s & 0.0724 & 0.1753 \\
+\hline
+7& 9873 & 1007s & 0.0473 & 0.1233 \\
+\hline
+8& 18131 & 2991s & 0.0200 & 0.0607 \\
+\hline
+9& 21564 & 6080s & 0.0092 &0.0371 \\
+\hline
+10& 36210 & 13383s & 0.0076 &0.0329 \\
+\hline
+\end{tabular}
+\end{table}
+

@@ -1,0 +1,189 @@
+\vspace{-0.8em}
+\section{Look here}
+\vspace{-0.8em}
+
+% \begin{definition}[Trace of Product]
+% let 
+% $ \pfunc(\infpath) \equiv 
+%     ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
+%     a'_0
+%     ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
+%     a'_1
+%     \dots 
+% $
+% and according to definition 
+% $Lab((\loc_i,\dtloc_i) = \left\{ \dtloc_i \right\}$.
+% $\trace{ \pfunc ( \infpath ) } $ is defined as $ \dtloc_0 \dtloc_1 \dots$
+% \end{definition}
+
+% The \emph{run} r of $\dta$ on an infinite word $w=\{a_n\}_{n\in\Nset_0}$
+% with \emph{initial configuration} $(\dtloc,\nu)$, denoted by 
+% $\run{\dta}{\dtloc,\nu}{w}$, is the unique infinitesequence 
+% $\{\left(\dtloc_n,\nu_n,a_n\right)\}_{n\in\Nset_0}$ we define 
+% $\traj{r} := q_0 q_1 \dots$
+
+% \begin{definition}[Rabin Acceptance Criterion]
+% An Rabin acceptance condition is 
+% $
+%     \rabin 
+%         = \left\{ 
+%             (H_1,K_1 ), 
+%             \dots ,
+%             (H_n,K_n) 
+%         \right\} 
+% $ .
+% A set $\cstates' \subseteq \cstates $ is called Rabin accepting by $\rabin$ 
+% if there exists $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $ 
+% and $ \cstates' \cap K_i \neq \emptyset $.
+% \end{definition}
+
+% Paths in PTA $\pta$ that falls into the Rabin-accepted language of DTA $\dta$ with acceptance condition $\rabin$ is 
+% $$
+%     \LangCsAqF = \left \{ 
+%         \infpath \in \infpaths{\pta,\sigma} \mid 
+%         \infset{ 
+%             \traj{ 
+%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+%             }
+%         }
+%         \mbox{ is Rabin accepting by } \rabin 
+%     \right\}
+% $$
+
+% Then, paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ with $\rabin$ is
+% % 写成定义在普通的 PTA 上还是乘积上好
+% $$
+%     \AcceptCxAqsF = \left \{ 
+%         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid 
+%         \infset{ 
+%             \trace{ 
+%                 \infpath
+%             }
+%         }
+%         \mbox{ is Rabin accepting by } \rabin
+%     \right\}
+% $$
+% and $\AcceptCxAqsF$ is an Limited LT Property.
+
+% \begin{proposition}\label{prop:psfunc} 
+% $\TLang = \TAcc$ for any scheduler $\sigma$, initial mode $q$ and $\rabin$ 
+% is an acceptance condition on DTA $\dta$.
+% \end{proposition}
+
+% \begin{proof}
+% % This proof is trivial.
+
+% let $\infpath \equiv (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
+% And by definition of $\pfunc$ we have
+% $$
+%     \pfunc( \infpath ) \equiv 
+%         ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
+%         a'_0
+%         ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
+%         a'_1
+%         \dots 
+% $$
+% % 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
+% $$
+%     \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+%         \equiv \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}
+% $$
+% Then we have
+% $$\trace{ \pfunc( \infpath ) }
+%     = q_0 q_1 \dots... 
+%     = \traj{ 
+%         \run
+%             {\dta}{\iconfig}
+%             {\lbfunc(\infpath)} 
+%     }
+% $$ 
+% and 
+% $\infset {
+%     \trace {
+%         \infpath
+%     }
+% }$
+% is Rabin accepting by $\rabin$ iff 
+% $
+%     \infset{ 
+%         \traj { 
+%             \run
+%                 {\dta}{\iconfig}
+%                 {\lbfunc(\infpath)} 
+%         }
+%     }
+% $
+% is Rabin accepting by $\rabin$.
+% \end{proof}
+
+% \vspace{-0.8em}
+% \begin{corollary}\label{crly:opt}
+% $\opt_\sigma\pr{\dtloc,F}{\sigma}
+%     = \opt_{\sigma'}\probm^{\product{\pta}{\dta_\dtloc},\sigma'}\left(
+%         Accept
+%             ^{\rabin}
+%             _{\product{\pta}{\dta_\dtloc},\sigma'}
+%     \right)$
+% for any initial mode $q$ and $\rabin$ is an acceptance condition, where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum) and $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$). And This can be calculated by an MEC algorithm and an reachability analysis.
+% \end{corollary}
+% \vspace{-0.8em}
+
+\begin{lemma}{(\cite{DBLP:conf/tapsoft/Vaandrager97})}
+Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all timed words over $\alphabet$ is undecidable.
+\end{lemma}
+
+\begin{proposition}
+Given a Nonedeterministic timed automaton over an alphabet $\alphabet$, the problem of deciding 
+the minimal probability that it accepts a PTA w.r.t. $(q_{start},\zero)$ is undecidable.
+\end{proposition}
+
+\begin{proof}
+We reach our goal by reducing the NTA universality problem to this problem.
+For any NTA $\nta = (\cstates,\alphabet,\clocks,\rules)$, let $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}.$
+
+we construct an $\nta' = (\cstates', \alphabet', \clocks, \rules')$ where
+$$
+    \cstates'   = \cstates  \cup \{ \qinit \},
+    \alphabet'  = \alphabet \cup \{ \ntaap{0} \},
+    \rules'     = \rules    \cup \{ \langle
+            \qinit,
+            \ntaap{0},
+            \true,
+            \clocks,
+            q_{start}
+        \rangle
+    \}.
+$$
+
+Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
+\begin{align*}
+    &\locs      :=  \alphabet',\\
+    &\loc^*     :=  \ntaap{0}, \\
+    &\clocks    :=  \emptyset, \\
+    &\acts      :=  \alphabet, \\ 
+    &\inv(\ntaap{i})                :=  \true, 
+                                    \text{ for all } \ntaap{i} \in \locs,\\
+    &\enab(\ntaap{i},\ntaap{j})     :=  \true,
+                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
+    &\prob(\ntaap{i},\ntaap{j})     :=  \mu(\emptyset,\ntaap{j}), 
+                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
+    &\lbfunc(\ntaap{i})             :=  \ntaap{i},
+                                    \text{ for all } \ntaap{i} \in \locs.
+\end{align*}
+It is natural to see, for any time word $ w \equiv \alpha_0 \alpha_1 \alpha_2 \cdots $
+there is a scheduler $ \sigma_w (\fnpath ) := a_{len(\fnpath)} $ such that $ \PCswLang = 1 $
+iff $\nta$ accepts $w$ w.r.t. $(q_{start},\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
+
+Then we have
+$
+\inf_\sigma \probm^{\pta,\sigma}\left(
+    \Lang
+        {\pta,\sigma}
+        {\nta',\qinit,\rabin}
+\right)
+    = 1
+$
+iff
+$\nta$ accepts all timewords w.r.t. $(q_{start},\zero)$.
+
+\end{proof}

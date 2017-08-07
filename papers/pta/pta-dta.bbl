@@ -1,0 +1,165 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{DBLP:journals/tcs/AlurD94}
+Alur, R., Dill, D.L.: A theory of timed automata. Theor. Comput. Sci.  126(2),
+  183--235 (1994), \url{http://dx.doi.org/10.1016/0304-3975(94)90010-8}
+
+\bibitem{DBLP:journals/fmsd/AndreFS13}
+Andr{\'{e}}, {\'{E}}., Fribourg, L., Sproston, J.: An extension of the inverse
+  method to probabilistic timed automata. Formal Methods in System Design
+  42(2),  119--145 (2013), \url{http://dx.doi.org/10.1007/s10703-012-0169-x}
+
+\bibitem{DBLP:books/daglib/0020348}
+Baier, C., Katoen, J.: {P}rinciples of {M}odel {C}hecking. {MIT} Press (2008)
+
+\bibitem{DBLP:conf/tacas/BarbotCHKM11}
+Barbot, B., Chen, T., Han, T., Katoen, J., Mereacre, A.: Efficient {CTMC} model
+  checking of linear real-time objectives. In: Abdulla, P.A., Leino, K.R.M.
+  (eds.) Tools and Algorithms for the Construction and Analysis of Systems -
+  17th International Conference, {TACAS} 2011, Held as Part of the Joint
+  European Conferences on Theory and Practice of Software, {ETAPS} 2011,
+  Saarbr{\"{u}}cken, Germany, March 26-April 3, 2011. Proceedings. Lecture
+  Notes in Computer Science, vol. 6605, pp. 128--142. Springer (2011),
+  \url{http://dx.doi.org/10.1007/978-3-642-19835-9_12}
+
+\bibitem{DBLP:journals/tcs/Beauquier03}
+Beauquier, D.: On probabilistic timed automata. Theor. Comput. Sci.  292(1),
+  65--84 (2003), \url{http://dx.doi.org/10.1016/S0304-3975(01)00215-8}
+
+\bibitem{DBLP:conf/tamc/BerendsenCJ09}
+Berendsen, J., Chen, T., Jansen, D.N.: Undecidability of cost-bounded
+  reachability in priced probabilistic timed automata. In: Chen, J., Cooper,
+  S.B. (eds.) Theory and Applications of Models of Computation, 6th Annual
+  Conference, {TAMC} 2009, Changsha, China, May 18-22, 2009. Proceedings.
+  Lecture Notes in Computer Science, vol. 5532, pp. 128--137. Springer (2009),
+  \url{http://dx.doi.org/10.1007/978-3-642-02017-9_16}
+
+\bibitem{PBMeasure}
+Billingsley, P.: {P}robability and {M}easure. Wiley, anniversary edition edn.
+  (2012)
+
+\bibitem{DBLP:conf/formats/BortolussiL15}
+Bortolussi, L., Lanciani, R.: Fluid model checking of timed properties. In:
+  Sankaranarayanan and Vicario  \cite{DBLP:conf/formats/2015}, pp. 172--188,
+  \url{http://dx.doi.org/10.1007/978-3-319-22975-1_12}
+
+\bibitem{DBLP:conf/hybrid/BrazdilKKKR11}
+Br{\'{a}}zdil, T., Krc{\'{a}}l, J., Kret{\'{\i}}nsk{\'{y}}, J., Kucera, A.,
+  Reh{\'{a}}k, V.: Measuring performance of continuous-time stochastic
+  processes using timed automata. In: Caccamo, M., Frazzoli, E., Grosu, R.
+  (eds.) Proceedings of the 14th {ACM} International Conference on Hybrid
+  Systems: Computation and Control, {HSCC} 2011, Chicago, IL, USA, April 12-14,
+  2011. pp. 33--42. {ACM} (2011),
+  \url{http://doi.acm.org/10.1145/1967701.1967709}
+
+\bibitem{DBLP:journals/corr/abs-1101-3694}
+Chen, T., Han, T., Katoen, J., Mereacre, A.: Model checking of continuous-time
+  {M}arkov chains against timed automata specifications. Logical Methods in
+  Computer Science  7(1) (2011),
+  \url{http://dx.doi.org/10.2168/LMCS-7(1:12)2011}
+
+\bibitem{DBLP:journals/tse/DonatelliHS09}
+Donatelli, S., Haddad, S., Sproston, J.: Model checking timed and stochastic
+  properties with {CSL}{\^{}}\{TA\}. {IEEE} Trans. Software Eng.  35(2),
+  224--240 (2009), \url{http://dx.doi.org/10.1109/TSE.2008.108}
+
+\bibitem{DBLP:conf/hybrid/Fu13}
+Fu, H.: Approximating acceptance probabilities of {CTMC}-paths on multi-clock
+  deterministic timed automata. In: Belta, C., Ivancic, F. (eds.) Proceedings
+  of the 16th international conference on Hybrid systems: computation and
+  control, {HSCC} 2013, April 8-11, 2013, Philadelphia, PA, {USA}. pp.
+  323--332. {ACM} (2013), \url{http://doi.acm.org/10.1145/2461328.2461376}
+
+\bibitem{JensenPTA}
+Jensen, H.E.: Model checking probabilistic real time systems. In: 7th Nordic
+  Workshop on Programming Theory. pp. 247--261. Chalmers University of
+  Technology (1996), {R}eport 86
+
+\bibitem{DBLP:conf/formats/JovanovicKN15}
+Jovanovic, A., Kwiatkowska, M.Z., Norman, G.: Symbolic minimum expected time
+  controller synthesis for probabilistic timed automata. In: Sankaranarayanan
+  and Vicario  \cite{DBLP:conf/formats/2015}, pp. 140--155,
+  \url{http://dx.doi.org/10.1007/978-3-319-22975-1_10}
+
+\bibitem{DBLP:conf/concur/JurdzinskiKNT09}
+Jurdzinski, M., Kwiatkowska, M.Z., Norman, G., Trivedi, A.: Concavely-priced
+  probabilistic timed automata. In: Bravetti, M., Zavattaro, G. (eds.) {CONCUR}
+  2009 - Concurrency Theory, 20th International Conference, {CONCUR} 2009,
+  Bologna, Italy, September 1-4, 2009. Proceedings. Lecture Notes in Computer
+  Science, vol. 5710, pp. 415--430. Springer (2009),
+  \url{http://dx.doi.org/10.1007/978-3-642-04081-8_28}
+
+\bibitem{DBLP:journals/lmcs/JurdzinskiSL08}
+Jurdzinski, M., Sproston, J., Laroussinie, F.: Model checking probabilistic
+  timed automata with one or two clocks. Logical Methods in Computer Science
+  4(3) (2008), \url{http://dx.doi.org/10.2168/LMCS-4(3:12)2008}
+
+\bibitem{DBLP:conf/formats/KwiatkowskaNP09}
+Kwiatkowska, M.Z., Norman, G., Parker, D.: Stochastic games for verification of
+  probabilistic timed automata. In: Ouaknine, J., Vaandrager, F.W. (eds.)
+  Formal Modeling and Analysis of Timed Systems, 7th International Conference,
+  {FORMATS} 2009, Budapest, Hungary, September 14-16, 2009. Proceedings.
+  Lecture Notes in Computer Science, vol. 5813, pp. 212--227. Springer (2009),
+  \url{http://dx.doi.org/10.1007/978-3-642-04368-0_17}
+
+\bibitem{DBLP:conf/cav/KwiatkowskaNP11}
+Kwiatkowska, M.Z., Norman, G., Parker, D.: {PRISM} 4.0: Verification of
+  probabilistic real-time systems. In: Gopalakrishnan, G., Qadeer, S. (eds.)
+  Computer Aided Verification - 23rd International Conference, {CAV} 2011,
+  Snowbird, UT, USA, July 14-20, 2011. Proceedings. Lecture Notes in Computer
+  Science, vol. 6806, pp. 585--591. Springer (2011),
+  \url{http://dx.doi.org/10.1007/978-3-642-22110-1_47}
+
+\bibitem{DBLP:journals/fmsd/KwiatkowskaNPS06}
+Kwiatkowska, M.Z., Norman, G., Parker, D., Sproston, J.: Performance analysis
+  of probabilistic timed automata using digital clocks. Formal Methods in
+  System Design  29(1),  33--78 (2006),
+  \url{http://dx.doi.org/10.1007/s10703-006-0005-2}
+
+\bibitem{DBLP:journals/tcs/KwiatkowskaNSS02}
+Kwiatkowska, M.Z., Norman, G., Segala, R., Sproston, J.: Automatic verification
+  of real-time systems with discrete probability distributions. Theor. Comput.
+  Sci.  282(1),  101--150 (2002),
+  \url{http://dx.doi.org/10.1016/S0304-3975(01)00046-9}
+
+\bibitem{DBLP:journals/iandc/KwiatkowskaNSW07}
+Kwiatkowska, M.Z., Norman, G., Sproston, J., Wang, F.: Symbolic model checking
+  for probabilistic timed automata. Inf. Comput.  205(7),  1027--1077 (2007),
+  \url{http://dx.doi.org/10.1016/j.ic.2007.01.004}
+
+\bibitem{DBLP:journals/ipl/LaroussinieS07}
+Laroussinie, F., Sproston, J.: State explosion in almost-sure probabilistic
+  reachability. Inf. Process. Lett.  102(6),  236--241 (2007),
+  \url{http://dx.doi.org/10.1016/j.ipl.2007.01.003}
+
+\bibitem{DBLP:journals/fmsd/NormanPS13}
+Norman, G., Parker, D., Sproston, J.: Model checking for probabilistic timed
+  automata. Formal Methods in System Design  43(2),  164--190 (2013),
+  \url{http://dx.doi.org/10.1007/s10703-012-0177-x}
+
+\bibitem{PutermanMDP}
+Puterman, M.L.: Markov Decision Processes: Discrete Stochastic Dynamic
+  Programming. John Wiley \& Sons, Inc. (1994)
+
+\bibitem{DBLP:conf/formats/2015}
+Sankaranarayanan, S., Vicario, E. (eds.): Formal Modeling and Analysis of Timed
+  Systems - 13th International Conference, {FORMATS} 2015, Madrid, Spain,
+  September 2-4, 2015, Proceedings, Lecture Notes in Computer Science, vol.
+  9268. Springer (2015), \url{http://dx.doi.org/10.1007/978-3-319-22975-1}
+
+\bibitem{DBLP:conf/qest/Sproston11}
+Sproston, J.: Discrete-time verification and control for probabilistic
+  rectangular hybrid automata. In: Eighth International Conference on
+  Quantitative Evaluation of Systems, {QEST} 2011, Aachen, Germany, 5-8
+  September, 2011. pp. 79--88 (2011),
+  \url{https://doi.org/10.1109/QEST.2011.18}
+
+\bibitem{DBLP:conf/tapsoft/Vaandrager97}
+Vaandrager, F.W.: A theory of testing for timed automata (abstract). In:
+  TAPSOFT'97: Theory and Practice of Software Development, 7th International
+  Joint Conference CAAP/FASE, Lille, France, April 14-18, 1997, Proceedings.
+  p.~39 (1997), \url{https://doi.org/10.1007/BFb0030587}
+
+\end{thebibliography}
