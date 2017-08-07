@@ -1,0 +1,63 @@
+% \vspace{-0.8em}
+\section{Undecidability of PTA-NTA problem}
+% \vspace{-0.8em}
+\begin{lemma}{(\cite{DBLP:conf/tapsoft/Vaandrager97})}
+Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all timed words over $\alphabet$ is undecidable.
+\end{lemma}
+
+\begin{proposition}
+Given a Nonedeterministic timed automaton over an alphabet $\alphabet$, the problem of deciding 
+the minimal probability that it accepts a PTA w.r.t. $(q_{start},\zero)$ is undecidable.
+\end{proposition}
+
+\begin{proof}
+We reach our goal by reducing the NTA universality problem to this problem.
+For any NTA $\nta = (\cstates,\alphabet,\clocks,\rules)$, let $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}.$
+
+we construct an $\nta' = (\cstates', \alphabet', \clocks, \rules')$ where
+$$
+    \cstates'   = \cstates  \cup \{ \qinit \},
+    \alphabet'  = \alphabet \cup \{ \ntaap{0} \},
+    \rules'     = \rules    \cup \{ \langle
+            \qinit,
+            \ntaap{0},
+            \true,
+            \clocks,
+            q_{start}
+        \rangle
+    \}.
+$$
+
+Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
+\begin{align*}
+    &\locs      :=  \alphabet',\\
+    &\loc^*     :=  \ntaap{0}, \\
+    &\clocks    :=  \emptyset, \\
+    &\acts      :=  \alphabet, \\ 
+    &\inv(\ntaap{i})                :=  \true, 
+                                    \text{ for all } \ntaap{i} \in \locs,\\
+    &\enab(\ntaap{i},\ntaap{j})     :=  \true,
+                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
+    &\prob(\ntaap{i},\ntaap{j})     :=  \mu_{ \left (
+                                        \emptyset,\ntaap{j}
+                                    \right)}, 
+                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
+    &\lbfunc(\ntaap{i})             :=  \ntaap{i},
+                                    \text{ for all } \ntaap{i} \in \locs.
+\end{align*}
+It is natural to see, for any time word $ w = \alpha_0 \alpha_1 \alpha_2 \cdots $
+there is a scheduler $ \sigma_w (\fnpath ) := a_{len(\fnpath)} $ such that $ \PCswLang = 1 $
+iff $\nta$ accepts $w$ w.r.t. $(q_{start},\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
+
+Then we have
+$
+\inf_\sigma \probm^{\pta,\sigma}\left(
+    \Lang
+        {\pta,\sigma}
+        {\nta',\qinit,\rabin}
+\right)
+    = 1
+$
+iff
+$\nta$ accepts all timewords w.r.t. $(q_{start},\zero)$.
+\end{proof}

@@ -1,0 +1,403 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{booktabs} % For formal tables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumerate,paralist}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{tikz,pgffor}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{calc}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+
+\tikzstyle{location} = [
+    rectangle,
+    rounded corners,
+    draw=black,
+    very thick,
+    minimum height=2em,
+    inner sep=0pt,
+    text centered
+]
+\tikzstyle{tran}  = [
+    draw,
+    ->,
+    >=stealth,
+    rounded corners
+]
+\tikzstyle{dec}   = [inner sep=0pt]
+\tikzstyle{mode}  = [
+    shape=circle,
+    draw,
+    inner sep=0pt,
+    minimum size=5mm
+]
+
+%\theoremstyle{plain}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{claim}{Claim}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{definition}{Definition}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+%\newtheorem{observation}{Observation}
+%\newtheorem{assumption}{Assumption}
+
+%% Notations
+
+%%General Notations
+
+\newcommand{\Rset}{\mathbb{R}}
+\newcommand{\Nset}{\mathbb{N}}
+\newcommand{\Zset}{\mathbb{Z}}
+\newcommand{\ap}{\mbox{\sl AP}}
+\newcommand{\opt}{\mbox{\sl opt}}
+
+%%Clocks and Clock Constraints
+
+\newcommand{\clocks}{\mathcal{X}}
+\newcommand{\val}[1]{\mbox{\sl Val}\left(#1\right)}
+\newcommand{\reset}[2]{{#1}{\left[#2:=0\right]}}
+\newcommand{\add}[2]{{#1}{+}{#2}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\true}{\mathbf{true}}
+\newcommand{\false}{\mathbf{false}}
+\newcommand{\supp}[1]{{\mbox{\sl supp}}(#1)}
+\newcommand{\dist}[1]{{\mathcal{D}}{\left(#1\right)}}
+\newcommand{\sat}[1]{{\llbracket}{#1}{\rrbracket}}
+\newcommand{\intp}[1]{{\lfloor}{#1}{\rfloor}}
+\newcommand{\fracp}[1]{\mbox{\sl frac}(#1)}
+\newcommand{\evclass}[1]{\left[#1\right]}
+
+%%PTAs
+
+\newcommand{\pta}{\mathcal{C}}
+\newcommand{\locs}{L}
+\newcommand{\loc}{\ell}
+\newcommand{\acts}{\mbox{\sl Act}}
+\newcommand{\inv}{\mbox{\sl inv}}
+\newcommand{\enab}{\mbox{\sl enab}}
+\newcommand{\prob}{\mbox{\sl prob}}
+\newcommand{\lbfunc}{\mathcal{L}}
+\newcommand{\clcons}[1]{\mbox{\sl CC}\left(#1\right)}
+\newcommand{\istate}{\left(\loc^*,\mathbf{0}\right)}
+
+%% Semantics of PTAs
+
+\newcommand{\states}{S}
+\newcommand{\trans}{\rightarrow}
+\newcommand{\tran}[3]{{#1}{\xrightarrow{#2}}{#3}}
+\newcommand{\probk}{\mathbf{P}}
+\newcommand{\fnpaths}[1]{\mbox{\sl Paths}^*_{#1}}
+\newcommand{\infpaths}[1]{\mbox{\sl Paths}^\omega_{#1}}
+\newcommand{\omgpaths}[2]{\mbox{\sl Reach}^{#2}_{#1}}
+\newcommand{\initloc}[1]{\mbox{\sl init}\left(#1\right)}
+
+\newcommand{\fnpath}{\rho}
+\newcommand{\infpath}{\pi}
+
+%% Notations for Probability Space
+
+\newcommand{\probm}{\mathbb{P}}
+\newcommand{\expv}{\mathbb{E}}
+\newcommand{\cyl}{\mbox{\sl Cyl}}
+
+%% Notations for DTAs
+
+\newcommand{\dta}{\mathcal{A}}
+\newcommand{\dtloc}{q}
+\newcommand{\cstates}{Q}
+\newcommand{\alphabet}{\Sigma}
+\newcommand{\fstates}{F}
+\newcommand{\rules}{\Delta}
+\newcommand{\dtphi}[3]{\Phi_{#1,#2}^{#3}}
+\newcommand{\dtx}[3]{\mathbf{X}_{#1,#2}^{#3}}
+\newcommand{\dtq}[3]{\mathbf{q}_{#1,#2}^{#3}}
+\newcommand{\trfunc}{\kappa}
+\newcommand{\dtatr}[3]{{#1}{\xRightarrow{#2}}{#3}}
+\newcommand{\regions}{\mathcal{G}}
+
+\newcommand{\run}[3]{{#1}_{#2}\left(#3\right)}
+\newcommand{\iconfig}{\left(\dtloc^*,\mathbf{0}\right)}
+
+%%Product Constrution
+\newcommand{\product}[2]{{#1}{\otimes}{#2}}
+\newcommand{\pr}[2]{\mathfrak{p}_{#1}^{#2}}
+\newcommand{\pfunc}{\mathcal{T}}
+\newcommand{\sfunc}{\theta}
+\newcommand{\acc}[2]{{\mbox{\sl AccPaths}}_{#1}^{#2}}
+\newcommand{\extactions}{\mathcal{B}}
+\newcommand{\exttuples}{\mathcal{T}}
+
+%%Reward Structure
+\newcommand{\rcum}{\mathbf{r}_{\locs}}
+\newcommand{\rinst}{\mathbf{r}_{\acts}}
+\newcommand{\ronestep}{\mathbf{r}}
+\newcommand{\accum}[1]{\mbox{\sl Cum}_{#1}}
+\newcommand{\rd}[2]{\mathsf{R}_{#1}^{#2}}
+
+%%Rabin acceptance
+
+% \newcommand{\infset}[1]{\mbox{\sl{inf  }} ( #1 )}
+% \newcommand{\trace }[1]{\mbox{\sl{trace}} ( #1 )}
+% \newcommand{\traj  }[1]{\mbox{\sl{traj }} ( #1 )}
+\newcommand{\infset}[1]{\mbox{inf}  ( #1 )}
+\newcommand{\trace }[1]{\mbox{trace}( #1 )}
+\newcommand{\traj  }[1]{\mbox{traj} ( #1 )}
+\newcommand{\rabin}{\mathcal{F}}
+
+\newcommand{\Lang}[2] {
+    AccPaths
+        _{#1}
+        ^{#2}
+}
+
+\newcommand{\Accept}[2]{
+    RabinPaths
+        _{#1}
+        ^{#2}   
+}
+
+\newcommand{\LangCsAqF}{
+    \Lang
+        {\pta,\sigma}
+        {\dta,\dtloc,\rabin}
+}
+
+\newcommand{\AcceptCxAqsF}{
+    \Accept
+        {
+            \product{\pta}{\dta_\dtloc},
+            \sigma
+        }
+        {\rabin}
+}
+
+\newcommand{\TLang}{
+    \pfunc\left(
+        \LangCsAqF
+    \right)
+}
+
+\newcommand{\TAcc}{
+    \Accept
+        {
+            \product{\pta}{\dta_\dtloc},
+            \sfunc \left( 
+                \sigma
+            \right)
+        }
+        {\rabin}
+}
+
+
+%%For drawing grids
+
+\newcounter{row}
+\newcounter{col}
+
+\newcommand\setrow[3]{
+  \setcounter{col}{1}
+  \foreach \n in {#1, #2, #3} {
+    \edef\x{\value{col} - 0.5}
+    \edef\y{3.5 - \value{row}}
+    \node[anchor=center] at (\x, \y) {\n};
+    \stepcounter{col}
+  }
+  \stepcounter{row}
+}
+
+% Undecidability
+\newcommand{\nta}{\mathcal{A}}
+\newcommand{\qinit}{q_{init}}
+\newcommand{\ntaap}[1]{b_{#1}}
+\newcommand{\PCswLang}{
+    \probm^{\pta,\sigma_w }\left(
+    \Lang
+        {\pta,\sigma_w}
+        {\nta',\qinit,\rabin}
+    \right)
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Copyright
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+\acmDOI{10.475/123_4}
+
+% ISBN
+\acmISBN{123-4567-24-567/08/06}
+
+%Conference
+\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El
+  Paso, Texas USA} 
+\acmYear{1997}
+\copyrightyear{2016}
+
+\acmPrice{15.00}
+
+
+\begin{document}
+\title{Verifying Probabilistic Timed Automata Against \\Deterministic-Timed-Automata Specifications}
+\titlenote{Produces the permission block, and
+  copyright information}
+\subtitle{Extended Abstract}
+\subtitlenote{The full version of the author's guide is available as
+  \texttt{acmart.pdf} document}
+
+
+\author{Ben Trovato}
+\authornote{Dr.~Trovato insisted his name be first.}
+\orcid{1234-5678-9012}
+\affiliation{%
+  \institution{Institute for Clarity in Documentation}
+  \streetaddress{P.O. Box 1212}
+  \city{Dublin} 
+  \state{Ohio} 
+  \postcode{43017-6221}
+}
+\email{trovato@corporation.com}
+
+\author{G.K.M. Tobin}
+\authornote{The secretary disavows any knowledge of this author's actions.}
+\affiliation{%
+  \institution{Institute for Clarity in Documentation}
+  \streetaddress{P.O. Box 1212}
+  \city{Dublin} 
+  \state{Ohio} 
+  \postcode{43017-6221}
+}
+\email{webmaster@marysville-ohio.com}
+
+\author{Lars Th{\o}rv{\"a}ld}
+\authornote{This author is the
+  one who did all the really hard work.}
+\affiliation{%
+  \institution{The Th{\o}rv{\"a}ld Group}
+  \streetaddress{1 Th{\o}rv{\"a}ld Circle}
+  \city{Hekla} 
+  \country{Iceland}}
+\email{larst@affiliation.org}
+
+\author{Valerie B\'eranger}
+\affiliation{%
+  \institution{Inria Paris-Rocquencourt}
+  \city{Rocquencourt}
+  \country{France}
+}
+\author{Aparna Patel} 
+\affiliation{%
+ \institution{Rajiv Gandhi University}
+ \streetaddress{Rono-Hills}
+ \city{Doimukh} 
+ \state{Arunachal Pradesh}
+ \country{India}}
+\author{Huifen Chan}
+\affiliation{%
+  \institution{Tsinghua University}
+  \streetaddress{30 Shuangqing Rd}
+  \city{Haidian Qu} 
+  \state{Beijing Shi}
+  \country{China}
+}
+
+\author{Charles Palmer}
+\affiliation{%
+  \institution{Palmer Research Laboratories}
+  \streetaddress{8600 Datapoint Drive}
+  \city{San Antonio}
+  \state{Texas} 
+  \postcode{78229}}
+\email{cpalmer@prl.com}
+
+\author{John Smith}
+\affiliation{\institution{The Th{\o}rv{\"a}ld Group}}
+\email{jsmith@affiliation.org}
+
+\author{Julius P.~Kumquat}
+\affiliation{\institution{The Kumquat Consortium}}
+\email{jpkumquat@consortium.net}
+
+% The default list of authors is too long for headers}
+\renewcommand{\shortauthors}{B. Trovato et al.}
+
+
+% \begin{abstract}
+% This paper provides a sample of a \LaTeX\ document which conforms,
+% somewhat loosely, to the formatting guidelines for
+% ACM SIG Proceedings.\footnote{This is an abstract footnote}
+% \end{abstract}
+
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below. 
+%
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010520.10010553.10010562</concept_id>
+  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010575.10010755</concept_id>
+  <concept_desc>Computer systems organization~Redundancy</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010553.10010554</concept_id>
+  <concept_desc>Computer systems organization~Robotics</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10003033.10003083.10003095</concept_id>
+  <concept_desc>Networks~Network reliability</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+</ccs2012>  
+\end{CCSXML}
+
+\ccsdesc[500]{Computer systems organization~Embedded systems}
+\ccsdesc[300]{Computer systems organization~Redundancy}
+\ccsdesc{Computer systems organization~Robotics}
+\ccsdesc[100]{Networks~Network reliability}
+
+
+\keywords{ACM proceedings, \LaTeX, text tagging}
+
+
+
+\input{abstract}
+\maketitle
+\input{introduction}
+\input{preliminaries}
+\input{problem}
+\input{product}
+\input{undecidability}
+% \input{casestudies}
+% \input{experiments}
+\input{conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{pta-dta} 
+
+\end{document}

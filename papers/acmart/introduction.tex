@@ -1,0 +1,34 @@
+% \vspace{-0.8em}
+\section{Introduction}
+% \vspace{-0.8em}
+Stochastic timed systems are systems that exhibit both timed and stochastic behaviours.
+Such systems play a dominant role in many real-world applications (cf.~\cite{DBLP:books/daglib/0020348}), hence
+addressing fundamental issues such as safety and performance over these systems are important.
+\emph{Probabilistic timed automata} (PTAs)~\cite{DBLP:journals/fmsd/NormanPS13,DBLP:journals/tcs/Beauquier03,DBLP:journals/tcs/KwiatkowskaNSS02} serve as a good mathematical model for these systems.
+They extend the well-known model of timed automata~\cite{DBLP:journals/tcs/AlurD94} (for nonprobabilistic timed systems) with discrete probability distributions, and Markov Decision Processes (MDPs)~\cite{PutermanMDP} (for untimed probabilistic systems) with timing constraints.
+
+Formal verification of PTAs has received much attention in recent years~\cite{DBLP:journals/fmsd/NormanPS13}.
+For branching-time model checking of PTAs, the problem is reduced to computation of reachability probabilities over MDPs through well-known finite abstraction for timed automata (namely \emph{regions} and \emph{zones})~\cite{JensenPTA,DBLP:journals/tcs/Beauquier03,DBLP:journals/tcs/KwiatkowskaNSS02}.
+Advanced techniques for branching-time model checking of PTAs such as inverse method and symbolic method have been explored in  ~\cite{DBLP:journals/fmsd/AndreFS13,DBLP:journals/iandc/KwiatkowskaNSW07,DBLP:conf/formats/KwiatkowskaNP09,DBLP:conf/formats/JovanovicKN15}.
+Extension with \emph{cost} or \emph{reward}, resulting in \emph{priced} PTAs, has also been investigated.
+On one hand, Berendsen \emph{et al.}~\cite{DBLP:conf/tamc/BerendsenCJ09} proved that cost-bounded reachability probability is undecidable over priced PTAs.
+On the other hand, Jurdzinski~\emph{et al.}~\cite{DBLP:conf/concur/JurdzinskiKNT09} and Kwiatkowska~\emph{et al.}~\cite{DBLP:journals/fmsd/KwiatkowskaNPS06} proved that several notions of accumulated (discounted) cost are computable over priced PTAs.
+Most verification algorithms for PTAs have been implemented in the model checker PRISM~\cite{DBLP:conf/cav/KwiatkowskaNP11}. Computational complexity of several verification problems for PTAs is studied in~\cite{DBLP:journals/ipl/LaroussinieS07,DBLP:journals/lmcs/JurdzinskiSL08,DBLP:conf/concur/JurdzinskiKNT09}.
+
+A shortcoming of existing verification approaches for PTAs is that they all considered branching-time properties.
+As far as we know, no results have ever considered linear-time model checking for PTAs.
+Linear-time temporal properties are however important as they can specify complex timed behaviours induced by e.g. finite sequences of timed events.
+In particular, we focus on linear-time temporal properties that can be encoded by deterministic timed automata (DTAs).
+DTA is the deterministic version of timed automata.
+Although DTA is weaker than general timed automata, it can recognize a wide class of formal timed languages, and express interesting properties which cannot be expressed in branching-time logics~\cite{DBLP:journals/tse/DonatelliHS09}.
+The problem to verify DTA-specifications over stochastic timed models has only been investigated for continuous-time Markov processes (cf.~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13,DBLP:conf/hybrid/BrazdilKKKR11,DBLP:conf/tacas/BarbotCHKM11,DBLP:conf/formats/BortolussiL15}), a completely different formalism for stochastic timed systems which assigns probability distributions to time elapses.
+In this paper, we study verification of DTA-specifications over PTAs.
+As far as we know, we are the first to conduct this line of research.
+
+\textbf{Our Contributions.} We show that through a product construction, the optimal probability of PTA-paths accepted by a DTA w.r.t the finite acceptance criterion can be computed exactly by known algorithms for reachability probabilities over PTAs.
+The novelty of our product construction is that to enable the DTA to keep track of the next location after a probabilistic jump in the PTA, one needs to integrate either the set of regions of the DTA or a local conjunction over the rules of the DTA.
+%Then we show that migrating from finite acceptance criteria to Rabin criteria can be handled by maximal end components. Finally, we show that under almost-sure acceptance w.r.t finite acceptance condition, the expected accumulated cost/reward until acceptance can be computed through known algorithms for priced PTAs.
+We demonstrate experimental results on several case studies and show that our approach is effective to analyse linear-time properties over PTAs.
+%\textbf{Organization of the Paper.} Section~\ref{?} introduces some preliminaries. Section~\ref{?} describes the problem studied in this paper. Section~\ref{} is the core part of this paper which demonstrates the product construction.
+%Section~\ref{?} illustrates several case studies.
+%Finally, Section~\ref{?} show our experimental results and Section~\ref{?} concludes the paper.
