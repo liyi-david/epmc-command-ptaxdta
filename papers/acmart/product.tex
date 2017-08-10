@@ -1,7 +1,9 @@
 % \vspace{-0.8em}
 \section{The Product Construction}
 % \vspace{-0.8em}
-In this section, we introduce the core part of our algorithms to solve the {\sc PTA-DTA} problem. The core part is a product construction which given a PTA $\pta$ and a DTA $\dta$, output a PTA which preserves the probability of the set of infinite paths of $\pta$ accepted by $\dta$.
+In this section, we introduce the core part of our algorithms to solve the {\sc PTA-DTA} problem
+{\color{red} and deterministic TRA is refered as DTA.}
+The core part is a product construction which given a PTA $\pta$ and a DTA $\dta$, output a PTA which preserves the probability of the set of infinite paths of $\pta$ accepted by $\dta$.
 Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTA $\dta$ in the form (\ref{eq:dta}) 
 with the difference that the set of clocks for $\pta$ (resp. for $\dta$) is denoted by $\clocks_1$ (resp. $\clocks_2$).
 W.l.o.g., we assume that $\clocks_1\cap\clocks_2=\emptyset$ and $\alphabet=2^{\ap}$.
@@ -16,10 +18,14 @@ We solve this difficulty by integrating into the enabling condition $\enab$ enou
 In detail, we introduce two versions of the product construction, each having a computational advantage against the other.
 
 \noindent{\textbf{Product Construction (First Version).}}
-The \emph{product PTA} $\product{\pta}{\dta_q}$ between $\pta$ and $\dta$ with initial mode $\dtloc$ is defined as the PTA $\left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)$, where:
+The \emph{product PTA} $\product{\pta}{\dta_q}$ between $\pta$ and $\dta$ with initial mode $\dtloc$ is defined as the PTA
+
+$\left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)$, where:
 \begin{compactitem}
 \item $\locs_\otimes:=\locs\times \cstates$;
-\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode such that $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q^\star,\zero)$; %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
+\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode\\
+    such that $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q^\star,\zero)$;
+    %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
 \item $\clocks_\otimes:=\clocks_1\cup\clocks_2$;
 \item $\acts_\otimes:=\acts\times\regions$; %$\acts_\otimes:=\acts\times\rules$;
 \item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
@@ -93,14 +99,79 @@ For each mode, the local conjunction chooses one clock constraint from rules wit
 From determinism and totality of DTAs,
 each conjunction constructed in this way determines which rule to use in the DTA for every symbol in a unique way.
 The advantage of the second version against the first one is that it is more suitable for DTAs with small size and large $N$ (leading to a large number of reigons), as the size of the product PTA relies only the size of the DTA.
-\vspace{-0.8em}
+\begin{figure}
+    \centering
+    \resizebox{.5\textwidth}{!}{
+        \input{example_pta}
+        }
+    \caption{A Task Complete Example}
+    \label{fig:pta}  
+\end{figure}
+
+\begin{figure}
+    \centering
+    \resizebox{.5\textwidth}{!}{
+        \input{example_dta}
+        }
+    \caption{A DTA Specification}
+    \label{fig:dta}  
+\end{figure}
+\begin{example}
+Here we represent an running example to show how $\exttuples_{\dtloc}$ works. 
+Assume we have the machine depicted in Figure~\ref{fig:pta}  whiche deals with 
+two different kinds of jobs. Then we use the DTA depicted in Figure~\ref{fig:dta} 
+to specify the property that every $\alpha$ job should be done within 500 units 
+of time after last $\alpha$ job done and every $\beta$ job should be done within 
+300 units of time after last $\beta$ job done. Here for 
+the mod $q$ in DTA, we have
+\begin{align*}
+    &
+    \exttuples_{\dtloc} 
+        = \{ 
+            % \\
+            % &
+            h_0 = \left \{
+                \emptyset           \mapsto \true,
+                \{ \alpha \}        \mapsto ( x \le 500 ),
+                \{ \beta  \}        \mapsto ( y \le 300 ),
+                \{ \alpha, \beta \}  \mapsto \true
+            \right \}, 
+            \\
+            &
+            h_1 = \left \{
+                \emptyset           \mapsto \true,
+                \{ \alpha \}        \mapsto ( x \le 500 ),
+                \{ \beta  \}        \mapsto ( 300 < y ),
+                \{ \alpha, \beta \}  \mapsto \true
+            \right \}, 
+            \\
+            &
+            h_2 = \left \{
+                \emptyset           \mapsto \true,
+                \{ \alpha \}        \mapsto ( 500 < x  ),
+                \{ \beta  \}        \mapsto ( y \le 300 ),
+                \{ \alpha, \beta \}  \mapsto \true
+            \right \}, 
+            \\
+            &
+            h_3 = \left \{
+                \emptyset           \mapsto \true,
+                \{ \alpha \}        \mapsto ( 500 < x ),
+                \{ \beta  \}        \mapsto ( 300 < y ),
+                \{ \alpha, \beta \}  \mapsto \true
+            \right \} 
+        \} .
+\end{align*}
+And a part of the product is depicted in Figure~\ref{fig:dta}.
+
+\end{example}
+
+
+% \vspace{-0.8em}
 \begin{remark}
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ (in both versions) is well-formed as $\pta$ is well-formed and the DTA $\dta$ does not introduce extra invariant conditions.
 \end{remark}
-\vspace{-0.8em}
-
-
-
+% \vspace{-0.8em}
 %$\prob_\otimes$ satisfies that for any $\loc,\loc''\in\locs$, $\dtloc,\dtloc''\in\cstates$, $a\in\acts$, $r=\left(\dtloc, \lbfunc(\loc''), \phi', Y, \dtloc'\right)\in\rules$, $(X,\loc')\in 2^{\clocks_1}\times \locs$ and $Z\subseteq\clocks$, it holds that
 %\[
 %\prob_\otimes\left((\loc,\dtloc),(a,r)\right)(Z,(\loc'',\dtloc''))=\begin{cases}
@@ -148,7 +219,6 @@ The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$
 \begin{proof}
 The first claim follows straightforwardly from the determinism and totality of DTAs.
 The second claim follows from the fact that $\pfunc$ preserves time elapses in the transformation.
-\qed
 \end{proof}
 
 %between $\fnpaths{\pta,\sigma}\cup\infpaths{\pta,\sigma}$ and $\fnpaths{\product{\pta}{\dta_q},\sfunc\left(\sigma\right)}\cup\infpaths{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}$.
@@ -178,7 +248,7 @@ Now we show the relationship between infinite paths accepted by a DTA before pro
 Below we lift the function $\pfunc$ to all subsets of paths in the standard fashion: for all subsets $A\subseteq \fnpaths{\pta}\cup\infpaths{\pta}$, $\pfunc(A):=\{\pfunc(\omega)\mid \omega\in A\}$.
 
 %%%%% 
-\vspace{-0.8em}
+% \vspace{-0.8em}
 \begin{definition}[Traces]
 Let 
 $ \pfunc(\infpath) = 
@@ -204,41 +274,71 @@ $\trace{ \pfunc ( \infpath ) } := \dtloc_0 \dtloc_1 \dots $.
 % \end{proof}
 
 \noindent{\textbf{Verifying Limit Rabin Properties.}}
-Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ with $\rabin$ is
+Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
 % 写成定义在普通的 PTA 上还是乘积上好
+% $$
+%     \AcceptCxAqsF = \left \{ 
+%         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid 
+%         \infset{ 
+%             \trace{ 
+%                 \infpath
+%             }
+%         }
+%         \mbox{ is Rabin accepting by } \rabin
+%     \right\}
+% $$
+\begin{small}
 $$
     \AcceptCxAqsF = \left \{ 
         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid 
-        \infset{ 
-            \trace{ 
-                \infpath
+        \accept{
+            \infset{ 
+                \trace{ 
+                    \infpath
+                }
             }
+        }   {
+            \rabin
         }
-        \mbox{ is Rabin accepting by } \rabin
     \right\}
 $$
-and $\AcceptCxAqsF$ is an limit LT Property.
-
-\vspace{-0.8em}
+\end{small}
+and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
+% 
+% \vspace{-0.8em}
 \begin{proposition}\label{prop:psfunc} 
-For any scheduler $\sigma$, any initial mode $q$ and any Rabin acceptance condition
-$\rabin$ on DTA $\dta$, $\TLang = \TAcc$ .
+For any scheduler $\sigma$ and any initial mode $q$ on DTA $\dta$, $$\TLang = \TAcc.$$
 \end{proposition}
-
 \begin{proof}
 % This proof is trivial.
 By definition we have
+% $$
+%     \LangCsAqF = \left \{ 
+%         \infpath \in \infpaths{\pta,\sigma} \mid 
+%         \infset{ 
+%             \traj{ 
+%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+%             }
+%         }
+%         \mbox{ is Rabin accepting by } \rabin 
+%     \right\},
+% $$
+\begin{small}
 $$
     \LangCsAqF = \left \{ 
         \infpath \in \infpaths{\pta,\sigma} \mid 
-        \infset{ 
-            \traj{ 
-                \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+        \accept{
+            \infset{ 
+                \traj{ 
+                    \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+                }
             }
+        }   {
+            \rabin
         }
-        \mbox{ is Rabin accepting by } \rabin 
     \right\},
 $$
+\end{small}
 where
 $
     \dtloc^*
@@ -295,12 +395,12 @@ is Rabin accepting by $\rabin$.
 Finally, we demonstrate the relationship between acceptance probabilities before product construction and reachability probabilities after product construction.
 We also clarify the probability of zenoness before and after the product construction.
 
-\vspace{-0.8em}
+% \vspace{-0.8em}
 \begin{theorem}\label{thm:main}
-For any scheduler $\sigma$, initial mode $q$ and Rabin acceptance $\rabin$,
+For any scheduler $\sigma$ and initial mode $q$,
 \[
     \pr
-        {\dtloc,\rabin}
+        {\dtloc}
         {\sigma}
         =
             \probm
@@ -341,53 +441,67 @@ $
 Define the probability measure $\probm'$ by: $\probm'(A)=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(A))$ for $A\in\mathcal{F}^{\pta,\sigma}$. We show that $\probm'=\probm^{\pta,\sigma}$. By \cite[Theorem 3.3]{PBMeasure}, it suffices to consider cylinder sets as they form a pi-system (cf. \cite[Page 43]{PBMeasure}).
 Let $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ be any finite path under $\pta$.
 By definition, we have that
-\[
-\probm^{\pta,\sigma}(\cyl(\fnpath))=\probm^{\product{\pta}{\dta_\dtloc}, \sfunc\left(\sigma\right)}(\cyl(\pfunc(\fnpath)))=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(\cyl(\fnpath)))=\probm'(\cyl(\fnpath))\enskip.
-\]
+\begin{align*}
+    \probm^{\pta,\sigma}(\cyl(\fnpath))
+        & =
+        \probm^{\product{\pta}{\dta_\dtloc}, \sfunc\left(\sigma\right)}(\cyl(\pfunc(\fnpath)))
+        \\
+        & =
+        \probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(\cyl(\fnpath)))
+        \\
+        & =
+        \probm'(\cyl(\fnpath))\enskip.
+\end{align*}
 The first equality comes from the fact that both versions of product construction preserves transition probabilities. The second equality is due to $\cyl(\pfunc(\fnpath))= \pfunc(\cyl(\fnpath))$.
 The final equality follows from the definition.
 Hence $\probm^{\pta,\sigma}=\probm'$.
-Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}. \qed
+Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
 \end{proof}
 Note that a side result from Theorem~\ref{thm:main} says that $\sfunc$ preserves time-divergence for schedulers before and after product construction.
 From Theorem~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into computing reachability probabilities under the product PTA.
 
-\vspace{-0.8em}
+% \vspace{-0.8em}
 \begin{corollary}{(\cite{DBLP:conf/qest/Sproston11})}\label{crly:opt}
-For any initial mode $q$ and any Rabin acceptance condition $\rabin$,
-there exists an $\rabin_* \subseteq \locs_\otimes$ s.t. $\rabin_*$ is a union of several maximal end
-components that satisfy $\rabin$. 
+For any initial mode $q$, 
+% there exists an $\rabin_* \subseteq \locs_\otimes$ 
+% s.t. $\rabin_*$ is a union of several maximal end
+% components that satisfy $\rabin$. 
 \begin{align*}
-    \opt_\sigma\pr{\dtloc,\rabin}{\sigma}
+    \opt_\sigma\pr{\dtloc}{\sigma}
         & =  
             \opt_{\sigma'}
             \probm^{\product{\pta}{\dta_\dtloc},\sigma'}\left(
                 \Accept
                     {\product{\pta}{\dta_\dtloc},\sigma'}
-                    {\rabin}
-            \right) \\
-        & = 
-            \opt_{\sigma''}
-            \probm^{\product{\pta}{\dta_\dtloc},\sigma''}\left(
-                \omgpaths
-                    {\product{\pta}{\dta_\dtloc},\sigma''}
-                    {\rabin_*} 
-            \right) \\
-        & = 
-            \opt_{\sigma'''}
-            \probm^{\product{\pta}{\dta_\dtloc},\sigma'''}\left(
-                \omgpaths
-                    {\product{\pta}{\dta_\dtloc},\sigma'''}
-                    {\rabin_*}
-            \right),
+                    % {\rabin}
+            \right) 
+        % \\
+        % & = 
+        %     \opt_{\sigma''}
+        %     \probm^{\product{\pta}{\dta_\dtloc},\sigma''}\left(
+        %         \omgpaths
+        %             {\product{\pta}{\dta_\dtloc},\sigma''}
+        %             {\rabin_*} 
+        %     \right) 
+        % \\
+        % & = 
+        %     \opt_{\sigma'''}
+        %     \probm^{\product{\pta}{\dta_\dtloc},\sigma'''}\left(
+        %         \omgpaths
+        %             {\product{\pta}{\dta_\dtloc},\sigma'''}
+        %             {\rabin_*}
+        %     \right),
 \end{align*}
 where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum),
 $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers 
-for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$) and $\sigma''$ (resp. 
-$\sigma'''$) range over all time-divergent (resp. all time-divergent and 
-time-convergent) schedulers for $\product{\pta}{\dta_\dtloc}$. $\rabin_*$ can be 
-resolved by an MEC algorithm and $\opt_\sigma\pr{\dtloc,\rabin}{\sigma}$
-can be calculated by a reachability analysis.
+for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$).
+% where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum),
+% $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers 
+% for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$) and $\sigma''$ (resp. 
+% $\sigma'''$) range over all time-divergent (resp. all time-divergent and 
+% time-convergent) schedulers for $\product{\pta}{\dta_\dtloc}$. $\rabin_*$ can be 
+% resolved by an MEC algorithm and $\opt_\sigma\pr{\dtloc,\rabin}{\sigma}$
+% can be calculated by a reachability analysis.
 \end{corollary}
 The way \cite{DBLP:conf/qest/Sproston11} discards time-convergent path
 is making a copy of every location in PTA model and enforcing a transition 
@@ -397,10 +511,62 @@ happend with no delay. And we put a label \textit{tick} in copy. We only deal wi
 paths that satisfy $ \square \Diamond tick $ (i.e. \textit{tick} is satisfied 
 infinitely many times).
 
-Using a standard MEC algorithm, we can find all MECs satisfy the corresponding
+Then an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ is obtained from the enlarged 
+PTA of $ \product{\pta}{\dta_\dtloc} $ through an region construction.
+Then we verify the limit rabin property on $\Region{\product{\pta}{\dta_\dtloc}}$
+by using a standard MEC algorithm. First, We find all MECs satisfy the corresponding
 property of an Rabin acceptance condition. In order to guarantee time-divergence,
 we only pick up MECs with at least one location that has an \textit{tick} label and 
-let $\rabin_*$ be the union of those MECs.
+let $F_*$ be the union of those MECs. Then, we turn to resolve the probability
+reachability to $F_*$.
+%
+\begin{lemma}{Time Complexity of Verifying Limit Rabin Properties(
+    \cite[Theorem 10.127]{DBLP:books/daglib/0020348}
+)}\label{lemm:principle}
+Let $M$ be a finite MDP and $P$ be a limit LT propery specified by a Rabin condition:
+$$
+\bigvee_{1 \le i \le n} \left(
+    \Diamond \square \lnot H_i 
+    \land 
+    \square \Diamond K_i 
+\right)
+$$
+Then: the values 
+$
+\opt_\sigma \probm^{M,\sigma} \left(
+    s \models P 
+\right)
+$ 
+can be computed in time 
+$
+\mathcal{O} \left( 
+    \mbox{poly} \left(
+        \mbox{size} \left(
+            M
+        \right)
+    \right)
+    \cdot
+    k
+\right)
+$
+where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum).
+\end{lemma}
+
+Noting that for  $\product{\pta}{\dta_\dtloc}$, 
+although the upper bound of $| \acts_\otimes |$ is 
+$ | \acts | \cdot | \cstates| \cdot | \rules |^{ | \alphabet | }$, 
+$ | \locs_\otimes | $ is polynomial to $ |\locs| \cdot |\cstates| $, and 
+$ | \clocks_\otimes | = | \clocks_1 | + | \clocks_2| $.
+The size of $ \Region{\product{\pta}{\dta_\dtloc}} $ is exponential to 
+$ |\locs| \cdot |\cstates| $ while the number of transitions is exponential, 
+% that the computation of $F_*$ can be done in polynomial time in the size of 
+% $ \Region{\product{\pta}{\dta_\dtloc}} $, 
+then $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time 
+follows from Lemma~\ref{lemm:principle}.
+
+\begin{proposition}
+    The PTA-TRA problem can be solved in EXPTIME.
+\end{proposition}
 %
 %\vspace{-0.8em}
 %
@@ -409,7 +575,3 @@ let $\rabin_*$ be the union of those MECs.
 %\item $\rcum'(\loc,\dtloc):=\rcum(\loc)$ for any $(\loc,\dtloc)\in \locs_\otimes$;
 %\item $\rinst'((\loc,\dtloc),(a,h)):=\rinst(\loc,a)$ for any $(\loc,\dtloc)\in \locs_\otimes$ and $(a,h)\in \acts_\otimes$.
 %\end{compactitem}
-
-
-
-

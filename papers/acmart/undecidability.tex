@@ -1,18 +1,31 @@
 % \vspace{-0.8em}
 \section{Undecidability of PTA-NTA problem}
 % \vspace{-0.8em}
-\begin{lemma}{(\cite{DBLP:conf/tapsoft/Vaandrager97})}
+We show that the qualitative problem for minimum probabilities is already undecidable. We prove this by a reduction from the universality problem of timed automata, which is illustrated as follows. 
+%
+\begin{lemma}\label{lemm:expressive}
+A timed language is accepted by some timed B\"uchi automaton iff it is accepted by some timed Rabin automaton.
+\end{lemma}
+\begin{proof}
+    The construction is similar to \cite[Theorem 3.20.]{DBLP:conf/tapsoft/Vaandrager97}
+\end{proof}
+%
+\begin{lemma}{(\cite[Theorem 5.2.]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
 Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all timed words over $\alphabet$ is undecidable.
 \end{lemma}
-
+%
+The proof of lemma \ref{lemm:undecidability} is based on a construction of timed B\"uchi automata and it also holds for timed rabin
+automata since lemma \ref{lemm:expressive}.
+%
 \begin{proposition}
-Given a Nonedeterministic timed automaton over an alphabet $\alphabet$, the problem of deciding 
-the minimal probability that it accepts a PTA w.r.t. $(q_{start},\zero)$ is undecidable.
+Given a nonedeterministic timed rabin automaton $\dta$ over an alphabet $\alphabet$, the qualitative problem of 
+the minimal probability that $\pta$ \emph{observes} $\dta$ under initial mode 
+$\qstart \in \cstates$ is undecidable.
 \end{proposition}
-
+%
 \begin{proof}
-We reach our goal by reducing the NTA universality problem to this problem.
-For any NTA $\nta = (\cstates,\alphabet,\clocks,\rules)$, let $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}.$
+% We reach our goal by reducing the NTA universality problem to this problem.
+For any nonedeterministic TRA $\nta = (\cstates,\alphabet,\clocks,\rules)$, let $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}.$
 
 we construct an $\nta' = (\cstates', \alphabet', \clocks, \rules')$ where
 $$
@@ -23,41 +36,70 @@ $$
             \ntaap{0},
             \true,
             \clocks,
-            q_{start}
+            \qstart
         \rangle
     \}.
 $$
 
-Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
-\begin{align*}
-    &\locs      :=  \alphabet',\\
-    &\loc^*     :=  \ntaap{0}, \\
-    &\clocks    :=  \emptyset, \\
-    &\acts      :=  \alphabet, \\ 
-    &\inv(\ntaap{i})                :=  \true, 
-                                    \text{ for all } \ntaap{i} \in \locs,\\
-    &\enab(\ntaap{i},\ntaap{j})     :=  \true,
-                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
-    &\prob(\ntaap{i},\ntaap{j})     :=  \mu_{ \left (
-                                        \emptyset,\ntaap{j}
-                                    \right)}, 
-                                    \text{ for all } \ntaap{i} \in \locs \text{ and all } \ntaap{j} \in \acts,\\
-    &\lbfunc(\ntaap{i})             :=  \ntaap{i},
-                                    \text{ for all } \ntaap{i} \in \locs.
-\end{align*}
-It is natural to see, for any time word $ w = \alpha_0 \alpha_1 \alpha_2 \cdots $
-there is a scheduler $ \sigma_w (\fnpath ) := a_{len(\fnpath)} $ such that $ \PCswLang = 1 $
-iff $\nta$ accepts $w$ w.r.t. $(q_{start},\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
+We can choose an appropriate $\ap$ such that $ k + 1 \le \left| 2^{\ap} \right| $ 
+and assign each $\ntaap{i}$ to a different subset of $\ap$. So we simplify the label 
+of locations in $\pta$ by single letters in $\alphabet'$.
 
+Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
+\begin{compactitem}
+    \item $\locs      :=  \alphabet'$, 
+    \item $\loc^*     :=  \ntaap{0} $, 
+    \item $\clocks    :=  \emptyset $, 
+    \item $\acts      :=  \alphabet $, 
+    \item $\inv(\ntaap{i})              :=  \true, 
+                                            \text{ for all } 
+                                            \ntaap{i} \in \locs$,
+    \item $\enab(\ntaap{i},\ntaap{j})   :=  \true,
+                                            \text{ for all } 
+                                            \ntaap{i} \in \locs 
+                                            \text{ and all } 
+                                            \ntaap{j} \in \acts$,
+    \item $\prob(\ntaap{i},\ntaap{j})   :=  \mu_{ \left (
+                                                \emptyset,\ntaap{j}
+                                            \right)}, 
+                                            \text{ for all } 
+                                            \ntaap{i} \in \locs 
+                                            \text{ and all } 
+                                            \ntaap{j} \in \acts$,
+    \item $\lbfunc(\ntaap{i})           :=  \ntaap{i},
+                                            \text{ for all } \ntaap{i} \in \locs$.
+\end{compactitem}
+It is natural to see, for any time word $ w = \alpha_0 \alpha_1 \alpha_2 \cdots $
+there is a scheduler $ \sigma_w (\fnpath ) := \alpha_{\length{\fnpath}} $ such that 
+$
+    \probm^{\pta,\sigma_w }\left(
+        \left \{
+            w
+        \right \}
+    \right)
+    = 1
+$.
+It's natural that
+$$
+    \pr
+        {\qstart}
+        {\sigma_w}
+        =   \begin{cases}
+            1 & \mbox{ if $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ },\\
+            0 & \mbox{ if $\nta$ rejects $w$ w.r.t. $(\qstart,\zero)$ }.
+        \end{cases}
+$$
+% $ \PCswLang = 1 $
+% iff $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
 Then we have
 $
 \inf_\sigma \probm^{\pta,\sigma}\left(
     \Lang
         {\pta,\sigma}
-        {\nta',\qinit,\rabin}
+        {\nta',\qinit}
 \right)
     = 1
 $
 iff
-$\nta$ accepts all timewords w.r.t. $(q_{start},\zero)$.
+$\nta$ accepts all timewords w.r.t. $(\qstart,\zero)$.
 \end{proof}

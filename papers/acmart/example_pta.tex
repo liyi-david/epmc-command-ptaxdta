@@ -1,0 +1,101 @@
+\newcommand{\WAIT}[0]{\mbox{\sl WAIT}}
+\newcommand{\WORK}[1]{\mbox{\sl WORK}_{#1}}
+\newcommand{\DONE}[1]{\mbox{\sl DONE}_{#1}}
+\newcommand{\request}[1]{\mbox{\sl Req}_{#1}}
+\newcommand{\p}[1]{\mbox{\sl p}_{#1}}
+
+\newcommand{\location}[5]{
+    \node[location] (#1) at #2 {
+        \begin{tabular}{c}
+            \ensuremath{#3} \\
+            \hline
+            \ensuremath{#4} \\
+            \ensuremath{#5}
+        \end{tabular}
+    }
+}
+
+\def \bY {1}
+\def \aY {4}
+\def \workX {4}
+\def \decX  {6}
+\def \doneX {8}
+
+\begin{tikzpicture}[x = 1.1cm]
+
+\location{l0}{(0,2.5)}
+    { \WAIT }
+    { \true }
+    { \emptyset };
+%%%%%
+\location{a1}{(\workX,\aY)}
+    { \WORK{\alpha} }
+    { \true }
+    { \emptyset };
+
+\node[dec] (adec) at (\decX,\aY) {$\bullet$};
+
+\location{a2}{(\doneX,\aY)}
+    { \DONE{\alpha} }
+    { x=0 }
+    { \{ \alpha \} };
+
+% \node[dec] (t1) at (8,5) {};
+% \node[dec] (t2) at (0,5) {};
+
+%%%%%
+\location{b1}{(\workX,\bY)}
+    { \WORK{\beta} }
+    { \true }
+    { \emptyset };
+
+\node[dec] (bdec) at (\decX,\bY) {$\bullet$};
+
+\location{b2}{(\doneX,\bY)}
+    { \DONE{\beta} }
+    { x=0 }
+    { \{ \beta \} };
+
+%%%%% alpha
+\draw[tran] (l0) to node[auto,sloped,above] {
+    $\request{\alpha},\true.\emptyset$
+} (a1);
+
+\draw[nchoice] (a1) to node[auto] {
+    $\tau,\true$
+} (adec);
+
+\draw[pchoice,bend left] (adec) to node[auto] {
+    $ \emptyset, 1 - \p{\beta}$
+} (a1);
+
+\draw[pchoice] (adec) to node[auto] {
+    $ \{ x \},\p{\beta}$
+} (a2);
+\draw[tran] (a2) -- (\doneX,5) to node[auto,above]{
+    $\tau,\true.\emptyset$
+} (0,5) -- (l0);
+
+
+%%%%% beta
+\draw[tran] (l0) to node[auto,sloped,above] {
+    $\request{\beta},\true.\emptyset$
+} (b1);
+
+\draw[nchoice] (b1) to node[auto] {
+    $\tau,\true$
+} (bdec);
+
+\draw[pchoice,bend left] (bdec) to node[auto] {
+    $ \emptyset, 1 - \p{\beta}$
+} (b1);
+
+\draw[pchoice] (bdec) to node[auto] {
+    $ \{ x \},\p{\beta}$
+} (b2);
+
+\draw[tran] (b2) --(\doneX,0) to node[auto,below] {
+    $\tau,\true.\emptyset$
+} (0,0) -- (l0);
+
+\end{tikzpicture}

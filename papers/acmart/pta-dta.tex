@@ -31,6 +31,18 @@
     >=stealth,
     rounded corners
 ]
+\tikzstyle{nchoice}  = [
+    draw,
+    >=stealth,
+    rounded corners
+]
+\tikzstyle{pchoice}  = [
+    draw,
+    ->,
+    >=stealth,
+    rounded corners,
+    dashed
+]
 \tikzstyle{dec}   = [inner sep=0pt]
 \tikzstyle{mode}  = [
     shape=circle,
@@ -96,13 +108,17 @@
 \newcommand{\trans}{\rightarrow}
 \newcommand{\tran}[3]{{#1}{\xrightarrow{#2}}{#3}}
 \newcommand{\probk}{\mathbf{P}}
-\newcommand{\fnpaths}[1]{\mbox{\sl Paths}^*_{#1}}
+
+\newcommand{\fnpaths }[1]{\mbox{\sl Paths}^*_{#1}}
 \newcommand{\infpaths}[1]{\mbox{\sl Paths}^\omega_{#1}}
 \newcommand{\omgpaths}[2]{\mbox{\sl Reach}^{#2}_{#1}}
-\newcommand{\initloc}[1]{\mbox{\sl init}\left(#1\right)}
+\newcommand{\initloc }[1]{\mbox{\sl init}\left(#1\right)}
+\newcommand{\lastloc }[1]{\mbox{\sl last}\left(#1\right)}
 
 \newcommand{\fnpath}{\rho}
 \newcommand{\infpath}{\pi}
+
+\newcommand{\length}[1]{\left| #1 \right|}
 
 %% Notations for Probability Space
 
@@ -149,9 +165,9 @@
 % \newcommand{\infset}[1]{\mbox{\sl{inf  }} ( #1 )}
 % \newcommand{\trace }[1]{\mbox{\sl{trace}} ( #1 )}
 % \newcommand{\traj  }[1]{\mbox{\sl{traj }} ( #1 )}
-\newcommand{\infset}[1]{\mbox{inf}  ( #1 )}
-\newcommand{\trace }[1]{\mbox{trace}( #1 )}
-\newcommand{\traj  }[1]{\mbox{traj} ( #1 )}
+\newcommand{\infset}[1]{\mbox{\sl inf}  ( #1 )}
+\newcommand{\trace }[1]{\mbox{\sl trace}( #1 )}
+\newcommand{\traj  }[1]{\mbox{\sl traj} ( #1 )}
 \newcommand{\rabin}{\mathcal{F}}
 
 \newcommand{\Lang}[2] {
@@ -160,16 +176,16 @@
         ^{#2}
 }
 
-\newcommand{\Accept}[2]{
+\newcommand{\Accept}[1]{
     RabinPaths
         _{#1}
-        ^{#2}   
+        % ^{#2}
 }
 
 \newcommand{\LangCsAqF}{
     \Lang
         {\pta,\sigma}
-        {\dta,\dtloc,\rabin}
+        {\dta,\dtloc}
 }
 
 \newcommand{\AcceptCxAqsF}{
@@ -178,7 +194,7 @@
             \product{\pta}{\dta_\dtloc},
             \sigma
         }
-        {\rabin}
+        % {\rabin}
 }
 
 \newcommand{\TLang}{
@@ -195,10 +211,35 @@
                 \sigma
             \right)
         }
-        {\rabin}
+        % {\rabin}
+}
+\newcommand{\accept}[2]{
+    \mbox{\bf ACC} \left(
+      {#1},
+      {#2}
+    \right)
+}
+\newcommand{\acccept}[3]{
+    \mbox{\bf ACC} \left(
+      {#1},
+      {#2},
+      {#3}
+    \right)
+}
+\newcommand{\accccept}[4]{
+    \mbox{\bf ACC} \left(
+      {#1},
+      {#2},
+      {#3},
+      {#4}
+    \right)
 }
 
-
+\newcommand{\Region}[1]{
+  \mbox{Reg}[
+    {#1}
+  ]
+}
 %%For drawing grids
 
 \newcounter{row}
@@ -217,7 +258,8 @@
 
 % Undecidability
 \newcommand{\nta}{\mathcal{A}}
-\newcommand{\qinit}{q_{init}}
+\newcommand{\qinit }{q_{init }}
+\newcommand{\qstart}{q_{start}}
 \newcommand{\ntaap}[1]{b_{#1}}
 \newcommand{\PCswLang}{
     \probm^{\pta,\sigma_w }\left(
@@ -226,6 +268,10 @@
         {\nta',\qinit,\rabin}
     \right)
 }
+
+\newcommand{\TRA}{TRA}
+\newcommand{\tra}{\mathcal{A}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -287,22 +333,7 @@
 }
 \email{webmaster@marysville-ohio.com}
 
-\author{Lars Th{\o}rv{\"a}ld}
-\authornote{This author is the
-  one who did all the really hard work.}
-\affiliation{%
-  \institution{The Th{\o}rv{\"a}ld Group}
-  \streetaddress{1 Th{\o}rv{\"a}ld Circle}
-  \city{Hekla} 
-  \country{Iceland}}
-\email{larst@affiliation.org}
 
-\author{Valerie B\'eranger}
-\affiliation{%
-  \institution{Inria Paris-Rocquencourt}
-  \city{Rocquencourt}
-  \country{France}
-}
 \author{Aparna Patel} 
 \affiliation{%
  \institution{Rajiv Gandhi University}
@@ -318,23 +349,6 @@
   \state{Beijing Shi}
   \country{China}
 }
-
-\author{Charles Palmer}
-\affiliation{%
-  \institution{Palmer Research Laboratories}
-  \streetaddress{8600 Datapoint Drive}
-  \city{San Antonio}
-  \state{Texas} 
-  \postcode{78229}}
-\email{cpalmer@prl.com}
-
-\author{John Smith}
-\affiliation{\institution{The Th{\o}rv{\"a}ld Group}}
-\email{jsmith@affiliation.org}
-
-\author{Julius P.~Kumquat}
-\affiliation{\institution{The Kumquat Consortium}}
-\email{jpkumquat@consortium.net}
 
 % The default list of authors is too long for headers}
 \renewcommand{\shortauthors}{B. Trovato et al.}
@@ -399,5 +413,8 @@
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{pta-dta} 
+
+\clearpage
+\input{appendix}
 
 \end{document}

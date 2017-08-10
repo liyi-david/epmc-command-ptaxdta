@@ -5,6 +5,8 @@ In the whole paper, we denote by $\Nset$, $\Nset_0$, $\Zset$, and $\Rset$ the se
 integers, non-negative integers, integers, and real numbers, respectively.
 
 For an infinite word $w$, $\infset{w}$ is the set of symbols that occur infinitely many times in $w$.
+For an finite word $w$ {\color{red} the last symbol is denoted by $\lastloc{w}$}
+
 %
 \subsection{Clock Valuations, Clock Constraints and Clock Equivalences}
 %
@@ -61,8 +63,8 @@ an \emph{invariant condition};
 \item $\ap$ is a finite set of \emph{atomic propositions} and $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
 \end{compactitem}
 \end{definition}
-\vspace{-0.8em}
-
+% \vspace{-0.8em}
+% 
 W.l.o.g, we assume that both $\acts$ and $\ap$ is disjoint from $[0,\infty)$. Below we fix a PTA $\pta$ in the form (\ref{eq:pta}). The semantics of PTAs is as follows.
 
 \noindent{\em States and Transition Relation.}
@@ -101,8 +103,11 @@ A \emph{finite path} $\fnpath$ (under $\pta$) is a finite sequence
 \]
 in $\states\times{\left((\acts\cup[0,\infty))\times \states\right)}^*$
 such that (i) $s_0=(\loc^*,\zero)$,
-(ii) $a_{2k}\in [0,\infty)$ for all integers $0\le k\le \frac{n}{2}$, (iii) $a_{2k+1}\in \acts$ for all integers $0\le k\le \frac{n-1}{2}$ and (iv) for all $0\le k\le n-1$, $\tran{s_k}{a_k}{s_{k+1}}$.
-The length of $\fnpath$ is n, denoted by len($\fnpath$)
+(ii) $a_{2k}\in [0,\infty)$ for all integers $0\le k\le \frac{n}{2}$,
+(iii) $a_{2k+1}\in \acts$ for all integers $0\le k\le \frac{n-1}{2}$ and 
+(iv) for all $0\le k\le n-1$, $\tran{s_k}{a_k}{s_{k+1}}$.
+The length of $\fnpath$ is n, denoted by $\length{\fnpath}$.
+
 An \emph{infinite path} (under $\pta$) is an infinite sequence
 \[
 \left\langle s_0,a_0,s_1,a_1,\dots\right\rangle
@@ -169,8 +174,8 @@ From the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, $\omgp
 % \vspace{-0.8em}
 \subsection{Deterministic Timed Automata}
 % \vspace{-0.8em}
-\begin{definition}[Timed Automata (TAs) ~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
-A \emph{timed automaton} (TA) $\dta$ is a tuple
+\begin{definition}[Nonedeterministic Timed Automata (TAs) ~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
+A \emph{nonedeterministic timed automaton} (NTA) $\dta$ is a tuple
 \begin{equation}\label{eq:dta}
 \dta=(\cstates,\alphabet,\clocks,\rules)
 \end{equation}
@@ -184,7 +189,7 @@ where
 \end{definition}
 
 \begin{definition}[Deterministic Timed Automata (DTAs)~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
-A TA $\dta=(\cstates,\alphabet,\clocks,\rules)$ is called \emph{deterministic} iff
+A NTA $\dta=(\cstates,\alphabet,\clocks,\rules)$ is called \emph{deterministic} iff
 \begin{compactenum}
 \item ({\em determinism}): whenever $(\dtloc_1,b_1,\phi_1,X_1,\dtloc'_1),(\dtloc_2,b_2,\phi_2,X_2,\dtloc'_2)\in\rules$, if $(\dtloc_1,b_1)=(\dtloc_2,b_2)$ and $\sat{\phi_1}\cap \sat{\phi_2}\ne\emptyset$ then $(\phi_1,X_1,\dtloc'_1)=(\phi_2,X_2,\dtloc'_2)$;
 \item ({\em totality}): for all $(q,b)\in \cstates\times\Sigma$ and $\nu\in\val{\clocks}$, there exists $(q,b,\phi,X,q')\in\Delta$ such that $\nu\models \phi$.
@@ -198,9 +203,25 @@ We illustrate the semantics of DTAs as follows.
 A \emph{configuration} of $\dta$ is a pair $(\dtloc,\nu)$, where $\dtloc\in \cstates$ and $\nu\in\val{\clocks}$.
 The \emph{one-step transition function}
 \[
-\kappa:(\cstates\times\val{\clocks})\times (\alphabet\cup [0,\infty))\rightarrow \cstates\times\val{\clocks}
+    \kappa
+        :
+        (\cstates \times \val{\clocks}) \times (\alphabet\cup [0,\infty))
+        \rightarrow
+        \cstates \times \val{\clocks}
 \]
-is defined by: $\trfunc((\dtloc,\nu),a):=\left(\dtq{q}{a}{\nu},\reset{\nu}{\dtx{q}{a}{\nu}}\right)$ for $a\in\alphabet$; $\trfunc((\dtloc,\nu),a):=(\dtloc,\nu+a)$ for $a\in [0,\infty)$.
+is defined by: 
+$
+    \trfunc((\dtloc,\nu),a)
+        := \left(
+            \dtq{q}{a}{\nu},\reset{\nu}{\dtx{q}{a}{\nu}}
+        \right)
+$ for $a \in \alphabet$; 
+$
+    \trfunc((\dtloc,\nu),a)
+        :=(
+            \dtloc,\nu+a
+        )
+$ for $a \in [0,\infty)$.
 For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
 instead of $\kappa((\dtloc,\nu),a)=(\dtloc',\nu')$.
 
@@ -212,7 +233,6 @@ $
     a_{2n+1}    \in \alphabet
 $
 for all $n$.
-
 The \emph{run} of $\dta$ on an infinite word $w=\{a_n\}_{n\in\Nset_0}$
 %over $\acts\cup [0,\infty)$ (i.e., $a_n\in \acts\cup [0,\infty)$ for all $n$)
 with \emph{initial configuration} $(\dtloc,\nu)$, denoted by $\run{\dta}{\dtloc,\nu}{w}$, is the unique infinite
@@ -224,7 +244,8 @@ The trajectory of $\run{\dta}{\dtloc,\nu}{w}$, an infinite string over $\cstates
 is define as follow $\traj{ \run{\dta}{\dtloc,\nu}{w} } := q_0 q_1 \dots$
 %%%%%
 
-Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition. Finite case is trivial and we also support it in our tool.
+Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition. 
+% Finite case is trivial and we also support it in our tool.
 % \vspace{-0.8em}
 % \begin{definition}[Finite Acceptance Criterion]
 % Let $F\subseteq\cstates$ be a set of \emph{final} modes.
@@ -233,22 +254,28 @@ Now we illustrate the acceptance condition for DTAs. In this paper, we focus on 
 % \end{definition}
 
 %%%%%
-\vspace{-0.8em}
-\begin{definition}[Rabin Acceptance Criterion]
-An Rabin acceptance condition is a a finite set of pairs
+% \vspace{-0.8em}
+\begin{definition}[Timed Rabin Automata (TRAs)]
+A \emph{timed Rabin Automata} (TRA) is a tuple 
+\begin{equation}\label{eq:tra}
+    \tra=(\cstates,\alphabet,\clocks,\rules,\rabin)
+\end{equation}
+where $(\cstates,\alphabet,\clocks,\rules)$ is a timed automaton, and $\rabin$ is a a finite 
+set of pairs
 $
     \rabin 
-        = \left\{ 
+        = \{ 
             (H_1,K_1 ), 
-            \dots ,
+            \dots, 
             (H_n,K_n) 
-        \right\} 
+        \} 
 $,
 where $H_i$ and $K_i$ are subset of $\cstates$ for all $i<n$.
-A set $\cstates' \subseteq \cstates $ is called Rabin accepting by $\rabin$ 
+A set $\cstates' \subseteq \cstates $ is called Rabin accepting by $\rabin$, 
+denoted by $\accept{\cstates'}{\rabin}$,
 if there exists $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $ 
 and $ \cstates' \cap K_i \neq \emptyset $. An infinite word $w$ is accepted  
-$\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ and acceptance $\rabin$ iff    
+$\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ iff    
 $
     \mbox{  }
     \infset{ 
@@ -258,6 +285,7 @@ $
     }
 $ is Rabin accepting by $\rabin$.
 \end{definition}
+
 %%%%%
 
 %Then we present Rabin acceptance condition which requires an infinite word to visit some modes only finitely often and some other modes infinitely often.
