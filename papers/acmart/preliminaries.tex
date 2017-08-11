@@ -142,6 +142,27 @@ The purpose to restrict to time-divergent schedulers is to eliminate non-realist
 
 \noindent{\em Reachability.} An infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ is said to \emph{visit} a subset $U\subseteq\locs$ of locations \emph{eventually} if there exists $n\in\Nset_0$ such that $\loc_n\in U$. The set of infinite paths in $\infpaths{\pta,\sigma}$ that visit $U$ eventually is denoted by $\omgpaths{\pta,\sigma}{U}$.
 From the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, $\omgpaths{\pta,\sigma}{U}$ is measurable since it is a countable union of cylinder sets.
+
+\begin{figure}
+    \centering
+    \resizebox{.5\textwidth}{!}{
+        \input{example_pta}
+        }
+    \caption{A Task Complete Example}
+    \label{fig:pta}  
+\end{figure}
+
+\begin{example}\label{ex:pta}
+In the figure, $\WAIT$, $\WORK{s}$ and $\DONE{s}$ ($ s\in \{ \alpha, \beta \}$) are locations 
+and $x$ is the only clock.Below each location first comes (vertically) its invariant condition and then the set of labels assigned to the location. For example, $\inv(\DONE{\alpha})=( x = 2 )$ 
+and $\lbfunc(\DONE{\alpha})=\{ \alpha \}$.
+The four dot points together with corresponding arrows refer to four actions and their enabling conditions and probability transition functions.
+For example, the upper dot at the right of $\WORK{\alpha}$ refers to an action whose name 
+is $\tau$, the enabling condition for $\tau$ (from $\WORK{\alpha}$) is $\true$ (cf. the solid line emitting from $\WORK{\alpha}$), and the probability distribution for this action is to reset 
+$x$ and go to $\DONE{\alpha}$ with probability $\p{\alpha}$ and to reset $x$ and go back to 
+$\DONE{\alpha}$ with probability $1-\p{\alpha}$.
+The PTA models a machine whiche deals with two different kinds of jobs.
+\end{example}
 %
 %In the following, we introduce the notion of \emph{rewards} (or \emph{costs}) over PTAs.
 %
@@ -286,6 +307,27 @@ $
 $ is Rabin accepting by $\rabin$.
 \end{definition}
 
+\begin{figure}
+    \centering
+    \resizebox{.5\textwidth}{!}{
+        \input{example_dta}
+        }
+    \caption{A DTA Specification}
+    \label{fig:dta}  
+\end{figure}
+
+\begin{example}\label{ex:dta}
+Consider the DTA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
+$\INIT$, $\Q$ and $\FAIL$ are modes with $\rabin = \{ \{ \FAIL \}, \{ \Q \} \}$, $y,z$ are clocks and arrows between modes are rules.
+For example, there are five rules emitting from $\Q$, one is 
+$(\Q, \{\beta\}, 300 < z, \emptyset, \FAIL)$ and another is 
+$(\Q, \emptyset, \true,\emptyset, \Q)$.
+$\INIT$ is the initial mode to read the label of the initial location of a PTA in the product construction, and $\FAIL$ is a trap mode.
+Note that this DTA does not satisfy the totality condition. However, this can be remedied by adding rules leading to a deadlock mode without changing the acceptance behaviour of the DTA.
+This DTA specified the property that every $\alpha$ job should be done within 500 units 
+of time after last $\alpha$ job done and every $\beta$ job should be done within 
+300 units of time after last $\beta$ job done. 
+\end{example}
 %%%%%
 
 %Then we present Rabin acceptance condition which requires an infinite word to visit some modes only finitely often and some other modes infinitely often.

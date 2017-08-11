@@ -99,31 +99,19 @@ For each mode, the local conjunction chooses one clock constraint from rules wit
 From determinism and totality of DTAs,
 each conjunction constructed in this way determines which rule to use in the DTA for every symbol in a unique way.
 The advantage of the second version against the first one is that it is more suitable for DTAs with small size and large $N$ (leading to a large number of reigons), as the size of the product PTA relies only the size of the DTA.
-\begin{figure}
-    \centering
-    \resizebox{.5\textwidth}{!}{
-        \input{example_pta}
-        }
-    \caption{A Task Complete Example}
-    \label{fig:pta}  
-\end{figure}
 
 \begin{figure}
     \centering
     \resizebox{.5\textwidth}{!}{
-        \input{example_dta}
+        \input{example_product}
         }
-    \caption{A DTA Specification}
-    \label{fig:dta}  
+    \caption{A Part of Product PTA}
+    \label{fig:product}  
 \end{figure}
+
 \begin{example}
 Here we represent an running example to show how $\exttuples_{\dtloc}$ works. 
-Assume we have the machine depicted in Figure~\ref{fig:pta}  whiche deals with 
-two different kinds of jobs. Then we use the DTA depicted in Figure~\ref{fig:dta} 
-to specify the property that every $\alpha$ job should be done within 500 units 
-of time after last $\alpha$ job done and every $\beta$ job should be done within 
-300 units of time after last $\beta$ job done. Here for 
-the mod $q$ in DTA, we have
+Here for the accepting mod $\Q$ in DTA, we have
 \begin{align*}
     &
     \exttuples_{\dtloc} 
@@ -162,8 +150,7 @@ the mod $q$ in DTA, we have
             \right \} 
         \} .
 \end{align*}
-And a part of the product is depicted in Figure~\ref{fig:dta}.
-
+And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
 \end{example}
 
 
