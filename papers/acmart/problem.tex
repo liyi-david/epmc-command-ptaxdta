@@ -115,58 +115,58 @@ $$
 Again, from the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, 
 $\LangCsAqF$ is measurable since it can be represent int the 
 form of a countable intersect and countable union of some cylinder sets.
-\begin{small}
-\begin{align*}
-    &
-    \LangCsAqF = \\
-        \bigcup_{i=1}^{n} ( 
-            & 
-            \bigcup_{m \in \Nset}
-            \bigcap \left \{
-                \overline{\cyl(\fnpath)}
-                \mid
-                \fnpath \in \fnpaths{\pta,\sigma}
-                \mbox{,} 
-                m \le \length{\fnpath}    
-                \mbox{,} 
-                \lastloc{
-                    \traj{ 
-                        \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
-                    }
-                } \in H_i
-            \right \} 
-            \\
-            \cap 
-            & 
-            \bigcap_{m \in \Nset}
-            \bigcup \left \{
-                \cyl(\fnpath)
-                \mid
-                \fnpath \in \fnpaths{\pta,\sigma}
-                \mbox{,} 
-                m \le \length{\fnpath}    
-                \mbox{,} 
-                \lastloc{
-                    \traj{ 
-                        \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
-                    }
-                } \in K_i
-            \right \}
-        )
-\end{align*}
-\end{small}
-where
-$
-    \dtloc^*
-        =
-            \trfunc \left(
-                (\dtloc,\zero), 
-                \lbfunc (
-                    \initloc{\fnpath}
-            \right)
-$.
+% \begin{small}
+% \begin{align*}
+%     &
+%     \LangCsAqF = \\
+%         \bigcup_{i=1}^{n} ( 
+%             & 
+%             \bigcup_{m \in \Nset}
+%             \bigcap \left \{
+%                 \overline{\cyl(\fnpath)}
+%                 \mid
+%                 \fnpath \in \fnpaths{\pta,\sigma}
+%                 \mbox{,} 
+%                 m \le \length{\fnpath}    
+%                 \mbox{,} 
+%                 \lastloc{
+%                     \traj{ 
+%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
+%                     }
+%                 } \in H_i
+%             \right \} 
+%             \\
+%             \cap 
+%             & 
+%             \bigcap_{m \in \Nset}
+%             \bigcup \left \{
+%                 \cyl(\fnpath)
+%                 \mid
+%                 \fnpath \in \fnpaths{\pta,\sigma}
+%                 \mbox{,} 
+%                 m \le \length{\fnpath}    
+%                 \mbox{,} 
+%                 \lastloc{
+%                     \traj{ 
+%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
+%                     }
+%                 } \in K_i
+%             \right \}
+%         )
+% \end{align*}
+% \end{small}
+% where
+% $
+%     \dtloc^*
+%         =
+%             \trfunc \left(
+%                 (\dtloc,\zero), 
+%                 \lbfunc (
+%                     \initloc{\fnpath}
+%             \right)
+% $.
 
-{\color{red} finite path as finite word}
+% {\color{red} finite path as finite word}
 
 Now the {\sc PTA-TRA} problem is as follows.
 

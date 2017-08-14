@@ -1,10 +1,10 @@
-\documentclass[sigconf]{acmart}
+\documentclass[sigconf,anonymous]{acmart}
 
 \usepackage{booktabs} % For formal tables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\usepackage{appendix}
 \usepackage{enumerate,paralist}
 \usepackage{mathtools}
 \usepackage{amsmath}
@@ -300,10 +300,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Copyright
-%\setcopyright{none}
+\setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-\setcopyright{rightsretained}
+%%%%%% \setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
@@ -317,8 +317,9 @@
 \acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El
-  Paso, Texas USA} 
+\acmConference[HSCC 2018]{21st ACM International Conference on Hybrid Systems: Computation and Control }{April 2018}{
+  Porto, Portugal
+} 
 \acmYear{1997}
 \copyrightyear{2016}
 
@@ -327,11 +328,11 @@
 
 \begin{document}
 \title{Verifying Probabilistic Timed Automata Against \\Deterministic-Timed-Automata Specifications}
-\titlenote{Produces the permission block, and
-  copyright information}
-\subtitle{Extended Abstract}
-\subtitlenote{The full version of the author's guide is available as
-  \texttt{acmart.pdf} document}
+% \titlenote{Produces the permission block, and
+%   copyright information}
+% \subtitle{Extended Abstract}
+% \subtitlenote{The full version of the author's guide is available as
+%   \texttt{acmart.pdf} document}
 
 
 \author{Ben Trovato}
@@ -375,9 +376,9 @@
 }
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{B. Trovato et al.}
+% \renewcommand{\shortauthors}{B. Trovato et al.}
 
-
+\begin{comment}
 % \begin{abstract}
 % This paper provides a sample of a \LaTeX\ document which conforms,
 % somewhat loosely, to the formatting guidelines for
@@ -421,7 +422,7 @@
 
 
 \keywords{ACM proceedings, \LaTeX, text tagging}
-
+\end{comment}
 
 
 \input{abstract}
@@ -439,6 +440,8 @@
 \bibliography{pta-dta} 
 
 \clearpage
+\begin{appendices}
 \input{appendix}
+\end{appendices}
 
 \end{document}

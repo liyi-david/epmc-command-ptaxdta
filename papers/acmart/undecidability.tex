@@ -11,7 +11,7 @@ A timed language is accepted by some timed B\"uchi automaton iff it is accepted 
 \end{proof}
 %
 \begin{lemma}{(\cite[Theorem 5.2.]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
-Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all timed words over $\alphabet$ is undecidable.
+Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all time-divergent timed words over $\alphabet$ is undecidable.
 \end{lemma}
 %
 The proof of lemma \ref{lemm:undecidability} is based on a construction of timed B\"uchi automata and it also holds for timed rabin
@@ -79,6 +79,7 @@ $
     \right)
     = 1
 $.
+$ \sigma_w $ is time-divergent since $\infpaths{\pta,\sigma} = \{ w \}$ and $w$ is time-divergent.
 It's natural that
 $$
     \pr
