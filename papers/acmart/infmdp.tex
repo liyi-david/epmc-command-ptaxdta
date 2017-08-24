@@ -1,0 +1,325 @@
+% \vspace{-0.8em}
+\section{Infinite-State-MDP Construction}
+% \vspace{-0.8em}
+$\left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)$, where:
+\begin{compactitem}
+\item $\locs_\otimes:=\locs\times \cstates$;
+\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode\\
+    such that $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q^\star,\zero)$;
+    %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
+\item $\clocks_\otimes:=\clocks_1\cup\clocks_2$;
+\item $\acts_\otimes:=\acts\times\regions$; %$\acts_\otimes:=\acts\times\rules$;
+\item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
+\item $\enab_\otimes\left((\loc,\dtloc), (a,R)\right):=\enab(\loc,a)\wedge \phi_R$ for all $(\loc,\dtloc)\in \locs_\otimes$, where $\phi_R$ is any clock constraint such that $\sat{\phi_R}=R$;
+%$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
+\item 
+$
+    \lbfunc_\otimes \left(
+        \loc,\dtloc
+    \right)
+        := \left \{
+            \dtloc
+        \right \}
+    \mbox{ for all } \left ( 
+        \loc,\dtloc
+    \right )
+    \in \locs_\otimes
+$
+\item $\prob_\otimes$ is given by
+\begin{align*}
+&\prob_\otimes\left((\loc,\dtloc),(a,R)\right)(Y,(\loc',\dtloc')):=\\
+&\quad\begin{cases}
+\prob\left(\loc,a\right)(Y\cap \clocks_1,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), \phi^{\dtloc,\lbfunc\left(\loc'\right)}_R, Y\cap \clocks_2, \dtloc')\in\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
+0 & \mbox{otherwise}
+\end{cases}\enskip.
+\end{align*}
+where $(\dtloc,\lbfunc\left(\loc'\right), \phi^{\dtloc,\lbfunc\left(\loc'\right)}_R, Y\cap \clocks_2, \dtloc')$ is the unique rule such that for all $\nu\in R$, $\nu\in\sat{\phi^{\dtloc,\lbfunc\left(\loc'\right)}_R}$.
+The uniqueness follows from determinism and totality of DTAs.
+\end{compactitem}
+
+
+Now we present the finite acceptance of nodeterministic timed automata for PTAs.
+\vspace{-0.8em}
+\begin{definition}[Finite Acceptance Criterion]
+Let $F\subseteq\cstates$ be a set of \emph{final} modes.
+An infinite word $w$ is \emph{finitely accepted} by $\dta$ w.r.t the \emph{initial configuration} $(\dtloc,\nu)$ and $F$ if $\run{\dta}{\dtloc,\nu}{w}=\{(\dtloc_n,\nu_n,a_n)\}_{n\in\Nset_0}$ satisfies that $\dtloc_n\in F$ for
+some $n\in\Nset_0$.
+\end{definition}
+
+\begin{definition}[Path Acceptance]
+An infinite path $\infpath$ under $\pta$ is \emph{finitely accepted} by $\tra$ w.r.t 
+initial configuration $(\dtloc,\nu)$, if the infinite word $\lbfunc(\infpath)$ is finitely
+accepted by $\tra$ w.r.t 
+$
+\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)
+$.
+\end{definition}
+
+
+\begin{definition}[floor Operator]
+For a region $\reg$ with clocks $\clocks$, $\floor{\reg} : \clocks \rightarrow \Nset$ 
+is defined as $ \floor{\reg}(x) = t $ where $t$ is the unique integer s.t. 
+$\reg \models t \le x < t+1$
+\end{definition}
+
+Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a NTA $\nta$ taking the form (\ref{eq:nta}) with the difference that the set of clocks for $\pta$ (resp. for $\nta$) is denoted by $\clocksX$ (resp. $\clocksY$).
+W.l.o.g., we assume that $\clocksX \cap \clocksY = \emptyset$ and $\alphabet=2^{\ap}$.
+
+Let PTA be $\pta$ with the set $\clocksX$ and the NTA be $\nta$ with the set $\clocksY$.
+
+The transformation to MDP is as follows.
+
+Let $\clocksY$ be a fixed finite set of clocks. We use integer Subscript denote a set of 
+new clocks. Formally
+$
+    \clocksY_k = \left \{
+        \left (
+            t,y
+        \right ) \in \Nset \times \clocksY
+        \mid
+        t = k
+    \right \}
+$ for $ k > 0 $.
+
+And $\reg^{\clocksY_k}$ is a region for $\clocksY_k$.
+
+\noindent{\textbf{Product Construction (Infinite-State-MDP ).}}
+The \emph{product MDP} $\productmdp{\pta}{\dta_q}$ between $\pta$ and $\dta$ with initial mode $\dtloc$ is defined as the PTA
+
+\newcommand{\clocksN}{
+    \clocksX \cup \left(
+        \bigcup_{k=1}^{n} \clocksY_k
+    \right )
+}
+
+The transformation to MDP is follows. A state in $\productmdp{\pta}{\dta_q}$ 
+is of the form 
+\begin{equation}\label{eq:state0}
+    \left (
+        \left (
+            \loc,\reg^{\clocksX}
+        \right )
+        ,
+        \left (
+            (\dtloc_1,\reg_1^{\clocksY_1}),
+            \cdots,
+            (\dtloc_n,\reg_n^{\clocksY_n})
+        \right )
+        ,
+        \clocksX \cup \left(
+            \bigcup_{k=1}^{n} \clocksY_k
+        \right )
+        ,
+        \subseteq
+    \right )
+\end{equation}
+
+where $n$ is an unbounded natural number, $\loc$ (w.r.t $\reg^{\clocksX}$) is a location (w.r.t a region) in $\pta$, $\dtloc_i$ (w.r.t $\reg_i^{\clocksY_i}$) is a mode (w.r.t a copy of the original region over $\clocksY_i$) in $\nta$, and $\subseteq$ is a linear order over 
+$
+    \{ 0 \} 
+    \cup 
+    \clocksX 
+    \cup \left(
+        \bigcup_{k=1}^{n} \clocksY_k
+    \right ) 
+$
+The intuition is that 
+$
+\left (
+    \loc,\reg^{\clocksX}
+\right )
+$ 
+reflects the region for $\pta$,
+$ 
+\left (
+    (\dtloc_1,\reg_1^{\clocksY_1}),
+    \cdots,
+    (\dtloc_n,\reg_n^{\clocksY_n})
+\right )
+$
+reflects a power set for $\nta$, and $ \subseteq $ records the relative order between 
+clocks in 
+$
+    \{ 0 \} 
+    \cup 
+    \clocksX 
+    \cup \left(
+        \bigcup_{k=1}^{n} \clocksY_k
+    \right ) 
+$.
+
+For convenience, we use $ \clocksY_0 $ denote $ \clocksX $.
+
+\begin{definition}[Consistency]
+A clock valuation $\nu$ is consistent with a state $\mdploc$ in the form of ~(\ref{eq:state0}), 
+denoted by $ \nu \in  \mdploc$
+iff $\nu \in \clocksN$, $ \nu \downarrow \clocksY_i \in \reg^{\clocksY_i} $ and 
+$\fracp{\nu(x)} < \fracp{\nu(y)}$ iff $x \subseteq y$ for all $x,y \in \clocksN$.
+\end{definition}
+
+\begin{definition}[Time successor]
+A state $\mdploc'$ 
+\begin{equation}\label{eq:state1}
+    \left (
+        \left (
+            \loc,(\reg^{\clocksX})'
+        \right )
+        ,
+        \left (
+            (\dtloc_1,(\reg_1^{\clocksY_1})'),
+            \cdots,
+            (\dtloc_n,(\reg_n^{\clocksY_n})')
+        \right )
+        ,
+        \clocksX \cup \left(
+            \bigcup_{k=1}^{n} \clocksY_k
+        \right )
+        ,
+        \subseteq'
+    \right )
+\end{equation} 
+is a time successor of $\mdploc$ in the 
+form of ~(\ref{eq:state0}) where either 
+\begin{compactitem}
+    \item 
+        $\mdploc = \mdploc'$ if 
+        $
+            \forall \nu \in \mdploc, t \in \Rset_{>0} : \nu + t \in s
+        $ or
+    \item 
+        $\mdploc'$ is another unique state in MDP if
+        there exist a $\nu$ consistent with $\mdploc$ s.t.
+        \begin{align*}
+            \exists t \in \Rset_{\ge0} : (
+                \nu + t \in \mdploc' 
+                \land
+                \forall t' \in [0,t] : \\ \left (
+                    \left (
+                        \nu + t' \in \mdploc
+                        \lor
+                        \nu + t' \in \mdploc'
+                    \right )
+                    \land
+                    \nu + t' \models \inv(l)
+                \right )
+            )
+        \end{align*}
+\end{compactitem}
+\end{definition}
+
+\begin{definition}[Transition relation]
+
+The \emph{transition relation} $\trans$ is the smallest relation such that the following two inference rules are satisfied : \\
+(Delay)
+$
+    \begin{array}{c}
+        \mdploc' \mbox{ is the time successor of } \mdploc \\
+        \hline
+        \tran
+            {\mdploc}
+            {\tau}
+            {\mu_{\mdploc'}}
+    \end{array}
+$
+\\
+(Jump)
+$
+    \begin{array}{ccc}
+        \nu \in \mdploc 
+        &
+        \tran
+            {\left (
+                \loc, \nu \downarrow \clocksX
+            \right )}
+            {a}
+            {\mu}
+        &
+        \nu \downarrow \clocksX \models \penab{\loc}{a}
+        \\
+        \hline
+        &
+        \tran
+            {\mdploc}
+            {a}
+            {\mu^*}
+        &
+    \end{array}
+$
+\\
+where, let 
+\\
+$$
+\mdploc' =  \left (
+    \left (
+        \loc',(\reg^{\clocksX})'
+    \right )
+    ,
+    \left (
+        (\dtloc_{i_0},(\reg_{i_0}^{\clocksY_{i_0}})'),
+        \cdots,
+        (\dtloc_{i_{k_i}},(\reg_{i_{k_i}}^{\clocksY_{i_{k_i}}})')
+    \right )
+    ,
+    \clocksX \cup \left(
+        \bigcup_{i=1}^{n'} \bigcup_{j=0}^{k_i} \clocksY_{i_j}
+    \right )
+    ,
+    \subseteq'
+\right )
+$$
+\\
+\begin{align*}
+    &
+    \mu^* \left (
+       \mdploc'
+    \right )
+    = 
+    \begin{cases}
+        & 
+        \nu(X,\loc')
+        \mbox{  following conditions are hold}
+        \\
+        & 
+        0 
+        \mbox{  otherwise }
+    \end{cases}
+\end{align*} 
+\\
+The none zero case hold
+\begin{align*}
+    &
+    \mbox{ if } (\reg^{\clocksX})' 
+                    = 
+                    \evclass{ \left (
+                            \nu \downarrow \clocksX
+                        \right) [X := 0 ]
+                    }_\sim 
+    \mbox{ , there exists} \left (
+        \dtloc_i,
+        \lbfunc\left(\loc'\right),
+        \phi,
+        Y,
+        \dtloc_{i_j}
+    \right) \in \rules
+    \\
+    &
+    \mbox{ such that }
+    (\reg^{\clocksY_{i_j}})' 
+        = 
+        \evclass{ \left (
+                \nu \downarrow \clocksY_{i}
+            \right) [Y := 0 ] [y \mapsto <i_j,y>]
+        }_\sim 
+    \mbox{ and }
+    (\reg^{\clocksY_{i_j}})' \subseteq \sat{\phi}
+    \mobx{,}
+    \\
+    &
+    \mbox { $ k_i $ is the number of successors of $ \dtloc_i $. } 
+    \mbox { and } 
+\end{align*} 
+% \begin{align*}
+
+
+% \end{align*}
+\end{definition}

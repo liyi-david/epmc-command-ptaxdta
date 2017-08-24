@@ -97,6 +97,9 @@
 \newcommand{\acts}{\mbox{\sl Act}}
 \newcommand{\inv}{\mbox{\sl inv}}
 \newcommand{\enab}{\mbox{\sl enab}}
+\newcommand{\penab}[2]{\mbox{\sl enab}\left(
+    {#1},{#2}
+\right ) }
 \newcommand{\prob}{\mbox{\sl prob}}
 \newcommand{\lbfunc}{\mathcal{L}}
 \newcommand{\clcons}[1]{\mbox{\sl CC}\left(#1\right)}
@@ -296,6 +299,16 @@
 \newcommand{\TRA}{TRA}
 \newcommand{\tra}{\mathcal{A}}
 
+% INF MDP
+\newcommand{\clocksX}{\mathcal{X}}
+\newcommand{\clocksY}{\mathcal{Y}}
+\newcommand{\reg}{r}
+\newcommand{\floor}[1]{\mbox{\sl floor} \left (
+    {#1}
+\right )}
+\newcommand{\productmdp}[2]{{#1}{\ast}{#2}}
+\newcommand{\mdploc}{s}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -434,6 +447,8 @@
 \input{undecidability}
 % \input{casestudies}
 % \input{experiments}
+\input{infmdp}
+
 \input{conclusion}
 
 \bibliographystyle{ACM-Reference-Format}
