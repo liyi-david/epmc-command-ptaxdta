@@ -524,7 +524,7 @@ $
     s \models P 
 \right)
 $ 
-can be computed in time 
+can be computed in time \\
 $
 \mathcal{O} \left( 
     \mbox{poly} \left(
@@ -551,8 +551,26 @@ $ |\locs| \cdot |\cstates| $ while the number of transitions is exponential,
 then $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time 
 follows from Lemma~\ref{lemm:principle}.
 
+In \cite{LaroussinieS07}, the authors proved that the reachablity problem for arbitary PTAs is \emph{EXPTIME}-complete. Reduction from the PTA reachibility problem to the PTA-DTA model-checking problem can be easily constructed as follows.
+
+For an arbitary PTA $\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$ and a set of final locations $L_F\subseteq L$. Let $\mathcal{C}'=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L}')$ where
+\begin{displaymath}
+    \mathcal{L}'(l):L\rightarrow AP\cup\{\mbox{acc}\}=\left\{
+    \begin{array}{cc}
+        \mathcal{L}(l) & \mbox{ if } l\not\in L_F\\
+        \mathcal{L}(l)\cup\{\mbox{acc}\} & l\in L_F
+    \end{array}
+    \right.
+\end{displaymath}
+and DTA $\mathcal{A}'=(Q=\{q_0,q_1\},\Sigma=2^{AP\cup\{\mbox{acc\}}},\mathcal{X}=\emptyset,\Delta,\mathcal{F}=\{(\emptyset, \{q_1\}\})$ where
+\begin{itemize}
+    \item $\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in Delta$,
+    \item $\forall \sigma\in\Sigma, i=0,1, (q_i,\sigma,true,\emptyset,q_i)\in \Delta$.
+\end{itemize}
+It's clear that $L_F$ is reachable in $\mathcal{C}$ iff. for $\mathcal{C}'$ and $\mathcal{A}'$, $sup_\sigma \mathfrak{p}_{q_0}^\sigma=1$. 
+
 \begin{proposition}
-    The PTA-TRA problem can be solved in EXPTIME.
+    The PTA-TRA problem is EXPTIME-complete.
 \end{proposition}
 %
 %\vspace{-0.8em}
