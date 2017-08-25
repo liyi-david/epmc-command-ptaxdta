@@ -302,13 +302,27 @@
 % INF MDP
 \newcommand{\clocksX}{\mathcal{X}}
 \newcommand{\clocksY}{\mathcal{Y}}
-\newcommand{\reg}{r}
+\newcommand{\reg}{R}
 \newcommand{\floor}[1]{\mbox{\sl floor} \left (
     {#1}
 \right )}
 \newcommand{\productmdp}[2]{{#1}{\ast}{#2}}
 \newcommand{\mdploc}{s}
-
+\newcommand{\project}[2]{
+    {#1} \downarrow {#2}
+}
+\newcommand{\pair}[2]{
+    \left (
+        {#1}
+        ,
+        {#2}
+    \right )
+}
+\newcommand{\clocksALL}{
+    \clocksX \cup \left(
+        \bigcup_{k=1}^{n} \clocksY_k
+    \right )
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% customize end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
