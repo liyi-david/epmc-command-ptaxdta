@@ -2,11 +2,34 @@
 \section{Conclusion and Future Work}
 % \vspace{-0.8em}
 
-In this paper, we studied the linear-time model-checking problem {\sc PTA-DTA} of DTA-specifications over PTAs.
+In this paper, we studied the problem of model-checking PTAs against timed-automata specifications. 
+We first solve the problem with DTA specifications 
+
+through a product construction and prove that the problem is 
+EXPTIME-complete. 
+
+
+linear-time model-checking problem {\sc PTA-DTA} of DTA-specifications over PTAs.
 To solve the problem, we gave two versions of product construction (between a PTA and a DTA) which both reduce the problem to computing reachability probabilities over PTAs, for which efficient algorithms exist~\cite{DBLP:journals/fmsd/NormanPS13,DBLP:journals/tcs/KwiatkowskaNSS02}.
 Both the product constructions are nontrivial and are elaborated so that one caters for DTAs with a small number of regions and the other for DTAs with small size.
 Then we demonstrated two case studies clarifying that the problem PTA-DTA can be applied to real-world applications.
 Experimental results show that our product construction is efficient to solve the problem.
 A challenging future work is to study the PTA-DTA problem with general timed-automata specifications.
 Another future work is to integrate costs or rewards into this problem.
-\subsubsection*{Acknowledgements} We thank Arnd Hartmanns for valuable suggestions on probabilistic timed automata.
+
+\section{Related Works}
+
+Model-checking probabilistic timed models against linear dense-time properties
+are mostly considered for continuous-time Markov processes (CTMPs).
+First, Donatelli~\emph{et al.}~\cite{DBLP:journals/tse/DonatelliHS09} proved an expressibility result that the class of linear dense-time properties encoded by DTAs is not subsumed by branching-time properties.
+They also demonstrated an efficient algorithm for verifying continuous-time Markov chains~\cite{?} against one-clock DTAs.
+Then various results on verifying CTMPs are obtained for specifications through DTAs and general timed automata (cf.~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13,DBLP:conf/hybrid/BrazdilKKKR11,DBLP:conf/tacas/BarbotCHKM11,DBLP:conf/formats/BortolussiL15}).
+The fundamental difference between CTMPs and PTAs is that the former assign probability distributions to time elapses, while the latter treat time-elapses as pure nondeterminism.
+Because of this difference, the techniques for CTMPs cannot be applied to PTAs.
+
+For PTAs, the only relevant result is by ?\cite{?} who developed an approach for verifying PTAs against deterministic discrete-time omega-regular automata through a similar product construction.
+Our results extend theirs in two ways.
+First, our product construction extends theirs with extra ability to tackle timing constraints from both the PTA and the DTA.
+The extension is nontrivial since it needs to resolve the integration between randomness and timing constraints.
+Moreover, the extension still leads to the EXPTIME-completeness of the problem, matching the computational complexity in the discrete-time case \cite{?}.
+Second, our results also cover an undecidability result and an approximation algorithm in the case of general nondeterministic timed automata, extending \cite{?} with nondeterminism.

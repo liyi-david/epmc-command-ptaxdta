@@ -1,10 +1,12 @@
 \begin{abstract}
 Probabilistic timed automata (PTAs) are timed automata extended with discrete probability distributions.
 They serve as a mathematical model for a wide range of applications that involve both stochastic and timed behaviours.
-In this paper, we study model checking of linear-time temporal properties over PTAs.
-In particular, we consider linear-time properties that can be encoded through deterministic timed automata (DTAs) with finite acceptance criterion.
-DTAs are a deterministic subclass of timed automata that can recognize a wide range of timed formal languages, thus can be effectively used to specify timed behaviours of systems.
-We show that through a product construction, model checking of PTAs against DTA-specifications can be reduced to solving reachability probabilities over PTAs, thus can be effectively solved by known algorithms on PTA-reachability.
-Our experimental results demonstrate the efficiency of our approach.
-As far as we know, we are the first to consider linear-time model checking of PTAs.
+In this paper, we study the model-checking problem of linear \emph{dense-time} temporal properties over PTAs.
+In particular, we consider linear dense-time properties that can be encoded by timed automata with both finite and infinite acceptance criteria.
+We first show that the problem of model-checking PTAs against deterministic-timed-automata specifications with infinite acceptance criterion can be solved through a product construction and is EXPTIME-complete.
+Then we show that when relaxed to general (nondeterministic) timed automata, the model-checking problem becomes undecidable.
+Finally, we investigate the situation where the acceptance criterion is restricted to be finite. 
+We show that for deterministic timed automata, the model-checking problem can be solved
+using known zone-based algorithms for reachability probabilities on PTAs.
+Furthermore, for nondeterministic timed automata, we show an approximation algorithm for solving the problem whose correctness is based on a translation to infinite-state Markov decision processes.
 \end{abstract}
