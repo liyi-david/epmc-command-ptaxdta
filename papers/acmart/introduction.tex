@@ -11,21 +11,21 @@ Formal verification of PTAs has received much attention in recent years~\cite{DB
 For branching-time model-checking of PTAs, the problem is reduced to computation of reachability probabilities over MDPs through well-known finite abstraction for timed automata (namely \emph{regions} and \emph{zones})~\cite{JensenPTA,DBLP:journals/tcs/Beauquier03,DBLP:journals/tcs/KwiatkowskaNSS02}.
 Advanced techniques for branching-time model checking of PTAs such as inverse method and symbolic method have been further explored in  ~\cite{DBLP:journals/fmsd/AndreFS13,DBLP:journals/iandc/KwiatkowskaNSW07,DBLP:conf/formats/KwiatkowskaNP09,DBLP:conf/formats/JovanovicKN15}.
 Extension with \emph{cost} or \emph{reward}, resulting in \emph{priced} PTAs, has also been well investigated.
-Jurdzinski~\emph{et al.}~\cite{DBLP:conf/concur/JurdzinskiKNT09} and Kwiatkowska~\emph{et al.}~\cite{DBLP:journals/fmsd/KwiatkowskaNPS06} proved that several notions of accumulated or discounted cost are computable over priced PTAs, while 
+Jurdzinski~\emph{et al.}~\cite{DBLP:conf/concur/JurdzinskiKNT09} and Kwiatkowska~\emph{et al.}~\cite{DBLP:journals/fmsd/KwiatkowskaNPS06} proved that several notions of accumulated or discounted cost are computable over priced PTAs, while
 cost-bounded reachability probability over priced PTAs is shown to be undecidable by Berendsen \emph{et al.}~\cite{DBLP:conf/tamc/BerendsenCJ09}.
 Most verification algorithms for PTAs have been implemented in the model checker PRISM~\cite{DBLP:conf/cav/KwiatkowskaNP11}. Computational complexity of several verification problems for PTAs is studied in~\cite{DBLP:journals/ipl/LaroussinieS07,DBLP:journals/lmcs/JurdzinskiSL08,DBLP:conf/concur/JurdzinskiKNT09}.
 
-For linear-time model-checking, much less is known. 
+For linear-time model-checking, much less is known.
 As far as we know, the only relevant result is by ? \cite{?} who proved that the problem of model-checking PTAs against linear \emph{discrete-time} properties encoded by deterministic omega-regular automata can be solved by a product construction.
 In their paper, ? \cite{?} first devised a production construction that produces a PTA out of the input PTA and the omega-regular automaton;
-then they proved that the problem can be reduced to omega-regular verification of MDPs through maximal end components. 
+then they proved that the problem can be reduced to omega-regular verification of MDPs through maximal end components.
 
-In this paper, we study the problem of model-checking linear \emph{dense-time} properties over PTAs. 
-Compared with discrete-time properties, dense-time properties take into account timing constraints and therefore is more expressive. 
-We focus on linear dense-time properties that can be encoded by timed automata~\cite{DBLP:journals/tcs/AlurD94}. 
+In this paper, we study the problem of model-checking linear \emph{dense-time} properties over PTAs.
+Compared with discrete-time properties, dense-time properties take into account timing constraints and therefore is more expressive.
+We focus on linear dense-time properties that can be encoded by timed automata~\cite{DBLP:journals/tcs/AlurD94}.
 Timed automata are normal automata extended with \emph{clocks} and \emph{timing constraints}.
-Due to the ability to model dense-time behaviours, 
-they can be used to model real-time systems, while they can also act as language recognizers for timed omega-regular languages. 
+Due to the ability to model dense-time behaviours,
+they can be used to model real-time systems, while they can also act as language recognizers for timed omega-regular languages.
 Here we treat timed automata as language recognizers for timed paths from a PTA, and study
 the problem to compute the probability that a timed path from the PTA is accepted by the timed automaton.
 The intuition is that a timed automaton can recognize the set of ``good'' (or ``bad'') timed paths emitting from a PTA,
@@ -33,12 +33,12 @@ so the problem is to compute the probability that the PTA behaves in a good (or 
 
 \smallskip
 \noindent{\em Our Contributions.} We distinguish between the subclass of \emph{deterministic} timed automata (DTAs) and general \emph{nondeterministic} timed automata.
-DTAs are the deterministic version of timed automata. 
+DTAs are the deterministic version of timed automata.
 Although DTA is weaker than general timed automata, it can recognize a wide class of formal timed languages, and express interesting linear dense-time properties which cannot be expressed in branching-time logics (cf.~\cite{DBLP:journals/tse/DonatelliHS09}).
 For infinite acceptance criterion, we show that the problem of model-checking PTAs against DTA specifications can be solved through a nontrivial product construction which tackles the integrated feature of timing constraints and randomness. From the product construction, we further show that the problem is EXPTIME-complete.
-We also prove that the problem becomes undecidable when one considers general nondeterministic timed automata. 
+We also prove that the problem becomes undecidable when one considers general nondeterministic timed automata.
 For finite acceptance criterion, we show that the problem with DTA specifications can be solved by using efficient zone-based algorithms~\cite{JensenPTA,DBLP:journals/tcs/Beauquier03,DBLP:journals/tcs/KwiatkowskaNSS02} through the same product construction.
-Moreover, we provide an approximation algorithm for solving the problem with general timed automata through a translation to infinite-state MDPs. 
+Moreover, we devised an approximation algorithm for the problem with general timed automata through translation to infinite-state MDPs.
 
 
 

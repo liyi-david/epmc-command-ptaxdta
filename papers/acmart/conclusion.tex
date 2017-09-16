@@ -2,20 +2,17 @@
 \section{Conclusion and Future Work}
 % \vspace{-0.8em}
 
-In this paper, we studied the problem of model-checking PTAs against timed-automata specifications. 
-We first solve the problem with DTA specifications 
+In this paper, we studied the problem of model-checking PTAs against timed-automata specifications.
+We considered both Rabin and finite acceptance conditions.
+For Rabin acceptance condition,  
+we first solved the problem with DTA specifications and Rabin acceptance condition through a product construction and prove that its computational
+complexity is EXPTIME-complete;
+then we proved that the problem with general timed-automata specifications is undecidable through a reduction from the universality problem of timed automata. 
+For finite acceptance condition, we demonstrated that the problem with DTA specifications can be solved through efficient zone-based algorithms on verifying reachability probability of PTAs~\cite{DBLP:journals/fmsd/NormanPS13,DBLP:journals/tcs/KwiatkowskaNSS02}, while the problem with general timed-automata specifications can be solved by an approximation algorithm based on value iteration.
 
-through a product construction and prove that the problem is 
-EXPTIME-complete. 
-
-
-linear-time model-checking problem {\sc PTA-DTA} of DTA-specifications over PTAs.
-To solve the problem, we gave two versions of product construction (between a PTA and a DTA) which both reduce the problem to computing reachability probabilities over PTAs, for which efficient algorithms exist~\cite{DBLP:journals/fmsd/NormanPS13,DBLP:journals/tcs/KwiatkowskaNSS02}.
-Both the product constructions are nontrivial and are elaborated so that one caters for DTAs with a small number of regions and the other for DTAs with small size.
-Then we demonstrated two case studies clarifying that the problem PTA-DTA can be applied to real-world applications.
-Experimental results show that our product construction is efficient to solve the problem.
-A challenging future work is to study the PTA-DTA problem with general timed-automata specifications.
-Another future work is to integrate costs or rewards into this problem.
+An interesting future direction is zone-based algorithms for Rabin acceptance condition.  
+Another theoretical direction is to investigate timed-automata specifications with cost or reward.
+A more practical direction is to apply our approaches to industrial-level examples. 
 
 \section{Related Works}
 
@@ -30,6 +27,5 @@ Because of this difference, the techniques for CTMPs cannot be applied to PTAs.
 For PTAs, the only relevant result is by ?\cite{?} who developed an approach for verifying PTAs against deterministic discrete-time omega-regular automata through a similar product construction.
 Our results extend theirs in two ways.
 First, our product construction extends theirs with extra ability to tackle timing constraints from both the PTA and the DTA.
-The extension is nontrivial since it needs to resolve the integration between randomness and timing constraints.
-Moreover, the extension still leads to the EXPTIME-completeness of the problem, matching the computational complexity in the discrete-time case \cite{?}.
+The extension is nontrivial since it needs to resolve the integration between randomness and timing constraints, while ensuring the EXPTIME-completeness of the problem, matching the computational complexity in the discrete-time case \cite{?}.
 Second, our results also cover an undecidability result and an approximation algorithm in the case of general nondeterministic timed automata, extending \cite{?} with nondeterminism.
