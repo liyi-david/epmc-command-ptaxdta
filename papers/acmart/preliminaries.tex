@@ -6,14 +6,14 @@ We denote by $\Nset$, $\Nset_0$, $\Zset$, and $\Rset$ the sets of all positive
 integers, non-negative integers, integers and real numbers, respectively.
 
 For any infinite word $w=b_0b_1\dots$, we denote by $\infset{w}$ the set of symbols (i.e., $b_i$'s) that occur infinitely many times in $w$.
-Given a finite word $w=b_0\dots b_n$ ($n\ge 0$), the last symbol $b_n$ is denoted by $\lastloc{w}$. 
+Given a finite word $w=b_0\dots b_n$ ($n\ge 0$), the last symbol $b_n$ is denoted by $\lastloc{w}$.
 
 %
 %\subsection{Basic Concepts for Clock Valuations, Clock Constraints and Clock Equivalences}
 %
 A \emph{clock} is a variable for a nonnegative real number. Below we fix a finite set $\clocks$ of clocks.
 
-\smallskip \noindent{\em Clock Valuations.} 
+\smallskip \noindent{\em Clock Valuations.}
 %Let $\clocks$ be a finite set of \emph{clocks}.
 A \emph{clock valuation} is a function $\nu:\clocks\rightarrow [0,\infty)$. The set of clock valuations
 is denoted by $\val{\clocks}$.
@@ -29,8 +29,8 @@ where $x,y\in\clocks$ and $c,d\in\Nset_0$.
 The satisfaction relation $\models$ between valuations $\nu$ and clock constraints $\phi$ is defined through substituting every $x\in\clocks$ appearing in $\phi$ by $\nu(x)$ and standard semantics for logical connectives.
 For a given clock constraint $\phi$, we denote by $\sat{\phi}$ the set of all clock valuations that satisfy $\phi$.
 
-\smallskip \noindent{\em Clock Equivalence.} Consider a nonnegative integer $N$ such that 
-%which acts a threshold for relevant clock values: 
+\smallskip \noindent{\em Clock Equivalence.} Consider a nonnegative integer $N$ such that
+%which acts a threshold for relevant clock values:
 values held by clocks are treated equivalent if they both exceed $N$.
 With such a threshold, the standard notion of clock equivalence~\cite{DBLP:journals/tcs/AlurD94} is an equivalence relation $\sim_N$ over $\val{\clocks}$ as follows: for any two clock valuations $\nu,\nu'$, $\nu\sim_N\nu'$ iff the following conditions hold:
 \begin{compactitem}
@@ -39,12 +39,12 @@ With such a threshold, the standard notion of clock equivalence~\cite{DBLP:journ
 \item for all $x,y\in\clocks$, if $\nu(x),\nu(y)\le N$ then it holds that $\fracp{\nu(x)}\Join \fracp{\nu(y)}$ iff $\fracp{\nu'(x)}\Join \fracp{\nu'(y)}$ for $\Join\in\{<,=,>\}$.
 \end{compactitem}
 Equivalence classes of $\sim_N$ are called \emph{regions}. The equivalence class that contains a given clock valuation $\nu$ is denoted by $\evclass{\nu}_{\sim_N}$.
-We simply write $\evclass{\nu}_{\sim}$ if $N$ is clear from the context. 
+We simply write $\evclass{\nu}_{\sim}$ if $N$ is clear from the context.
 % \vspace{-0.8em}
 \subsection{Probabilistic Timed Automata}
 % \vspace{-0.8em}
 
-%\smallskip \noindent{\em Discrete Probability Distributions.} 
+%\smallskip \noindent{\em Discrete Probability Distributions.}
 A \emph{discrete probability distribution} over a countable non-empty set $U$ is a function $q:U\rightarrow[0,1]$ such that $\sum_{z\in U}q(z)=1$.
 The \emph{support} of $q$ is defined as $\supp{q}:=\{z\in U\mid q(z)>0\}$.
 We denote the set of discrete probability distributions over $U$ by $\dist{U}$.
@@ -78,7 +78,7 @@ W.l.o.g, we consider that both $\acts$ and $\ap$ is disjoint from $[0,\infty)$. 
 \smallskip \noindent{\em States and Transition Relation.}
 A \emph{state} of $\pta$ is a pair $(\loc, \nu)$ in $\locs\times\val{\clocks}$ such that $\nu\models \inv(\loc)$.
 The set of all states is denoted by $\states_\pta$.
-The \emph{transition relation} $\trans$ consists of all triples $((\loc,\nu),a,(\loc',\nu'))$ satisfying 
+The \emph{transition relation} $\trans$ consists of all triples $((\loc,\nu),a,(\loc',\nu'))$ satisfying
 the following conditions:
 \begin{compactitem}
 \item $(\loc,\nu), (\loc',\nu')$ are states and $a\in\acts\cup [0,\infty)$;
@@ -112,7 +112,7 @@ A \emph{finite path} $\fnpath$ (under $\pta$) is a finite sequence
 \[
 \left\langle s_0,a_0,s_1,\dots,a_{n-1},s_n\right\rangle~~(n\ge 0)
 \]
-in 
+in
 $\states\times{\left((\acts\cup[0,\infty))\times \states\right)}^*$
 such that (i) $s_0=(\loc^*,\zero)$,
 (ii) $a_{2k}\in [0,\infty)$ (resp. $a_{2k+1}\in \acts$) for all integers $0\le k\le \frac{n}{2}$ (resp. $0\le k\le \frac{n-1}{2}$) and
@@ -122,7 +122,7 @@ An \emph{infinite path} (under $\pta$) is an infinite sequence
 \[
 \left\langle s_0,a_0,s_1,a_1,\dots\right\rangle
 \]
-in 
+in
 ${\left(\states\times(\acts\cup[0,\infty))\right)}^\omega$
 such that for all $n\in\Nset_0$, the prefix $\left\langle s_0,a_0,\dots,a_{n-1},s_n\right\rangle$ is a finite path.
 The set of finite (resp. infinite) paths  under $\pta$ is denoted by $\fnpaths{\pta}$ (resp. $\infpaths{\pta}$).
@@ -136,12 +136,12 @@ there exists a state $s'$ such that $\tran{s_n}{\sigma(\fnpath)}{s'}$.
 A finite path $s_0a_0\dots s_n$ \emph{follows} a scheduler $\sigma$ if for all $0\le m< n$, $a_m=\sigma\left(s_0a_0\dots s_m\right)$.
 An infinite path $s_0a_0s_1a_1\dots$ \emph{follows} $\sigma$ if for all $n\in\Nset_0$, $a_n=\sigma\left(s_0a_0\dots s_n\right)$.
 The set of finite (resp. infinite) paths following a scheduler $\sigma$ is denoted by $\fnpaths{\pta,\sigma}$ (resp. $\infpaths{\pta,\sigma}$).
-%We note that the set $\fnpaths{\pta,\sigma}$ is countably-infinite from definition.
+We note that the set $\fnpaths{\pta,\sigma}$ is countably infinite from definition.
 
 \smallskip \noindent{\em Probability Spaces under Schedulers.}
 Let $\sigma$ be any scheduler.
 The probability space w.r.t $\sigma$ is defined as $(\Omega^{\pta,\sigma}, \mathcal{F}^{\pta,\sigma}, \probm^{\pta,\sigma})$ where (i) $\Omega^{\pta,\sigma}:=\infpaths{\pta,\sigma}$, (ii) $\mathcal{F}^{\pta,\sigma}$ is the smallest sigma-algebra generated by all cylinder sets induced by finite paths for which
-a finite path $\fnpath$ induces the cylinder set $\cyl(\fnpath)$ of all infinite paths in $\infpaths{\pta,\sigma}$ with $\fnpath$ being their (common) prefix, 
+a finite path $\fnpath$ induces the cylinder set $\cyl(\fnpath)$ of all infinite paths in $\infpaths{\pta,\sigma}$ with $\fnpath$ being their (common) prefix,
 and (iii) $\probm^{\pta,\sigma}$ is the unique probability measure such that for all finite paths $\fnpath=s_0a_0\dots a_{n-1}s_n$ in $\fnpaths{\pta,\sigma}$,
 $\probm^{\pta,\sigma}(\cyl(\fnpath))=\prod_{k=0}^{n-1} \probk(s_k, \sigma(s_0a_0\dots a_{k-1}s_k), s_{k+1})$.
 For details see~\cite{?}.
@@ -165,7 +165,7 @@ From the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, $\omgp
     \label{fig:pta}
 \end{figure}
 
-In the following example, we illustrate a PTA which models a simple task-handling process. 
+In the following example, we illustrate a PTA which models a simple task-handling process.
 
 \begin{example}\label{ex:pta}
 In the PTA depicted in Figure~\ref{fig:pta}, $\WAIT$, $\WORK{s}$ and $\DONE{s}$ ($ s\in \{ \alpha, \beta \}$) are locations
@@ -211,7 +211,9 @@ The PTA models a machine whiche deals with two different kinds of jobs.
 \subsection{Timed Automata}
 % \vspace{-0.8em}
 \begin{definition}[Timed Automata ~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
-A \emph{timed automaton} (NTA) $\nta$ is a tuple
+A \emph{timed automaton} (TA)
+%(NTA)
+$\nta$ is a tuple
 \begin{equation}\label{eq:nta}
 \nta=(\cstates,\alphabet,\clocks,\rules)
 \end{equation}
@@ -223,36 +225,43 @@ where
 \item $\rules\subseteq \cstates\times\alphabet\times\clcons{\clocks}\times 2^{\clocks}\times \cstates$ is a finite set of \emph{rules}.
 \end{compactitem}
 % \end{definition}
-
 % \begin{definition}[Deterministic Timed Automata (DTAs)~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
 % A NTA $\dta=(\cstates,\alphabet,\clocks,\rules)$ is called \emph{deterministic} iff
-And $\dta$ is called \emph{deterministic} iff
+$\dta$ is a \emph{deterministic} TA (DTA) if the following holds:
 \begin{compactenum}
-\item ({\em determinism}): whenever $(\dtloc_1,b_1,\phi_1,X_1,\dtloc'_1),(\dtloc_2,b_2,\phi_2,X_2,\dtloc'_2)\in\rules$, if $(\dtloc_1,b_1)=(\dtloc_2,b_2)$ and $\sat{\phi_1}\cap \sat{\phi_2}\ne\emptyset$ then $(\phi_1,X_1,\dtloc'_1)=(\phi_2,X_2,\dtloc'_2)$;
-\item ({\em totality}): for all $(q,b)\in \cstates\times\Sigma$ and $\nu\in\val{\clocks}$, there exists $(q,b,\phi,X,q')\in\Delta$ such that $\nu\models \phi$.
+\item ({\em determinism}) for $(\dtloc_i,b_i,\phi_i,X_i,\dtloc'_i)\in\rules$ ($i\in\{1,2\}$), if $(\dtloc_1,b_1)=(\dtloc_2,b_2)$ and $\sat{\phi_1}\cap \sat{\phi_2}\ne\emptyset$ then $(\phi_1,X_1,\dtloc'_1)=(\phi_2,X_2,\dtloc'_2)$;
+\item ({\em totality}) for all $(q,b)\in \cstates\times\Sigma$ and $\nu\in\val{\clocks}$, there exists $(q,b,\phi,X,q')\in\rules$ such that $\nu\models \phi$.
 \end{compactenum}
 \end{definition}
+Below we illustrate the semantics of TAs. We fix a TA $\dta$ in the form (\ref{eq:nta}).
 
-Below we fix a DTA $\dta$ in the form~(\ref{eq:dta}). Given $q\in\cstates$, $\nu\in\val{\clocks}$ and $b\in\Sigma$, the triple $(\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu})\in\clcons{\clocks}\times 2^{\clocks}\times\cstates$ are determined such that $\left(\dtloc,b,\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu}\right)\in\rules$ is the unique rule satisfying $\nu\models \dtphi{q}{b}{\nu}$.
-We illustrate the semantics of DTAs as follows.
+%Below we fix a DTA $\dta$ in the form~(\ref{eq:dta}). Given $q\in\cstates$, $\nu\in\val{\clocks}$ and $b\in\Sigma$, the triple $(\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu})\in\clcons{\clocks}\times 2^{\clocks}\times\cstates$ are determined such that $\left(\dtloc,b,\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu}\right)\in\rules$ is the unique rule satisfying $\nu\models \dtphi{q}{b}{\nu}$.
 
-{\em Configurations and One-Step Transition Function.}
-A \emph{configuration} of $\dta$ is a pair $(\dtloc,\nu)$, where $\dtloc\in \cstates$ and $\nu\in\val{\clocks}$.
-The \emph{one-step transition function}
+
+\smallskip\noindent{\em Configurations and One-Step Transition Relation.}
+A \emph{configuration} is a pair $(\dtloc,\nu)$, where $\dtloc\in \cstates$ and $\nu\in\val{\clocks}$.
+The \emph{one-step transition relation}
 \[
-    \kappa
-        :
-        (\cstates \times \val{\clocks}) \times (\alphabet\cup [0,\infty))
-        \rightarrow
-        \cstates \times \val{\clocks}
+\Rightarrow~\subseteq~ (\cstates \times \val{\clocks}) \times (\alphabet\cup [0,\infty)) \times (\cstates \times \val{\clocks})
 \]
-is defined by:
-$
-    \trfunc((\dtloc,\nu),a)
-        := \left(
-            \dtq{q}{a}{\nu},\reset{\nu}{\dtx{q}{a}{\nu}}
-        \right)
-$ for $a \in \alphabet$;
+%\[
+%    \kappa
+%        :
+%        (\cstates \times \val{\clocks}) \times (\alphabet\cup [0,\infty))
+%        \rightarrow
+%        \cstates \times \val{\clocks}
+%\]
+is defined by: $((\dtloc,\nu),a,(\dtloc',\nu'))\in\Rightarrow$ iff
+either (i) $a\in [0,\infty)$ and $(\dtloc',\nu')=(\dtloc,\nu+a)$ 
+or (ii) $a\in\alphabet$ and there exists a rule $(q,b,\phi,X,q')\in\Delta$
+
+%$
+%    \trfunc((\dtloc,\nu),a)
+%        := \left(
+%            \dtq{q}{a}{\nu},\reset{\nu}{\dtx{q}{a}{\nu}}
+%        \right)
+%$ 
+for $a \in \alphabet$;
 $
     \trfunc((\dtloc,\nu),a)
         :=(
