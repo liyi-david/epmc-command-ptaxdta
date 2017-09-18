@@ -1,75 +1,80 @@
 % \vspace{-0.8em}
-\section{The PTA-TRA Problem}
+\section{The Model-Checking Problem}
 % \vspace{-0.8em}
-In this section, we define the problem of model-checking PTAs against TRA-specifications.
-The problem takes a PTA and a TRA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA.
-Informally, the TRA encodes the linear-time property by judging whether an infinite path is accepted or not through the external behaviour of the path,
-thus the problem is to compute the probability that the external behaviour of PTA meets the criterion specified by the TRA.
-In practice, the TRA is often used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluated to what extent the PTA behaves in a good (or bad) way.
+In this part, we define the problem of model-checking {PTAs} against TA-specifications.
+The problem takes a PTA and a TRA/TFA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA/TFA.
+Informally, the TRA/TFA encodes the linear dense-time property by judging whether an infinite path is accepted or not through its external behaviour,
+then the problem is to compute the probability that an infinite path is accepted by the TRA/TFA.
+In practice, the TRA/TFA can be used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluate to what extent the PTA behaves in a good (or bad) way.
 
-Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a TRA $\tra$ taking the form (\ref{eq:tra}) with the difference that the set of clocks for $\pta$ (resp. for $\tra$) is denoted by $\clocks_1$ (resp. $\clocks_2$).
-W.l.o.g., we assume that $\clocks_1\cap\clocks_2=\emptyset$ and $\alphabet=2^{\ap}$.
+Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a TRA (or TFA) $\dta$ taking the form (\ref{eq:tra}) (or (\ref{eq:tfa}))) .
+W.l.o.g., we assume that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
-We first show how an infinite path in $\infpaths{\pta}$ can be interpreted as an infinite word.
-% 
+
+We first show how an infinite path in $\infpaths{\pta}$ can be interpreted as an infinite timed word.
+%
 % \vspace{-0.8em}
-\begin{definition}[Infinite Paths as Infinite Words]\label{def:interpretation}
+\begin{definition}[Infinite Paths as Infinite Timed Words]\label{def:interpretation}
 Given an infinite path
-\begin{align*}
+$
+%\begin{align*}
     \infpath
         =
-        & 
+%        &
             (\loc_0,\nu_0)
             a_0
             (\loc_1,\nu_1)
             a_1
             (\loc_2,\nu_2)a_2
-            \dots 
-            a_{2n} \\
-        &
-            (\loc_{2n+1},\nu_{2n+1})
-            a_{2n+1}
-            (\loc_{2n+2},\nu_{2n+2})
             \dots
-\end{align*}
-under $\pta$ (note that $\nu_0=\zero$), the infinite word $\lbfunc(\infpath)$ over $2^{\ap}\cup[0,\infty)$ is defined as 
+%            a_{2n} \\
+%        &
+%            (\loc_{2n+1},\nu_{2n+1})
+%            a_{2n+1}
+%            (\loc_{2n+2},\nu_{2n+2})
+%            \dots
+%\end{align*}
+$
+under $\pta$, the infinite word $\lbfunc(\infpath)$ 
+%over $2^{\ap}\cup[0,\infty)$ 
+is defined as
 \[
 \lbfunc(\infpath):=a_0\lbfunc(\loc_2)a_2\lbfunc(\loc_4)\dots a_{2n}\lbfunc(\loc_{2n+2}) \dots\enskip.
 \]
-Recall that $a_{2n}\in [0,\infty)$ and $a_{2n+1}\in\acts$. 
+Recall that $\nu_0=\zero$, $a_{2n}\in [0,\infty)$ and $a_{2n+1}\in\acts$ for $n\in\Nset_0$.
 %where $a'_n:= a_n$ if $a_n\in [0,\infty)$ and $a'_n:=\varepsilon$ otherwise ($\varepsilon$ is the empty word).
 \end{definition}
 %
 \begin{remark}
 Informally, the interpretation in Definition~\ref{def:interpretation} works
-by (i) dropping (a) the initial location $\loc_0$, (b) all clock valuations $\nu_n$'s, 
+by (i) dropping (a) the initial location $\loc_0$, (b) all clock valuations $\nu_n$'s,
 (c) all locations $\loc_{2n+1}$'s following a time-elapse,
 (d) all internal actions $a_{2n+1}$'s of $\pta$ and (ii) replacing every $\loc_{2n}$ ($n\ge 1$) by $\lbfunc(\loc_{2n})$.
 The interpretation captures only external behaviours including time-elapses and labels of locations upon state-change, and discards internal behaviours such as the concrete locations, clock valuations and actions.
 Although the interpretation ignores the initial location,
-we deal with it in our acceptance condition where the initial location is preprocessed by the TRA.
+we deal with it in our acceptance condition where the initial location is preprocessed by the TRA/TFA.
 \end{remark}
 %
-\begin{remark}
-Our interpretation is different from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}.
-In the style from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}, an infinite path
-$(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ is interpreted as $a_0 \lbfunc(\loc_0)a_2 \lbfunc(\loc_2)\dots$,
-reversing the locations and actions/time-elapses.
-In contrast, our interpretation follows a natural way that preserves the order of external events in an infinite path.
-This advantage allows one to specify DTAs (for linear-time properties) in a straightforward way.
-\end{remark}
-Based on Definition~\ref{def:interpretation}, we define the finite acceptance condition as follows.
-For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by 
+%\begin{remark}
+%Our interpretation is different from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}.
+%In the style from~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}, an infinite path
+%$(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ is interpreted as $a_0 \lbfunc(\loc_0)a_2 \lbfunc(\loc_2)\dots$,
+%reversing the locations and actions/time-elapses.
+%In contrast, our interpretation follows a natural way that preserves the order of external events in an infinite path.
+%This advantage allows one to specify DTAs (for linear-time properties) in a straightforward way.
+%\end{remark}
+Below we define the acceptance condition on paths as follows.
+For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by
 $\initloc{\infpath}$ the initial location $\loc_0$.
 % \vspace{-0.8em}
 \begin{definition}[Path Acceptance]\label{def:fnacc}
-An infinite path $\infpath$ under $\pta$ is \emph{infinitely accepted} by $\tra$ w.r.t 
-initial configuration $(\dtloc,\nu)$, abbreviated as $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$, 
-if the infinite word $\lbfunc(\infpath)$ is accepted by $\tra$ w.r.t 
+An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
+initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
+if the infinite word $\lbfunc(\infpath)$ is Rabin- (or finitely-) accepted by $\dta$ w.r.t
 $
 \left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)
 $,
-Notice that $\mbox{\bf ACC}$ is already used but it is easy to distinguish the two different usage from the context. 
+Notice that $\mbox{\bf ACC}$ is already used but it is easy to distinguish the two different usage from the context.
 % $$
 %     \accept{
 %         \left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)
@@ -100,55 +105,55 @@ The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$, ini
 % \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\tra,q,F}\right)
 where $\LangCsAqF$ is the set of paths in $\pta$ that falls into the Rabin-accepted language of $\tra$
 $$
-    \LangCsAqF = \left \{ 
-        \infpath \in \infpaths{\pta,\sigma} \mid 
+    \LangCsAqF = \left \{
+        \infpath \in \infpaths{\pta,\sigma} \mid
         \acccept
             {\tra}
             {(\dtloc,\zero)}
             {\infpath}
         % \infpath
-        % \mbox{ is accepted by } \tra \mbox{ w.r.t. } (q,\zero) \mbox{ and } \rabin 
+        % \mbox{ is accepted by } \tra \mbox{ w.r.t. } (q,\zero) \mbox{ and } \rabin
     \right\}
 $$
 % $\acc{\pta,\sigma}{\tra,q,F}:=\left\{\infpath\in\infpaths{\pta,\sigma}\mid \infpath\mbox{ is accepted by }\tra\mbox{ w.r.t. }(q,\zero)\mbox{ and }F\right\}$.
 \end{definition}
-Again, from the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, 
-$\LangCsAqF$ is measurable since it can be represent int the 
+Again, from the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite,
+$\LangCsAqF$ is measurable since it can be represent int the
 form of a countable intersect and countable union of some cylinder sets.
 % \begin{small}
 % \begin{align*}
 %     &
 %     \LangCsAqF = \\
-%         \bigcup_{i=1}^{n} ( 
-%             & 
+%         \bigcup_{i=1}^{n} (
+%             &
 %             \bigcup_{m \in \Nset}
 %             \bigcap \left \{
 %                 \overline{\cyl(\fnpath)}
 %                 \mid
 %                 \fnpath \in \fnpaths{\pta,\sigma}
-%                 \mbox{,} 
-%                 m \le \length{\fnpath}    
-%                 \mbox{,} 
+%                 \mbox{,}
+%                 m \le \length{\fnpath}
+%                 \mbox{,}
 %                 \lastloc{
-%                     \traj{ 
-%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
+%                     \traj{
+%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
 %                     }
 %                 } \in H_i
-%             \right \} 
+%             \right \}
 %             \\
-%             \cap 
-%             & 
+%             \cap
+%             &
 %             \bigcap_{m \in \Nset}
 %             \bigcup \left \{
 %                 \cyl(\fnpath)
 %                 \mid
 %                 \fnpath \in \fnpaths{\pta,\sigma}
-%                 \mbox{,} 
-%                 m \le \length{\fnpath}    
-%                 \mbox{,} 
+%                 \mbox{,}
+%                 m \le \length{\fnpath}
+%                 \mbox{,}
 %                 \lastloc{
-%                     \traj{ 
-%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)} 
+%                     \traj{
+%                         \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
 %                     }
 %                 } \in K_i
 %             \right \}
@@ -160,7 +165,7 @@ form of a countable intersect and countable union of some cylinder sets.
 %     \dtloc^*
 %         =
 %             \trfunc \left(
-%                 (\dtloc,\zero), 
+%                 (\dtloc,\zero),
 %                 \lbfunc (
 %                     \initloc{\fnpath}
 %             \right)

@@ -168,7 +168,7 @@ From the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite, $\omgp
 In the following example, we illustrate a PTA which models a simple task-handling process.
 
 \begin{example}\label{ex:pta}
-In the PTA depicted in Figure~\ref{fig:pta}, $\WAIT$, $\WORK{s}$ and $\DONE{s}$ ($ s\in \{ \alpha, \beta \}$) are locations
+{\color{red}In} the PTA depicted in Figure~\ref{fig:pta}, $\WAIT$, $\WORK{s}$ and $\DONE{s}$ ($ s\in \{ \alpha, \beta \}$) are locations
 and $x$ is the only clock. Below each location first comes (vertically) its invariant condition and then the set of labels assigned to the location. For example, $\inv(\DONE{\alpha})=( x = 2 )$
 and $\lbfunc(\DONE{\alpha})=\{ \alpha \}$.
 The four dot points together with corresponding arrows refer to four actions and their enabling conditions and probability transition functions.
@@ -215,14 +215,14 @@ A \emph{timed automaton} (TA)
 %(NTA)
 $\nta$ is a tuple
 \begin{equation}\label{eq:nta}
-\nta=(\cstates,\alphabet,\clocks,\rules)
+\nta=(\cstates,\alphabet,\dtclocks,\rules)
 \end{equation}
 where
 \begin{compactitem}
 \item $\cstates$ is a finite set of \emph{modes}; %and $\dtloc^*$ is the \emph{initial} mode;
 \item $\alphabet$ is a finite \emph{alphabet} of \emph{symbols} disjoint from $[0,\infty)$;
 \item $\mathcal{X}$ is a finite set of \emph{clocks};
-\item $\rules\subseteq \cstates\times\alphabet\times\clcons{\clocks}\times 2^{\clocks}\times \cstates$ is a finite set of \emph{rules}.
+\item $\rules\subseteq \cstates\times\alphabet\times\clcons{\dtclocks}\times 2^{\dtclocks}\times \cstates$ is a finite set of \emph{rules}.
 \end{compactitem}
 % \end{definition}
 % \begin{definition}[Deterministic Timed Automata (DTAs)~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
@@ -239,10 +239,10 @@ Below we illustrate the semantics of TAs. We fix a TA $\dta$ in the form (\ref{e
 
 
 \smallskip\noindent{\em Configurations and One-Step Transition Relation.}
-A \emph{configuration} is a pair $(\dtloc,\nu)$, where $\dtloc\in \cstates$ and $\nu\in\val{\clocks}$.
+A \emph{configuration} is a pair $(\dtloc,\nu)$, where $\dtloc\in \cstates$ and $\nu\in\val{\dtclocks}$.
 The \emph{one-step transition relation}
 \[
-\Rightarrow~\subseteq~ (\cstates \times \val{\clocks}) \times (\alphabet\cup [0,\infty)) \times (\cstates \times \val{\clocks})
+\Rightarrow~\subseteq~ (\cstates \times \val{\dtclocks}) \times (\alphabet\cup [0,\infty)) \times (\cstates \times \val{\dtclocks})
 \]
 %\[
 %    \kappa
@@ -252,26 +252,28 @@ The \emph{one-step transition relation}
 %        \cstates \times \val{\clocks}
 %\]
 is defined by: $((\dtloc,\nu),a,(\dtloc',\nu'))\in\Rightarrow$ iff
-either (i) $a\in [0,\infty)$ and $(\dtloc',\nu')=(\dtloc,\nu+a)$ 
-or (ii) $a\in\alphabet$ and there exists a rule $(q,b,\phi,X,q')\in\Delta$
-
+either (i) $a\in [0,\infty)$ and $(\dtloc',\nu')=(\dtloc,\nu+a)$
+or (ii) $a\in\alphabet$ and there exists a rule $(q,a,\phi,X,q')\in\Delta$
+such that $\nu\models\phi$ and $\nu'=\reset{\nu}{X}$.
 %$
 %    \trfunc((\dtloc,\nu),a)
 %        := \left(
 %            \dtq{q}{a}{\nu},\reset{\nu}{\dtx{q}{a}{\nu}}
 %        \right)
-%$ 
-for $a \in \alphabet$;
-$
-    \trfunc((\dtloc,\nu),a)
-        :=(
-            \dtloc,\nu+a
-        )
-$ for $a \in [0,\infty)$.
-For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
-instead of $\kappa((\dtloc,\nu),a)=(\dtloc',\nu')$.
+%$
+%for $a \in \alphabet$;
+%$
+%    \trfunc((\dtloc,\nu),a)
+%        :=(
+%            \dtloc,\nu+a
+%        )
+%$ for $a \in [0,\infty)$.
+%For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
+%instead of $\kappa((\dtloc,\nu),a)=(\dtloc',\nu')$.
 
-{\em Infinite Time Words and Runs.}
+
+\smallskip
+\noindent{\em Infinite Time Words and Runs.}
 An \emph{infinite time word} is an infinite sequence $\{a_n\}_{n\in\Nset_0}$ such that
 $
     a_{2n}      \in [0,\infty)
@@ -279,18 +281,22 @@ $
     a_{2n+1}    \in \alphabet
 $
 for all $n$.
-The \emph{run} of $\dta$ on an infinite word $w=\{a_n\}_{n\in\Nset_0}$
+The \emph{run} of $\dta$ on an infinite timed word $w=\{a_n\}_{n\in\Nset_0}$
 %over $\acts\cup [0,\infty)$ (i.e., $a_n\in \acts\cup [0,\infty)$ for all $n$)
 with \emph{initial configuration} $(\dtloc,\nu)$, denoted by $\run{\dta}{\dtloc,\nu}{w}$, is the unique infinite
 sequence $\{\left(\dtloc_n,\nu_n,a_n\right)\}_{n\in\Nset_0}$
 which satisfies that $(\dtloc_0,\nu_0)=(\dtloc,\nu)$ and $\dtatr{(\dtloc_n,\nu_n)}{a_n}{(\dtloc_{n+1},\nu_{n+1})}$
 for all $n\in\Nset_0$.
 %%%%%
-The trajectory of $\run{\dta}{\dtloc,\nu}{w}$, an infinite string over $\cstates$,
-is define as follow $\traj{ \run{\dta}{\dtloc,\nu}{w} } := q_0 q_1 \dots$
+The \emph{trajectory} $\traj{ \run{\dta}{\dtloc,\nu}{w} }$ of the run $\run{\dta}{\dtloc,\nu}{w}$ is defined as an infinite word over $\cstates$ such that
+$\traj{ \run{\dta}{\dtloc,\nu}{w} } := q_0 q_1 \dots$~.
 %%%%%
 
-Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition.
+Below we illustrate the acceptance conditions for TAs. 
+We first illustrate infinite acceptance condition for which 
+we consider Rabin acceptance condition.
+
+%Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition.
 % Finite case is trivial and we also support it in our tool.
 % \vspace{-0.8em}
 % \begin{definition}[Finite Acceptance Criterion]
@@ -301,12 +307,12 @@ Now we illustrate the acceptance condition for DTAs. In this paper, we focus on 
 
 %%%%%
 % \vspace{-0.8em}
-\begin{definition}[Timed Rabin Automata (TRAs)]
-A \emph{timed Rabin Automata} (TRA) is a tuple
+\begin{definition}[Rabin Acceptance Condition]
+A TA with \emph{Rabin acceptance condition} (TRA) is a tuple
 \begin{equation}\label{eq:tra}
-    \tra=(\cstates,\alphabet,\clocks,\rules,\rabin)
+    \tra=(\cstates,\alphabet,\dtclocks,\rules,\rabin)
 \end{equation}
-where $(\cstates,\alphabet,\clocks,\rules)$ is a timed automaton, and $\rabin$ is a a finite
+where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\rabin$ is a finite
 set of pairs
 $
     \rabin
@@ -315,12 +321,12 @@ $
             \dots,
             (H_n,K_n)
         \}
-$,
-where $H_i$ and $K_i$ are subset of $\cstates$ for all $i<n$.
-A set $\cstates' \subseteq \cstates $ is called Rabin accepting by $\rabin$,
-denoted by $\accept{\cstates'}{\rabin}$,
+$ representing a Rabin condition for which 
+$H_i$ and $K_i$ are subsets of $\cstates$ for all $i<n$.
+A set $\cstates' \subseteq \cstates $ is \emph{Rabin-accepting} by $\rabin$,
+written as the single predicate $\accept{\cstates'}{\rabin}$,
 if there exists $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $
-and $ \cstates' \cap K_i \neq \emptyset $. An infinite word $w$ is accepted
+and $ \cstates' \cap K_i \neq \emptyset $. An infinite timed word $w$ is \emph{Rabin-accepted} by
 $\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ iff
 $
     \mbox{  }
@@ -342,7 +348,7 @@ $ is Rabin accepting by $\rabin$.
 \end{figure}
 
 \begin{example}\label{ex:dta}
-Consider the DTA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
+{\color{red}Consider} the DTA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
 $\INIT$, $\Q$ and $\FAIL$ are modes with $\rabin = \{ \{ \FAIL \}, \{ \Q \} \}$, $y,z$ are clocks and arrows between modes are rules.
 For example, there are five rules emitting from $\Q$, one is
 $(\Q, \{\beta\}, 300 < z, \emptyset, \FAIL)$ and another is
@@ -354,6 +360,30 @@ of time after last $\alpha$ job done and every $\beta$ job should be done within
 300 units of time after last $\beta$ job done.
 \end{example}
 %%%%%
+
+\begin{definition}[Finite Acceptance Condition]
+A TA with \emph{finite acceptance condition} (TFA) is a tuple
+\begin{equation}\label{eq:tfa}
+    \dta=(\cstates,\alphabet,\dtclocks,\rules,\fstates)
+\end{equation}
+where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$ 
+representing the set of \emph{final} modes.
+An infinite timed word $w$ is \emph{finitely-accepted} by
+$\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ iff
+some final mode in $\fstates$ appear in the infinite word
+$
+    \mbox{  }
+    \infset{
+        \traj{
+            \run{\dta}{(\dtloc,\nu)}{w}
+        }
+    }
+$.
+\end{definition}
+
+Note that finite acceptance condition is a special case of Rabin acceptance condition. 
+Given a TFA in the form~(\ref{eq:tfa}), one can transform it into an equivalent TRA by first removing all rules emitting from final modes,
+then making all final modes ``absorbing'' through adding self-loop rules $(q,b,\true,\emptyset,q)$ for all final modes $q$ and symbols $b$, and finally setting the Rabin condition $\rabin$ to be the singleton set $\{(\emptyset, \fstates)\}$.
 
 %Then we present Rabin acceptance condition which requires an infinite word to visit some modes only finitely often and some other modes infinitely often.
 
