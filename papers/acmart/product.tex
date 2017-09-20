@@ -1,37 +1,51 @@
 % \vspace{-0.8em}
-\section{The Product Construction}
+\section{The PTA-DTA Problem}
 % \vspace{-0.8em}
-In this section, we introduce the core part of our algorithms to solve the {\sc PTA-DTA} problem
-{\color{red} and deterministic TRA is refered as DTA.}
-The core part is a product construction which given a PTA $\pta$ and a DTA $\dta$, output a PTA which preserves the probability of the set of infinite paths of $\pta$ accepted by $\dta$.
-Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTA $\dta$ in the form (\ref{eq:dta}) 
-with the difference that the set of clocks for $\pta$ (resp. for $\dta$) is denoted by $\clocks_1$ (resp. $\clocks_2$).
-W.l.o.g., we assume that $\clocks_1\cap\clocks_2=\emptyset$ and $\alphabet=2^{\ap}$.
+In this section, we solve the {\sc PTA-DTA} problem through a product construction. 
+Based on the product construction, we also settle the complexity of the problem. 
+Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a TRA (or resp. TFA) $\dta$ in the form (\ref{eq:tra}) (or resp. (\ref{eq:tfa})).
+W.l.o.g, we consider that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %such that $\clocks_1\cap\clocks_2=\emptyset$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
-We let $\regions$ be the set of regions w.r.t $\sim_N$, where $N$ is the maximal integer appearing in the clock constraints of $\dta$.
+%We let $\regions$ be the set of regions w.r.t $\sim_N$, where $N$ is the maximal integer appearing in the clock constraints of $\dta$.
 
-{\bf The Main Idea.} The intuition of the product construction is to let $\dta$ reads external actions of $\pta$ while $\pta$ evolves along the time axis.
+\smallskip
+\noindent {\bf The Main Idea.} The core part of the product construction is a PTA which preserves the probability of the set of infinite paths accepted by $\dta$.
+The intuition is to let $\dta$ reads external actions of $\pta$ while $\pta$ evolves along the time axis.
 The major difficulty is that when $\pta$ performs actions in $\acts$, there is a probabilistic choice between the target locations. Then $\dta$ needs to know the labelling of the target location and the rule (in $\rules$) used for the transition.
-A naive solution is to integrate each single rule $\rules$ into the enabling condition $\enab$ in $\pta$. However, this simple solution does not work since a single rule in $\rules$ fixes the labelling of a location in $\pta$, while the probabilistic distribution given by $\prob$ can jump to locations with different labels.
-We solve this difficulty by integrating into the enabling condition $\enab$ enough information on clock valuations under $\dta$ so that the rule  used for the transition (in $\dta$) is clear.
-In detail, we introduce two versions of the product construction, each having a computational advantage against the other.
+A naive solution is to integrate each single rule in $\rules$ into the enabling condition $\enab$ in $\pta$. However, this simple solution does not work since a single rule fixes the labelling of a location in $\pta$, while the probability distribution (given by $\prob$) can jump to locations with different labels.
+We solve this difficulty by integrating into the enabling condition 
+%$\enab$ 
+enough information on clock valuations under $\dta$ so that the rule used for the transition is clear.
+%In detail, we introduce two versions of the product construction, each having a computational advantage against the other.
 
-\noindent{\textbf{Product Construction (First Version).}}
-The \emph{product PTA} $\product{\pta}{\dta_q}$ between $\pta$ and $\dta$ with initial mode $\dtloc$ is defined as the PTA
-
-$\left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)$, where:
+\smallskip
+\noindent{\textbf{The Product Construction.}}
+For each $\dtloc\in\cstates$, we let
+\begin{align*}
+&\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\clocks_2}\mid\\
+&\qquad
+\forall b\in\alphabet.\left(\dtloc, b, h(b), X, \dtloc')\in\rules\mbox{ for some }X, \dtloc'\right)\}\enskip.
+\end{align*}
+The totality condition ensures that $\exttuples_{\dtloc}$ is non-empty. 
+Intuitively, every element of $\exttuples_{\dtloc}$ is a tuple of clock constraints $\{\phi_b\}_{b\in\alphabet}$, where each
+clock constraint $\phi_b$ is chosen from the rules emitting from $\dtloc$ and $b$.
+The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with initial mode $\dtloc$) is defined as the PTA
+\[
+\left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)
+\]
+where:
 \begin{compactitem}
 \item $\locs_\otimes:=\locs\times \cstates$;
 \item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode\\
     such that $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q^\star,\zero)$;
     %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
-\item $\clocks_\otimes:=\clocks_1\cup\clocks_2$;
-\item $\acts_\otimes:=\acts\times\regions$; %$\acts_\otimes:=\acts\times\rules$;
+\item $\clocks_\otimes:=\clocks\cup\dtclocks$;
+\item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
 \item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
-\item $\enab_\otimes\left((\loc,\dtloc), (a,R)\right):=\enab(\loc,a)\wedge \phi_R$ for all $(\loc,\dtloc)\in \locs_\otimes$, where $\phi_R$ is any clock constraint such that $\sat{\phi_R}=R$;
+\item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise;
 %$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
-\item 
+\item
 $
     \lbfunc_\otimes \left(
         \loc,\dtloc
@@ -39,16 +53,17 @@ $
         := \left \{
             \dtloc
         \right \}
-    \mbox{ for all } \left ( 
+    \mbox{ for all } \left (
         \loc,\dtloc
     \right )
     \in \locs_\otimes
 $
 \item $\prob_\otimes$ is given by
 \begin{align*}
-&\prob_\otimes\left((\loc,\dtloc),(a,R)\right)(Y,(\loc',\dtloc')):=\\
+&\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
 &\quad\begin{cases}
-\prob\left(\loc,a\right)(Y\cap \clocks_1,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), \phi^{\dtloc,\lbfunc\left(\loc'\right)}_R, Y\cap \clocks_2, \dtloc')\in\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
+\prob\left(\loc,a\right)(Y\cap \clocks,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')\\
+& \mbox{is a rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
 0 & \mbox{otherwise}
 \end{cases}\enskip.
 \end{align*}
@@ -106,16 +121,16 @@ The advantage of the second version against the first one is that it is more sui
         \input{example_product}
         }
     \caption{A Part of Product PTA}
-    \label{fig:product}  
+    \label{fig:product}
 \end{figure}
 
 \begin{example}
-Here we represent an running example to show how $\exttuples_{\dtloc}$ works. 
+Here we represent an running example to show how $\exttuples_{\dtloc}$ works.
 Here for the accepting mod $\Q$ in DTA, we have
 \begin{align*}
     &
-    \exttuples_{\dtloc} 
-        = \{ 
+    \exttuples_{\dtloc}
+        = \{
             % \\
             % &
             h_0 = \left \{
@@ -123,7 +138,7 @@ Here for the accepting mod $\Q$ in DTA, we have
                 \{ \alpha \}        \mapsto ( x \le 500 ),
                 \{ \beta  \}        \mapsto ( y \le 300 ),
                 \{ \alpha, \beta \}  \mapsto \true
-            \right \}, 
+            \right \},
             \\
             &
             h_1 = \left \{
@@ -131,7 +146,7 @@ Here for the accepting mod $\Q$ in DTA, we have
                 \{ \alpha \}        \mapsto ( x \le 500 ),
                 \{ \beta  \}        \mapsto ( 300 < y ),
                 \{ \alpha, \beta \}  \mapsto \true
-            \right \}, 
+            \right \},
             \\
             &
             h_2 = \left \{
@@ -139,7 +154,7 @@ Here for the accepting mod $\Q$ in DTA, we have
                 \{ \alpha \}        \mapsto ( 500 < x  ),
                 \{ \beta  \}        \mapsto ( y \le 300 ),
                 \{ \alpha, \beta \}  \mapsto \true
-            \right \}, 
+            \right \},
             \\
             &
             h_3 = \left \{
@@ -147,7 +162,7 @@ Here for the accepting mod $\Q$ in DTA, we have
                 \{ \alpha \}        \mapsto ( 500 < x ),
                 \{ \beta  \}        \mapsto ( 300 < y ),
                 \{ \alpha, \beta \}  \mapsto \true
-            \right \} 
+            \right \}
         \} .
 \end{align*}
 And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
@@ -234,20 +249,20 @@ The function $\sfunc$ is a bijection.
 Now we show the relationship between infinite paths accepted by a DTA before product construction and infinite paths visiting certain target locations after product construction.
 Below we lift the function $\pfunc$ to all subsets of paths in the standard fashion: for all subsets $A\subseteq \fnpaths{\pta}\cup\infpaths{\pta}$, $\pfunc(A):=\{\pfunc(\omega)\mid \omega\in A\}$.
 
-%%%%% 
+%%%%%
 % \vspace{-0.8em}
 \begin{definition}[Traces]
-Let 
-$ \pfunc(\infpath) = 
+Let
+$ \pfunc(\infpath) =
     ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
     a'_0
     ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
     a'_1
-    \dots 
+    \dots
 $
-% and according to definition 
-% $Lab((\loc_i,\dtloc_i)ï¼‰ = \left\{ \dtloc_i \right\}$.
-% Instead of using $\{ q_0 \}, \{ q_1 \}, \dots $, 
+% and according to definition
+% $Lab((\loc_i,\dtloc_i)£© = \left\{ \dtloc_i \right\}$.
+% Instead of using $\{ q_0 \}, \{ q_1 \}, \dots $,
 the trace of $ \pfunc ( \infpath ) $ is defined by
 $\trace{ \pfunc ( \infpath ) } := \dtloc_0 \dtloc_1 \dots $.
 \end{definition}
@@ -262,12 +277,12 @@ $\trace{ \pfunc ( \infpath ) } := \dtloc_0 \dtloc_1 \dots $.
 
 \noindent{\textbf{Verifying Limit Rabin Properties.}}
 Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
-% å†™æˆå®šä¹‰åœ¨æ™®é€šçš„ PTA ä¸Šè¿˜æ˜¯ä¹˜ç§¯ä¸Šå¥½
+% Ð´³É¶¨ÒåÔÚÆÕÍ¨µÄ PTA ÉÏ»¹ÊÇ³Ë»ýÉÏºÃ
 % $$
-%     \AcceptCxAqsF = \left \{ 
-%         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid 
-%         \infset{ 
-%             \trace{ 
+%     \AcceptCxAqsF = \left \{
+%         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid
+%         \infset{
+%             \trace{
 %                 \infpath
 %             }
 %         }
@@ -276,11 +291,11 @@ Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
 % $$
 \begin{small}
 $$
-    \AcceptCxAqsF = \left \{ 
-        \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid 
+    \AcceptCxAqsF = \left \{
+        \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid
         \accept{
-            \infset{ 
-                \trace{ 
+            \infset{
+                \trace{
                     \infpath
                 }
             }
@@ -291,33 +306,33 @@ $$
 $$
 \end{small}
 and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
-% 
+%
 % \vspace{-0.8em}
-\begin{proposition}\label{prop:psfunc} 
+\begin{proposition}\label{prop:psfunc}
 For any scheduler $\sigma$ and any initial mode $q$ on DTA $\dta$, $$\TLang = \TAcc.$$
 \end{proposition}
 \begin{proof}
 % This proof is trivial.
 By definition we have
 % $$
-%     \LangCsAqF = \left \{ 
-%         \infpath \in \infpaths{\pta,\sigma} \mid 
-%         \infset{ 
-%             \traj{ 
-%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+%     \LangCsAqF = \left \{
+%         \infpath \in \infpaths{\pta,\sigma} \mid
+%         \infset{
+%             \traj{
+%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)}
 %             }
 %         }
-%         \mbox{ is Rabin accepting by } \rabin 
+%         \mbox{ is Rabin accepting by } \rabin
 %     \right\},
 % $$
 \begin{small}
 $$
-    \LangCsAqF = \left \{ 
-        \infpath \in \infpaths{\pta,\sigma} \mid 
+    \LangCsAqF = \left \{
+        \infpath \in \infpaths{\pta,\sigma} \mid
         \accept{
-            \infset{ 
-                \traj{ 
-                    \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+            \infset{
+                \traj{
+                    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
                 }
             }
         }   {
@@ -331,7 +346,7 @@ $
     \dtloc^*
         =
             \trfunc \left(
-                (\dtloc,\zero), 
+                (\dtloc,\zero),
                 \lbfunc (
                     \initloc{\infpath}
             \right)
@@ -339,40 +354,40 @@ $.
 Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
 And by definition of $\pfunc$ we have
 $$
-    \pfunc( \infpath ) = 
+    \pfunc( \infpath ) =
         ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
         a'_0
         ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
         a'_1
-        \dots 
+        \dots
 $$
-% æˆ‘è§‰å¾—ä¸éœ€è¦æŠŠéªŒè¯ Tï¼ˆpi) è·Ÿ thetaï¼ˆsigmaï¼‰ ç›¸å®¹ å†™ä¸‹æ¥
+% ÎÒ¾õµÃ²»ÐèÒª°ÑÑéÖ¤ T£¨pi) ¸ú theta£¨sigma£© ÏàÈÝ Ð´ÏÂÀ´
 $$
-    \run{\dta}{\iconfig}{\lbfunc(\infpath)} 
+    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
         = \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}.
 $$
 Then it's obvious that
 $$\trace{ \pfunc( \infpath ) }
     = q_0 q_1 \dots
-    = \traj{ 
+    = \traj{
         \run
             {\dta}{\iconfig}
-            {\lbfunc(\infpath)} 
+            {\lbfunc(\infpath)}
     }.
-$$ 
+$$
 Then we conclude that
 $\infset {
     \trace {
         \pfunc( \infpath )
     }
 }$
-is Rabin accepting by $\rabin$ iff 
+is Rabin accepting by $\rabin$ iff
 $
-    \infset{ 
-        \traj { 
+    \infset{
+        \traj {
             \run
                 {\dta}{\iconfig}
-                {\lbfunc(\infpath)} 
+                {\lbfunc(\infpath)}
         }
     }
 $
@@ -402,10 +417,10 @@ For any scheduler $\sigma$ and initial mode $q$,
                 \left(
                     % \omgpaths{\product{\pta}{\dta_\dtloc},\theta\left(\sigma\right)}{\locs\times F}
                     \TAcc
-                \right) 
-    ~. 
+                \right)
+    ~.
 \]
-Moreover, 
+Moreover,
 $
     \probm
         ^{\pta,\sigma}
@@ -416,7 +431,7 @@ $
     =
     \probm
         ^{\product{\pta}{\dta_\dtloc},\theta(\sigma)}
-        \left( \{  
+        \left( \{
                 \infpath' \mid \infpath' \mbox{ is zeno}
             \}
         \right)
@@ -449,29 +464,29 @@ From Theorem~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtai
 
 % \vspace{-0.8em}
 \begin{corollary}{(\cite{DBLP:conf/qest/Sproston11})}\label{crly:opt}
-For any initial mode $q$, 
-% there exists an $\rabin_* \subseteq \locs_\otimes$ 
+For any initial mode $q$,
+% there exists an $\rabin_* \subseteq \locs_\otimes$
 % s.t. $\rabin_*$ is a union of several maximal end
-% components that satisfy $\rabin$. 
+% components that satisfy $\rabin$.
 \begin{align*}
     \opt_\sigma\pr{\dtloc}{\sigma}
-        & =  
+        & =
             \opt_{\sigma'}
             \probm^{\product{\pta}{\dta_\dtloc},\sigma'}\left(
                 \Accept
                     {\product{\pta}{\dta_\dtloc},\sigma'}
                     % {\rabin}
-            \right) 
+            \right)
         % \\
-        % & = 
+        % & =
         %     \opt_{\sigma''}
         %     \probm^{\product{\pta}{\dta_\dtloc},\sigma''}\left(
         %         \omgpaths
         %             {\product{\pta}{\dta_\dtloc},\sigma''}
-        %             {\rabin_*} 
-        %     \right) 
+        %             {\rabin_*}
+        %     \right)
         % \\
-        % & = 
+        % & =
         %     \opt_{\sigma'''}
         %     \probm^{\product{\pta}{\dta_\dtloc},\sigma'''}\left(
         %         \omgpaths
@@ -480,30 +495,30 @@ For any initial mode $q$,
         %     \right),
 \end{align*}
 where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum),
-$\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers 
+$\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers
 for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$).
 % where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum),
-% $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers 
-% for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$) and $\sigma''$ (resp. 
-% $\sigma'''$) range over all time-divergent (resp. all time-divergent and 
-% time-convergent) schedulers for $\product{\pta}{\dta_\dtloc}$. $\rabin_*$ can be 
+% $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers
+% for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$) and $\sigma''$ (resp.
+% $\sigma'''$) range over all time-divergent (resp. all time-divergent and
+% time-convergent) schedulers for $\product{\pta}{\dta_\dtloc}$. $\rabin_*$ can be
 % resolved by an MEC algorithm and $\opt_\sigma\pr{\dtloc,\rabin}{\sigma}$
 % can be calculated by a reachability analysis.
 \end{corollary}
 The way \cite{DBLP:conf/qest/Sproston11} discards time-convergent path
-is making a copy of every location in PTA model and enforcing a transition 
-from the original one to the copy happen when 1 time unit is passed. After 
+is making a copy of every location in PTA model and enforcing a transition
+from the original one to the copy happen when 1 time unit is passed. After
 transiting to the copy, A transition back to the original one will immediately
-happend with no delay. And we put a label \textit{tick} in copy. We only deal with 
-paths that satisfy $ \square \Diamond tick $ (i.e. \textit{tick} is satisfied 
+happend with no delay. And we put a label \textit{tick} in copy. We only deal with
+paths that satisfy $ \square \Diamond tick $ (i.e. \textit{tick} is satisfied
 infinitely many times).
 
-Then an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ is obtained from the enlarged 
+Then an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ is obtained from the enlarged
 PTA of $ \product{\pta}{\dta_\dtloc} $ through an region construction.
 Then we verify the limit rabin property on $\Region{\product{\pta}{\dta_\dtloc}}$
 by using a standard MEC algorithm. First, We find all MECs satisfy the corresponding
 property of an Rabin acceptance condition. In order to guarantee time-divergence,
-we only pick up MECs with at least one location that has an \textit{tick} label and 
+we only pick up MECs with at least one location that has an \textit{tick} label and
 let $F_*$ be the union of those MECs. Then, we turn to resolve the probability
 reachability to $F_*$.
 %
@@ -513,20 +528,20 @@ reachability to $F_*$.
 Let $M$ be a finite MDP and $P$ be a limit LT propery specified by a Rabin condition:
 $$
 \bigvee_{1 \le i \le n} \left(
-    \Diamond \square \lnot H_i 
-    \land 
-    \square \Diamond K_i 
+    \Diamond \square \lnot H_i
+    \land
+    \square \Diamond K_i
 \right)
 $$
-Then: the values 
+Then: the values
 $
 \opt_\sigma \probm^{M,\sigma} \left(
-    s \models P 
+    s \models P
 \right)
-$ 
+$
 can be computed in time \\
 $
-\mathcal{O} \left( 
+\mathcal{O} \left(
     \mbox{poly} \left(
         \mbox{size} \left(
             M
@@ -539,16 +554,16 @@ $
 where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum).
 \end{lemma}
 
-Noting that for  $\product{\pta}{\dta_\dtloc}$, 
-although the upper bound of $| \acts_\otimes |$ is 
-$ | \acts | \cdot | \cstates| \cdot | \rules |^{ | \alphabet | }$, 
-$ | \locs_\otimes | $ is polynomial to $ |\locs| \cdot |\cstates| $, and 
+Noting that for  $\product{\pta}{\dta_\dtloc}$,
+although the upper bound of $| \acts_\otimes |$ is
+$ | \acts | \cdot | \cstates| \cdot | \rules |^{ | \alphabet | }$,
+$ | \locs_\otimes | $ is polynomial to $ |\locs| \cdot |\cstates| $, and
 $ | \clocks_\otimes | = | \clocks_1 | + | \clocks_2| $.
-The size of $ \Region{\product{\pta}{\dta_\dtloc}} $ is exponential to 
-$ |\locs| \cdot |\cstates| $ while the number of transitions is exponential, 
-% that the computation of $F_*$ can be done in polynomial time in the size of 
-% $ \Region{\product{\pta}{\dta_\dtloc}} $, 
-then $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time 
+The size of $ \Region{\product{\pta}{\dta_\dtloc}} $ is exponential to
+$ |\locs| \cdot |\cstates| $ while the number of transitions is exponential,
+% that the computation of $F_*$ can be done in polynomial time in the size of
+% $ \Region{\product{\pta}{\dta_\dtloc}} $,
+then $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time
 follows from Lemma~\ref{lemm:principle}.
 
 In \cite{LaroussinieS07}, the authors proved that the reachablity problem for arbitary PTAs is \emph{EXPTIME}-complete. Reduction from the PTA reachibility problem to the PTA-DTA model-checking problem can be easily constructed as follows.
@@ -567,7 +582,7 @@ and DTA $\mathcal{A}'=(Q=\{q_0,q_1\},\Sigma=2^{AP\cup\{\mbox{acc\}}},\mathcal{X}
     \item $\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in Delta$,
     \item $\forall \sigma\in\Sigma, i=0,1, (q_i,\sigma,true,\emptyset,q_i)\in \Delta$.
 \end{itemize}
-It's clear that $L_F$ is reachable in $\mathcal{C}$ iff. for $\mathcal{C}'$ and $\mathcal{A}'$, $sup_\sigma \mathfrak{p}_{q_0}^\sigma=1$. 
+It's clear that $L_F$ is reachable in $\mathcal{C}$ iff. for $\mathcal{C}'$ and $\mathcal{A}'$, $sup_\sigma \mathfrak{p}_{q_0}^\sigma=1$.
 
 \begin{proposition}
     The PTA-TRA problem is EXPTIME-complete.

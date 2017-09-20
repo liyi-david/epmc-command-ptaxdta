@@ -1,7 +1,7 @@
 % \vspace{-0.8em}
 \section{The Model-Checking Problem}
 % \vspace{-0.8em}
-In this part, we define the problem of model-checking {PTAs} against TA-specifications.
+In this part, we define the {\sc PTA-TA} problem of model-checking {PTAs} against TA-specifications.
 The problem takes a PTA and a TRA/TFA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA/TFA.
 Informally, the TRA/TFA encodes the linear dense-time property by judging whether an infinite path is accepted or not through its external behaviour,
 then the problem is to compute the probability that an infinite path is accepted by the TRA/TFA.
@@ -10,7 +10,6 @@ In practice, the TRA/TFA can be used to capture all good (or bad) behaviours, so
 Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a TRA (or TFA) $\dta$ taking the form (\ref{eq:tra}) (or (\ref{eq:tfa}))) .
 W.l.o.g., we assume that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
-
 We first show how an infinite path in $\infpaths{\pta}$ can be interpreted as an infinite timed word.
 %
 % \vspace{-0.8em}
@@ -63,19 +62,18 @@ we deal with it in our acceptance condition where the initial location is prepro
 %In contrast, our interpretation follows a natural way that preserves the order of external events in an infinite path.
 %This advantage allows one to specify DTAs (for linear-time properties) in a straightforward way.
 %\end{remark}
-Below we define the acceptance condition on paths as follows.
-For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by
-$\initloc{\infpath}$ the initial location $\loc_0$.
+%Below we define the acceptance condition on paths as follows.
+%For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by
+%$\initloc{\infpath}$ the initial location $\loc_0$.
 % \vspace{-0.8em}
 \begin{definition}[Path Acceptance]\label{def:fnacc}
 An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
 initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
-if there exists a mode $\dtloc\in\cstates$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and 
+if there exists a mode $\dtloc\in\cstates$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and
 the infinite word $\lbfunc(\infpath)$ is Rabin- (or finitely-) accepted by $\dta$ w.r.t
 $
 \left(\left(q',\nu'\right),\zero\right)
-$,
-Notice that $\mbox{\bf ACC}$ is already used but it is easy to distinguish the two different usage from the context.
+$.
 % $$
 %     \accept{
 %         \left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)
@@ -84,17 +82,18 @@ Notice that $\mbox{\bf ACC}$ is already used but it is easy to distinguish the t
 %     }
 % $$
 \end{definition}
+%Note that we slightly abuse the notation $\mbox{\bf ACC}$ is already used but it is easy to distinguish the two different usage from the context.
+
 %\begin{definition}[Rabin Acceptance]\label{def:infacc}
 %Let $\Gamma=\{(E_i,F_i)\}_{i\in I}$ be a finite collection of set pairs indexed by $I$ such that $E_i,F_i\subseteq\cstates$ for all $i\in I$.
 %An infinite path $\infpath$ under $\pta$ is \emph{infinitely accepted} by $\tra$ w.r.t initial configuration $(\dtloc,\nu)$ and $\Gamma$ if the infinite word $\lbfunc(\infpath)$ is accepted by $\tra$ w.r.t $\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\pi})\right),\zero\right)$ and $\Gamma$.
 %\end{definition}
-In the definitions above, the initial location omitted in Definition~\ref{def:interpretation} is preprocessed by specifying explicitly that the initial configuration is $\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)$.
-
-Now we define the notion of acceptance probabilities over infinite paths under $\pta$.
+The initial location omitted in Definition~\ref{def:interpretation} is preprocessed by specifying explicitly that the first label $\lbfunc(\loc^*)$ is read by the initial configuration $(\dtloc,\nu)$.
+Below we define acceptance probabilities over infinite paths under $\pta$.
 % \vspace{-0.8em}
 \begin{definition}[Acceptance Probabilities]
 % Let $F$ be a Rain acceptance condition.
-The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$, initial mode $\dtloc\in\cstates$ and $F$, denoted by $\pr{\dtloc,F}{\sigma}$, is defined by:
+The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$ and initial mode $\dtloc\in\cstates$, denoted by $\pr{\dtloc}{\sigma}$, is defined by:
 \[
     \pr{\dtloc}{\sigma}
         :=
@@ -104,7 +103,7 @@ The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$, ini
             \right)
 \]
 % \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\tra,q,F}\right)
-where $\LangCsAqF$ is the set of paths in $\pta$ that falls into the Rabin-accepted language of $\tra$
+where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA (or TFA) $\tra$
 $$
     \LangCsAqF = \left \{
         \infpath \in \infpaths{\pta,\sigma} \mid
@@ -114,13 +113,12 @@ $$
             {\infpath}
         % \infpath
         % \mbox{ is accepted by } \tra \mbox{ w.r.t. } (q,\zero) \mbox{ and } \rabin
-    \right\}
+    \right\}.
 $$
 % $\acc{\pta,\sigma}{\tra,q,F}:=\left\{\infpath\in\infpaths{\pta,\sigma}\mid \infpath\mbox{ is accepted by }\tra\mbox{ w.r.t. }(q,\zero)\mbox{ and }F\right\}$.
 \end{definition}
-Again, from the fact that the set $\fnpaths{\pta,\sigma}$ is countably-infinite,
-$\LangCsAqF$ is measurable since it can be represent int the
-form of a countable intersect and countable union of some cylinder sets.
+Since the set $\fnpaths{\pta,\sigma}$ is countably-infinite,
+$\LangCsAqF$ is measurable since it can be represented as a countable intersection of certain countable unions of some cylinder sets (cf.~\cite[Chap. ?]{DBLP:books/daglib/0020348} for details).
 % \begin{small}
 % \begin{align*}
 %     &
@@ -174,14 +172,14 @@ form of a countable intersect and countable union of some cylinder sets.
 
 % {\color{red} finite path as finite word}
 
-Now the {\sc PTA-TRA} problem is as follows.
+Now we introduce the {\sc PTA-TA} problem.
 
 \begin{compactitem}
-\item {\bf Input:} a well-formed PTA $\pta$, a TRA $\tra$, an initial mode $\dtloc$;
+\item {\bf Input:} a well-formed PTA $\pta$, a TRA (or TFA) $\dta$ and an initial mode $\dtloc$ in $\dta$;
 \item {\bf Output:} $\inf_\sigma \pr{\dtloc}{\sigma}$ and $\sup_\sigma  \pr{\dtloc}{\sigma}$, where $\sigma$ ranges over all time-divergent schedulers.
 \end{compactitem}
 
-We refer to the problem as PTA-DTA if $\tra$ is deterministic.
+We refer to the problem as {\sc PTA-DTA} if $\dta$ is deterministic.
 %In this paper, we also consider a variant of {\sc PTA-TRA} which incorporates rewards.
 %We first migrate the notion of cumulative reward to DTAs.
 
