@@ -268,8 +268,8 @@ such that $\nu\models\phi$ and $\nu'=\reset{\nu}{X}$.
 %            \dtloc,\nu+a
 %        )
 %$ for $a \in [0,\infty)$.
-%For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
-%instead of $\kappa((\dtloc,\nu),a)=(\dtloc',\nu')$.
+For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
+instead of $((\dtloc,\nu),a,(\dtloc',\nu'))\in\Rightarrow$.
 
 
 \smallskip
@@ -292,8 +292,8 @@ The \emph{trajectory} $\traj{ \run{\dta}{\dtloc,\nu}{w} }$ of the run $\run{\dta
 $\traj{ \run{\dta}{\dtloc,\nu}{w} } := q_0 q_1 \dots$~.
 %%%%%
 
-Below we illustrate the acceptance conditions for TAs. 
-We first illustrate infinite acceptance condition for which 
+Below we illustrate the acceptance conditions for TAs.
+We first illustrate infinite acceptance condition for which
 we consider Rabin acceptance condition.
 
 %Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition.
@@ -321,7 +321,7 @@ $
             \dots,
             (H_n,K_n)
         \}
-$ representing a Rabin condition for which 
+$ representing a Rabin condition for which
 $H_i$ and $K_i$ are subsets of $\cstates$ for all $i<n$.
 A set $\cstates' \subseteq \cstates $ is \emph{Rabin-accepting} by $\rabin$,
 written as the single predicate $\accept{\cstates'}{\rabin}$,
@@ -366,7 +366,7 @@ A TA with \emph{finite acceptance condition} (TFA) is a tuple
 \begin{equation}\label{eq:tfa}
     \dta=(\cstates,\alphabet,\dtclocks,\rules,\fstates)
 \end{equation}
-where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$ 
+where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$
 representing the set of \emph{final} modes.
 An infinite timed word $w$ is \emph{finitely-accepted} by
 $\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ iff
@@ -381,7 +381,7 @@ $
 $.
 \end{definition}
 
-Note that finite acceptance condition is a special case of Rabin acceptance condition. 
+Note that finite acceptance condition is a special case of Rabin acceptance condition.
 Given a TFA in the form~(\ref{eq:tfa}), one can transform it into an equivalent TRA by first removing all rules emitting from final modes,
 then making all final modes ``absorbing'' through adding self-loop rules $(q,b,\true,\emptyset,q)$ for all final modes $q$ and symbols $b$, and finally setting the Rabin condition $\rabin$ to be the singleton set $\{(\emptyset, \fstates)\}$.
 

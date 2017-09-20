@@ -35,8 +35,8 @@ $
 %            \dots
 %\end{align*}
 $
-under $\pta$, the infinite word $\lbfunc(\infpath)$ 
-%over $2^{\ap}\cup[0,\infty)$ 
+under $\pta$, the infinite word $\lbfunc(\infpath)$
+%over $2^{\ap}\cup[0,\infty)$
 is defined as
 \[
 \lbfunc(\infpath):=a_0\lbfunc(\loc_2)a_2\lbfunc(\loc_4)\dots a_{2n}\lbfunc(\loc_{2n+2}) \dots\enskip.
@@ -70,9 +70,10 @@ $\initloc{\infpath}$ the initial location $\loc_0$.
 \begin{definition}[Path Acceptance]\label{def:fnacc}
 An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
 initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
-if the infinite word $\lbfunc(\infpath)$ is Rabin- (or finitely-) accepted by $\dta$ w.r.t
+if there exists a mode $\dtloc\in\cstates$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and 
+the infinite word $\lbfunc(\infpath)$ is Rabin- (or finitely-) accepted by $\dta$ w.r.t
 $
-\left(\trfunc\left((\dtloc,\nu), \lbfunc(\initloc{\infpath})\right),\zero\right)
+\left(\left(q',\nu'\right),\zero\right)
 $,
 Notice that $\mbox{\bf ACC}$ is already used but it is easy to distinguish the two different usage from the context.
 % $$
