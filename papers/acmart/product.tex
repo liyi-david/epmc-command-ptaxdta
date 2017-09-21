@@ -1,9 +1,9 @@
 % \vspace{-0.8em}
 \section{The PTA-DTA Problem}
 % \vspace{-0.8em}
-In this section, we solve the {\sc PTA-DTA} problem through a product construction. 
-Based on the product construction, we also settle the complexity of the problem. 
-Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a TRA (or resp. TFA) $\dta$ in the form (\ref{eq:tra}) (or resp. (\ref{eq:tfa})).
+In this section, we solve the {\sc PTA-DTA} problem through a product construction.
+Based on the product construction, we also settle the complexity of the problem.
+Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTRA (or resp. DTFA) $\dta$ in the form (\ref{eq:tra}) (or resp. (\ref{eq:tfa})).
 W.l.o.g, we consider that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %such that $\clocks_1\cap\clocks_2=\emptyset$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
@@ -14,8 +14,8 @@ W.l.o.g, we consider that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap
 The intuition is to let $\dta$ reads external actions of $\pta$ while $\pta$ evolves along the time axis.
 The major difficulty is that when $\pta$ performs actions in $\acts$, there is a probabilistic choice between the target locations. Then $\dta$ needs to know the labelling of the target location and the rule (in $\rules$) used for the transition.
 A naive solution is to integrate each single rule in $\rules$ into the enabling condition $\enab$ in $\pta$. However, this simple solution does not work since a single rule fixes the labelling of a location in $\pta$, while the probability distribution (given by $\prob$) can jump to locations with different labels.
-We solve this difficulty by integrating into the enabling condition 
-%$\enab$ 
+We solve this difficulty by integrating into the enabling condition
+%$\enab$
 enough information on clock valuations under $\dta$ so that the rule used for the transition is clear.
 %In detail, we introduce two versions of the product construction, each having a computational advantage against the other.
 
@@ -23,11 +23,11 @@ enough information on clock valuations under $\dta$ so that the rule used for th
 \noindent{\textbf{The Product Construction.}}
 For each $\dtloc\in\cstates$, we let
 \begin{align*}
-&\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\clocks_2}\mid\\
+&\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\dtclocks}\mid\\
 &\qquad
 \forall b\in\alphabet.\left(\dtloc, b, h(b), X, \dtloc')\in\rules\mbox{ for some }X, \dtloc'\right)\}\enskip.
 \end{align*}
-The totality condition ensures that $\exttuples_{\dtloc}$ is non-empty. 
+The totality of $\rules$ ensures that $\exttuples_{\dtloc}$ is non-empty.
 Intuitively, every element of $\exttuples_{\dtloc}$ is a tuple of clock constraints $\{\phi_b\}_{b\in\alphabet}$, where each
 clock constraint $\phi_b$ is chosen from the rules emitting from $\dtloc$ and $b$.
 The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with initial mode $\dtloc$) is defined as the PTA
@@ -37,8 +37,7 @@ The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with 
 where:
 \begin{compactitem}
 \item $\locs_\otimes:=\locs\times \cstates$;
-\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode\\
-    such that $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q^\star,\zero)$;
+\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode such that $\dtatr{(\dtloc,\zero)}{\lbfunc(\loc^*)}{(q^\star,\zero)}$;
     %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
 \item $\clocks_\otimes:=\clocks\cup\dtclocks$;
 \item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
@@ -56,64 +55,30 @@ $
     \mbox{ for all } \left (
         \loc,\dtloc
     \right )
-    \in \locs_\otimes
+    \in \locs_\otimes;
 $
 \item $\prob_\otimes$ is given by
 \begin{align*}
 &\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
 &\quad\begin{cases}
 \prob\left(\loc,a\right)(Y\cap \clocks,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')\\
-& \mbox{is a rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
-0 & \mbox{otherwise}
-\end{cases}\enskip.
-\end{align*}
-where $(\dtloc,\lbfunc\left(\loc'\right), \phi^{\dtloc,\lbfunc\left(\loc'\right)}_R, Y\cap \clocks_2, \dtloc')$ is the unique rule such that for all $\nu\in R$, $\nu\in\sat{\phi^{\dtloc,\lbfunc\left(\loc'\right)}_R}$.
-The uniqueness follows from determinism and totality of DTAs.
-\end{compactitem}
-
-Apart from standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\regions$. Then for each extended action $(a,R)$, the enabling condition for this action is just the conjunction between $\enab(\loc,a)$ and $R$.
-This is to ensure that when the action $(a,R)$ is taken, the clock valuation under $\dta$ lies in $R$.
-Finally in the definition for $\prob_\otimes$, upon the action $(a,R)$ and the target location $\loc'$, the DTA $\dta$ chooses the unique rule $(\dtloc,\lbfunc\left(\loc'\right), \phi^{\dtloc,\lbfunc\left(\loc'\right)}_R, Y\cap \clocks_2, \dtloc')$ and then jump to $\dtloc'$ with reset set $Y\cap \clocks_2$.
-By integrating regions into the enabling condition, the DTA $\dta$ can know the status of the clock valuation under $\dta$ through its region, hence can decide which rule to use for the transition.
-This version of product construction works well if the number of regions is not large.
-We note that the number of regions only depends on $N$, not on the size of $\dta$.
-In the following, we introduce another version which depends directly on the size of $\dta$.
-The second version has an advantage when the number of regions is large.
-
-\noindent{\textbf{Product Construction (Second Version).}}
-For each $\dtloc\in\cstates$, we let
-\[
-\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\clocks_2}\mid\forall b\in\alphabet.\left(\dtloc, b, h(b), X, \dtloc')\in\rules\mbox{ for some }X, \dtloc'\right)\}\enskip.
-\]
-Intuitively, every element of $\exttuples_{\dtloc}$ is a tuple of clock constraints $\{\phi_b\}_{b\in\alphabet}$, where each
-clock constraint $\phi_b$ is chosen from the rules emitting from $\dtloc$ and $b$.
-%Let
-%\[
-%\extactions_\dtloc:= \left\{\phi\in \clcons{\clocks_2}\mid \exists(\phi_1,\dots,\phi_{|\alphabet|})\in\extactions_{\dtloc}.\phi=\bigwedge_{k=1}^{|\alphabet|} \phi_k\mbox{ and }\phi\mbox{ is satisfiable}\right\}\enskip.
-%\]
-%Thus, $\extactions_\dtloc$ consists of conjunctions of tuples from $\bigcup_{\dtloc\in\cstates}\exttuples_\dtloc$.
-%The motivation to introduce $\extactions_\dtloc$ is that once $\nu\models\phi\in $
-%Intuitively, clock constraints from $\extactions$ explicitly identifies the reset set and the target mode of a rule once
-The \emph{product PTA} $\product{\pta}{\dta_q}$ between $\pta$ and $\dta$ with initial mode $\dtloc$ is defined
-almost the same as in the first version of the product construction, with the following differences:
-\begin{compactitem}
-\item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
-\item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise;
-%$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
-\item $\prob_\otimes$ is given by
-\begin{align*}
-&\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
-&\quad\begin{cases}
-\prob\left(\loc,a\right)(Y\cap \clocks_1,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \clocks_2, \dtloc')\in\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
+& \mbox{\quad is a (unique) rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
 0 & \mbox{otherwise}
 \end{cases}\enskip.
 \end{align*}
 \end{compactitem}
-The intuition for the second version is that it is also possible to specify the information needed to identify the rule to be chosen by the DTA through a local conjunction of the rules emitting from a mode.
-For each mode, the local conjunction chooses one clock constraint from rules with the same symbol, and group them together through conjunction.
-From determinism and totality of DTAs,
-each conjunction constructed in this way determines which rule to use in the DTA for every symbol in a unique way.
-The advantage of the second version against the first one is that it is more suitable for DTAs with small size and large $N$ (leading to a large number of reigons), as the size of the product PTA relies only the size of the DTA.
+Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
+This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.
+Then in the definition for $\prob_\otimes$, upon the action $(a,h)$ and the target location $\loc'$, the product PTA first chooses the unique rule $(\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')$ from the emitting mode $\dtloc$ and the label $\lbfunc\left(\loc'\right)$ for which the uniqueness comes from the determinism of $\rules$, then perform probabilistic jump from $\pta$ and the discrete transition from $\dta$.
+Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite acceptance condition. 
+
+\begin{remark}
+The novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
+\end{remark}
+
+\begin{remark}
+It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
+\end{remark}
 
 \begin{figure}
     \centering
@@ -125,7 +90,7 @@ The advantage of the second version against the first one is that it is more sui
 \end{figure}
 
 \begin{example}
-Here we represent an running example to show how $\exttuples_{\dtloc}$ works.
+Here we represent an running example to show how our product construction works.
 Here for the accepting mod $\Q$ in DTA, we have
 \begin{align*}
     &
@@ -170,9 +135,7 @@ And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is de
 
 
 % \vspace{-0.8em}
-\begin{remark}
-It is easy to see that the PTA $\product{\pta}{\dta_q}$ (in both versions) is well-formed as $\pta$ is well-formed and the DTA $\dta$ does not introduce extra invariant conditions.
-\end{remark}
+
 % \vspace{-0.8em}
 %$\prob_\otimes$ satisfies that for any $\loc,\loc''\in\locs$, $\dtloc,\dtloc''\in\cstates$, $a\in\acts$, $r=\left(\dtloc, \lbfunc(\loc''), \phi', Y, \dtloc'\right)\in\rules$, $(X,\loc')\in 2^{\clocks_1}\times \locs$ and $Z\subseteq\clocks$, it holds that
 %\[
@@ -182,52 +145,54 @@ It is easy to see that the PTA $\product{\pta}{\dta_q}$ (in both versions) is we
 %\end{cases}\enskip.
 %\]
 
-In the following, we clarify the relationship between $\pta,\dta$ and $\product{\pta}{\dta_\dtloc}$.
-We first show the relationship between paths under $\pta$ and paths under $\product{\pta}{\dta_\dtloc}$.
+Below we clarify the correspondence between $\pta,\dta$ and $\product{\pta}{\dta_\dtloc}$.
+We first show the relationship between paths under $\pta$ and those under $\product{\pta}{\dta_\dtloc}$.
 Informally, paths under $\product{\pta}{\dta_\dtloc}$ are just paths under $\pta$ extended with runs of $\dta$.
 
-{\textbf{Transformation $\pfunc$ From Paths under $\pta$ into Paths under $\product{\pta}{\dta_\dtloc}$.}}
-Since the two versions of product construction shares similarities, we illustrate the transformation in a unified fashion.
+\smallskip\noindent
+{\textbf{Transformation $\pfunc$ for Paths from $\pta$ into $\product{\pta}{\dta_\dtloc}$.}}
 The transformation is defined as the function $\pfunc:\fnpaths{\pta}\cup\infpaths{\pta}\rightarrow \fnpaths{\product{\pta}{\dta_\dtloc}}\cup\infpaths{\product{\pta}{\dta_\dtloc}}$
-which transform a finite or infinite path under $\pta$ into one under  $\product{\pta}{\dta_\dtloc}$ as follows.
+which transform a finite or infinite path under $\pta$ into one under  $\product{\pta}{\dta_\dtloc}$.
 For a finite path
-\[
+$
+%\[
 \fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)
-\]
+%\]
+$
 under $\pta$ (note that $(\loc_0,\nu_0)=(\loc^*, \zero)$ by definition),
 we define $\pfunc(\fnpath)$ to be the unique finite path
 \begin{equation}\label{eq:trho}
 \pfunc(\fnpath):=((\loc_0,\dtloc_0),\nu_0\cup\mu_0)a'_0\dots a'_{n-1}((\loc_n,\dtloc_n),\nu_n\cup\mu_n)
 \end{equation}
-under $\product{\pta}{\dta_\dtloc}$ such that (\dag)
+under $\product{\pta}{\dta_\dtloc}$ such that the following conditions (\dag) hold:
 \begin{compactitem}
-\item $\trfunc\left((\dtloc,\zero), \lbfunc(\loc^*)\right)=(q_0,\mu_0)$ (note that $\mu_0=\zero$), and
-\item for all $0\le k< n$, if $a_k\in [0,\infty)$ then $a'_k=a_k$ and $\dtatr{(\dtloc_k,\mu_k)}{a_k}{\left(\dtloc_{k+1},\mu_{k+1}\right)}$, and
-\item for all $0\le k< n$, if $a_k\in\acts$ then $a'_k=(a_k,\xi_k)$ and $\dtatr{(\dtloc_k,\mu_k)}{\lbfunc(\loc_{k+1})}{\left(\dtloc_{k+1},\mu_{k+1}\right)}$, where either (i) the first version of the product construction is taken and $\xi_k$ is the region $\left[\mu_k\right]_\sim$ or (ii) the second version is taken and $\xi_k$ is the unique function such that for each symbol $b\in\alphabet$, $\xi_k(b)$ is the unique clock constraint appearing in a rule emitting from $q_k$ and with symbol $b$ such that $\mu_k\models\xi_k(b)$.
+\item $\dtatr{(\dtloc,\zero)}{\lbfunc(\loc^*)}{(q_0,\mu_0)}$ (note that $\mu_0=\zero$);
+\item for all $0\le k< n$, if $a_k\in [0,\infty)$ then $a'_k=a_k$ and $\dtatr{(\dtloc_k,\mu_k)}{a_k}{\left(\dtloc_{k+1},\mu_{k+1}\right)}$;
+\item for all $0\le k< n$, if $a_k\in\acts$ then $a'_k=(a_k,\xi_k)$ and $\dtatr{(\dtloc_k,\mu_k)}{\lbfunc(\loc_{k+1})}{\left(\dtloc_{k+1},\mu_{k+1}\right)}$ where $\xi_k$ is the unique function such that for each symbol $b\in\alphabet$, $\xi_k(b)$ is the unique clock constraint appearing in a rule emitting from $q_k$ and with symbol $b$ such that $\mu_k\models\xi_k(b)$.
 \end{compactitem}
 Likewise, for an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$
 under $\pta$, we define $\pfunc(\infpath)$ to be the unique infinite path
 \[
 \pfunc(\infpath):=((\loc_0,\dtloc_0),\nu_0\cup\mu_0)a'_0((\loc_1,\dtloc_1),\nu_1\cup\mu_1)a'_1\dots
 \]
-under $\product{\pta}{\dta_\dtloc}$ such that the three conditions below (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$.
-\qed
+under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$.
 
-The following lemma shows that $\pfunc$ is a bijection and preserves zenoness.
+%The following lemma shows that $\pfunc$ is a bijection and preserves zenoness.
 
 \begin{lemma}\label{lemm:pfuncbij}
 The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$, $\infpath$ is non-zeno iff $\pfunc(\infpath)$ is non-zeno.
 \end{lemma}
 \begin{proof}
-The first claim follows straightforwardly from the determinism and totality of DTAs.
+The first claim follows directly from the determinism and totality of DTAs.
 The second claim follows from the fact that $\pfunc$ preserves time elapses in the transformation.
 \end{proof}
 
 %between $\fnpaths{\pta,\sigma}\cup\infpaths{\pta,\sigma}$ and $\fnpaths{\product{\pta}{\dta_q},\sfunc\left(\sigma\right)}\cup\infpaths{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}$.
 
-We also show the relationship on schedulers before and after product construction.
+Below we also show the correspondence on schedulers before and after the product construction.
 
-\noindent{\textbf{Transformation $\sfunc$ From Schedulers under $\pta$ into Schedulers under $\product{\pta}{\dta_\dtloc}$.}}
+\smallskip
+\noindent{\textbf{Transformation $\sfunc$ for Schedulers from $\pta$ into $\product{\pta}{\dta_\dtloc}$.}}
 We define the function $\sfunc$ from the set of schedulers under $\pta$ into the set of schedulers under $\product{\pta}{\dta_\dtloc}$ as follows: for any scheduler $\sigma$ for $\pta$, $\sfunc(\sigma)$ (for $\product{\pta}{\dta_\dtloc}$) is defined such that for any finite path $\fnpath$ under $\pta$ where $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ and $\pfunc(\rho)$ is given as in (\ref{eq:trho}),
 \[
 \sfunc(\sigma)(\pfunc(\fnpath)):=
@@ -236,17 +201,18 @@ We define the function $\sfunc$ from the set of schedulers under $\pta$ into the
 (\sigma(\fnpath),\lambda(\rho)) & \mbox{if }n\mbox{ is odd}
 \end{cases}
 \]
-where $\lambda(\rho)$ is either $\left[\mu_n\right]_\sim$ if the first version of the product construction is taken, or
-the unique function such that for each symbol $b\in\alphabet$, $\lambda(\rho)(b)$ is the unique clock constraint appearing in a rule emitting from $q_k$ and with symbol $b$ such that $\mu_n\models\lambda(\rho)(b)$.
-Note that the well-definedness of $\sfunc$ follows from Lemma~\ref{lemm:pfuncbij}.\qed
+where $\lambda(\rho)$ is
+the unique function such that for each symbol $b\in\alphabet$, $\lambda(\rho)(b)$ is the clock constraint in the unique rule emitting from $q_k$ and with symbol $b$ such that $\mu_n\models\lambda(\rho)(b)$.
+Note that the well-definedness of $\sfunc$ follows from Lemma~\ref{lemm:pfuncbij}.
 
-By Lemma~\ref{lemm:pfuncbij}, the product construction and the determinism and totality of DTAs, one can prove straightforwardly the following lemma.
-\vspace{-0.8em}
+From Lemma~\ref{lemm:pfuncbij}, the product construction and the determinism and totality of $\rules$, one can prove directly the following lemma.
+%\vspace{-0.8em}
 \begin{lemma}\label{lemm:sfuncbij}
 The function $\sfunc$ is a bijection.
 \end{lemma}
-\vspace{-0.8em}
-Now we show the relationship between infinite paths accepted by a DTA before product construction and infinite paths visiting certain target locations after product construction.
+%\vspace{-0.8em}
+Now we prove the relationship between infinite paths accepted by a DTRA/DTFA before product construction and infinite paths satisfying certain reachability or Rabin condition. 
+
 Below we lift the function $\pfunc$ to all subsets of paths in the standard fashion: for all subsets $A\subseteq \fnpaths{\pta}\cup\infpaths{\pta}$, $\pfunc(A):=\{\pfunc(\omega)\mid \omega\in A\}$.
 
 %%%%%

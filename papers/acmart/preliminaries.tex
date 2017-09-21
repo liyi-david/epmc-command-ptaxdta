@@ -270,8 +270,8 @@ such that $\nu\models\phi$ and $\nu'=\reset{\nu}{X}$.
 %$ for $a \in [0,\infty)$.
 For the sake of convenience, we write $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$
 instead of $((\dtloc,\nu),a,(\dtloc',\nu'))\in\Rightarrow$.
-Note that if $\dta$ is deterministic, then there is a unique $(\dtloc',\nu')$ such that 
-$\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$ given any $(\dtloc,\nu), a$. 
+Note that if $\dta$ is deterministic, then there is a unique $(\dtloc',\nu')$ such that
+$\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$ given any $(\dtloc,\nu), a$.
 
 
 
@@ -286,23 +286,23 @@ $
 for all $n$.
 A \emph{run} of $\dta$ on an infinite timed word $w=\{a_n\}_{n\in\Nset_0}$
 %over $\acts\cup [0,\infty)$ (i.e., $a_n\in \acts\cup [0,\infty)$ for all $n$)
-with \emph{initial configuration} $(\dtloc,\nu)$, 
-%denoted by $\run{\dta}{\dtloc,\nu}{w}$, 
+with \emph{initial configuration} $(\dtloc,\nu)$,
+%denoted by $\run{\dta}{\dtloc,\nu}{w}$,
 is an infinite
 sequence $\xi=\{\left(\dtloc_n,\nu_n,a_n\right)\}_{n\in\Nset_0}$
 satisfying that $(\dtloc_0,\nu_0)=(\dtloc,\nu)$ and $\dtatr{(\dtloc_n,\nu_n)}{a_n}{(\dtloc_{n+1},\nu_{n+1})}$
 for all $n\in\Nset_0$;
 %%%%%
-the \emph{trajectory} 
-%$\traj{ \run{\dta}{\dtloc,\nu}{w} }$ 
-$\traj{ \xi }$ 
-of the run 
-%$\run{\dta}{\dtloc,\nu}{w}$ 
+the \emph{trajectory}
+%$\traj{ \run{\dta}{\dtloc,\nu}{w} }$
+$\traj{ \xi }$
+of the run
+%$\run{\dta}{\dtloc,\nu}{w}$
 $\xi$
 is defined as an infinite word over $\cstates$ such that
 %$\traj{ \run{\dta}{\dtloc,\nu}{w} } := q_0 q_1 \dots$~.
 $\traj{ \xi } := q_0 q_1 \dots$~.
-Note that if $\dta$ is deterministic, then there is a unique run on every infinite timed word. 
+Note that if $\dta$ is deterministic, then there is a unique run on every infinite timed word.
 %%%%%
 
 Below we illustrate the acceptance conditions for TAs.
@@ -323,7 +323,7 @@ we consider Rabin acceptance condition.
 \begin{definition}[Rabin Acceptance Condition]
 A TA with \emph{Rabin acceptance condition} (TRA) is a tuple
 \begin{equation}\label{eq:tra}
-    \tra=(\cstates,\alphabet,\dtclocks,\rules,\rabin)
+    \dta=(\cstates,\alphabet,\dtclocks,\rules,\rabin)
 \end{equation}
 where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\rabin$ is a finite
 set of pairs
@@ -336,6 +336,7 @@ $
         \}
 $ representing a Rabin condition for which
 $H_i$ and $K_i$ are subsets of $\cstates$ for all $i<n$.
+$\dta$ is a deterministic TRA (DTRA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA. 
 A set $\cstates' \subseteq \cstates $ is \emph{Rabin-accepting} by $\rabin$,
 written as the predicate $\accept{\cstates'}{\rabin}$,
 if there is $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $
@@ -382,6 +383,7 @@ A TA with \emph{finite acceptance condition} (TFA) is a tuple
 \end{equation}
 where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$
 representing the set of \emph{final} modes.
+$\dta$ is a deterministic TFA (DTFA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA. 
 An infinite timed word $w$ is \emph{finitely-accepted} by
 $\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ if there exists a run $\xi$ of $(\cstates,\alphabet,\dtclocks,\rules)$ on $w$ with $(\dtloc,\nu)$ such that some final mode in $\fstates$ appear in the infinite word
 $
