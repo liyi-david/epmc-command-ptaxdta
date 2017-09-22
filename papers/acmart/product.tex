@@ -30,7 +30,7 @@ For each $\dtloc\in\cstates$, we let
 The totality of $\rules$ ensures that $\exttuples_{\dtloc}$ is non-empty.
 Intuitively, every element of $\exttuples_{\dtloc}$ is a tuple of clock constraints $\{\phi_b\}_{b\in\alphabet}$, where each
 clock constraint $\phi_b$ is chosen from the rules emitting from $\dtloc$ and $b$.
-The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with initial mode $\dtloc$) is defined as the PTA
+The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with initial mode $\dtloc$) is defined as
 \[
 \left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \lbfunc_\otimes\right)
 \]
@@ -70,7 +70,7 @@ $
 Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
 This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.
 Then in the definition for $\prob_\otimes$, upon the action $(a,h)$ and the target location $\loc'$, the product PTA first chooses the unique rule $(\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')$ from the emitting mode $\dtloc$ and the label $\lbfunc\left(\loc'\right)$ for which the uniqueness comes from the determinism of $\rules$, then perform probabilistic jump from $\pta$ and the discrete transition from $\dta$.
-Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite acceptance condition. 
+Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite acceptance condition.
 
 \begin{remark}
 The novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
@@ -172,9 +172,9 @@ under $\product{\pta}{\dta_\dtloc}$ such that the following conditions (\dag) ho
 \end{compactitem}
 Likewise, for an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$
 under $\pta$, we define $\pfunc(\infpath)$ to be the unique infinite path
-\[
+\begin{equation}\label{eq:trinfpath}
 \pfunc(\infpath):=((\loc_0,\dtloc_0),\nu_0\cup\mu_0)a'_0((\loc_1,\dtloc_1),\nu_1\cup\mu_1)a'_1\dots
-\]
+\end{equation}
 under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$.
 
 %The following lemma shows that $\pfunc$ is a bijection and preserves zenoness.
@@ -205,44 +205,47 @@ where $\lambda(\rho)$ is
 the unique function such that for each symbol $b\in\alphabet$, $\lambda(\rho)(b)$ is the clock constraint in the unique rule emitting from $q_k$ and with symbol $b$ such that $\mu_n\models\lambda(\rho)(b)$.
 Note that the well-definedness of $\sfunc$ follows from Lemma~\ref{lemm:pfuncbij}.
 
-From Lemma~\ref{lemm:pfuncbij}, the product construction and the determinism and totality of $\rules$, one can prove directly the following lemma.
+From Lemma~\ref{lemm:pfuncbij}, the product construction, the determinism and totality of $\rules$, one can prove directly the following lemma.
 %\vspace{-0.8em}
 \begin{lemma}\label{lemm:sfuncbij}
 The function $\sfunc$ is a bijection.
 \end{lemma}
 %\vspace{-0.8em}
-Now we prove the relationship between infinite paths accepted by a DTRA/DTFA before product construction and infinite paths satisfying certain reachability or Rabin condition. 
+Now we prove the relationship between infinite paths accepted by a DTRA/DTFA before product construction and infinite paths satisfying certain Rabin/reachability condition.
+We first consider that $\dta$ is a DTRA in the form (\ref{eq:tra}).
 
-Below we lift the function $\pfunc$ to all subsets of paths in the standard fashion: for all subsets $A\subseteq \fnpaths{\pta}\cup\infpaths{\pta}$, $\pfunc(A):=\{\pfunc(\omega)\mid \omega\in A\}$.
-
+We introduce more notations. 
+First, we lift the function $\pfunc$ to all subsets of paths in the standard fashion: for all subsets $A\subseteq \fnpaths{\pta}\cup\infpaths{\pta}$, $\pfunc(A):=\{\pfunc(\omega)\mid \omega\in A\}$.
+Then for an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ with $\pfunc(\infpath)$ taking the form
+(\ref{eq:trinfpath}), we define 
 %%%%%
 % \vspace{-0.8em}
-\begin{definition}[Traces]
-Let
-$ \pfunc(\infpath) =
-    ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
-    a'_0
-    ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
-    a'_1
-    \dots
-$
+%\begin{definition}[Traces]
+%Let
+%$ \pfunc(\infpath) =
+%    ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
+%    a'_0
+%    ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
+%    a'_1
+%    \dots
+%$
 % and according to definition
 % $Lab((\loc_i,\dtloc_i)） = \left\{ \dtloc_i \right\}$.
 % Instead of using $\{ q_0 \}, \{ q_1 \}, \dots $,
-the trace of $ \pfunc ( \infpath ) $ is defined by
-$\trace{ \pfunc ( \infpath ) } := \dtloc_0 \dtloc_1 \dots $.
-\end{definition}
+the \emph{trace} of $ \pfunc ( \infpath ) $ as an infinite word over $\cstates$ defined by
+$\trace{ \pfunc ( \infpath ) } := \dtloc_0 \dtloc_1 \dots $ .
+Finally, for any scheduler $\sigma$ for $\product{\pta}{\dta_\dtloc}$, 
+we define the set $\rabinp{\sigma}$ by
+%\end{definition}
 %%%%%
-
 % \vspace{-0.8em}
 % \begin{proposition}\label{prop:psfunc} $\pfunc\left(\acc{\pta,\sigma}{\dta,\dtloc,F}\right)=\omgpaths{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}{\locs\times F}$ for any scheduler $\sigma$, initial mode $q$ and $F\subseteq \cstates$. %or in Definition~\ref{def:infacc}.
 % \end{proposition}
 % \begin{proof}
 % Directly from the product construction and Definition~\ref{def:fnacc}.\qed
 % \end{proof}
-
-\noindent{\textbf{Verifying Limit Rabin Properties.}}
-Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
+%\noindent{\textbf{Verifying Limit Rabin Properties.}}
+%Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
 % 写成定义在普通的 PTA 上还是乘积上好
 % $$
 %     \AcceptCxAqsF = \left \{
@@ -255,9 +258,9 @@ Paths in $\product{\pta}{\dta_\dtloc}$ that $\pta$ is accepted by $\dta$ is
 %         \mbox{ is Rabin accepting by } \rabin
 %     \right\}
 % $$
-\begin{small}
+%\begin{small}
 $$
-    \AcceptCxAqsF = \left \{
+    \rabinp{\sigma}:=\left \{
         \infpath \in \infpaths{\product{\pta}{\dta_\dtloc},\sigma} \mid
         \accept{
             \infset{
@@ -268,14 +271,15 @@ $$
         }   {
             \rabin
         }
-    \right\}
+    \right\}.
 $$
-\end{small}
-and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
+%\end{small}
+Intuitively, $\rabinp{\sigma}$ is the set of infinite paths that meet the Rabin condition $\rabin$ from $\dta$. 
+%and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
 %
 % \vspace{-0.8em}
 \begin{proposition}\label{prop:psfunc}
-For any scheduler $\sigma$ and any initial mode $q$ on DTA $\dta$, $$\TLang = \TAcc.$$
+For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we have $\TLang = \TAcc.$
 \end{proposition}
 \begin{proof}
 % This proof is trivial.

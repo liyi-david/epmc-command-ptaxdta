@@ -1,4 +1,4 @@
-\documentclass[sigconf,anonymous]{acmart}
+\documentclass[sigconf,anonymous,10pt]{acmart}
 
 \usepackage{booktabs} % For formal tables
 
@@ -178,13 +178,15 @@
 \newcommand{\fstates}{F}
 
 \newcommand{\Lang}[2] {
-    AccPaths
+    \mbox{\sl AccPaths}
         _{#1}
         ^{#2}
 }
 
+\newcommand{\rabinp}[1]{\mbox{\sl RPaths}_{#1}}
+
 \newcommand{\Accept}[1]{
-    RabinPaths
+    \mbox{\sl RabinPaths}
         _{#1}
         % ^{#2}
 }
@@ -211,13 +213,14 @@
 }
 
 \newcommand{\TAcc}{
-    \Accept
-        {
-            \product{\pta}{\dta_\dtloc},
-            \sfunc \left(
-                \sigma
-            \right)
-        }
+%    \Accept
+%        {
+%            \product{\pta}{\dta_\dtloc},
+%            \sfunc \left(
+%                \sigma
+%            \right)
+%        }
+    \rabinp{\sfunc\left(\sigma\right)}
         % {\rabin}
 }
 \newcommand{\accept}[2]{
