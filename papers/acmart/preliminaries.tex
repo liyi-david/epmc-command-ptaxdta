@@ -54,7 +54,7 @@ For $u \in U$, we let $\mu_u$ be the \emph{Dirac distribution at $u$} which assi
 \begin{definition}[Probabilistic Timed Automata~\cite{DBLP:journals/fmsd/NormanPS13}]
 A \emph{probabilistic timed automaton} (PTA) $\pta$ is a tuple
 \begin{equation}\label{eq:pta}
-\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)
+\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 \end{equation}
 where:
 \begin{compactitem}
@@ -336,7 +336,7 @@ $
         \}
 $ representing a Rabin condition for which
 $H_i$ and $K_i$ are subsets of $\cstates$ for all $i<n$.
-$\dta$ is a deterministic TRA (DTRA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA. 
+$\dta$ is a deterministic TRA (DTRA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
 A set $\cstates' \subseteq \cstates $ is \emph{Rabin-accepting} by $\rabin$,
 written as the predicate $\accept{\cstates'}{\rabin}$,
 if there is $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $
@@ -383,7 +383,7 @@ A TA with \emph{finite acceptance condition} (TFA) is a tuple
 \end{equation}
 where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$
 representing the set of \emph{final} modes.
-$\dta$ is a deterministic TFA (DTFA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA. 
+$\dta$ is a deterministic TFA (DTFA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
 An infinite timed word $w$ is \emph{finitely-accepted} by
 $\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ if there exists a run $\xi$ of $(\cstates,\alphabet,\dtclocks,\rules)$ on $w$ with $(\dtloc,\nu)$ such that some final mode in $\fstates$ appear in the infinite word
 $

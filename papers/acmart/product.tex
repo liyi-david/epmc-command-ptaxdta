@@ -60,7 +60,7 @@ $
 \item $\prob_\otimes$ is given by
 \begin{align*}
 &\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
-&\quad\begin{cases}
+&~~\begin{cases}
 \prob\left(\loc,a\right)(Y\cap \clocks,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')\\
 & \mbox{\quad is a (unique) rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
 0 & \mbox{otherwise}
@@ -368,9 +368,11 @@ Finally, we demonstrate the relationship between acceptance probabilities before
 We also clarify the probability of zenoness before and after the product construction.
 
 % \vspace{-0.8em}
-\begin{theorem}\label{thm:main}
-For any scheduler $\sigma$ and initial mode $q$,
-\[
+\begin{lemma}\label{thm:main}
+For any scheduler $\sigma$ and mode $q$, the followings hold:
+\begin{compactitem}
+\item 
+{\small $
     \pr
         {\dtloc}
         {\sigma}
@@ -388,10 +390,11 @@ For any scheduler $\sigma$ and initial mode $q$,
                     % \omgpaths{\product{\pta}{\dta_\dtloc},\theta\left(\sigma\right)}{\locs\times F}
                     \TAcc
                 \right)
-    ~.
-\]
-Moreover,
-$
+    ;
+$}
+\item 
+%Moreover,
+{\small$
     \probm
         ^{\pta,\sigma}
         \left( \{
@@ -404,11 +407,11 @@ $
         \left( \{
                 \infpath' \mid \infpath' \mbox{ is zeno}
             \}
-        \right)
-$
-\enskip.
-\end{theorem}
-\vspace{-0.8em}
+        \right).
+$}
+\end{compactitem}
+\end{lemma}
+%\vspace{-0.8em}
 \begin{proof}
 Define the probability measure $\probm'$ by: $\probm'(A)=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(A))$ for $A\in\mathcal{F}^{\pta,\sigma}$. We show that $\probm'=\probm^{\pta,\sigma}$. By \cite[Theorem 3.3]{PBMeasure}, it suffices to consider cylinder sets as they form a pi-system (cf. \cite[Page 43]{PBMeasure}).
 Let $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ be any finite path under $\pta$.
@@ -433,7 +436,7 @@ A side result from Theorem~\ref{thm:main} says that $\sfunc$ preserves time-dive
 From Theorem~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into Rabin(-accepting) probabilities under the product PTA.
 
 % \vspace{-0.8em}
-\begin{corollary}{(\cite{DBLP:conf/qest/Sproston11})}\label{crly:opt}
+\begin{corollary}\label{crly:opt}
 For any initial mode $q$,
 % there exists an $\rabin_* \subseteq \locs_\otimes$
 % s.t. $\rabin_*$ is a union of several maximal end
@@ -445,7 +448,7 @@ For any initial mode $q$,
             \probm^{\product{\pta}{\dta_\dtloc},\sigma'}\left(
 %                \Accept
 %                    {\product{\pta}{\dta_\dtloc},\sigma'}
-            \rabinp{\sigma'}     
+            \rabinp{\sigma'}
                     % {\rabin}
             \right)
         % \\
@@ -477,26 +480,26 @@ for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$).
 % can be calculated by a reachability analysis.
 \end{corollary}
 
-\noindent{\bf Solving Rabin Probabilities.} We follow the approach in~\cite{DBLP:conf/qest/Sproston11} 
-to solve Rabin probabilities over PTAs. Below we briefly describe the approach. 
+\noindent{\bf Solving Rabin Probabilities.} We follow the approach in~\cite{DBLP:conf/qest/Sproston11}
+to solve Rabin probabilities over PTAs. Below we briefly describe the approach.
 The approach can be divided into two steps.
-The first step is to ensure time-divergence. 
+The first step is to ensure time-divergence.
 This is achieved by (i) making a copy for every location in the PTA, (ii) enforcing a transition
-from every location to its copy to happen after $1$ time-unit elapses, (iii) 
+from every location to its copy to happen after $1$ time-unit elapses, (iii)
 enforcing a transition from every copy location back to the original one immediately with no time-delay,
-and (iv) putting a special label \textit{tick} in every copy. 
-Then time-divergence is guaranteed by adding the label  \textit{tick} to the Rabin condition. 
+and (iv) putting a special label \textit{tick} in every copy.
+Then time-divergence is guaranteed by adding the label  \textit{tick} to the Rabin condition.
 %We only deal with
 %paths that satisfy $ \square \Diamond tick $ (i.e. \textit{tick} is satisfied
 %infinitely many times).
 The second step is to transform the problem into limit Rabin properties over MDPs~\cite[Theorem 10.127]{DBLP:books/daglib/0020348}.
-This step constructs an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ from the 
+This step constructs an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ from the
 PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction
-so that the problem is reduced to solving limit Rabin properties over $\Region{\product{\pta}{\dta_\dtloc}}$. 
-Then standard methods based on \emph{maximal end components} (MECs) are applied to $\Region{\product{\pta}{\dta_\dtloc}}$. 
+so that the problem is reduced to solving limit Rabin properties over $\Region{\product{\pta}{\dta_\dtloc}}$.
+Then standard methods based on \emph{maximal end components} (MECs) are applied to $\Region{\product{\pta}{\dta_\dtloc}}$.
 In detail, the algorithm computes the reachability probability to MECs that satisfy the Rabin acceptance condition;
-In order to guarantee time-divergence, the algorithm only picks up MECs with at least one location that has a \textit{tick} label. 
-Based on this approach, our result leads to an algorithm for solving the problem PTA-DTA. 
+In order to guarantee time-divergence, the algorithm only picks up MECs with at least one location that has a \textit{tick} label.
+Based on this approach, our result leads to an algorithm for solving the problem PTA-DTA.
 
 %let $F_*$ be the union of those MECs. Then, we turn to resolve the probability
 %reachability to $F_*$.
@@ -533,41 +536,55 @@ Based on this approach, our result leads to an algorithm for solving the problem
 %where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum).
 %\end{lemma}
 
-Note that for  $\product{\pta}{\dta_\dtloc}$,
-although the size of $| \acts_\otimes |$ 
-may be exponential due to possible exponential blow-up
-
-is $ | \acts | \cdot | \cstates| \cdot | \rules |^{ | \alphabet | }$,
-$ | \locs_\otimes | $ is polynomial to $ |\locs| \cdot |\cstates| $, and
-$ | \clocks_\otimes | = | \clocks_1 | + | \clocks_2| $.
-The size of $ \Region{\product{\pta}{\dta_\dtloc}} $ is exponential to
-$ |\locs| \cdot |\cstates| $ while the number of transitions is exponential,
+Note that in $\product{\pta}{\dta_\dtloc}$,
+although the size of $\acts_\otimes$
+may be exponential due to possible exponential blow-up from $\exttuples_{\dtloc}$, 
+one easily sees that $ | \locs_\otimes | $ is $ |\locs| \cdot |\cstates| $ and
+$ | \clocks_\otimes | = | \clocks | + | \dtclocks| $.
+Hence, the size of $ \Region{\product{\pta}{\dta_\dtloc}} $ is still exponential in
+the sizes of $\pta$ and $\dta$. 
+%$ |\locs| \cdot |\cstates| $,
+%while the number of transitions is exponential,
 % that the computation of $F_*$ can be done in polynomial time in the size of
 % $ \Region{\product{\pta}{\dta_\dtloc}} $,
-then $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time
-follows from Lemma~\ref{lemm:principle}.
+It follows that $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponential time
+from the MEC-based algorithm illustrated in~\cite[Theorem 10.127]{DBLP:books/daglib/0020348}, as is demonstrated by
+the following proposition. 
 
-In \cite{LaroussinieS07}, the authors proved that the reachablity problem for arbitary PTAs is \emph{EXPTIME}-complete. Reduction from the PTA reachibility problem to the PTA-DTA model-checking problem can be easily constructed as follows.
+\begin{proposition}
+The problem {\sc PTA-DTA} is in EXPTIME in the size of the input PTA and DTA. 
+\end{proposition}
 
-For an arbitary PTA $\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$ and a set of final locations $L_F\subseteq L$. Let $\mathcal{C}'=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L}')$ where
+Below we prove the hardness of the problem. In \cite{LaroussinieS07}, ?? proved that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete. Reduction from the PTA reachibility problem to the PTA-DTA problem can be easily constructed as follows.
+For an arbitrary PTA $\pta$ in the form (\ref{eq:pta})
+%$\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$ 
+and a set $\fstates\subseteq\locs$ of final locations, 
+we let $\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap',\lbfunc'\right)$ where $\ap':=\ap\cup\{\mbox{\sl acc}\}$ and
+$\lbfunc'$ is defined by
 \begin{displaymath}
-    \mathcal{L}'(l):L\rightarrow AP\cup\{\mbox{acc}\}=\left\{
+    \mathcal{L}'(l):=\left\{
     \begin{array}{cc}
-        \mathcal{L}(l) & \mbox{ if } l\not\in L_F\\
-        \mathcal{L}(l)\cup\{\mbox{acc}\} & l\in L_F
+        \mathcal{L}(l) & \mbox{ if } \loc\not\in\fstates\\
+        \mathcal{L}(l)\cup\{\mbox{\sl acc}\} & \loc\in\fstates
     \end{array}
     \right.
 \end{displaymath}
-and DTA $\mathcal{A}'=(Q=\{q_0,q_1\},\Sigma=2^{AP\cup\{\mbox{acc\}}},\mathcal{X}=\emptyset,\Delta,\mathcal{F}=\{(\emptyset, \{q_1\}\})$ where
-\begin{itemize}
-    \item $\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in Delta$,
+for which $\mbox{\sl acc}$ is a fresh atomic proposition.
+We also construct the DTA $\dta'$ by
+\[
+\dta':=\left(\{q_0,q_1\},2^{AP\cup\{\mbox{acc\}}},\emptyset,\rules,\{(\emptyset, \{q_1\}\}\right)
+\]
+where $\rules$ contains exactly the following rules:
+\begin{compactitem}
+    \item 
+%$\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in\rules$,
     \item $\forall \sigma\in\Sigma, i=0,1, (q_i,\sigma,true,\emptyset,q_i)\in \Delta$.
-\end{itemize}
+\end{compactitem}
 It's clear that $L_F$ is reachable in $\mathcal{C}$ iff. for $\mathcal{C}'$ and $\mathcal{A}'$, $sup_\sigma \mathfrak{p}_{q_0}^\sigma=1$.
 
-\begin{proposition}
-    The PTA-TRA problem is EXPTIME-complete.
-\end{proposition}
+\begin{theorem}
+The PTA-DTA problem is EXPTIME-complete.
+\end{theorem}
 %
 %\vspace{-0.8em}
 %
