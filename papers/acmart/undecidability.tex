@@ -1,14 +1,14 @@
 % \vspace{-0.8em}
-\section{Undecidability of PTA-NTA problem}
+\section{Undecidability of the PTA-NTA problem}
 % \vspace{-0.8em}
-We show that the qualitative problem for minimum probabilities is already undecidable. We prove this by a reduction from the universality problem of timed automata, which is illustrated as follows. 
+In this section, we show that the qualitative problem for minimum probabilities is already undecidable. We prove this by a reduction from the universality problem of timed automata, which is illustrated as follows.
 %
-\begin{lemma}\label{lemm:expressive}
-A timed language is accepted by some timed B\"uchi automaton iff it is accepted by some timed Rabin automaton.
-\end{lemma}
-\begin{proof}
-    The construction is similar to \cite[Theorem 3.20.]{DBLP:conf/tapsoft/Vaandrager97}
-\end{proof}
+%\begin{lemma}\label{lemm:expressive}
+%A timed language is accepted by some timed B\"uchi automaton iff it is accepted by some timed Rabin automaton.
+%\end{lemma}
+%\begin{proof}
+%    The construction is similar to \cite[Theorem 3.20.]{DBLP:conf/tapsoft/Vaandrager97}
+%\end{proof}
 %
 \begin{lemma}{(\cite[Theorem 5.2.]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
 Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all time-divergent timed words over $\alphabet$ is undecidable.
@@ -18,8 +18,8 @@ The proof of lemma \ref{lemm:undecidability} is based on a construction of timed
 automata since lemma \ref{lemm:expressive}.
 %
 \begin{proposition}
-Given a nonedeterministic timed rabin automaton $\dta$ over an alphabet $\alphabet$, the qualitative problem of 
-the minimal probability that $\pta$ \emph{observes} $\dta$ under initial mode 
+Given a nonedeterministic timed rabin automaton $\dta$ over an alphabet $\alphabet$, the qualitative problem of
+the minimal probability that $\pta$ \emph{observes} $\dta$ under initial mode
 $\qstart \in \cstates$ is undecidable.
 \end{proposition}
 %
@@ -41,36 +41,36 @@ $$
     \}.
 $$
 
-We can choose an appropriate $\ap$ such that $ k + 1 \le \left| 2^{\ap} \right| $ 
-and assign each $\ntaap{i}$ to a different subset of $\ap$. So we simplify the label 
+We can choose an appropriate $\ap$ such that $ k + 1 \le \left| 2^{\ap} \right| $
+and assign each $\ntaap{i}$ to a different subset of $\ap$. So we simplify the label
 of locations in $\pta$ by single letters in $\alphabet'$.
 
 Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
 \begin{compactitem}
-    \item $\locs      :=  \alphabet'$, 
-    \item $\loc^*     :=  \ntaap{0} $, 
-    \item $\clocks    :=  \emptyset $, 
-    \item $\acts      :=  \alphabet $, 
-    \item $\inv(\ntaap{i})              :=  \true, 
-                                            \text{ for all } 
+    \item $\locs      :=  \alphabet'$,
+    \item $\loc^*     :=  \ntaap{0} $,
+    \item $\clocks    :=  \emptyset $,
+    \item $\acts      :=  \alphabet $,
+    \item $\inv(\ntaap{i})              :=  \true,
+                                            \text{ for all }
                                             \ntaap{i} \in \locs$,
     \item $\enab(\ntaap{i},\ntaap{j})   :=  \true,
-                                            \text{ for all } 
-                                            \ntaap{i} \in \locs 
-                                            \text{ and all } 
+                                            \text{ for all }
+                                            \ntaap{i} \in \locs
+                                            \text{ and all }
                                             \ntaap{j} \in \acts$,
     \item $\prob(\ntaap{i},\ntaap{j})   :=  \mu_{ \left (
                                                 \emptyset,\ntaap{j}
-                                            \right)}, 
-                                            \text{ for all } 
-                                            \ntaap{i} \in \locs 
-                                            \text{ and all } 
+                                            \right)},
+                                            \text{ for all }
+                                            \ntaap{i} \in \locs
+                                            \text{ and all }
                                             \ntaap{j} \in \acts$,
     \item $\lbfunc(\ntaap{i})           :=  \ntaap{i},
                                             \text{ for all } \ntaap{i} \in \locs$.
 \end{compactitem}
 It is natural to see, for any time word $ w = \alpha_0 \alpha_1 \alpha_2 \cdots $
-there is a scheduler $ \sigma_w (\fnpath ) := \alpha_{\length{\fnpath}} $ such that 
+there is a scheduler $ \sigma_w (\fnpath ) := \alpha_{\length{\fnpath}} $ such that
 $
     \probm^{\pta,\sigma_w }\left(
         \left \{
