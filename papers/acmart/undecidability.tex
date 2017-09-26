@@ -1,7 +1,10 @@
 % \vspace{-0.8em}
-\section{Undecidability of the PTA-NTA problem}
+\section{The PTA-NTA problem}
 % \vspace{-0.8em}
-In this section, we show that the qualitative problem for minimum probabilities is already undecidable. We prove this by a reduction from the universality problem of timed automata, which is illustrated as follows.
+In this section, we study the PTA-NTA problem where the input timed automaton needs not to be deterministic. 
+We show that for Rabin acceptance condition, the problem is undecidable, while the problem can be solved approximately through an infinite-state MDP construction when we restrict ourselves to finite acceptance condition.
+
+We first consider Rabin acceptance condition. 
 %
 %\begin{lemma}\label{lemm:expressive}
 %A timed language is accepted by some timed B\"uchi automaton iff it is accepted by some timed Rabin automaton.
