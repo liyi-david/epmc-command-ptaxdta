@@ -283,7 +283,7 @@ For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we ha
 \end{proposition}
 \begin{proof}
 % This proof is trivial.
-By definition we have
+By definition, the set $\LangCsAqF$ equals 
 % $$
 %     \LangCsAqF = \left \{
 %         \infpath \in \infpaths{\pta,\sigma} \mid
@@ -295,34 +295,26 @@ By definition we have
 %         \mbox{ is Rabin accepting by } \rabin
 %     \right\},
 % $$
-\begin{small}
+%\begin{small}
 $$
-    \LangCsAqF = \left \{
+    \left \{
         \infpath \in \infpaths{\pta,\sigma} \mid
         \accept{
             \infset{
                 \traj{
-                    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
+                    \xi_\pi%\run{\dta}{\iconfig}{\lbfunc(\infpath)}
                 }
             }
         }   {
             \rabin
         }
-    \right\},
+    \right\}
 $$
-\end{small}
-where
-$
-    \dtloc^*
-        =
-            \trfunc \left(
-                (\dtloc,\zero),
-                \lbfunc (
-                    \initloc{\infpath}
-            \right)
-$.
+%\end{small}
+where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which 
+$\dtloc^*$ is the unique location such that $\tran{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
 Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
-And by definition of $\pfunc$ we have
+By the definition of $\pfunc$ we have
 $$
     \pfunc( \infpath ) =
         ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
@@ -331,12 +323,14 @@ $$
         a'_1
         \dots
 $$
+in the form (\ref{eq:trinfpath}) with $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ being the unique run
+on $\lbfunc(\infpath)=a_0a_1\dots$ . 
 % 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
-$$
-    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
-        = \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}.
-$$
-Then it's obvious that
+%$$
+%    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
+%        = \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}.
+%$$
+Then it is obvious that
 $$\trace{ \pfunc( \infpath ) }
     = q_0 q_1 \dots
     = \traj{
@@ -345,7 +339,7 @@ $$\trace{ \pfunc( \infpath ) }
             {\lbfunc(\infpath)}
     }.
 $$
-Then we conclude that
+It follows that
 $\infset {
     \trace {
         \pfunc( \infpath )
