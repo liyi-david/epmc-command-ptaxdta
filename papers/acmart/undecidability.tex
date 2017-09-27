@@ -1,10 +1,11 @@
 % \vspace{-0.8em}
 \section{The PTA-NTA problem}
 % \vspace{-0.8em}
-In this section, we study the PTA-NTA problem where the input timed automaton needs not to be deterministic. 
+In this section, we study the PTA-NTA problem where the input timed automaton needs not to be deterministic.
 We show that for Rabin acceptance condition, the problem is undecidable, while the problem can be solved approximately through an infinite-state MDP construction when we restrict ourselves to finite acceptance condition.
 
-We first consider Rabin acceptance condition. 
+We first consider Rabin acceptance condition. The main idea for the undecidability result is to reduce the universality problem of timed automata to the PTA-NTA problem. The universality problem over timed automata is well-known to be undecidable, as follows.
+
 %
 %\begin{lemma}\label{lemm:expressive}
 %A timed language is accepted by some timed B\"uchi automaton iff it is accepted by some timed Rabin automaton.
@@ -13,80 +14,101 @@ We first consider Rabin acceptance condition.
 %    The construction is similar to \cite[Theorem 3.20.]{DBLP:conf/tapsoft/Vaandrager97}
 %\end{proof}
 %
-\begin{lemma}{(\cite[Theorem 5.2.]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
-Given a timed automaton over an alphabet $\alphabet$, the problem of deciding whether it accepts all time-divergent timed words over $\alphabet$ is undecidable.
+\begin{lemma}{(\cite[Theorem 5.2]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
+Given a timed automaton over an alphabet $\alphabet$ and an initial mode, the problem of deciding whether it accepts all time-divergent timed words w.r.t B\"{u}chi acceptance condition over $\alphabet$ is undecidable.
 \end{lemma}
 %
-The proof of lemma \ref{lemm:undecidability} is based on a construction of timed B\"uchi automata and it also holds for timed rabin
-automata since lemma \ref{lemm:expressive}.
+Although Lemma \ref{lemm:undecidability} is on  B\"{u}chi acceptance condition, it holds also for Rabin acceptance condition since Rabin acceptance condition extends  B\"{u}chi acceptance condition.
+Actually the two acceptance conditions are equivalent over timed automata (cf.~\cite[Theorem 3.20]{DBLP:conf/tapsoft/Vaandrager97}).
+
+Now we prove the undecidability result as follows.
+The proof idea is that we construct a PTA that can generate every time-divergent timed words with probability $1$ by some time-divergent scheduler.
+Then the TRA accepts all time-divergent timed words iff the minimal probability that the PTA observes the TRA equals $1$.
+
 %
-\begin{proposition}
-Given a nonedeterministic timed rabin automaton $\dta$ over an alphabet $\alphabet$, the qualitative problem of
-the minimal probability that $\pta$ \emph{observes} $\dta$ under initial mode
-$\qstart \in \cstates$ is undecidable.
-\end{proposition}
+\begin{theorem}
+Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability that
+that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ is undecidable.
+\end{theorem}
 %
 \begin{proof}
 % We reach our goal by reducing the NTA universality problem to this problem.
-For any nonedeterministic TRA $\nta = (\cstates,\alphabet,\clocks,\rules)$, let $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}.$
+Let $\dta=(\cstates,\alphabet,\dtclocks,\rules,\rabin)$ be any TRA where the alphabet $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}$ and the initial mode is $\qstart$.
+W.l.o.g, we consider that $\alphabet\subseteq 2^{\ap}$ for some finite set $\ap$.
+This assumption is not restrictive since what $\ntaap{i}$'s concretely are is irrelevant, while the only thing that matters is that $\alphabet$ has $k$ different symbols.
+We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\rabin)$ where:
 
-we construct an $\nta' = (\cstates', \alphabet', \clocks, \rules')$ where
-$$
-    \cstates'   = \cstates  \cup \{ \qinit \},
-    \alphabet'  = \alphabet \cup \{ \ntaap{0} \},
-    \rules'     = \rules    \cup \{ \langle
+\begin{compactitem}
+\item $\cstates'   = \cstates  \cup \{ \qinit \}$ for which $\qinit$ is a fresh mode;
+\item $\alphabet'  = \alphabet \cup \{ \ntaap{0} \}$ for which $\ntaap{0}$ is a fresh symbol;
+\item $\rules'     = \rules    \cup \{ \langle
             \qinit,
             \ntaap{0},
             \true,
-            \clocks,
+            \dtclocks,
             \qstart
         \rangle
-    \}.
-$$
-
-We can choose an appropriate $\ap$ such that $ k + 1 \le \left| 2^{\ap} \right| $
-and assign each $\ntaap{i}$ to a different subset of $\ap$. So we simplify the label
-of locations in $\pta$ by single letters in $\alphabet'$.
-
-Let PTA $\pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)$ where
-\begin{compactitem}
-    \item $\locs      :=  \alphabet'$,
-    \item $\loc^*     :=  \ntaap{0} $,
-    \item $\clocks    :=  \emptyset $,
-    \item $\acts      :=  \alphabet $,
-    \item $\inv(\ntaap{i})              :=  \true,
-                                            \text{ for all }
-                                            \ntaap{i} \in \locs$,
-    \item $\enab(\ntaap{i},\ntaap{j})   :=  \true,
-                                            \text{ for all }
-                                            \ntaap{i} \in \locs
-                                            \text{ and all }
-                                            \ntaap{j} \in \acts$,
-    \item $\prob(\ntaap{i},\ntaap{j})   :=  \mu_{ \left (
-                                                \emptyset,\ntaap{j}
-                                            \right)},
-                                            \text{ for all }
-                                            \ntaap{i} \in \locs
-                                            \text{ and all }
-                                            \ntaap{j} \in \acts$,
-    \item $\lbfunc(\ntaap{i})           :=  \ntaap{i},
-                                            \text{ for all } \ntaap{i} \in \locs$.
+    \}$.
 \end{compactitem}
-It is natural to see, for any time word $ w = \alpha_0 \alpha_1 \alpha_2 \cdots $
-there is a scheduler $ \sigma_w (\fnpath ) := \alpha_{\length{\fnpath}} $ such that
+Then we construct the PTA
+\[
+\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)
+\]
+where:
+\begin{compactitem}
+    \item $\locs      :=  \alphabet'$;
+    \item $\loc^*     :=  \ntaap{0} $;
+    \item $\clocks    :=  \emptyset $;
+    \item $\acts      :=  \alphabet $;
+    \item $\inv(\ntaap{i})              :=  \true
+                                            \text{ for }
+                                            \ntaap{i} \in \locs$;
+    \item $\enab(\ntaap{i},\ntaap{j})   :=  \true
+                                            \text{ for }
+                                            \ntaap{i} \in \locs
+                                            \text{ and }
+                                            \ntaap{j} \in \acts$;
+    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\mu(\emptyset,\ntaap{j})=1$ and $\mu(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
+                                            \text{ for }
+                                            $\ntaap{i} \in \locs$
+                                            \text{ and }
+                                            $\ntaap{j} \in \acts$;
+    \item $\lbfunc(\ntaap{i})           :=  \ntaap{i}
+                                            \text{ for } \ntaap{i} \in \locs$.
+\end{compactitem}
+Note that we allow no clocks in the construction since clocks are irrelevant for our result.
+Since we omit clocks, we also treat states (of $\pta'$) as single locations.
+Below we prove that $\tra$ accepts all time-divergent timed words over $\Sigma$ with initial mode $\qstart$ iff
+the minimal probability that $\pta'$ observes $\dta'$ with initial mode $\qinit$ equals $1$.  
+
+Consider any time-divergent infinite timed word $ w = t_0 b'_0 t_1 b'_1 \cdots $ over $\Sigma$ (where $t_i\in\Rset$ and $b'_i\in\Sigma$).
+We define an infinite sequence $\{\fnpath_n\}_{n\in\Nset_0}$ of finite paths (of $\pta'$) inductively as follows:
+\begin{compactitem}
+\item $\fnpath_0:=b_0(=\loc^*)$; (Note that we treat states as locations since clocks are irrelevant.)
+\item for $m\ge 0$, $\fnpath_{2m+1}:=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k},t_{m}, s_{k}\right\rangle$ if $\fnpath_{2m}=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k}\right\rangle$;
+\item for $m\ge 0$, $\fnpath_{2m+2}:=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k},b'_{m}, b'_m\right\rangle$ if $\fnpath_{2m+1}=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k}\right\rangle$. 
+\end{compactitem}
+Intuitively, the sequence $\{\fnpath_n\}_{n\in\Nset_0}$ is constructed by letting the PTA $\pta'$ read the timed word $w$ in a stepwise fashion, while adjusting the next location upon reading a symbol (as an action) from $\Sigma$.
+Then one can define a scheduler $\sigma_w$ by:
+\begin{compactitem}
+\item $\sigma_w(\rho_{2m}):=t_m$ for $m\ge 0$; 
+\item $\sigma_w(\rho_{2m+1}):=b'_{m}$ for $m\ge 0$;
+\item $\sigma_w(\rho)$ is arbitrarily defined if $\rho$ is not from the sequence $\{\fnpath_n\}_{n\in\Nset_0}$. 
+\end{compactitem}
+Intuitively, $\sigma_w$ always chooses time-delays and actions from $w$. 
+Note that $\sigma_w$ is time divergent since $w$ is time divergent.
+Moreover, from definition we have that 
 $
     \probm^{\pta,\sigma_w }\left(
-        \left \{
-            w
+        \left \{\infpath\mid \lbfunc(\infpath)=w
         \right \}
     \right)
     = 1
 $.
-$ \sigma_w $ is time-divergent since $\infpaths{\pta,\sigma} = \{ w \}$ and $w$ is time-divergent.
-It's natural that
+Hence
 $$
     \pr
-        {\qstart}
+        {\qinit}
         {\sigma_w}
         =   \begin{cases}
             1 & \mbox{ if $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ },\\
@@ -95,7 +117,7 @@ $$
 $$
 % $ \PCswLang = 1 $
 % iff $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
-Then we have
+Then we have that 
 $
 \inf_\sigma \probm^{\pta,\sigma}\left(
     \Lang
@@ -105,5 +127,5 @@ $
     = 1
 $
 iff
-$\nta$ accepts all timewords w.r.t. $(\qstart,\zero)$.
+$\nta$ accepts all time-divergent timed words w.r.t. $(\qstart,\zero)$.
 \end{proof}
