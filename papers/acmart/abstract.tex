@@ -1,12 +1,10 @@
 \begin{abstract}
-Probabilistic timed automata (PTAs) are timed automata extended with discrete probability distributions.
+Probabilistic timed automata (PTAs) are timed automata (TAs) extended with discrete probability distributions.
 They serve as a mathematical model for a wide range of applications that involve both stochastic and timed behaviours.
-In this paper, we study the model-checking problem of linear \emph{dense-time} temporal properties over PTAs.
-In particular, we consider linear dense-time properties that can be encoded by timed automata with both finite and infinite acceptance criteria.
-We first show that the problem of model-checking PTAs against deterministic-timed-automata specifications with infinite acceptance criterion can be solved through a product construction and is EXPTIME-complete.
-Then we show that when relaxed to general (nondeterministic) timed automata, the model-checking problem becomes undecidable.
-Finally, we investigate the situation where the acceptance criterion is restricted to be finite. 
-We show that for deterministic timed automata, the model-checking problem can be solved
-using known zone-based algorithms for reachability probabilities on PTAs.
-Furthermore, for nondeterministic timed automata, we show an approximation algorithm for solving the problem whose correctness is based on a translation to infinite-state Markov decision processes.
+In this paper, we study the problem of model-checking linear \emph{dense-time} temporal properties over PTAs.
+In particular, we consider linear dense-time properties that can be encoded by TAs with infinite acceptance criterion.
+First, we show that the problem of model-checking PTAs against deterministic-TA specifications can be solved through a product construction.
+Based on the product construction, we prove that the computational complexity of the problem with deterministic-TA specifications is EXPTIME-complete.
+Then we show that when relaxed to general (nondeterministic) TAs, the model-checking problem becomes undecidable.
+Our results substantially extend previous ones with both the dense-time feature and the nondeterminism in TAs. 
 \end{abstract}
