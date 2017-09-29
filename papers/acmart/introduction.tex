@@ -22,8 +22,8 @@ then he proved that the problem can be reduced to omega-regular verification of 
 
 In this paper, we study the problem of model-checking linear \emph{dense-time} properties over PTAs.
 Compared with discrete-time properties, dense-time properties take into account timing constraints and therefore is more expressive and applicable to time-critical systems.
-Simultaneously, verification of dense-time properties is more challenging since it requires to track timing constraints. 
-The extra feature of timing constraints also brings more theoretical difficulty, e.g., 
+Simultaneously, verification of dense-time properties is more challenging since it requires to track timing constraints.
+The extra feature of timing constraints also brings more theoretical difficulty, e.g.,
 timed automata~\cite{DBLP:journals/tcs/AlurD94} (TAs) are generally not determinizable,
 which is in contrast to untimed automata (such as Rabin or Muller automata).
 
@@ -35,13 +35,13 @@ Here we treat TAs as language recognizers for timed paths from a PTA, and study
 the problem to compute the probability that a timed path from the PTA is accepted by the TA.
 The intuition is that a TA can recognize the set of ``good'' (or ``bad'') timed paths emitting from a PTA,
 so the problem is to compute the probability that the PTA behaves in a good (or bad) manner.
-The relationship between TAs and temporal logic (e.g., Metric Temporal Logic~\cite{DBLP:journals/rts/Koymans90}) is studied in~\cite{DBLP:conf/lics/OuaknineW05,DBLP:conf/tacas/OuaknineW06}.
+The relationship between TAs and linear temporal logic (e.g., Metric Temporal Logic~\cite{DBLP:journals/rts/Koymans90}) is studied in~\cite{DBLP:conf/lics/OuaknineW05,DBLP:journals/jacm/AlurFH96}.
 
 \smallskip
 \noindent{\em Our Contributions.} We distinguish between the subclass of \emph{deterministic} TAs (DTAs) and general \emph{nondeterministic} TAs.
 DTAs are the deterministic subclass of TAs.
 Although DTA is weaker than general timed automata, it can recognize a wide class of formal timed languages, and express interesting linear dense-time properties which cannot be expressed in branching-time logics (cf.~\cite{DBLP:journals/tse/DonatelliHS09}).
-We consider Rabin acceptance condition as the infinite acceptance criterion for TAs. 
+We consider Rabin acceptance condition as the infinite acceptance criterion for TAs.
 We first show that the problem of model-checking PTAs against DTA specifications with Rabin acceptance condition
 can be solved through a nontrivial product construction which tackles the integrated feature of timing constraints and randomness. From the product construction, we further prove that the problem is EXPTIME-complete.
 Then we show that the problem becomes undecidable when one considers general TAs.
