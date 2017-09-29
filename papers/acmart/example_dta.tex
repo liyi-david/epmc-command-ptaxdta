@@ -1,41 +1,72 @@
-\def \hY {4}
-\def \qY {2}
+\def \hY {8}
+\def \aY {6}
+\def \maY{5}
+\def \mY {4}
+\def \mbY{3}
+\def \bY {2}
+
 \def \lX {3}
 \def \qX {4}
 \def \rX {5}
 \def \fX {8}
 
+\def \Qa   {  \mbox{\sl q}_\alpha }
+\def \Qb   {  \mbox{\sl q}_\beta  }
+
+
 \begin{tikzpicture} [x = 0.8cm]
 
-\node[mode,initial]  (i) at (0,  0  ) {$ \INIT $};
-\node[mode,accepting](q) at (\qX,\qY) {$ \Q    $};
-\node[mode]          (f) at (\fX,\qY) {$ \FAIL $};
+\node[mode,initial]  (i) at (0,  \mY  ) {$ \INIT $};
+\node[mode,accepting](qa) at (\qX,\aY) {$ \Qa $};
+\node[mode,accepting](qb) at (\qX,\bY) {$ \Qb $};
 
-\draw[tran] (i) to node[auto,sloped,above] {
-    $\emptyset,\true.\emptyset$
-} (q);
+\node[mode]          (f) at (\fX,\mY) {$ \FAIL $};
 
-\draw[tran,bend left] (q) to node[auto,above] {
+\draw[tran] (i) --(0,\aY) to node[auto,sloped,above] {
+    $\{ \alpha \},\true.\{ y \}$
+} (qa);
+\draw[tran] (i) --(0,\bY) to node[auto,sloped,below] {
+    $\{ \beta  \},\true.\{ y \}$
+} (qb);
+
+\draw[tran,bend left] (qa) to node[auto,sloped,below] {
+    $\{ \beta \}, 200 < y. \emptyset$
+} (f);
+\draw[tran,bend right] (qb) to node[auto,sloped,above] {
+    $\{ \alpha  \}, 400 < y. \emptyset$
+} (f);
+
+\draw[tran] (qa) to node[auto,sloped,above] {
     $\{ \alpha \}, 500 < y. \emptyset$
-} (f);
+} (\fX,\aY) -- (f);
+\draw[tran] (qb) to node[auto,sloped,below] {
+    $\{ \beta  \}, 300 < y. \emptyset$
+} (\fX,\bY) -- (f);
 
-\draw[tran,bend right] (q) to node[auto,below] {
-    $\{ \beta \}, 300 < z. \emptyset$
-} (f);
+% \draw[tran,bend right] (qa) to node[auto,below] {
+%     $\{ \beta \}, 300 < z. \emptyset$
+% } (f);
 
-\draw[tran] (q) -- (\rX,\hY) to node[auto,above] {
-    $\{ \alpha \}, y \le 500. \{ y \}$
-} (\lX,\hY) -- (q);
+\draw[tran] (qa) -- (\rX,\hY) to node[auto,above] {
+    $\{ \alpha \}, y \le 500. \emptyset$
+} (\lX,\hY) -- (qa);
 
-\draw[tran] (q) -- (\rX,0) to node[auto,below] {
-    $\{ \beta \}, z \le 300. \{ z \}$
-} (\lX,0) -- (q);
+\draw[tran] (qb) -- (\rX,0) to node[auto,below] {
+    $\{ \beta \}, y \le 300. \emptyset$
+} (\lX,0) -- (qb);
 
-\path
-    (q) edge [loop left] node {
-        $\emptyset, \true. \emptyset$
-    } (q)
-;
+\draw[tran] (qa) -- (\rX,\maY) to node[auto,sloped,above] {
+    $\{ \beta \}, y \le 200. \{ y \}$
+} (\rX,\mbY) -- (qb);
+
+\draw[tran] (qb) -- (\lX,\mbY) to node[auto,sloped,above] {
+    $\{ \alpha \}, y \le 400. \{ y \}$
+} (\lX,\maY) -- (qa);
+% \path
+%     (qa) edge [loop left] node {
+%         $\emptyset, \true. \emptyset$
+%     } (qa)
+% ;
 % \draw[tran] (q) -- (\rX,0) to node[auto,below] {
 %     $\emptyset, \true. \emptyset$
 % } (\lX,0) -- (q);
