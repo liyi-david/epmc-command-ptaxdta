@@ -80,57 +80,73 @@ The novelty for our product construction is that by adopting extended actions an
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
 \end{remark}
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \resizebox{.5\textwidth}{!}{
+    \resizebox{1.0\textwidth}{!}{
         \input{example_product}
         }
     \caption{A Part of Product PTA}
     \label{fig:product}
-\end{figure}
+\end{figure*}
 
 \begin{example}
 Here we represent an running example to show how our product construction works.
-Here for the accepting mod $\Q$ in DTA, we have
+Here for the accepting mod  in DTA, we have
 \begin{align*}
     &
-    \exttuples_{\dtloc}
+    \exttuples_{\dtloc_{\alpha}}
         = \{
             % \\
             % &
             h_0 = \left \{
                 \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( x \le 500 ),
-                \{ \beta  \}        \mapsto ( y \le 300 ),
+                \{ \alpha \}        \mapsto ( y \le 500 ),
+                \{ \beta  \}        \mapsto ( y \le 200 ),
                 \{ \alpha, \beta \}  \mapsto \true
             \right \},
             \\
             &
             h_1 = \left \{
                 \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( x \le 500 ),
-                \{ \beta  \}        \mapsto ( 300 < y ),
+                \{ \alpha \}        \mapsto ( y \le 500 ),
+                \{ \beta  \}        \mapsto ( 200 < y ),
                 \{ \alpha, \beta \}  \mapsto \true
             \right \},
             \\
             &
             h_2 = \left \{
                 \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( 500 < x  ),
-                \{ \beta  \}        \mapsto ( y \le 300 ),
+                \{ \alpha \}        \mapsto ( 500 < y  ),
+                \{ \beta  \}        \mapsto ( y \le 200 ),
                 \{ \alpha, \beta \}  \mapsto \true
             \right \},
             \\
             &
             h_3 = \left \{
                 \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( 500 < x ),
-                \{ \beta  \}        \mapsto ( 300 < y ),
+                \{ \alpha \}        \mapsto ( 500 < y ),
+                \{ \beta  \}        \mapsto ( 200 < y ),
                 \{ \alpha, \beta \}  \mapsto \true
             \right \}
         \} .
 \end{align*}
 And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
+$ 
+    \PairS
+        {\WORK{\alpha}}
+        {\q{\alpha}},
+    \PairS
+        {\WORK{\beta}}
+        {\q{\beta}},
+    \PairS
+        {\WORK{\alpha}}
+        {\FAIL},
+    \mbox{ and }
+    \PairS
+        {\WORK{\beta}}
+        {\FAIL}
+$ 
+are locations.
 \end{example}
 
 

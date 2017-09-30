@@ -6,7 +6,7 @@
 \def \decX  {6}
 \def \doneX {8}
 
-\begin{tikzpicture}[x = 1.1cm]
+\begin{tikzpicture}[x = 2 cm,y = 0.8 cm]
 
 % \location{l0}{(0,2.5)}
 %     { \WAIT }
@@ -60,11 +60,11 @@
 } (adec);
 
 \draw[pchoice,bend right] (adec) to node[auto,above] {
-    $ \emptyset, 1 - \p{\beta}$
+    $ \emptyset, 1 - \p{\alpha}$
 } (a1);
 
 \draw[pchoice] (adec) -- (\decX,\bY) to node[auto,above] {
-    $ \{ x \},\p{\beta}$
+    $ \{ x \},\p{\alpha}$
 } (b1);
 % \draw[tran] (a2) -- (\doneX,5) to node[auto,above]{
 %     $\tau,\true.\emptyset$

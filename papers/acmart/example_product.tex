@@ -1,100 +1,167 @@
-\def \aY {8}
-\def \hY {7}
-\def \bY {6}
-\def \mY {4}
-\def \cY {2}
-\def \lY {1}
-\def \dY {0}
+\def \hY { 6}
+\def \hhY{ 5}
+\def \aY { 4}
+\def \aaY{ 3}
+\def \abY{ 1}
+\def \mY { 0}
+\def \acY{-1}
+\def \adY{-3}
+\def \bY {-4}
+\def \llY{-5}
+\def \lY {-6}
 
-\def \workX {0}
-\def \decX  {4}
-\def \doneX {6}
+\def \aX    {-10}
+\def \aaX   { -8}
+\def \adecX { -4}
+\def \fX    {  0}
+\def \bdecX {  4}
+\def \bbX   {  8}
+\def \bX    { 10}
 
-\begin{tikzpicture}[x = 1.2cm]
+\def \rX {16}
 
-\location{\PairV{a1}{q}}{(\workX,\mY)}
+\begin{tikzpicture} [y =  1.2 cm]
+
+\location{\PairV{a}{qa}}{(\aX,\mY)}
     {
         \PairS
             {\WORK{\alpha}}
-            {\Q}
+            {\q{\alpha}}
     }
     { \true }
-    { \{ \Q \} };
-
-\node[dec] (adec) at (\decX,\aY) {$\bullet$};
-\node[dec] (bdec) at (\decX,\bY) {$\bullet$};
-\node[dec] (cdec) at (\decX,\cY) {$\bullet$};
-\node[dec] (ddec) at (\decX,\dY) {$\bullet$};
+    { \{ \q{\alpha} \} };
 
 
-\location{\PairV{a2}{q}}{(\doneX,\hY)}
+\location{\PairV{b}{qb}}{(\bX,\mY)}
     {
         \PairS
-            {\DONE{\alpha}}
-            {\Q}
+            {\WORK{\beta}}
+            {\q{\beta}}
     }
-    { x=0 }
-    { \{ \Q \} };
+    { \true }
+    { \{ \q{\beta} \} };
 
-\location{\PairV{a2}{f}}{(\doneX,\lY)}
+
+\location{\PairV{a}{f}}{(\fX,\aY)}
     {
         \PairS
-            {\DONE{\alpha}}
+            {\WORK{\alpha}}
             {\FAIL}
     }
-    { x=0 }
+    { \true }
     { \{ \FAIL \} };
 
-%%%%% h0
-\draw[nchoice] (\PairV{a1}{q}) -- (\workX,\aY) to node[auto,sloped,above] {
-    $\PairS{\tau}{h_0},( y \le 500 ) \land ( z \le 300 ) $
-} (adec);
+\location{\PairV{b}{f}}{(\fX,\bY)}
+    {
+        \PairS
+            {\WORK{\beta}}
+            {\FAIL}
+    }
+    { \true }
+    { \{ \FAIL \} };
 
-\draw[pchoice] (adec) to node[auto,sloped,above] {
-    $ \{ x, y \},\p{\alpha}$
-} (\PairV{a2}{q});
+% \node[dec] (qbdec) at (\tX,\bY) {$\bullet$};
 
-\draw[pchoice,bend right] (adec) to node[auto,above,sloped] {
+%%%%%% h0
+\node[dec] (aadec) at (\aX,\hY) {$\bullet$};
+\draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
+    $(\tau,h_0),( y \le 500 ) \land ( y \le 200 )$
+} (aadec);
+\draw[pchoice,bend right] (aadec) to node[auto,above,sloped] {
     $ \emptyset, 1 - \p{\alpha}$
-} (\PairV{a1}{q});
-
-%%%%% h1
-\draw[nchoice] (\PairV{a1}{q}) to node[auto,sloped,above] {
-    $\PairS{\tau}{h_1},( y \le 500 ) \land ( 300 < z ) $
-} (bdec);
-
-\draw[pchoice] (bdec) to node[auto,sloped,above] {
-    $ \{ x, y \},\p{\alpha}$
-} (\PairV{a2}{q});
-
-\draw[pchoice,bend left] (bdec) to node[auto,above,sloped] {
-    $ \emptyset, 1 - \p{\alpha}$
-} (\PairV{a1}{q});
-
-%%%%% h2
-\draw[nchoice] (\PairV{a1}{q}) to node[auto,sloped,above] {
-    $\PairS{\tau}{h_2},( 500 < y ) \land ( z \le 300 ) $
-} (cdec);
-
-\draw[pchoice] (cdec) to node[auto,sloped,above] {
+} (\PairV{a}{qa});
+\draw[pchoice] (aadec) to node[auto,above] {
     $ \{ x \},\p{\alpha}$
-} (\PairV{a2}{f});
+} (\bX,\hY) -- (\PairV{b}{qb});
 
-\draw[pchoice,bend left] (cdec) to node[auto,above,sloped] {
+
+%%%%%% h1
+\node[dec] (abdec) at (\adecX,\adY) {$\bullet$};
+\draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
+    $(\tau,h_1),( y \le 500 ) \land ( 200 < y )$
+} (abdec);
+\draw[pchoice,bend left] (abdec) to node[auto,below,sloped] {
     $ \emptyset, 1 - \p{\alpha}$
-} (\PairV{a1}{q});
+} (\PairV{a}{qa});
+\draw[pchoice] (abdec) to node[auto,above] {
+    $ \emptyset, \p{\alpha}$
+} (\PairV{b}{f});
 
-%%%%% h3
-\draw[nchoice] (\PairV{a1}{q}) -- (\workX,\dY) to node[auto,sloped,above] {
-    $\PairS{\tau}{h_2},( 500 < y ) \land ( z \le 300 ) $
-} (ddec);
-
-\draw[pchoice] (ddec) to node[auto,sloped,above] {
-    $ \{ x \},\p{\alpha}$
-} (\PairV{a2}{f});
-
-\draw[pchoice,bend left] (ddec) to node[auto,above,sloped] {
+%%%%%% h2
+\node[dec] (acdec) at (\adecX,\aaY) {$\bullet$};
+\draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
+    $(\tau,h_2),( 500 < y ) \land ( y \le 200 )$
+} (acdec);
+\draw[pchoice] (acdec) to node[auto,above,sloped] {
     $ \emptyset, 1 - \p{\alpha}$
-} (\PairV{a1}{q});
+} (\PairV{a}{f});
+\draw[pchoice] (acdec) -- (\adecX,\hhY) to node[auto,above] {
+    $ \emptyset, \p{\alpha}$
+} (\bbX,\hhY) -- (\PairV{b}{qb});
+
+%%%%%% h3
+\node[dec] (addec) at (\adecX,\mY) {$\bullet$};
+\draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
+    $(\tau,h_3),( 500 < y ) \land ( 200 < y )$
+} (addec);
+\draw[pchoice] (addec) to node[auto,above,sloped] {
+    $ \emptyset, 1 - \p{\alpha}$
+} (\PairV{a}{f});
+\draw[pchoice] (addec) to node[auto,above,sloped] {
+    $ \emptyset, \p{\alpha}$
+} (\PairV{b}{f});
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%% h0
+\node[dec] (badec) at (\bX,\lY) {$\bullet$};
+\draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
+    $(\tau,h_0),( y \le 400 ) \land ( y \le 300 )  $
+} (badec);
+\draw[pchoice,bend right] (badec) to node[auto,below,sloped] {
+    $ \emptyset, 1 - \p{\beta}$
+} (\PairV{b}{qb});
+\draw[pchoice] (badec) to node[auto,above,sloped] {
+    $ \{ x \},\p{\beta}$
+} (\aX,\lY) -- (\PairV{a}{qa});
+% -- (\adecX,\bY)
+
+%%%%%% h1
+\node[dec] (bbdec) at (\bdecX,\aaY) {$\bullet$};
+\draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
+    $(\tau,h_1),( y \le 400 )  \land ( 300 < y )$
+} (bbdec);
+\draw[pchoice,bend left] (bbdec) to node[auto,above,sloped] {
+    $ \emptyset, 1 - \p{\beta}$
+} (\PairV{b}{qb});
+\draw[pchoice] (bbdec) to node[auto,above,sloped] {
+    $ \emptyset, \p{\beta}$
+} (\PairV{a}{f});
+
+%%%%%% h2
+\node[dec] (bcdec) at (\bdecX,\adY) {$\bullet$};
+\draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
+    $(\tau,h_2),( 400 < y ) \land ( y \le 300 )$
+} (bcdec);
+\draw[pchoice] (bcdec) to node[auto,below,sloped] {
+    $ \emptyset, 1 - \p{\beta}$
+} (\PairV{b}{f});
+\draw[pchoice] (bcdec) -- (\bdecX,\llY) to node[auto,above,sloped] {
+    $ \emptyset, \p{\beta}$
+} (\aaX,\llY) --(\PairV{a}{qa});
+
+%%%%%% h3
+\node[dec] (bddec) at (\bdecX,\mY) {$\bullet$};
+\draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
+    $(\tau,h_3),( 400 < y ) \land ( 300 < y )$
+} (bddec);
+\draw[pchoice] (bddec) to node[auto,below,sloped] {
+    $ \emptyset, 1 - \p{\beta}$
+} (\PairV{b}{f});
+\draw[pchoice] (bddec) to node[auto,above,sloped] {
+    $ \emptyset, \p{\beta}$
+} (\PairV{a}{f});
 
 \end{tikzpicture}

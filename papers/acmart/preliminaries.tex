@@ -372,10 +372,22 @@ $ is Rabin-accepting by $\rabin$.
 
 \begin{example}\label{ex:dta}
 {\color{red}Consider} the DTA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
-$\INIT$, $\Q$ and $\FAIL$ are modes with $\rabin = \{ \{ \FAIL \}, \{ \Q \} \}$, $y,z$ are clocks and arrows between modes are rules.
-For example, there are five rules emitting from $\Q$, one is
-$(\Q, \{\beta\}, 300 < z, \emptyset, \FAIL)$ and another is
-$(\Q, \emptyset, \true,\emptyset, \Q)$.
+$\INIT$, $\q{\alpha}$, $\q{\beta}$ and $\FAIL$ are modes with 
+$
+    \rabin 
+    = 
+    \{ 
+        \{ \FAIL \},
+        \{ 
+            \q{\alpha},
+            \q{\beta}
+        \} 
+    \}
+$, $y$ is a clock and arrows between modes are rules.
+For example, there are four rules emitting from $\q{\alpha}$, one is
+$(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha})$.
+and another is
+$(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta})$ 
 $\INIT$ is the initial mode to read the label of the initial location of a PTA in the product construction, and $\FAIL$ is a trap mode.
 Note that this DTA does not satisfy the totality condition. However, this can be remedied by adding rules leading to a deadlock mode without changing the acceptance behaviour of the DTA.
 This DTA specified the property that every $\alpha$ job should be done within 500 units

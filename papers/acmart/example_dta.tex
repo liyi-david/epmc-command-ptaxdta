@@ -10,15 +10,11 @@
 \def \rX {5}
 \def \fX {8}
 
-\def \Qa   {  \mbox{\sl q}_\alpha }
-\def \Qb   {  \mbox{\sl q}_\beta  }
-
-
 \begin{tikzpicture} [x = 0.8cm]
 
 \node[mode,initial]  (i) at (0,  \mY  ) {$ \INIT $};
-\node[mode,accepting](qa) at (\qX,\aY) {$ \Qa $};
-\node[mode,accepting](qb) at (\qX,\bY) {$ \Qb $};
+\node[mode,accepting](qa) at (\qX,\aY) {$ \q{\alpha} $};
+\node[mode,accepting](qb) at (\qX,\bY) {$ \q{\beta } $};
 
 \node[mode]          (f) at (\fX,\mY) {$ \FAIL $};
 
