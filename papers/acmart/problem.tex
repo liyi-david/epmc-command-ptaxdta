@@ -1,13 +1,13 @@
 % \vspace{-0.8em}
 \section{Problem Statement}
 % \vspace{-0.8em}
-In this part, we define the {\sc PTA-TA} problem of model-checking {PTAs} against TA-specifications.
-The problem takes a PTA and a TRA/TFA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA/TFA.
-Informally, the TRA/TFA encodes the linear dense-time property by judging whether an infinite path is accepted or not through its external behaviour,
-then the problem is to compute the probability that an infinite path is accepted by the TRA/TFA.
-In practice, the TRA/TFA can be used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluate to what extent the PTA behaves in a good (or bad) way.
+In this part, we define the {\sc PTA-TRA} problem of model-checking {PTAs} against TA-specifications.
+The problem takes a PTA and a TRA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA.
+Informally, the TRA encodes the linear dense-time property by judging whether an infinite path is accepted or not through its external behaviour,
+then the problem is to compute the probability that an infinite path is accepted by the TRA.
+In practice, the TRA can be used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluate to what extent the PTA behaves in a good (or bad) way.
 
-Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a TRA (or TFA) $\dta$ taking the form (\ref{eq:tra}) (or (\ref{eq:tfa}))) .
+Below we fix a well-formed PTA $\pta$ taking the form (\ref{eq:pta}) and a TRA $\dta$ taking the form (\ref{eq:tra}).
 W.l.o.g., we assume that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
 We first show how an infinite path in $\infpaths{\pta}$ can be interpreted as an infinite timed word.
@@ -51,7 +51,7 @@ by (i) dropping (a) the initial location $\loc_0$, (b) all clock valuations $\nu
 (d) all internal actions $a_{2n+1}$'s of $\pta$ and (ii) replacing every $\loc_{2n}$ ($n\ge 1$) by $\lbfunc(\loc_{2n})$.
 The interpretation captures only external behaviours including time-elapses and labels of locations upon state-change, and discards internal behaviours such as the concrete locations, clock valuations and actions.
 Although the interpretation ignores the initial location,
-we deal with it in our acceptance condition where the initial location is preprocessed by the TRA/TFA.
+we deal with it in our acceptance condition where the initial location is preprocessed by the TRA.
 \end{remark}
 %
 %\begin{remark}
@@ -103,7 +103,7 @@ The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$ and 
             \right)
 \]
 % \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\tra,q,F}\right)
-where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA (or TFA) $\tra$
+where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA $\tra$
 $$
     \LangCsAqF = \left \{
         \infpath \in \infpaths{\pta,\sigma} \mid
@@ -118,7 +118,7 @@ $$
 % $\acc{\pta,\sigma}{\tra,q,F}:=\left\{\infpath\in\infpaths{\pta,\sigma}\mid \infpath\mbox{ is accepted by }\tra\mbox{ w.r.t. }(q,\zero)\mbox{ and }F\right\}$.
 \end{definition}
 Since the set $\fnpaths{\pta,\sigma}$ is countably-infinite,
-$\LangCsAqF$ is measurable since it can be represented as a countable intersection of certain countable unions of some cylinder sets (cf.~\cite[Chap. ?]{DBLP:books/daglib/0020348} for details).
+$\LangCsAqF$ is measurable since it can be represented as a countable intersection of certain countable unions of some cylinder sets (cf.~\cite[Remark 10.24]{DBLP:books/daglib/0020348} for details).
 % \begin{small}
 % \begin{align*}
 %     &
@@ -172,14 +172,14 @@ $\LangCsAqF$ is measurable since it can be represented as a countable intersecti
 
 % {\color{red} finite path as finite word}
 
-Now we introduce the {\sc PTA-TA} problem.
+Now we introduce the {\sc PTA-TRA} problem.
 
 \begin{compactitem}
-\item {\bf Input:} a well-formed PTA $\pta$, a TRA (or TFA) $\dta$ and an initial mode $\dtloc$ in $\dta$;
+\item {\bf Input:} a well-formed PTA $\pta$, a TRA  $\dta$ and an initial mode $\dtloc$ in $\dta$;
 \item {\bf Output:} $\inf_\sigma \pr{\dtloc}{\sigma}$ and $\sup_\sigma  \pr{\dtloc}{\sigma}$, where $\sigma$ ranges over all time-divergent schedulers.
 \end{compactitem}
 
-We refer to the problem as {\sc PTA-DTA} if $\dta$ is deterministic.
+We refer to the problem as {\sc PTA-DTRA} if $\dta$ is deterministic.
 %In this paper, we also consider a variant of {\sc PTA-TRA} which incorporates rewards.
 %We first migrate the notion of cumulative reward to DTAs.
 

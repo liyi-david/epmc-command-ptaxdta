@@ -1,5 +1,5 @@
 % \vspace{-0.8em}
-\section{The PTA-NTA problem}
+\section{The PTA-TRA problem}
 % \vspace{-0.8em}
 In this section, we study the PTA-NTA problem where the input timed automaton needs not to be deterministic.
 We show that for Rabin acceptance condition, the problem is undecidable, while the problem can be solved approximately through an infinite-state MDP construction when we restrict ourselves to finite acceptance condition.
@@ -26,7 +26,7 @@ The proof idea is that we construct a PTA that can generate every time-divergent
 Then the TRA accepts all time-divergent timed words iff the minimal probability that the PTA observes the TRA equals $1$.
 
 %
-\begin{theorem}
+\begin{theorem}\label{thm:traundecidability}
 Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability that
 that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ is undecidable.
 \end{theorem}
@@ -79,25 +79,25 @@ where:
 Note that we allow no clocks in the construction since clocks are irrelevant for our result.
 Since we omit clocks, we also treat states (of $\pta'$) as single locations.
 Below we prove that $\tra$ accepts all time-divergent timed words over $\Sigma$ with initial mode $\qstart$ iff
-the minimal probability that $\pta'$ observes $\dta'$ with initial mode $\qinit$ equals $1$.  
+the minimal probability that $\pta'$ observes $\dta'$ with initial mode $\qinit$ equals $1$.
 
 Consider any time-divergent infinite timed word $ w = t_0 b'_0 t_1 b'_1 \cdots $ over $\Sigma$ (where $t_i\in\Rset$ and $b'_i\in\Sigma$).
 We define an infinite sequence $\{\fnpath_n\}_{n\in\Nset_0}$ of finite paths (of $\pta'$) inductively as follows:
 \begin{compactitem}
 \item $\fnpath_0:=b_0(=\loc^*)$; (Note that we treat states as locations since clocks are irrelevant.)
 \item for $m\ge 0$, $\fnpath_{2m+1}:=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k},t_{m}, s_{k}\right\rangle$ if $\fnpath_{2m}=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k}\right\rangle$;
-\item for $m\ge 0$, $\fnpath_{2m+2}:=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k},b'_{m}, b'_m\right\rangle$ if $\fnpath_{2m+1}=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k}\right\rangle$. 
+\item for $m\ge 0$, $\fnpath_{2m+2}:=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k},b'_{m}, b'_m\right\rangle$ if $\fnpath_{2m+1}=\left\langle s_0,a_0,s_1,\dots,a_{k-1},s_{k}\right\rangle$.
 \end{compactitem}
 Intuitively, the sequence $\{\fnpath_n\}_{n\in\Nset_0}$ is constructed by letting the PTA $\pta'$ read the timed word $w$ in a stepwise fashion, while adjusting the next location upon reading a symbol (as an action) from $\Sigma$.
 Then one can define a scheduler $\sigma_w$ by:
 \begin{compactitem}
-\item $\sigma_w(\rho_{2m}):=t_m$ for $m\ge 0$; 
+\item $\sigma_w(\rho_{2m}):=t_m$ for $m\ge 0$;
 \item $\sigma_w(\rho_{2m+1}):=b'_{m}$ for $m\ge 0$;
-\item $\sigma_w(\rho)$ is arbitrarily defined if $\rho$ is not from the sequence $\{\fnpath_n\}_{n\in\Nset_0}$. 
+\item $\sigma_w(\rho)$ is arbitrarily defined if $\rho$ is not from the sequence $\{\fnpath_n\}_{n\in\Nset_0}$.
 \end{compactitem}
-Intuitively, $\sigma_w$ always chooses time-delays and actions from $w$. 
+Intuitively, $\sigma_w$ always chooses time-delays and actions from $w$.
 Note that $\sigma_w$ is time divergent since $w$ is time divergent.
-Moreover, from definition we have that 
+Moreover, from definition we have that
 $
     \probm^{\pta,\sigma_w }\left(
         \left \{\infpath\mid \lbfunc(\infpath)=w
@@ -117,7 +117,7 @@ $$
 $$
 % $ \PCswLang = 1 $
 % iff $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
-Then we have that 
+Then we have that
 $
 \inf_\sigma \probm^{\pta,\sigma}\left(
     \Lang
@@ -129,3 +129,10 @@ $
 iff
 $\nta$ accepts all time-divergent timed words w.r.t. $(\qstart,\zero)$.
 \end{proof}
+
+\begin{remark}
+In the statement of Theorem~\ref{thm:traundecidability}, one can also see that the problem to decide whether the minimal probability is equal to $0$ is undecidable. This is because in the proof for the theorem, 
+$\inf_{\sigma_w}\pr{\qinit}{\sigma_w}$ is either $0$ or $1$, depending on whether $\dta$ accepts all time-divergent timed words or not. Hence, the PTA-TRA problem is undecidable even in the qualitative sense.
+On the other hand, we did not consider the case of maximum acceptance probabilities.
+Whether the problem to maximum acceptance probabilities is decidable or not is left open. 
+\end{remark}

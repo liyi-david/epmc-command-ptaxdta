@@ -1,9 +1,9 @@
 % \vspace{-0.8em}
-\section{The PTA-DTA Problem}
+\section{The PTA-DTRA Problem}
 % \vspace{-0.8em}
-In this section, we solve the {\sc PTA-DTA} problem through a product construction.
+In this section, we solve the {\sc PTA-DTRA} problem through a product construction.
 Based on the product construction, we also settle the complexity of the problem.
-Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTRA (or resp. DTFA) $\dta$ in the form (\ref{eq:tra}) (or resp. (\ref{eq:tfa})).
+Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTRA $\dta$ in the form (\ref{eq:tra}).
 W.l.o.g, we consider that $\clocks\cap\dtclocks=\emptyset$ and $\alphabet=2^{\ap}$.
 %such that $\clocks_1\cap\clocks_2=\emptyset$.
 %We also fix a reward structure $(\rcum,\rinst)$ for $\pta$.
@@ -70,14 +70,12 @@ $
 Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
 This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.
 Then in the definition for $\prob_\otimes$, upon the action $(a,h)$ and the target location $\loc'$, the product PTA first chooses the unique rule $(\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')$ from the emitting mode $\dtloc$ and the label $\lbfunc\left(\loc'\right)$ for which the uniqueness comes from the determinism of $\rules$, then perform probabilistic jump from $\pta$ and the discrete transition from $\dta$.
-Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite acceptance condition.
+Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite acceptance condition.\qed
 
-\begin{remark}[Technical Novelty]
-The novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
-\end{remark}
-
-\begin{remark}
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
+
+\begin{remark}[Our Novelty]
+The novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
 \end{remark}
 
 \begin{figure*}
@@ -131,7 +129,7 @@ Here for the accepting mod  in DTA, we have
         \} .
 \end{align*}
 And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
-$ 
+$
     \PairS
         {\WORK{\alpha}}
         {\q{\alpha}},
@@ -145,7 +143,7 @@ $
     \PairS
         {\WORK{\beta}}
         {\FAIL}
-$ 
+$
 are locations.
 \end{example}
 
@@ -209,7 +207,7 @@ Below we also show the correspondence on schedulers before and after the product
 
 \smallskip
 \noindent{\textbf{Transformation $\sfunc$ for Schedulers from $\pta$ into $\product{\pta}{\dta_\dtloc}$.}}
-We define the function $\sfunc$ from the set of schedulers under $\pta$ into the set of schedulers under $\product{\pta}{\dta_\dtloc}$ as follows: for any scheduler $\sigma$ for $\pta$, $\sfunc(\sigma)$ (for $\product{\pta}{\dta_\dtloc}$) is defined such that for any finite path $\fnpath$ under $\pta$ where $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ and $\pfunc(\rho)$ is given as in (\ref{eq:trho}),
+We define the function $\sfunc$ from the set of schedulers under $\pta$ into the set of schedulers under $\product{\pta}{\dta_\dtloc}$ as follows: for any scheduler $\sigma$ for $\pta$, $\sfunc(\sigma)$ (for $\product{\pta}{\dta_\dtloc}$) is defined such that for any finite path $\fnpath$ under $\pta$ where $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ and $\pfunc(\rho)$ given as in (\ref{eq:trho}),
 \[
 \sfunc(\sigma)(\pfunc(\fnpath)):=
 \begin{cases}
@@ -299,7 +297,7 @@ For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we ha
 \end{proposition}
 \begin{proof}
 % This proof is trivial.
-By definition, the set $\LangCsAqF$ equals 
+By definition, the set $\LangCsAqF$ equals
 % $$
 %     \LangCsAqF = \left \{
 %         \infpath \in \infpaths{\pta,\sigma} \mid
@@ -327,7 +325,7 @@ $$
     \right\}
 $$
 %\end{small}
-where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which 
+where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which
 $\dtloc^*$ is the unique location such that $\tran{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
 Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
 By the definition of $\pfunc$ we have
@@ -340,7 +338,7 @@ $$
         \dots
 $$
 in the form (\ref{eq:trinfpath}) with $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ being the unique run
-on $\lbfunc(\infpath)=a_0a_1\dots$ . 
+on $\lbfunc(\infpath)=a_0a_1\dots$ .
 % 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
 %$$
 %    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
@@ -378,7 +376,7 @@ Finally, we demonstrate the relationship between acceptance probabilities before
 We also clarify the probability of zenoness before and after the product construction.
 
 % \vspace{-0.8em}
-\begin{lemma}\label{thm:main}
+\begin{proposition}\label{thm:main}
 For any scheduler $\sigma$ and mode $q$, the followings hold:
 \begin{compactitem}
 \item
@@ -420,7 +418,7 @@ $}
         \right).
 $}
 \end{compactitem}
-\end{lemma}
+\end{proposition}
 %\vspace{-0.8em}
 \begin{proof}
 Define the probability measure $\probm'$ by: $\probm'(A)=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(A))$ for $A\in\mathcal{F}^{\pta,\sigma}$. We show that $\probm'=\probm^{\pta,\sigma}$. By \cite[Theorem 3.3]{PBMeasure}, it suffices to consider cylinder sets as they form a pi-system (cf. \cite[Page 43]{PBMeasure}).
@@ -442,8 +440,8 @@ The final equality follows from the definition.
 Hence $\probm^{\pta,\sigma}=\probm'$.
 Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
 \end{proof}
-A side result from Theorem~\ref{thm:main} says that $\sfunc$ preserves time-divergence for schedulers before and after product construction.
-From Theorem~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into Rabin(-accepting) probabilities under the product PTA.
+A side result from Proposition~\ref{thm:main} says that $\sfunc$ preserves time-divergence for schedulers before and after product construction.
+From Proposition~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into Rabin(-accepting) probabilities under the product PTA.
 
 % \vspace{-0.8em}
 \begin{corollary}\label{crly:opt}
@@ -504,8 +502,9 @@ Then time-divergence is guaranteed by adding the label  \textit{tick} to the Rab
 %infinitely many times).
 The second step is to transform the problem into limit Rabin properties over MDPs~\cite[Theorem 10.127]{DBLP:books/daglib/0020348}.
 This step constructs an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ from the
-PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction
+PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction 
 so that the problem is reduced to solving limit Rabin properties over $\Region{\product{\pta}{\dta_\dtloc}}$.
+\emph{Regions} are finitely-many equivalence classes of clock valuations that serve as a finite abstraction which capture exactly reachability behaviours over timed transitions (cf.~\cite{DBLP:journals/tcs/AlurD94}).
 Then standard methods based on \emph{maximal end components} (MECs) are applied to $\Region{\product{\pta}{\dta_\dtloc}}$.
 In detail, the algorithm computes the reachability probability to MECs that satisfy the Rabin acceptance condition;
 In order to guarantee time-divergence, the algorithm only picks up MECs with at least one location that has a \textit{tick} label.
@@ -561,11 +560,11 @@ It follows that $\opt_\sigma\pr{\dtloc}{\sigma}$ can be calculated in exponentia
 from the MEC-based algorithm illustrated in~\cite[Theorem 10.127]{DBLP:books/daglib/0020348}, as is demonstrated by
 the following proposition.
 
-\begin{proposition}
+\begin{proposition}\label{prop:exptime}
 The problem {\sc PTA-DTA} is in EXPTIME in the size of the input PTA and DTA.
 \end{proposition}
 
-Below we prove the hardness of the problem. In \cite{LaroussinieS07}, ?? proved that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
+Below we prove the hardness of the problem. It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
 We show a polynomial-time reduction from the PTA reachibility problem to the PTA-DTA problem as follows.
 For an arbitrary PTA $\pta$ in the form (\ref{eq:pta})
 %$\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$
@@ -594,7 +593,7 @@ where $\alphabet:=\{\lbfunc'(\loc)\mid \loc\in\locs\}$ and $\rules$ contains exa
 It is then straightforward from definition that an infinite path under $\pta$ visits some location in $\fstates$ iff the infinite path (under $\pta'$) is accepted by $\dta'$.
 Hence, under any scheduler (for both $\pta$ and $\pta'$), the probability to reach $\fstates$ in $\mathcal{C}$ equals the probability that
 $\pta'$ observes $\dta'$ under initial mode $\dtloc_0$.
-It follows that the maximum/minimum probability to reach $\fstates$ can be solved by the algorithm demonstrated in Proposition~\ref{?} for Rabin acceptance condition.
+It follows that the maximum/minimum probability to reach $\fstates$ can be solved by the algorithm demonstrated in Proposition~\ref{prop:exptime} for Rabin acceptance condition.
 By the reduction, we obtain the main result of this section which settles the computational complexity of the problem PTA-DTA.
 
 

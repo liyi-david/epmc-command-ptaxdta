@@ -29,19 +29,19 @@ We write $\false$ for a short hand of $\neg\true$.
 The satisfaction relation $\models$ between valuations $\nu$ and clock constraints $\phi$ is defined through substituting every $x\in\clocks$ appearing in $\phi$ by $\nu(x)$ and standard semantics for logical connectives.
 For a given clock constraint $\phi$, we denote by $\sat{\phi}$ the set of all clock valuations that satisfy $\phi$.
 
-\smallskip \noindent{\em Clock Equivalence.} Consider a nonnegative integer $N$ such that
-%which acts a threshold for relevant clock values:
-values held by clocks are treated equivalent if they both exceed $N$.
-With such a threshold, the standard notion of clock equivalence~\cite{DBLP:journals/tcs/AlurD94} is an equivalence relation $\sim_N$ over $\val{\clocks}$ as follows: for any two clock valuations $\nu,\nu'$, $\nu\sim_N\nu'$ iff the following conditions hold:
-\begin{compactitem}
-\item for all $x\in\clocks$, $\nu(x)>N$ iff $\nu'(x)> N$;
-\item for all $x\in\clocks$, if $\nu(x)\le N$ then (i) $\intp{\nu(x)}=\intp{\nu'(x)}$ and (ii) $\fracp{\nu(x)}>0$ iff $\fracp{\nu'(x)}>0$;
-\item for all $x,y\in\clocks$, if $\nu(x),\nu(y)\le N$ then it holds that $\fracp{\nu(x)}\Join \fracp{\nu(y)}$ iff $\fracp{\nu'(x)}\Join \fracp{\nu'(y)}$ for $\Join\in\{<,=,>\}$.
-\end{compactitem}
-Equivalence classes of $\sim_N$ are called \emph{regions}. 
-%The equivalence class that contains a given clock valuation $\nu$ is denoted by $\evclass{\nu}_{\sim_N}$.
-%We simply write $\evclass{\nu}_{\sim}$ if $N$ is clear from the context.
-% \vspace{-0.8em}
+%\smallskip \noindent{\em Clock Equivalence.} Consider a nonnegative integer $N$ such that
+%%which acts a threshold for relevant clock values:
+%values held by clocks are treated equivalent if they both exceed $N$.
+%With such a threshold, the standard notion of clock equivalence~\cite{DBLP:journals/tcs/AlurD94} is an equivalence relation $\sim_N$ over $\val{\clocks}$ as follows: for any two clock valuations $\nu,\nu'$, $\nu\sim_N\nu'$ iff the following conditions hold:
+%\begin{compactitem}
+%\item for all $x\in\clocks$, $\nu(x)>N$ iff $\nu'(x)> N$;
+%\item for all $x\in\clocks$, if $\nu(x)\le N$ then (i) $\intp{\nu(x)}=\intp{\nu'(x)}$ and (ii) $\fracp{\nu(x)}>0$ iff $\fracp{\nu'(x)}>0$;
+%\item for all $x,y\in\clocks$, if $\nu(x),\nu(y)\le N$ then it holds that $\fracp{\nu(x)}\Join \fracp{\nu(y)}$ iff $\fracp{\nu'(x)}\Join \fracp{\nu'(y)}$ for $\Join\in\{<,=,>\}$.
+%\end{compactitem}
+%Equivalence classes of $\sim_N$ are called \emph{regions}.
+%%The equivalence class that contains a given clock valuation $\nu$ is denoted by $\evclass{\nu}_{\sim_N}$.
+%%We simply write $\evclass{\nu}_{\sim}$ if $N$ is clear from the context.
+%% \vspace{-0.8em}
 \subsection{Probabilistic Timed Automata}
 % \vspace{-0.8em}
 
@@ -168,22 +168,29 @@ The purpose is to eliminate non-realistic zeno behaviours (i.e., performing infi
     \resizebox{.5\textwidth}{!}{
         \input{example_pta}
         }
-    \caption{A Task-Handling Example}
+    \caption{A Simple Task-Processing Example}
     \label{fig:pta}
 \end{figure}
 
-In the following example, we illustrate a PTA which models a simple task-handling process.
+In the following example, we illustrate a PTA which models a simple task-processing example.
 
 \begin{example}\label{ex:pta}
-{\color{red}In} the PTA depicted in Figure~\ref{fig:pta}, $\WAIT$, $\WORK{s}$ and $\DONE{s}$ ($ s\in \{ \alpha, \beta \}$) are locations
-and $x$ is the only clock. Below each location first comes (vertically) its invariant condition and then the set of labels assigned to the location. For example, $\inv(\DONE{\alpha})=( x = 2 )$
-and $\lbfunc(\DONE{\alpha})=\{ \alpha \}$.
-The four dot points together with corresponding arrows refer to four actions and their enabling conditions and probability transition functions.
-For example, the upper dot at the right of $\WORK{\alpha}$ refers to an action whose name
-is $\tau$, the enabling condition for $\tau$ (from $\WORK{\alpha}$) is $\true$ (cf. the solid line emitting from $\WORK{\alpha}$), and the probability distribution for this action is to reset
-$x$ and go to $\DONE{\alpha}$ with probability $\p{\alpha}$ and to reset $x$ and go back to
-$\DONE{\alpha}$ with probability $1-\p{\alpha}$.
-The PTA models a machine whiche deals with two different kinds of jobs.
+Consider the PTA depicted in Figure~\ref{fig:pta}. 
+$\WORK{\alpha},\WORK{\beta}$ are locations
+and $x$ is the only clock. Below each location first comes (vertically) its invariant condition and then the set of labels assigned to the location. For example, $\inv(\WORK{\alpha})=x \le 10$
+and $\lbfunc(\WORK{\alpha})=\{ \alpha \}$.
+The two dot points together with corresponding arrows refer to two actions $\tau_\alpha,\tau_\beta$ with their enabling conditions and transition probabilities given by the probabilistic transition function.
+For example, the upper dot at the right of $\WORK{\alpha}$ refers to the action $\tau_\alpha$ for which 
+\begin{compactitem}
+\item $\enab(\WORK{\alpha}, \tau_\alpha)=\true$, and
+\item $\prob(\WORK{\alpha}, \tau_\alpha)(\{x\},\WORK{\alpha})=0.1$, and 
+\item $\prob(\WORK{\alpha}, \tau_\alpha)(\{x\},\WORK{\beta})=0.9$.
+\end{compactitem}
+The PTA models a faulty machine which processes two different kinds of jobs (i.e., $\alpha,\beta$) in an alternating fashion.
+If the machine fails to complete the current job, then it will repeat processing the job until it completes the job.  
+For job $\alpha$, the machine always processes the job within $10$ time units (cf. the invariant condition $x\le 10$), but may fail to complete the job with probability $0.1$;
+Analogously, the machine always processes the job $\beta$ within $15$ time units (cf. the invariant condition $x\le 15$), but may fail to complete the job with probability $0.2$.
+Note that we omit the initial location in this example. 
 \end{example}
 %
 %In the following, we introduce the notion of \emph{rewards} (or \emph{costs}) over PTAs.
@@ -343,8 +350,8 @@ $
             (H_n,K_n)
         \}
 $ representing a Rabin condition for which
-$H_i$ and $K_i$ are subsets of $\cstates$ for all $i<n$.
-$\dta$ is a deterministic TRA (DTRA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
+$H_i$ and $K_i$ are subsets of $\cstates$ for all $i\le n$.
+$\dta$ is a \emph{deterministic} TRA (DTRA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
 A set $\cstates' \subseteq \cstates $ is \emph{Rabin-accepting} by $\rabin$,
 written as the predicate $\accept{\cstates'}{\rabin}$,
 if there is $ 1 \leq i \leq n$ such that $ \cstates' \cap H_i= \emptyset $
@@ -366,28 +373,28 @@ $ is Rabin-accepting by $\rabin$.
     \resizebox{.5\textwidth}{!}{
         \input{example_dta}
         }
-    \caption{A DTA Specification}
+    \caption{A DTRA Specification}
     \label{fig:dta}
 \end{figure}
 
 \begin{example}\label{ex:dta}
-{\color{red}Consider} the DTA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
-$\INIT$, $\q{\alpha}$, $\q{\beta}$ and $\FAIL$ are modes with 
+Consider the DTRA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
+In the figure, $\INIT,\q{\alpha},\q{\beta}$ and $\FAIL$ are modes with the Rabin condition
 $
-    \rabin 
-    = 
-    \{ 
-        \{ \FAIL \},
-        \{ 
+    \rabin
+    =
+    \{
+%        \{ \FAIL \},
+        \{
             \q{\alpha},
             \q{\beta}
-        \} 
+        \}
     \}
 $, $y$ is a clock and arrows between modes are rules.
-For example, there are four rules emitting from $\q{\alpha}$, one is
-$(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha})$.
-and another is
-$(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta})$ 
+For example, there are four rules emitting from $\q{\alpha}$:
+\begin{eqnarray*}
+(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha}),~(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta})\\
+\end{eqnarray*}
 $\INIT$ is the initial mode to read the label of the initial location of a PTA in the product construction, and $\FAIL$ is a trap mode.
 Note that this DTA does not satisfy the totality condition. However, this can be remedied by adding rules leading to a deadlock mode without changing the acceptance behaviour of the DTA.
 This DTA specified the property that every $\alpha$ job should be done within 500 units
@@ -396,32 +403,32 @@ of time after last $\alpha$ job done and every $\beta$ job should be done within
 \end{example}
 %%%%%
 
-\begin{definition}[Finite Acceptance Condition]
-A TA with \emph{finite acceptance condition} (TFA) is a tuple
-\begin{equation}\label{eq:tfa}
-    \dta=(\cstates,\alphabet,\dtclocks,\rules,\fstates)
-\end{equation}
-where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$
-representing the set of \emph{final} modes.
-$\dta$ is a deterministic TFA (DTFA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
-An infinite timed word $w$ is \emph{finitely-accepted} by
-$\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ if there exists a run $\xi$ of $(\cstates,\alphabet,\dtclocks,\rules)$ on $w$ with $(\dtloc,\nu)$ such that some final mode in $\fstates$ appear in the infinite word
-$
-%    \mbox{ }
-    \infset{
-%        \traj{
-%            \run{\dta}{(\dtloc,\nu)}{w}
-%        }
-         \xi
-    }
-$.
-\end{definition}
+%\begin{definition}[Finite Acceptance Condition]
+%A TA with \emph{finite acceptance condition} (TFA) is a tuple
+%\begin{equation}\label{eq:tfa}
+%    \dta=(\cstates,\alphabet,\dtclocks,\rules,\fstates)
+%\end{equation}
+%where $(\cstates,\alphabet,\dtclocks,\rules)$ is a TA and $\fstates$ is a subset of $\cstates$
+%representing the set of \emph{final} modes.
+%$\dta$ is a deterministic TFA (DTFA) if $(\cstates,\alphabet,\dtclocks,\rules)$ is a DTA.
+%An infinite timed word $w$ is \emph{finitely-accepted} by
+%$\dta$ with \emph{initial configuration} $(\dtloc,\nu)$ if there exists a run $\xi$ of $(\cstates,\alphabet,\dtclocks,\rules)$ on $w$ with $(\dtloc,\nu)$ such that some final mode in $\fstates$ appear in the infinite word
+%$
+%%    \mbox{ }
+%    \infset{
+%%        \traj{
+%%            \run{\dta}{(\dtloc,\nu)}{w}
+%%        }
+%         \xi
+%    }
+%$.
+%\end{definition}
 
-\begin{remark}\label{rmk:facc}
-Finite acceptance condition is a special case of Rabin acceptance condition.
-Given a TFA in the form~(\ref{eq:tfa}), one can transform it into an equivalent TRA by first removing all rules emitting from final modes,
-then making all final modes ``absorbing'' through adding self-loop rules $(q,b,\true,\emptyset,q)$ for all final modes $q$ and symbols $b$, and finally setting the Rabin condition $\rabin$ to be the singleton set $\{(\emptyset, \fstates)\}$.
-\end{remark}
+%\begin{remark}\label{rmk:facc}
+%Finite acceptance condition is a special case of Rabin acceptance condition.
+%Given a TFA in the form~(\ref{eq:tfa}), one can transform it into an equivalent TRA by first removing all rules emitting from final modes,
+%then making all final modes ``absorbing'' through adding self-loop rules $(q,b,\true,\emptyset,q)$ for all final modes $q$ and symbols $b$, and finally setting the Rabin condition $\rabin$ to be the singleton set $\{(\emptyset, \fstates)\}$.
+%\end{remark}
 
 %Then we present Rabin acceptance condition which requires an infinite word to visit some modes only finitely often and some other modes infinitely often.
 

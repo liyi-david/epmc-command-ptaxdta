@@ -19,24 +19,24 @@
 \node[mode]          (f) at (\fX,\mY) {$ \FAIL $};
 
 \draw[tran] (i) --(0,\aY) to node[auto,sloped,above] {
-    $\{ \alpha \},\true.\{ y \}$
+    $\{ \alpha \},\true, \{ y \}$
 } (qa);
 \draw[tran] (i) --(0,\bY) to node[auto,sloped,below] {
-    $\{ \beta  \},\true.\{ y \}$
+    $\{ \beta  \},\true, \{ y \}$
 } (qb);
 
 \draw[tran,bend left] (qa) to node[auto,sloped,below] {
-    $\{ \beta \}, 200 < y. \emptyset$
+    $\{ \beta \}, 200 < y, \emptyset$
 } (f);
 \draw[tran,bend right] (qb) to node[auto,sloped,above] {
-    $\{ \alpha  \}, 400 < y. \emptyset$
+    $\{ \alpha  \}, 400 < y, \emptyset$
 } (f);
 
 \draw[tran] (qa) to node[auto,sloped,above] {
-    $\{ \alpha \}, 500 < y. \emptyset$
+    $\{ \alpha \}, 500 < y, \emptyset$
 } (\fX,\aY) -- (f);
 \draw[tran] (qb) to node[auto,sloped,below] {
-    $\{ \beta  \}, 300 < y. \emptyset$
+    $\{ \beta  \}, 300 < y, \emptyset$
 } (\fX,\bY) -- (f);
 
 % \draw[tran,bend right] (qa) to node[auto,below] {
@@ -44,19 +44,19 @@
 % } (f);
 
 \draw[tran] (qa) -- (\rX,\hY) to node[auto,above] {
-    $\{ \alpha \}, y \le 500. \emptyset$
+    $\{ \alpha \}, y \le 500, \emptyset$
 } (\lX,\hY) -- (qa);
 
 \draw[tran] (qb) -- (\rX,0) to node[auto,below] {
-    $\{ \beta \}, y \le 300. \emptyset$
+    $\{ \beta \}, y \le 300, \emptyset$
 } (\lX,0) -- (qb);
 
 \draw[tran] (qa) -- (\rX,\maY) to node[auto,sloped,above] {
-    $\{ \beta \}, y \le 200. \{ y \}$
+    $\{ \beta \}, y \le 200, \{ y \}$
 } (\rX,\mbY) -- (qb);
 
 \draw[tran] (qb) -- (\lX,\mbY) to node[auto,sloped,above] {
-    $\{ \alpha \}, y \le 400. \{ y \}$
+    $\{ \alpha \}, y \le 400, \{ y \}$
 } (\lX,\maY) -- (qa);
 % \path
 %     (qa) edge [loop left] node {

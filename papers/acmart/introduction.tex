@@ -16,7 +16,7 @@ cost-bounded reachability probability over priced PTAs is shown to be undecidabl
 Most verification algorithms for PTAs have been implemented in the model checker PRISM~\cite{DBLP:conf/cav/KwiatkowskaNP11}. Computational complexity of several verification problems for PTAs is studied in~\cite{DBLP:journals/ipl/LaroussinieS07,DBLP:journals/lmcs/JurdzinskiSL08,DBLP:conf/concur/JurdzinskiKNT09}.
 
 For linear-time model-checking, much less is known.
-As far as we know, the only relevant result is by Sproston~\cite{DBLP:conf/qest/Sproston11} who proved that the problem of model-checking PTAs against linear \emph{discrete-time} properties encoded by untimed deterministic omega-regular automata can be solved by a product construction.
+As far as we know, the only relevant result is by Sproston~\cite{DBLP:conf/qest/Sproston11} who proved that the problem of model-checking PTAs against linear \emph{discrete-time} properties encoded by \emph{untimed} deterministic omega-regular automata (e.g., Rabin automata) can be solved by a product construction.
 In his paper, Sproston first devised a production construction that produces a PTA out of the input PTA and the automaton;
 then he proved that the problem can be reduced to omega-regular verification of MDPs through maximal end components.
 

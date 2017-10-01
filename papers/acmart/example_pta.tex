@@ -19,7 +19,7 @@
 %%%%%
 \location{a1}{(\workX,\aY)}
     { \WORK{\alpha} }
-    { \true }
+    { x\le 10 }
     { \{ \alpha \} };
 
 \node[dec] (adec) at (\decX,\aY) {$\bullet$};
@@ -35,7 +35,7 @@
 %%%%%
 \location{b1}{(\workX,\bY)}
     { \WORK{\beta} }
-    { \true }
+    { x\le 15 }
     { \{ \beta \} };
 
 \node[dec] (bdec) at (\tX,\bY) {$\bullet$};
@@ -56,15 +56,15 @@
 % } (a1);
 
 \draw[nchoice] (a1) to node[auto,below] {
-    $\tau,\true$
+    $\tau_\alpha,\true$
 } (adec);
 
 \draw[pchoice,bend right] (adec) to node[auto,above] {
-    $ \emptyset, 1 - \p{\alpha}$
+    $ \{ x \}, 0.1$
 } (a1);
 
 \draw[pchoice] (adec) -- (\decX,\bY) to node[auto,above] {
-    $ \{ x \},\p{\alpha}$
+    $ \{ x \},0.9$
 } (b1);
 % \draw[tran] (a2) -- (\doneX,5) to node[auto,above]{
 %     $\tau,\true.\emptyset$
@@ -84,15 +84,15 @@
 % } (b1);
 
 \draw[nchoice] (b1) to node[auto,above] {
-    $\tau,\true$
+    $\tau_\beta,\true$
 } (bdec);
 
 \draw[pchoice,bend right] (bdec) to node[auto,below] {
-    $ \emptyset, 1 - \p{\beta}$
+    $ \{ x \}, 0.2$
 } (b1);
 
 \draw[pchoice] (bdec) -- (\tX,\aY) to node[auto] {
-    $ \{ x \},\p{\beta}$
+    $ \{ x \},0.8$
 }  (a1);
 
 % \draw[tran] (b2) --(\doneX,0) to node[auto,below] {
