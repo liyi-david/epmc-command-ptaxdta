@@ -175,22 +175,22 @@ The purpose is to eliminate non-realistic zeno behaviours (i.e., performing infi
 In the following example, we illustrate a PTA which models a simple task-processing example.
 
 \begin{example}\label{ex:pta}
-Consider the PTA depicted in Figure~\ref{fig:pta}. 
+Consider the PTA depicted in Figure~\ref{fig:pta}.
 $\WORK{\alpha},\WORK{\beta}$ are locations
 and $x$ is the only clock. Below each location first comes (vertically) its invariant condition and then the set of labels assigned to the location. For example, $\inv(\WORK{\alpha})=x \le 10$
 and $\lbfunc(\WORK{\alpha})=\{ \alpha \}$.
 The two dot points together with corresponding arrows refer to two actions $\tau_\alpha,\tau_\beta$ with their enabling conditions and transition probabilities given by the probabilistic transition function.
-For example, the upper dot at the right of $\WORK{\alpha}$ refers to the action $\tau_\alpha$ for which 
+For example, the upper dot at the right of $\WORK{\alpha}$ refers to the action $\tau_\alpha$ for which
 \begin{compactitem}
 \item $\enab(\WORK{\alpha}, \tau_\alpha)=\true$, and
-\item $\prob(\WORK{\alpha}, \tau_\alpha)(\{x\},\WORK{\alpha})=0.1$, and 
+\item $\prob(\WORK{\alpha}, \tau_\alpha)(\{x\},\WORK{\alpha})=0.1$, and
 \item $\prob(\WORK{\alpha}, \tau_\alpha)(\{x\},\WORK{\beta})=0.9$.
 \end{compactitem}
 The PTA models a faulty machine which processes two different kinds of jobs (i.e., $\alpha,\beta$) in an alternating fashion.
-If the machine fails to complete the current job, then it will repeat processing the job until it completes the job.  
+If the machine fails to complete the current job, then it will repeat processing the job until it completes the job.
 For job $\alpha$, the machine always processes the job within $10$ time units (cf. the invariant condition $x\le 10$), but may fail to complete the job with probability $0.1$;
 Analogously, the machine always processes the job $\beta$ within $15$ time units (cf. the invariant condition $x\le 15$), but may fail to complete the job with probability $0.2$.
-Note that we omit the initial location in this example. 
+Note that we omit the initial location in this example.
 \end{example}
 %
 %In the following, we introduce the notion of \emph{rewards} (or \emph{costs}) over PTAs.
@@ -392,12 +392,23 @@ $
     \}
 $, $y$ is a clock and arrows between modes are rules.
 For example, there are four rules emitting from $\q{\alpha}$:
-\begin{eqnarray*}
-(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha}),~(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta})\\
-\end{eqnarray*}
-$\INIT$ is the initial mode to read the label of the initial location of a PTA in the product construction, and $\FAIL$ is a trap mode.
-Note that this DTA does not satisfy the totality condition. However, this can be remedied by adding rules leading to a deadlock mode without changing the acceptance behaviour of the DTA.
-This DTA specified the property that every $\alpha$ job should be done within 500 units
+\begin{align*}
+(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha}),& ~(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta}),\\
+(\q{\alpha}, \{ \alpha \}, 500<y,\emptyset, \FAIL),& ~(\q{\alpha}, \{ \beta \}, 200<y, \emptyset, \FAIL).
+\end{align*}
+$\INIT$ is the initial mode to read the first symbol upon which transiting to either $\q{\alpha}$ or $\q{\beta}$. 
+$\FAIL$ is a deadlock mode for which we omit all self-loop rules at $\FAIL$. 
+The mode $\q{\alpha}$ does not reset the clock $y$ until it reads $\beta$.
+Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent on a consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $500$ (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha})$)
+
+
+ of the initial location of the PTA, and 
+From the Rabin acceptance condition, this DTRA specifies the condition that 
+
+on an infinite timed word $w=\{a_n\}_{n\in\Nset_0}$ that
+
+
+specified the property that every $\alpha$ job should be done within 500 units
 of time after last $\alpha$ job done and every $\beta$ job should be done within
 300 units of time after last $\beta$ job done.
 \end{example}

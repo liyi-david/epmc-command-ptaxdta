@@ -74,8 +74,8 @@ Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite a
 
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
 
-\begin{remark}[Our Novelty]
-The novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
+\begin{remark}[Main Novelty]
+The main novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
 \end{remark}
 
 \begin{figure*}
@@ -502,7 +502,7 @@ Then time-divergence is guaranteed by adding the label  \textit{tick} to the Rab
 %infinitely many times).
 The second step is to transform the problem into limit Rabin properties over MDPs~\cite[Theorem 10.127]{DBLP:books/daglib/0020348}.
 This step constructs an MDP $\Region{\product{\pta}{\dta_\dtloc}}$ from the
-PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction 
+PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction
 so that the problem is reduced to solving limit Rabin properties over $\Region{\product{\pta}{\dta_\dtloc}}$.
 \emph{Regions} are finitely-many equivalence classes of clock valuations that serve as a finite abstraction which capture exactly reachability behaviours over timed transitions (cf.~\cite{DBLP:journals/tcs/AlurD94}).
 Then standard methods based on \emph{maximal end components} (MECs) are applied to $\Region{\product{\pta}{\dta_\dtloc}}$.
