@@ -65,103 +65,103 @@
 %%%%%% h0
 \node[dec] (aadec) at (\aX,\hY) {$\bullet$};
 \draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
-    $(\tau,h_0),( y \le C_\alpha ) \land ( y \le W_\beta )$
+    $(\tau_\alpha,h_0),( y \le C_\alpha ) \land ( y \le W_\beta )$
 } (aadec);
 \draw[pchoice,bend right] (aadec) to node[auto,above,sloped] {
-    $ \emptyset, 0.1$
+    $ \{ x \}, 0.1$
 } (\PairV{a}{qa});
 \draw[pchoice] (aadec) to node[auto,above] {
-    $ \{ x \},0.9$
+    $ \{ x, y \},0.9$
 } (\bX,\hY) -- (\PairV{b}{qb});
 
 
 %%%%%% h1
 \node[dec] (abdec) at (\adecX,\adY) {$\bullet$};
 \draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
-    $(\tau,h_1),( y \le C_\alpha ) \land ( W_\beta < y )$
+    $(\tau_\alpha,h_1),( y \le C_\alpha ) \land ( W_\beta < y )$
 } (abdec);
 \draw[pchoice,bend left] (abdec) to node[auto,below,sloped] {
-    $ \emptyset, 0.1$
+    $ \{ x \}, 0.1$
 } (\PairV{a}{qa});
 \draw[pchoice] (abdec) to node[auto,above] {
-    $ \emptyset, 0.9$
+    $ \{ x \}, 0.9$
 } (\PairV{b}{f});
 
 %%%%%% h2
 \node[dec] (acdec) at (\adecX,\aaY) {$\bullet$};
 \draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
-    $(\tau,h_2),( C_\alpha < y ) \land ( y \le W_\beta )$
+    $(\tau_\alpha,h_2),( C_\alpha < y ) \land ( y \le W_\beta )$
 } (acdec);
 \draw[pchoice] (acdec) to node[auto,above,sloped] {
-    $ \emptyset, 0.1$
+    $ \{ x \}, 0.1$
 } (\PairV{a}{f});
 \draw[pchoice] (acdec) -- (\adecX,\hhY) to node[auto,above] {
-    $ \emptyset, 0.9$
+    $ \{ x, y \}, 0.9$
 } (\bbX,\hhY) -- (\PairV{b}{qb});
 
 %%%%%% h3
 \node[dec] (addec) at (\adecX,\mY) {$\bullet$};
 \draw[nchoice] (\PairV{a}{qa}) to node[auto,above,sloped] {
-    $(\tau,h_3),( C_\alpha < y ) \land ( W_\beta < y )$
+    $(\tau_\alpha,h_3),( C_\alpha < y ) \land ( W_\beta < y )$
 } (addec);
 \draw[pchoice] (addec) to node[auto,above,sloped] {
-    $ \emptyset, 0.1$
+    $ \{ x \}, 0.1$
 } (\PairV{a}{f});
 \draw[pchoice] (addec) to node[auto,above,sloped] {
-    $ \emptyset, 0.9$
+    $ \{ x \}, 0.9$
 } (\PairV{b}{f});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%% h0
+%%%%%% h4
 \node[dec] (badec) at (\bX,\lY) {$\bullet$};
 \draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
-    $(\tau,h_0),( y \le C_\beta ) \land ( y \le W_\alpha )  $
+    $(\tau_\beta,h_4),( y \le C_\beta ) \land ( y \le W_\alpha )  $
 } (badec);
 \draw[pchoice,bend right] (badec) to node[auto,below,sloped] {
-    $ \emptyset, 0.2$
+    $ \{ x \}, 0.2$
 } (\PairV{b}{qb});
 \draw[pchoice] (badec) to node[auto,above,sloped] {
-    $ \{ x \},0.8$
+    $ \{ x, y \},0.8$
 } (\aX,\lY) -- (\PairV{a}{qa});
 % -- (\adecX,\bY)
 
-%%%%%% h1
+%%%%%% h5
 \node[dec] (bbdec) at (\bdecX,\aaY) {$\bullet$};
 \draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
-    $(\tau,h_1),( y \le C_\beta )  \land ( W_\alpha < y )$
+    $(\tau_\beta,h_5),( y \le C_\beta )  \land ( W_\alpha < y )$
 } (bbdec);
 \draw[pchoice,bend left] (bbdec) to node[auto,above,sloped] {
-    $ \emptyset, 0.2$
+    $ \{ x \}, 0.2$
 } (\PairV{b}{qb});
 \draw[pchoice] (bbdec) to node[auto,above,sloped] {
-    $ \emptyset, 0.8$
+    $ \{ x \}, 0.8$
 } (\PairV{a}{f});
 
-%%%%%% h2
+%%%%%% h6
 \node[dec] (bcdec) at (\bdecX,\adY) {$\bullet$};
 \draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
-    $(\tau,h_2),( C_\beta < y ) \land ( y \le W_\alpha )$
+    $(\tau_\beta,h_6),( C_\beta < y ) \land ( y \le W_\alpha )$
 } (bcdec);
 \draw[pchoice] (bcdec) to node[auto,below,sloped] {
-    $ \emptyset, 0.2$
+    $ \{ x \}, 0.2$
 } (\PairV{b}{f});
 \draw[pchoice] (bcdec) -- (\bdecX,\llY) to node[auto,above,sloped] {
-    $ \emptyset, 0.8$
+    $ \{ x, y \}, 0.8$
 } (\aaX,\llY) --(\PairV{a}{qa});
 
-%%%%%% h3
+%%%%%% h7
 \node[dec] (bddec) at (\bdecX,\mY) {$\bullet$};
 \draw[nchoice] (\PairV{b}{qb}) to node[auto,above,sloped] {
-    $(\tau,h_3),( C_\beta < y ) \land ( W_\alpha < y )$
+    $(\tau_\beta,h_7),( C_\beta < y ) \land ( W_\alpha < y )$
 } (bddec);
 \draw[pchoice] (bddec) to node[auto,below,sloped] {
-    $ \emptyset, 0.2$
+    $ \{ x \}, 0.2$
 } (\PairV{b}{f});
 \draw[pchoice] (bddec) to node[auto,above,sloped] {
-    $ \emptyset, 0.8$
+    $ \{ x \}, 0.8$
 } (\PairV{a}{f});
 
 \end{tikzpicture}
