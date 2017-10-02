@@ -87,9 +87,9 @@ It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$
 
 \begin{example}
 The product PTA between the PTA in Example~\ref{ex:pta} and the DTA in Example~\ref{ex:dta} is depicted in Figure~\ref{fig:product}.
-In the figure, $\PairS{\WORK{\alpha}}{\q{\alpha}}, \PairS{\WORK{\beta}}{\q{\beta}}$ and 
-$\PairS{\WORK{\alpha}}{\FAIL}, \PairS{\WORK{\beta}}{\FAIL}$ 
-are product locations. 
+In the figure, $\PairS{\WORK{\alpha}}{\q{\alpha}}, \PairS{\WORK{\beta}}{\q{\beta}}$ and
+$\PairS{\WORK{\alpha}}{\FAIL}, \PairS{\WORK{\beta}}{\FAIL}$
+are product locations.
 From the construction of $\exttuples_{\dtloc}$'s, the functions $h_i$'s are as follows (we omit redundant labels such as $\emptyset$ and $\{\alpha,\beta\}$ which never appear in the PTA):
 \begin{compactitem}
 \item $h_0=\{\{ \alpha \} \mapsto y \le C_\alpha ,\{ \beta  \} \mapsto y \le W_\beta\}$;
@@ -211,10 +211,10 @@ under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hol
 \begin{lemma}\label{lemm:pfuncbij}
 The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$, $\infpath$ is non-zeno iff $\pfunc(\infpath)$ is non-zeno.
 \end{lemma}
-\begin{proof}
-The first claim follows directly from the determinism and totality of DTAs.
-The second claim follows from the fact that $\pfunc$ preserves time elapses in the transformation.
-\end{proof}
+%\begin{proof}
+%The first claim follows directly from the determinism and totality of DTAs.
+%The second claim follows from the fact that $\pfunc$ preserves time elapses in the transformation.
+%\end{proof}
 
 %between $\fnpaths{\pta,\sigma}\cup\infpaths{\pta,\sigma}$ and $\fnpaths{\product{\pta}{\dta_q},\sfunc\left(\sigma\right)}\cup\infpaths{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}$.
 
@@ -304,91 +304,93 @@ $$
 $$
 %\end{small}
 Intuitively, $\rabinp{\sigma}$ is the set of infinite paths that meet the Rabin condition $\rabin$ from $\dta$.
+The following proposition clarifies the role of $\rabinp{\sigma}$. 
 %and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
 %
 % \vspace{-0.8em}
 \begin{proposition}\label{prop:psfunc}
 For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we have $\TLang = \TAcc.$
 \end{proposition}
-\begin{proof}
-% This proof is trivial.
-By definition, the set $\LangCsAqF$ equals
-% $$
-%     \LangCsAqF = \left \{
-%         \infpath \in \infpaths{\pta,\sigma} \mid
-%         \infset{
-%             \traj{
-%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)}
-%             }
-%         }
-%         \mbox{ is Rabin accepting by } \rabin
-%     \right\},
-% $$
-%\begin{small}
-$$
-    \left \{
-        \infpath \in \infpaths{\pta,\sigma} \mid
-        \accept{
-            \infset{
-                \traj{
-                    \xi_\pi%\run{\dta}{\iconfig}{\lbfunc(\infpath)}
-                }
-            }
-        }   {
-            \rabin
-        }
-    \right\}
-$$
-%\end{small}
-where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which
-$\dtloc^*$ is the unique location such that $\tran{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
-Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
-By the definition of $\pfunc$ we have
-$$
-    \pfunc( \infpath ) =
-        ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
-        a'_0
-        ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
-        a'_1
-        \dots
-$$
-in the form (\ref{eq:trinfpath}) with $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ being the unique run
-on $\lbfunc(\infpath)=a_0a_1\dots$ .
-% 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
+%\begin{proof}
+%% This proof is trivial.
+%By definition, the set $\LangCsAqF$ equals
+%% $$
+%%     \LangCsAqF = \left \{
+%%         \infpath \in \infpaths{\pta,\sigma} \mid
+%%         \infset{
+%%             \traj{
+%%                 \run{\dta}{\iconfig}{\lbfunc(\infpath)}
+%%             }
+%%         }
+%%         \mbox{ is Rabin accepting by } \rabin
+%%     \right\},
+%% $$
+%%\begin{small}
 %$$
-%    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
-%        = \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}.
+%    \left \{
+%        \infpath \in \infpaths{\pta,\sigma} \mid
+%        \accept{
+%            \infset{
+%                \traj{
+%                    \xi_\pi%\run{\dta}{\iconfig}{\lbfunc(\infpath)}
+%                }
+%            }
+%        }   {
+%            \rabin
+%        }
+%    \right\}
 %$$
-Then it is obvious that
-$$\trace{ \pfunc( \infpath ) }
-    = q_0 q_1 \dots
-    = \traj{
-        \run
-            {\dta}{\iconfig}
-            {\lbfunc(\infpath)}
-    }.
-$$
-It follows that
-$\infset {
-    \trace {
-        \pfunc( \infpath )
-    }
-}$
-is Rabin accepting by $\rabin$ iff
-$
-    \infset{
-        \traj {
-            \run
-                {\dta}{\iconfig}
-                {\lbfunc(\infpath)}
-        }
-    }
-$
-is Rabin accepting by $\rabin$.
-\end{proof}
+%%\end{small}
+%where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which
+%$\dtloc^*$ is the unique location such that $\tran{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
+%Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
+%By the definition of $\pfunc$ we have
+%$$
+%    \pfunc( \infpath ) =
+%        ((\loc_0,\dtloc_0),\nu_0\cup\mu_0)
+%        a'_0
+%        ((\loc_1,\dtloc_1),\nu_1\cup\mu_1)
+%        a'_1
+%        \dots
+%$$
+%in the form (\ref{eq:trinfpath}) with $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ being the unique run
+%on $\lbfunc(\infpath)=a_0a_1\dots$ .
+%% 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
+%%$$
+%%    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
+%%        = \{(\dtloc_n,\mu_n,\lbfunc(\infpath)_{n})\}_{n\in\Nset_0}.
+%%$$
+%Then it is obvious that
+%$$\trace{ \pfunc( \infpath ) }
+%    = q_0 q_1 \dots
+%    = \traj{
+%        \run
+%            {\dta}{\iconfig}
+%            {\lbfunc(\infpath)}
+%    }.
+%$$
+%It follows that
+%$\infset {
+%    \trace {
+%        \pfunc( \infpath )
+%    }
+%}$
+%is Rabin accepting by $\rabin$ iff
+%$
+%    \infset{
+%        \traj {
+%            \run
+%                {\dta}{\iconfig}
+%                {\lbfunc(\infpath)}
+%        }
+%    }
+%$
+%is Rabin accepting by $\rabin$.
+%\end{proof}
 
 Finally, we demonstrate the relationship between acceptance probabilities before product construction and reachability probabilities after product construction.
 We also clarify the probability of zenoness before and after the product construction.
+The proof follows standard argument from measure theory. 
 
 % \vspace{-0.8em}
 \begin{proposition}\label{thm:main}
@@ -435,26 +437,26 @@ $}
 \end{compactitem}
 \end{proposition}
 %\vspace{-0.8em}
-\begin{proof}
-Define the probability measure $\probm'$ by: $\probm'(A)=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(A))$ for $A\in\mathcal{F}^{\pta,\sigma}$. We show that $\probm'=\probm^{\pta,\sigma}$. By \cite[Theorem 3.3]{PBMeasure}, it suffices to consider cylinder sets as they form a pi-system (cf. \cite[Page 43]{PBMeasure}).
-Let $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ be any finite path under $\pta$.
-By definition, we have that
-\begin{align*}
-    \probm^{\pta,\sigma}(\cyl(\fnpath))
-        & =
-        \probm^{\product{\pta}{\dta_\dtloc}, \sfunc\left(\sigma\right)}(\cyl(\pfunc(\fnpath)))
-        \\
-        & =
-        \probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(\cyl(\fnpath)))
-        \\
-        & =
-        \probm'(\cyl(\fnpath))\enskip.
-\end{align*}
-The first equality comes from the fact that both versions of product construction preserves transition probabilities. The second equality is due to $\cyl(\pfunc(\fnpath))= \pfunc(\cyl(\fnpath))$.
-The final equality follows from the definition.
-Hence $\probm^{\pta,\sigma}=\probm'$.
-Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
-\end{proof}
+%\begin{proof}
+%Define the probability measure $\probm'$ by: $\probm'(A)=\probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(A))$ for $A\in\mathcal{F}^{\pta,\sigma}$. We show that $\probm'=\probm^{\pta,\sigma}$. By \cite[Theorem 3.3]{PBMeasure}, it suffices to consider cylinder sets as they form a pi-system (cf. \cite[Page 43]{PBMeasure}).
+%Let $\fnpath=(\loc_0,\nu_0)a_0\dots a_{n-1}(\loc_n,\nu_n)$ be any finite path under $\pta$.
+%By definition, we have that
+%\begin{align*}
+%    \probm^{\pta,\sigma}(\cyl(\fnpath))
+%        & =
+%        \probm^{\product{\pta}{\dta_\dtloc}, \sfunc\left(\sigma\right)}(\cyl(\pfunc(\fnpath)))
+%        \\
+%        & =
+%        \probm^{\product{\pta}{\dta_\dtloc},\sfunc\left(\sigma\right)}(\pfunc(\cyl(\fnpath)))
+%        \\
+%        & =
+%        \probm'(\cyl(\fnpath))\enskip.
+%\end{align*}
+%The first equality comes from the fact that both versions of product construction preserves transition probabilities. The second equality is due to $\cyl(\pfunc(\fnpath))= \pfunc(\cyl(\fnpath))$.
+%The final equality follows from the definition.
+%Hence $\probm^{\pta,\sigma}=\probm'$.
+%Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
+%\end{proof}
 A side result from Proposition~\ref{thm:main} says that $\sfunc$ preserves time-divergence for schedulers before and after product construction.
 From Proposition~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into Rabin(-accepting) probabilities under the product PTA.
 
@@ -579,41 +581,14 @@ the following proposition.
 The problem {\sc PTA-DTA} is in EXPTIME in the size of the input PTA and DTA.
 \end{proposition}
 
-Below we prove the hardness of the problem. It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
-We show a polynomial-time reduction from the PTA reachibility problem to the PTA-DTA problem as follows.
-For an arbitrary PTA $\pta$ in the form (\ref{eq:pta})
-%$\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$
-and a set $\fstates\subseteq\locs$ of final locations,
-we let $\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap',\lbfunc'\right)$ where $\ap':=\ap\cup\{\mbox{\sl acc}\}$ and
-$\lbfunc'$ is defined by
-\begin{displaymath}
-    \mathcal{L}'(l):=\left\{
-    \begin{array}{cc}
-        \mathcal{L}(l) & \mbox{ if } \loc\not\in\fstates\\
-        \mathcal{L}(l)\cup\{\mbox{\sl acc}\} & \loc\in\fstates
-    \end{array}
-    \right.
-\end{displaymath}
-for which $\mbox{\sl acc}$ is a fresh atomic proposition.
-We also construct the DTRA $\dta'$ by
-\[
-\dta':=\left(\{q_0,q_1\},\alphabet,\emptyset,\rules,\{(\emptyset, \{q_1\}\}\right)
-\]
-where $\alphabet:=\{\lbfunc'(\loc)\mid \loc\in\locs\}$ and $\rules$ contains exactly the following rules:
-\begin{compactitem}
-    \item  $(q_0,U,true, \emptyset,q_1)\in\rules$ for all $U\in\alphabet$ such that $\mbox{acc}\in U$;
-%$\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in\rules$,
-    \item $(q_i,U,true, \emptyset,q_i)\in\rules$ for all $U\in\alphabet$ and $i\in\{0,1\}$.
-\end{compactitem}
-It is then straightforward from definition that an infinite path under $\pta$ visits some location in $\fstates$ iff the infinite path (under $\pta'$) is accepted by $\dta'$.
-Hence, under any scheduler (for both $\pta$ and $\pta'$), the probability to reach $\fstates$ in $\mathcal{C}$ equals the probability that
-$\pta'$ observes $\dta'$ under initial mode $\dtloc_0$.
-It follows that the maximum/minimum probability to reach $\fstates$ can be solved by the algorithm demonstrated in Proposition~\ref{prop:exptime} for Rabin acceptance condition.
-By the reduction, we obtain the main result of this section which settles the computational complexity of the problem PTA-DTA.
+It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
+Since Rabin acceptance condition subsumes reachability, one obtains that the problem PTA-DTRA is EXPTIME-hard (cf. Appendix~\ref{app:hardness} for details).
+
+By the reduction, we obtain the main result of this section which settles the computational complexity of the problem PTA-DTRA.
 
 
 \begin{theorem}
-The PTA-DTA problem is EXPTIME-complete.
+The PTA-DTRA problem is EXPTIME-complete.
 \end{theorem}
 %
 %\vspace{-0.8em}
@@ -624,5 +599,5 @@ The PTA-DTA problem is EXPTIME-complete.
 %\item $\rinst'((\loc,\dtloc),(a,h)):=\rinst(\loc,a)$ for any $(\loc,\dtloc)\in \locs_\otimes$ and $(a,h)\in \acts_\otimes$.
 %\end{compactitem}
 \begin{remark}[Main Novelty]
-The main novelty for our product construction is that by adopting extended actions (i.e. $\exttuples_{\dtloc}$) and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations under different rules from the DTA.
+The main novelty for our product construction is that by adopting extended actions (i.e. $\exttuples_{\dtloc}$) and integrating them into enabling condition and probabilistic transition function, the product PTA can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations using different rules from the DTA.
 \end{remark}
