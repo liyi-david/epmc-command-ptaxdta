@@ -86,65 +86,80 @@ It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$
 \end{figure*}
 
 \begin{example}
-The product PTA between the PTA in Example~\ref{ex:pta} and the DTA in Example~\ref{ex:dta} is depicted in Figure~\ref{fig:product}. 
+The product PTA between the PTA in Example~\ref{ex:pta} and the DTA in Example~\ref{ex:dta} is depicted in Figure~\ref{fig:product}.
+In the figure, $\PairS{\WORK{\alpha}}{\q{\alpha}}, \PairS{\WORK{\beta}}{\q{\beta}}$ and 
+$\PairS{\WORK{\alpha}}{\FAIL}, \PairS{\WORK{\beta}}{\FAIL}$ 
+are product locations. 
+From the construction of $\exttuples_{\dtloc}$'s, the functions $h_i$'s are as follows (we omit redundant labels such as $\emptyset$ and $\{\alpha,\beta\}$ which never appear in the PTA):
+\begin{compactitem}
+\item $h_0=\{\{ \alpha \} \mapsto y \le C_\alpha ,\{ \beta  \} \mapsto y \le W_\beta\}$;
+\item $h_1=\{\{ \alpha \} \mapsto y \le C_\alpha ,\{ \beta  \} \mapsto W_\beta< y\}$;
+\item $h_2=\{\{ \alpha \} \mapsto C_\alpha < y ,\{ \beta  \} \mapsto y \le W_\beta\}$;
+\item $h_3=\{\{ \alpha \} \mapsto C_\alpha < y ,\{ \beta  \} \mapsto W_\beta< y\}$;
+\item $h_4=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto W_\alpha< y\}$;
+\item $h_5=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto W_\beta< y\}$;
+\item $h_6=\{\{ \beta \} \mapsto C_\beta < y ,\{ \alpha  \} \mapsto y \le W_\alpha\}$;
+\item $h_7=\{\{ \beta \} \mapsto C_\beta < y ,\{ \alpha  \} \mapsto W_\alpha< y\}$.
+\end{compactitem}
 The intuition is that the DTA accepts all infinite paths under the PTA such that the failing time for job $\gamma$ $(\gamma\in\{\alpha,\beta\}$ (the time within the consecutive $\gamma$'s) should be no greater than $C_\gamma$ and the waiting time for job $\gamma$ (the failing time plus the time spent on the last $\gamma$) should be no greater than $W_\gamma$.
-We illustrate the situation for 
-Here for the accepting mod  in DTA, we have
-\begin{align*}
-    &
-    \exttuples_{\dtloc_{\alpha}}
-        = \{
-            % \\
-            % &
-            h_0 = \left \{
-                \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( y \le 500 ),
-                \{ \beta  \}        \mapsto ( y \le 200 ),
-                \{ \alpha, \beta \}  \mapsto \true
-            \right \},
-            \\
-            &
-            h_1 = \left \{
-                \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( y \le 500 ),
-                \{ \beta  \}        \mapsto ( 200 < y ),
-                \{ \alpha, \beta \}  \mapsto \true
-            \right \},
-            \\
-            &
-            h_2 = \left \{
-                \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( 500 < y  ),
-                \{ \beta  \}        \mapsto ( y \le 200 ),
-                \{ \alpha, \beta \}  \mapsto \true
-            \right \},
-            \\
-            &
-            h_3 = \left \{
-                \emptyset           \mapsto \true,
-                \{ \alpha \}        \mapsto ( 500 < y ),
-                \{ \beta  \}        \mapsto ( 200 < y ),
-                \{ \alpha, \beta \}  \mapsto \true
-            \right \}
-        \} .
-\end{align*}
-And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
-$
-    \PairS
-        {\WORK{\alpha}}
-        {\q{\alpha}},
-    \PairS
-        {\WORK{\beta}}
-        {\q{\beta}},
-    \PairS
-        {\WORK{\alpha}}
-        {\FAIL},
-    \mbox{ and }
-    \PairS
-        {\WORK{\beta}}
-        {\FAIL}
-$
-are locations.
+
+
+%Here for the accepting mod  in DTA, we have
+%\begin{align*}
+%    &
+%    \exttuples_{\dtloc_{\alpha}}
+%        = \{
+%            % \\
+%            % &
+%            h_0 = \left \{
+%                \emptyset           \mapsto \true,
+%                \{ \alpha \}        \mapsto ( y \le 500 ),
+%                \{ \beta  \}        \mapsto ( y \le 200 ),
+%                \{ \alpha, \beta \}  \mapsto \true
+%            \right \},
+%            \\
+%            &
+%            h_1 = \left \{
+%                \emptyset           \mapsto \true,
+%                \{ \alpha \}        \mapsto ( y \le 500 ),
+%                \{ \beta  \}        \mapsto ( 200 < y ),
+%                \{ \alpha, \beta \}  \mapsto \true
+%            \right \},
+%            \\
+%            &
+%            h_2 = \left \{
+%                \emptyset           \mapsto \true,
+%                \{ \alpha \}        \mapsto ( 500 < y  ),
+%                \{ \beta  \}        \mapsto ( y \le 200 ),
+%                \{ \alpha, \beta \}  \mapsto \true
+%            \right \},
+%            \\
+%            &
+%            h_3 = \left \{
+%                \emptyset           \mapsto \true,
+%                \{ \alpha \}        \mapsto ( 500 < y ),
+%                \{ \beta  \}        \mapsto ( 200 < y ),
+%                \{ \alpha, \beta \}  \mapsto \true
+%            \right \}
+%        \} .
+%\end{align*}
+%And a part of the product of Example~\ref{ex:pta} and Example~\ref{ex:dta} is depicted in Figure~\ref{fig:dta}.
+%$
+%    \PairS
+%        {\WORK{\alpha}}
+%        {\q{\alpha}},
+%    \PairS
+%        {\WORK{\beta}}
+%        {\q{\beta}},
+%    \PairS
+%        {\WORK{\alpha}}
+%        {\FAIL},
+%    \mbox{ and }
+%    \PairS
+%        {\WORK{\beta}}
+%        {\FAIL}
+%$
+%are locations.
 \end{example}
 
 

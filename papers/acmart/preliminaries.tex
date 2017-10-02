@@ -399,7 +399,9 @@ For example, there are four rules emitting from $\q{\alpha}$:
 (\q{\alpha}, \{ \alpha \}, C_\alpha<y,\emptyset, \FAIL),& ~(\q{\alpha}, \{ \beta \}, W_\beta<y, \emptyset, \FAIL).
 \end{align*}
 $\INIT$ is the initial mode to read the first symbol upon which transiting to either $\q{\alpha}$ or $\q{\beta}$.
-$\FAIL$ is a deadlock mode for which we omit all self-loop rules at $\FAIL$.
+$\FAIL$ is a deadlock mode from which all rules go to itself.
+Note that the rules of the DTRA does not satisfy the totality condition. 
+However, we assume that all missing rules lead to the mode $\FAIL$ and does not affect the Rabin acceptance condition. 
 The mode $\q{\alpha}$ does not reset the clock $y$ until it reads $\beta$.
 Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent within a maximal consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $C_\alpha$ time units (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha})$) and the total time from the start of the segment until $\beta$ is read (the time within a maximal consecutive segment of $\alpha$'s plus the time spent on the last $\alpha$ in the segment) is no greater than $W_\beta$
 (cf. the rule $(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta})$). 
