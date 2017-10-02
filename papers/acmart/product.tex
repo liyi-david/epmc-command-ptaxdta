@@ -74,21 +74,21 @@ Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin or finite a
 
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
 
-\begin{remark}[Main Novelty]
-The main novelty for our product construction is that by adopting extended actions and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations.
-\end{remark}
+
 
 \begin{figure*}
     \centering
     \resizebox{1.0\textwidth}{!}{
         \input{example_product}
         }
-    \caption{A Part of Product PTA}
+    \caption{The Product PTA for Our Running Example}
     \label{fig:product}
 \end{figure*}
 
 \begin{example}
-Here we represent an running example to show how our product construction works.
+The product PTA between the PTA in Example~\ref{ex:pta} and the DTA in Example~\ref{ex:dta} is depicted in Figure~\ref{fig:product}. 
+The intuition is that the DTA accepts all infinite paths under the PTA such that the failing time for job $\gamma$ $(\gamma\in\{\alpha,\beta\}$ (the time within the consecutive $\gamma$'s) should be no greater than $C_\gamma$ and the waiting time for job $\gamma$ (the failing time plus the time spent on the last $\gamma$) should be no greater than $W_\gamma$.
+We illustrate the situation for 
 Here for the accepting mod  in DTA, we have
 \begin{align*}
     &
@@ -608,3 +608,6 @@ The PTA-DTA problem is EXPTIME-complete.
 %\item $\rcum'(\loc,\dtloc):=\rcum(\loc)$ for any $(\loc,\dtloc)\in \locs_\otimes$;
 %\item $\rinst'((\loc,\dtloc),(a,h)):=\rinst(\loc,a)$ for any $(\loc,\dtloc)\in \locs_\otimes$ and $(a,h)\in \acts_\otimes$.
 %\end{compactitem}
+\begin{remark}[Main Novelty]
+The main novelty for our product construction is that by adopting extended actions (i.e. $\exttuples_{\dtloc}$) and integrating them into enabling condition and probabilistic transition function, the DTA $\dta$ can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations under different rules from the DTA.
+\end{remark}

@@ -378,7 +378,8 @@ $ is Rabin-accepting by $\rabin$.
 \end{figure}
 
 \begin{example}\label{ex:dta}
-Consider the DTRA depicted in Figure~\ref{fig:dta} which works as a specification for the PTA in Example~\ref{ex:pta}.
+Consider the DTRA depicted in Figure~\ref{fig:dta}.
+%which works as a specification for the PTA in Example~\ref{ex:pta}.
 In the figure, $\INIT,\q{\alpha},\q{\beta}$ and $\FAIL$ are modes with the Rabin condition
 $
     \rabin
@@ -391,26 +392,21 @@ $
         \}
     \}
 $, $y$ is a clock and arrows between modes are rules.
+$C_\gamma,W_\gamma$ ($\gamma\in\{\alpha,\beta\}$) are undetermined integer constants. 
 For example, there are four rules emitting from $\q{\alpha}$:
 \begin{align*}
-(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha}),& ~(\q{\alpha}, \{ \beta \}, y \le 200, \{ y \}, \q{\beta}),\\
-(\q{\alpha}, \{ \alpha \}, 500<y,\emptyset, \FAIL),& ~(\q{\alpha}, \{ \beta \}, 200<y, \emptyset, \FAIL).
+(\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha}),& ~(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta}),\\
+(\q{\alpha}, \{ \alpha \}, C_\alpha<y,\emptyset, \FAIL),& ~(\q{\alpha}, \{ \beta \}, W_\beta<y, \emptyset, \FAIL).
 \end{align*}
-$\INIT$ is the initial mode to read the first symbol upon which transiting to either $\q{\alpha}$ or $\q{\beta}$. 
-$\FAIL$ is a deadlock mode for which we omit all self-loop rules at $\FAIL$. 
+$\INIT$ is the initial mode to read the first symbol upon which transiting to either $\q{\alpha}$ or $\q{\beta}$.
+$\FAIL$ is a deadlock mode for which we omit all self-loop rules at $\FAIL$.
 The mode $\q{\alpha}$ does not reset the clock $y$ until it reads $\beta$.
-Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent on a consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $500$ (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le 500,\emptyset, \q{\alpha})$)
-
-
- of the initial location of the PTA, and 
-From the Rabin acceptance condition, this DTRA specifies the condition that 
-
-on an infinite timed word $w=\{a_n\}_{n\in\Nset_0}$ that
-
-
-specified the property that every $\alpha$ job should be done within 500 units
-of time after last $\alpha$ job done and every $\beta$ job should be done within
-300 units of time after last $\beta$ job done.
+Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent within a maximal consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $C_\alpha$ time units (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha})$) and the total time from the start of the segment until $\beta$ is read (the time within a maximal consecutive segment of $\alpha$'s plus the time spent on the last $\alpha$ in the segment) is no greater than $W_\beta$
+(cf. the rule $(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta})$). 
+The behaviour of the mode $\q{\beta}$ can be argued similar to that of $\q{\alpha}$ with the only difference to 
+flip $\alpha$ and $\beta$.
+From Rabin acceptance condition, the DTRA specifies a property on infinite timed words that the time spent within a maximal consecutive segment of $\alpha$'s (or $\beta$'s) and the total time until $\beta$ (or $\alpha$) is read
+always satisfy the conditions specified by $\q{\alpha}$ (or $\q{\beta}$). 
 \end{example}
 %%%%%
 

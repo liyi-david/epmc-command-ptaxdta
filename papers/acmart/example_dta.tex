@@ -26,17 +26,17 @@
 } (qb);
 
 \draw[tran,bend left] (qa) to node[auto,sloped,below] {
-    $\{ \beta \}, 200 < y, \emptyset$
+    $\{ \beta \}, W_\beta < y, \emptyset$
 } (f);
 \draw[tran,bend right] (qb) to node[auto,sloped,above] {
-    $\{ \alpha  \}, 400 < y, \emptyset$
+    $\{ \alpha  \}, W_\alpha < y, \emptyset$
 } (f);
 
 \draw[tran] (qa) to node[auto,sloped,above] {
-    $\{ \alpha \}, 500 < y, \emptyset$
+    $\{ \alpha \}, C_\alpha < y, \emptyset$
 } (\fX,\aY) -- (f);
 \draw[tran] (qb) to node[auto,sloped,below] {
-    $\{ \beta  \}, 300 < y, \emptyset$
+    $\{ \beta  \}, C_\beta < y, \emptyset$
 } (\fX,\bY) -- (f);
 
 % \draw[tran,bend right] (qa) to node[auto,below] {
@@ -44,19 +44,19 @@
 % } (f);
 
 \draw[tran] (qa) -- (\rX,\hY) to node[auto,above] {
-    $\{ \alpha \}, y \le 500, \emptyset$
+    $\{ \alpha \}, y \le C_\alpha, \emptyset$
 } (\lX,\hY) -- (qa);
 
 \draw[tran] (qb) -- (\rX,0) to node[auto,below] {
-    $\{ \beta \}, y \le 300, \emptyset$
+    $\{ \beta \}, y \le C_\beta, \emptyset$
 } (\lX,0) -- (qb);
 
 \draw[tran] (qa) -- (\rX,\maY) to node[auto,sloped,above] {
-    $\{ \beta \}, y \le 200, \{ y \}$
+    $\{ \beta \}, y \le W_\beta, \{ y \}$
 } (\rX,\mbY) -- (qb);
 
 \draw[tran] (qb) -- (\lX,\mbY) to node[auto,sloped,above] {
-    $\{ \alpha \}, y \le 400, \{ y \}$
+    $\{ \alpha \}, y \le W_\alpha, \{ y \}$
 } (\lX,\maY) -- (qa);
 % \path
 %     (qa) edge [loop left] node {
