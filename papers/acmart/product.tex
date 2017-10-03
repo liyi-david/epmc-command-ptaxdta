@@ -96,8 +96,8 @@ From the construction of $\exttuples_{\dtloc}$'s, the functions $h_i$'s are as f
 \item $h_1=\{\{ \alpha \} \mapsto y \le C_\alpha ,\{ \beta  \} \mapsto W_\beta< y\}$;
 \item $h_2=\{\{ \alpha \} \mapsto C_\alpha < y ,\{ \beta  \} \mapsto y \le W_\beta\}$;
 \item $h_3=\{\{ \alpha \} \mapsto C_\alpha < y ,\{ \beta  \} \mapsto W_\beta< y\}$;
-\item $h_4=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto W_\alpha< y\}$;
-\item $h_5=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto W_\beta< y\}$;
+\item $h_4=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto y\le W_\alpha\}$;
+\item $h_5=\{\{ \beta \} \mapsto y \le C_\beta ,\{ \alpha  \} \mapsto W_\alpha< y\}$;
 \item $h_6=\{\{ \beta \} \mapsto C_\beta < y ,\{ \alpha  \} \mapsto y \le W_\alpha\}$;
 \item $h_7=\{\{ \beta \} \mapsto C_\beta < y ,\{ \alpha  \} \mapsto W_\alpha< y\}$.
 \end{compactitem}
@@ -304,7 +304,7 @@ $$
 $$
 %\end{small}
 Intuitively, $\rabinp{\sigma}$ is the set of infinite paths that meet the Rabin condition $\rabin$ from $\dta$.
-The following proposition clarifies the role of $\rabinp{\sigma}$. 
+The following proposition clarifies the role of $\rabinp{\sigma}$.
 %and $\AcceptCxAqsF$ is an limit LT Property \cite[Notation10.121]{DBLP:books/daglib/0020348}.
 %
 % \vspace{-0.8em}
@@ -390,7 +390,7 @@ For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we ha
 
 Finally, we demonstrate the relationship between acceptance probabilities before product construction and reachability probabilities after product construction.
 We also clarify the probability of zenoness before and after the product construction.
-The proof follows standard argument from measure theory. 
+The proof follows standard argument from measure theory.
 
 % \vspace{-0.8em}
 \begin{proposition}\label{thm:main}
