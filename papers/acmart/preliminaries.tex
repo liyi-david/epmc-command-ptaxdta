@@ -4,9 +4,8 @@
 
 We denote by $\Nset$, $\Nset_0$, $\Zset$, and $\Rset$ the sets of all positive
 integers, non-negative integers, integers and real numbers, respectively.
-
-For any infinite word $w=b_0b_1\dots$, we denote by $\infset{w}$ the set of symbols (i.e., $b_i$'s) that occur infinitely many times in $w$.
-Given a finite word $w=b_0\dots b_n$ ($n\ge 0$), the last symbol $b_n$ is denoted by $\lastloc{w}$.
+For any infinite word $w=b_0b_1\dots$ over an alphabet $\Sigma$, we denote by $\infset{w}$ the set of symbols (i.e., $b_i$'s) in $\Sigma$ that occur infinitely many times in $w$.
+%Given a finite word $w=b_0\dots b_n$ ($n\ge 0$), the last symbol $b_n$ is denoted by $\lastloc{w}$.
 
 %
 %\subsection{Basic Concepts for Clock Valuations, Clock Constraints and Clock Equivalences}
@@ -235,7 +234,7 @@ where
 \begin{compactitem}
 \item $\cstates$ is a finite set of \emph{modes}; %and $\dtloc^*$ is the \emph{initial} mode;
 \item $\alphabet$ is a finite \emph{alphabet} of \emph{symbols} disjoint from $[0,\infty)$;
-\item $\mathcal{X}$ is a finite set of \emph{clocks};
+\item $\dtclocks$ is a finite set of \emph{clocks};
 \item $\rules\subseteq \cstates\times\alphabet\times\clcons{\dtclocks}\times 2^{\dtclocks}\times \cstates$ is a finite set of \emph{rules}.
 \end{compactitem}
 % \end{definition}
@@ -290,8 +289,8 @@ $\dtatr{(\dtloc,\nu)}{a}{(\dtloc',\nu')}$ given any $(\dtloc,\nu), a$.
 
 
 \smallskip
-\noindent{\em Infinite Time Words and Runs.}
-An \emph{infinite time word} is an infinite sequence $w=\{a_n\}_{n\in\Nset_0}$ such that
+\noindent{\em Infinite Timed Words and Runs.}
+An \emph{infinite timed word} is an infinite sequence $w=\{a_n\}_{n\in\Nset_0}$ such that
 $
     a_{2n}      \in [0,\infty)
     \mbox{ and }
@@ -320,9 +319,8 @@ $\traj{ \xi } := q_0 q_1 \dots$~.
 Note that if $\dta$ is deterministic, then there is a unique run on every infinite timed word.
 %%%%%
 
-Below we illustrate the acceptance conditions for TAs.
-We first illustrate infinite acceptance condition for which
-we consider Rabin acceptance condition.
+Below we illustrate the acceptance condition for TAs.
+We consider Rabin acceptance condition as the infinite acceptance condition.
 
 %Now we illustrate the acceptance condition for DTAs. In this paper, we focus on infinite acceptance condition.
 % Finite case is trivial and we also support it in our tool.
@@ -363,7 +361,7 @@ $
 %        \traj{
 %            \run{\dta}{(\dtloc,\nu)}{w}
 %        }
-         \xi
+         \traj{\xi}
     }
 $ is Rabin-accepting by $\rabin$.
 \end{definition}
@@ -392,7 +390,7 @@ $
         \}
     \}
 $, $y$ is a clock and arrows between modes are rules.
-$C_\gamma,W_\gamma$ ($\gamma\in\{\alpha,\beta\}$) are undetermined integer constants. 
+$C_\gamma,W_\gamma$ ($\gamma\in\{\alpha,\beta\}$) are undetermined integer constants.
 For example, there are four rules emitting from $\q{\alpha}$:
 \begin{align*}
 (\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha}),& ~(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta}),\\
@@ -400,15 +398,15 @@ For example, there are four rules emitting from $\q{\alpha}$:
 \end{align*}
 $\INIT$ is the initial mode to read the first symbol upon which transiting to either $\q{\alpha}$ or $\q{\beta}$.
 $\FAIL$ is a deadlock mode from which all rules go to itself.
-Note that the rules of the DTRA does not satisfy the totality condition. 
-However, we assume that all missing rules lead to the mode $\FAIL$ and does not affect the Rabin acceptance condition. 
+Note that the rules of the DTRA does not satisfy the totality condition.
+However, we assume that all missing rules lead to the mode $\FAIL$ and does not affect the Rabin acceptance condition.
 The mode $\q{\alpha}$ does not reset the clock $y$ until it reads $\beta$.
 Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent within a maximal consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $C_\alpha$ time units (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha})$) and the total time from the start of the segment until $\beta$ is read (the time within a maximal consecutive segment of $\alpha$'s plus the time spent on the last $\alpha$ in the segment) is no greater than $W_\beta$
-(cf. the rule $(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta})$). 
-The behaviour of the mode $\q{\beta}$ can be argued similar to that of $\q{\alpha}$ with the only difference to 
+(cf. the rule $(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta})$).
+The behaviour of the mode $\q{\beta}$ can be argued similar to that of $\q{\alpha}$ with the only difference to
 flip $\alpha$ and $\beta$.
-From Rabin acceptance condition, the DTRA specifies a property on infinite timed words that the time spent within a maximal consecutive segment of $\alpha$'s (or $\beta$'s) and the total time until $\beta$ (or $\alpha$) is read
-always satisfy the conditions specified by $\q{\alpha}$ (or $\q{\beta}$). 
+From Rabin acceptance condition, the DTRA specifies a property on infinite timed words that the time spent within a maximal consecutive segment of $\alpha$'s (resp. $\beta$'s) and the total time until $\beta$ (resp. $\alpha$) is read
+always satisfy the conditions specified by $\q{\alpha}$ (resp. $\q{\beta}$).
 \end{example}
 %%%%%
 
