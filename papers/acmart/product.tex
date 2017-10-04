@@ -204,7 +204,7 @@ under $\pta$, we define $\pfunc(\infpath)$ to be the unique infinite path
 \begin{equation}\label{eq:trinfpath}
 \pfunc(\infpath):=((\loc_0,\dtloc_0),\nu_0\cup\mu_0)a'_0((\loc_1,\dtloc_1),\nu_1\cup\mu_1)a'_1\dots
 \end{equation}
-under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$. From the determinism and totality of $\dta$, it is straightforward to prove the following result. 
+under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$. From the determinism and totality of $\dta$, it is straightforward to prove the following result.
 
 %The following lemma shows that $\pfunc$ is a bijection and preserves zenoness.
 
@@ -522,9 +522,9 @@ PTA $ \product{\pta}{\dta_\dtloc} $ through a \emph{region-graph} construction
 so that the problem is reduced to solving limit Rabin properties over $\Region{\product{\pta}{\dta_\dtloc}}$.
 \emph{Regions} are finitely-many equivalence classes of clock valuations that serve as a finite abstraction which capture exactly reachability behaviours over timed transitions (cf.~\cite{DBLP:journals/tcs/AlurD94}).
 Then standard methods based on \emph{maximal end components} (MECs) are applied to $\Region{\product{\pta}{\dta_\dtloc}}$.
-In detail, the algorithm computes the reachability probability to MECs that satisfy the Rabin acceptance condition;
+In detail, the algorithm computes the reachability probability to MECs that satisfy the Rabin acceptance condition.
 In order to guarantee time-divergence, the algorithm only picks up MECs with at least one location that has a \textit{tick} label.
-Based on this approach, our result leads to an algorithm for solving the problem PTA-DTA.
+Based on this approach, our result leads to an algorithm for solving the problem PTA-DTRA.
 
 %let $F_*$ be the union of those MECs. Then, we turn to resolve the probability
 %reachability to $F_*$.
@@ -577,7 +577,7 @@ from the MEC-based algorithm illustrated in~\cite[Theorem 10.127]{DBLP:books/dag
 the following proposition.
 
 \begin{proposition}\label{prop:exptime}
-The problem {\sc PTA-DTA} is in EXPTIME in the size of the input PTA and DTA.
+The problem {\sc PTA-DTRA} is in EXPTIME in the size of the input PTA and DTRA.
 \end{proposition}
 
 It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
