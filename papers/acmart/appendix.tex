@@ -10,7 +10,7 @@
 % \end{figure}
 
 \noindent{\bf Lemma~\ref{lemm:pfuncbij}.}
-The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$, $\infpath$ is non-zeno iff $\pfunc(\infpath)$ is non-zeno.
+The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$ under $\pta$, $\infpath$ is non-zeno iff $\pfunc(\infpath)$ is non-zeno.
 \begin{proof}
 The first claim follows directly from the determinism and totality of DTAs.
 The second claim follows from the fact that $\pfunc$ preserves time elapses in the transformation.
@@ -50,8 +50,8 @@ $$
 $$
 %\end{small}
 where $\xi_\pi$ is the unique run of $\dta$ on $\lbfunc(\pi)$ with initial configuration $(\dtloc^*,\zero)$ for which
-$\dtloc^*$ is the unique location such that $\tran{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
-Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path.
+$\dtloc^*$ is the unique location such that $\dtatr{(q,\zero)}{\lbfunc(\loc^*)}{(\dtloc^*,\zero)}$.
+Let $\infpath = (\loc_0,\nu_0) a_0 (\loc_1,\nu_1) a_1 \dots $ be any infinite path under $\pta$.
 By the definition of $\pfunc$ we have
 $$
     \pfunc( \infpath ) =
@@ -61,7 +61,7 @@ $$
         a'_1
         \dots
 $$
-in the form (\ref{eq:trinfpath}) with $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ being the unique run
+in the form (\ref{eq:trinfpath}) such that $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ is the unique run
 on $\lbfunc(\infpath)=a_0a_1\dots$ .
 % 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
 %$$
@@ -72,9 +72,7 @@ Then it is obvious that
 $$\trace{ \pfunc( \infpath ) }
     = q_0 q_1 \dots
     = \traj{
-        \run
-            {\dta}{\iconfig}
-            {\lbfunc(\infpath)}
+        \xi_\infpath
     }.
 $$
 It follows that
@@ -194,7 +192,7 @@ It is then straightforward from definition that an infinite path under $\pta$ vi
 Hence, under any scheduler (for both $\pta$ and $\pta'$), the probability to reach $\fstates$ in $\mathcal{C}$ equals the probability that
 $\pta'$ observes $\dta'$ under initial mode $\dtloc_0$.
 It follows that the problem to compute the maximum/minimum probability to reach $\fstates$ can be polynomially reduced to the PTA-DTRA problem.
-Hence the problem PTA-DTRA is EXPTIME-hard. 
+Hence the problem PTA-DTRA is EXPTIME-hard.
 
 
 

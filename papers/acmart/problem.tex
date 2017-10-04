@@ -69,10 +69,10 @@ we deal with it in our acceptance condition where the initial location is prepro
 \begin{definition}[Path Acceptance]\label{def:fnacc}
 An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
 initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
-if there exists a mode $\dtloc\in\cstates$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and
-the infinite word $\lbfunc(\infpath)$ is Rabin- (or finitely-) accepted by $\dta$ w.r.t
+if there is a configuration $(\dtloc',\nu')$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and
+the infinite word $\lbfunc(\infpath)$ is Rabin-accepted by $\dta$ w.r.t
 $
-\left(\left(q',\nu'\right),\zero\right)
+\left(q',\nu'\right)
 $.
 % $$
 %     \accept{
@@ -103,7 +103,7 @@ The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$ and 
             \right)
 \]
 % \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\tra,q,F}\right)
-where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA $\tra$
+where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA $\tra$ w.r.t $(\dtloc,\zero)$
 $$
     \LangCsAqF = \left \{
         \infpath \in \infpaths{\pta,\sigma} \mid
@@ -176,7 +176,7 @@ Now we introduce the {\sc PTA-TRA} problem.
 
 \begin{compactitem}
 \item {\bf Input:} a well-formed PTA $\pta$, a TRA  $\dta$ and an initial mode $\dtloc$ in $\dta$;
-\item {\bf Output:} $\inf_\sigma \pr{\dtloc}{\sigma}$ and $\sup_\sigma  \pr{\dtloc}{\sigma}$, where $\sigma$ ranges over all time-divergent schedulers.
+\item {\bf Output:} $\inf_\sigma \pr{\dtloc}{\sigma}$ and $\sup_\sigma  \pr{\dtloc}{\sigma}$, where $\sigma$ ranges over all time-divergent schedulers for $\pta$.
 \end{compactitem}
 
 We refer to the problem as {\sc PTA-DTRA} if $\dta$ is deterministic.

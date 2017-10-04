@@ -16,7 +16,7 @@ Besides, it is also interesting to explore model-checking PTAs against Metric Te
 
 Model-checking TAs or MDPs against omega-regular (dense-time) properties is well-studied (cf.~\cite{DBLP:books/daglib/0020348,DBLP:conf/lics/OuaknineW05,DBLP:conf/arts/Vardi99}, etc.).
 PTAs extend both TAs and MDPs with either probability or timing constraints,
-hence requires new techniques for verification problems.
+hence require new techniques for verification problems.
 On one hand, our technique extends techniques for MDPs (e.g.~\cite{DBLP:conf/arts/Vardi99}) with timing constraints.
 On the other hand, our technique is incomparable to techniques for TAs since linear-time model checking of TAs focus mostly on proving decidability of temporal logic formulas (e.g. Metric Temporal logic~\cite{DBLP:journals/rts/Koymans90,DBLP:journals/jacm/AlurFH96,DBLP:conf/lics/OuaknineW05}),
 while we prove that model-checking PTAs against TA-specifications is undecidable.
@@ -29,9 +29,9 @@ Then various results on verifying CTMPs are obtained for specifications through 
 The fundamental difference between CTMPs and PTAs is that the former assign probability distributions to time elapses, while the latter treat time-elapses as pure nondeterminism.
 As a consequence, the techniques for CTMPs cannot be applied to PTAs.
 
-For PTAs, the only relevant result is by Sprosten~\cite{DBLP:conf/qest/Sproston11} who developed an approach for verifying PTAs against deterministic discrete-time omega-regular automata by a similar product construction.
+For PTAs, the only relevant result is by Sproston~\cite{DBLP:conf/qest/Sproston11} who developed an approach for verifying PTAs against deterministic discrete-time omega-regular automata by a similar product construction.
 Our results extend his result in two ways.
-First, our product construction extends his with extra ability to tackle timing constraints from the DTA.
+First, our product construction has the extra ability to tackle timing constraints from the DTA.
 The extension is nontrivial since it needs to resolve the integration between randomness (from the PTA) and timing constraints (from the DTA), and still ensures the EXPTIME-completeness of the problem, matching the computational complexity in the discrete-time case \cite{DBLP:conf/qest/Sproston11}.
 Second, we have proved an undecidability result in the case of general nondeterministic timed automata, thus extending \cite{DBLP:conf/qest/Sproston11} with nondeterminism.
 

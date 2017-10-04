@@ -14,12 +14,12 @@ We first consider Rabin acceptance condition. The main idea for the undecidabili
 %    The construction is similar to \cite[Theorem 3.20.]{DBLP:conf/tapsoft/Vaandrager97}
 %\end{proof}
 %
-\begin{lemma}{(\cite[Theorem 5.2]{DBLP:conf/tapsoft/Vaandrager97})}\label{lemm:undecidability}
+\begin{lemma}{(\cite[Theorem 5.2]{DBLP:journals/tcs/AlurD94})}\label{lemm:undecidability}
 Given a timed automaton over an alphabet $\alphabet$ and an initial mode, the problem of deciding whether it accepts all time-divergent timed words w.r.t B\"{u}chi acceptance condition over $\alphabet$ is undecidable.
 \end{lemma}
 %
 Although Lemma \ref{lemm:undecidability} is on  B\"{u}chi acceptance condition, it holds also for Rabin acceptance condition since Rabin acceptance condition extends  B\"{u}chi acceptance condition.
-Actually the two acceptance conditions are equivalent over timed automata (cf.~\cite[Theorem 3.20]{DBLP:conf/tapsoft/Vaandrager97}).
+Actually the two acceptance conditions are equivalent over timed automata (cf.~\cite[Theorem 3.20]{DBLP:journals/tcs/AlurD94}).
 
 Now we prove the undecidability result as follows.
 The proof idea is that we construct a PTA that can generate every time-divergent timed words with probability $1$ by some time-divergent scheduler.
@@ -77,11 +77,11 @@ Note that we allow no clocks in the construction since clocks are irrelevant for
 Since we omit clocks, we also treat states (of $\pta'$) as single locations.
 One can prove that $\tra$ accepts all time-divergent timed words over $\Sigma$ with initial mode $\qstart$ iff
 the minimal probability that $\pta'$ observes $\dta'$ with initial mode $\qinit$ equals $1$.
-%Moreover, the minimal probability is either $0$ or $1$. 
-For details see Appendix~\ref{app:ptatraundecidability}. 
+%Moreover, the minimal probability is either $0$ or $1$.
+For details see Appendix~\ref{app:ptatraundecidability}.
 \end{proof}
 
 \begin{remark}
-Theorem~\ref{thm:traundecidability} shows that the problem to qualitatively decide the minimal probability is undecidable. 
+Theorem~\ref{thm:traundecidability} shows that the problem to qualitatively decide the minimal probability is undecidable.
 On the other hand, the decidability of the problem to decide maximum acceptance probabilities is left open.
 \end{remark}
