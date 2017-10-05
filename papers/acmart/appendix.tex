@@ -202,7 +202,7 @@ Hence the problem PTA-DTRA is EXPTIME-hard.
 \section{Proof for PTA-TRA Undecidability}\label{app:ptatraundecidability}
 
 \noindent{\bf Theorem~\ref{thm:traundecidability}.}
-Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability 
+Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability
 that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ is undecidable.
 %\end{theorem}
 %
@@ -287,12 +287,13 @@ $$
             0 & \mbox{ if $\nta$ rejects $w$ with $(\qstart,\zero)$ }.
         \end{cases}
 $$
-where the underlying PTA (resp. TRA) is $\pta'$ (resp. $\dta'$). 
+where the underlying PTA (resp. TRA) is $\pta'$ (resp. $\dta'$).
 % $ \PCswLang = 1 $
 % iff $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
-Then we have that
+Since all those $\sigma_w$'s correspond to all time divergent schedulers for $\pta'$, 
+we have that
 $
-\inf_\sigma \probm^{\pta,\sigma}\left(
+\inf_\sigma \probm^{\pta',\sigma}\left(
     \Lang
         {\pta',\sigma}
         {\nta',\qinit}
