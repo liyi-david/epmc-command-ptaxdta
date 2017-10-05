@@ -61,8 +61,8 @@ $$
         a'_1
         \dots
 $$
-in the form (\ref{eq:trinfpath}) such that $\xi_\pi=\{(\dtloc_n,\mu_n,a_{n})\}_{n\in\Nset_0}$ is the unique run
-on $\lbfunc(\infpath)=a_0a_1\dots$ .
+in the form (\ref{eq:trinfpath}) such that $\xi_\pi=\{(\dtloc_n,\mu_n,b_{n})\}_{n\in\Nset_0}$ is the unique run
+on $\lbfunc(\infpath)=b_0b_1\dots$ . Moreover, $\pi$ follows $\sigma$ iff $\pfunc( \infpath )$ follows $\sfunc(\sigma)$ by definition.
 % 我觉得不需要把验证 T（pi) 跟 theta（sigma） 相容 写下来
 %$$
 %    \run{\dta}{\iconfig}{\lbfunc(\infpath)}
@@ -85,18 +85,16 @@ is Rabin accepting by $\rabin$ iff
 $
     \infset{
         \traj {
-            \run
-                {\dta}{\iconfig}
-                {\lbfunc(\infpath)}
+            \xi_\infpath
         }
     }
 $
-is Rabin accepting by $\rabin$.
+is Rabin accepting by $\rabin$. Hence the result follows from Lemma~\ref{lemm:pfuncbij}.
 \end{proof}
 % \vspace{-0.8em}
 \smallskip
 \noindent{\bf Proposition~\ref{thm:main}.}
-For any scheduler $\sigma$ and mode $q$, the followings hold:
+For any scheduler $\sigma$ for $\pta$ and mode $q$, the followings hold:
 \begin{compactitem}
 \item
 {\small $
@@ -154,7 +152,7 @@ By definition, we have that
         & =
         \probm'(\cyl(\fnpath))\enskip.
 \end{align*}
-The first equality comes from the fact that both versions of product construction preserves transition probabilities. The second equality is due to $\cyl(\pfunc(\fnpath))= \pfunc(\cyl(\fnpath))$.
+The first equality comes from the fact that the product construction preserves transition probabilities. The second equality is due to $\cyl(\pfunc(\fnpath))= \pfunc(\cyl(\fnpath))$.
 The final equality follows from the definition.
 Hence $\probm^{\pta,\sigma}=\probm'$.
 Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
@@ -163,11 +161,11 @@ Then the first claim follows from Proposition~\ref{prop:psfunc} and the second c
 \section{The Hardness Result}\label{app:hardness}
 
 Below we prove the hardness of the PTA-DTRA problem. It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
-We show a polynomial-time reduction from the PTA reachibility problem to the PTA-DTA problem as follows.
+We show a polynomial-time reduction from the PTA reachibility problem to the PTA-DTRA problem as follows.
 For an arbitrary PTA $\pta$ in the form (\ref{eq:pta})
 %$\mathcal{C}=(L, l^*, \mathcal{X},Act,inv,enab,prob,\mathcal{L})$
 and a set $\fstates\subseteq\locs$ of final locations,
-we let $\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap',\lbfunc'\right)$ where $\ap':=\ap\cup\{\mbox{\sl acc}\}$ and
+let $\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap',\lbfunc'\right)$ where $\ap':=\ap\cup\{\mbox{\sl acc}\}$ and
 $\lbfunc'$ is defined by
 \begin{displaymath}
     \mathcal{L}'(l):=\left\{
@@ -180,15 +178,16 @@ $\lbfunc'$ is defined by
 for which $\mbox{\sl acc}$ is a fresh atomic proposition.
 We also construct the DTRA $\dta'$ by
 \[
-\dta':=\left(\{q_0,q_1\},\alphabet,\emptyset,\rules,\{(\emptyset, \{q_1\}\}\right)
+\dta':=\left(\{q_0,q_1\},\alphabet,\emptyset,\rules,\{(\emptyset, \{q_1\})\}\right)
 \]
 where $\alphabet:=\{\lbfunc'(\loc)\mid \loc\in\locs\}$ and $\rules$ contains exactly the following rules:
 \begin{compactitem}
-    \item  $(q_0,U,true, \emptyset,q_1)\in\rules$ for all $U\in\alphabet$ such that $\mbox{acc}\in U$;
+    \item  $(q_0,U,\true, \emptyset,q_1)\in\rules$ for all $U\in\alphabet$ such that $\mbox{acc}\in U$;
+    \item  $(q_0,U,\true, \emptyset,q_0)\in\rules$ for all $U\in\alphabet$ such that $\mbox{acc}\not\in U$;
 %$\forall \sigma\in\Sigma, \mbox{acc}\in \sigma \rightarrow (q_0,\sigma,true, \emptyset,q_1)\in\rules$,
-    \item $(q_i,U,true, \emptyset,q_i)\in\rules$ for all $U\in\alphabet$ and $i\in\{0,1\}$.
+    \item $(q_1,U,\true, \emptyset,q_1)\in\rules$ for all $U\in\alphabet$.
 \end{compactitem}
-It is then straightforward from definition that an infinite path under $\pta$ visits some location in $\fstates$ iff the infinite path (under $\pta'$) is accepted by $\dta'$.
+It is then straightforward from definition that an infinite path under $\pta$ visits some location in $\fstates$ iff the infinite path (under $\pta'$) is accepted by $\dta'$ under initial mode $\dtloc_0$.
 Hence, under any scheduler (for both $\pta$ and $\pta'$), the probability to reach $\fstates$ in $\mathcal{C}$ equals the probability that
 $\pta'$ observes $\dta'$ under initial mode $\dtloc_0$.
 It follows that the problem to compute the maximum/minimum probability to reach $\fstates$ can be polynomially reduced to the PTA-DTRA problem.
@@ -203,7 +202,7 @@ Hence the problem PTA-DTRA is EXPTIME-hard.
 \section{Proof for PTA-TRA Undecidability}\label{app:ptatraundecidability}
 
 \noindent{\bf Theorem~\ref{thm:traundecidability}.}
-Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability that
+Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability 
 that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ is undecidable.
 %\end{theorem}
 %
@@ -228,7 +227,7 @@ We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\
 \end{compactitem}
 Then we construct the PTA
 \[
-\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)
+\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 \]
 where:
 \begin{compactitem}
@@ -241,7 +240,7 @@ where:
                                             \ntaap{i} \in \locs
                                             \text{ and }
                                             \ntaap{j} \in \acts$;
-    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\mu(\emptyset,\ntaap{j})=1$ and $\mu(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
+    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
                                             \text{ for }
                                             $\ntaap{i} \in \locs$
                                             \text{ and }
@@ -269,32 +268,33 @@ Then one can define a scheduler $\sigma_w$ by:
 \item $\sigma_w(\rho)$ is arbitrarily defined if $\rho$ is not from the sequence $\{\fnpath_n\}_{n\in\Nset_0}$.
 \end{compactitem}
 Intuitively, $\sigma_w$ always chooses time-delays and actions from $w$.
-Note that $\sigma_w$ is time divergent since $w$ is time divergent.
-Moreover, from definition we have that
+From definition,
 $
-    \probm^{\pta,\sigma_w }\left(
+    \probm^{\pta',\sigma_w }\left(
         \left \{\infpath\mid \lbfunc(\infpath)=w
         \right \}
     \right)
     = 1
 $.
+Note that $\sigma_w$ is time divergent since $w$ is time divergent.
 Hence
 $$
     \pr
         {\qinit}
         {\sigma_w}
         =   \begin{cases}
-            1 & \mbox{ if $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ },\\
-            0 & \mbox{ if $\nta$ rejects $w$ w.r.t. $(\qstart,\zero)$ }.
+            1 & \mbox{ if $\nta$ accepts $w$ with $(\qstart,\zero)$ },\\
+            0 & \mbox{ if $\nta$ rejects $w$ with $(\qstart,\zero)$ }.
         \end{cases}
 $$
+where the underlying PTA (resp. TRA) is $\pta'$ (resp. $\dta'$). 
 % $ \PCswLang = 1 $
 % iff $\nta$ accepts $w$ w.r.t. $(\qstart,\zero)$ and $\PCswLang = 0$ iff $\nta$ rejects $w$ .
 Then we have that
 $
 \inf_\sigma \probm^{\pta,\sigma}\left(
     \Lang
-        {\pta,\sigma}
+        {\pta',\sigma}
         {\nta',\qinit}
 \right)
     = 1

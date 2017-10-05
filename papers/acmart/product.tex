@@ -387,13 +387,13 @@ For any scheduler $\sigma$ for $\pta$ and any initial mode $q$ for $\dta$, we ha
 %is Rabin accepting by $\rabin$.
 %\end{proof}
 
-Finally, we demonstrate the relationship between acceptance probabilities before product construction and reachability probabilities after product construction.
+Finally, we demonstrate the relationship between acceptance probabilities before product construction and Rabin probabilities after product construction.
 We also clarify the probability of zenoness before and after the product construction.
 The proof follows standard argument from measure theory.
 
 % \vspace{-0.8em}
 \begin{proposition}\label{thm:main}
-For any scheduler $\sigma$ and mode $q$, the followings hold:
+For any scheduler $\sigma$ for $\pta$ and mode $q$, the followings hold:
 \begin{compactitem}
 \item
 {\small $
@@ -457,7 +457,7 @@ $}
 %Then the first claim follows from Proposition~\ref{prop:psfunc} and the second claim follows from Lemma~\ref{lemm:pfuncbij}.
 %\end{proof}
 A side result from Proposition~\ref{thm:main} says that $\sfunc$ preserves time-divergence for schedulers before and after product construction.
-From Proposition~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTA} problem into Rabin(-accepting) probabilities under the product PTA.
+From Proposition~\ref{thm:main} and Lemma~\ref{lemm:sfuncbij}, one immediately obtains the following result which transforms the {\sc PTA-DTRA} problem into Rabin(-accepting) probabilities under the product PTA.
 
 % \vspace{-0.8em}
 \begin{corollary}\label{crly:opt}
@@ -582,8 +582,7 @@ The problem {\sc PTA-DTRA} is in EXPTIME in the size of the input PTA and DTRA.
 
 It is proved in \cite{LaroussinieS07} that the reachablity-probability problem for arbitrary PTAs is \emph{EXPTIME}-complete.
 Since Rabin acceptance condition subsumes reachability, one obtains that the problem PTA-DTRA is EXPTIME-hard (cf. Appendix~\ref{app:hardness} for details).
-
-By the reduction, we obtain the main result of this section which settles the computational complexity of the problem PTA-DTRA.
+Thus we obtain the main result of this section which settles the computational complexity of the problem PTA-DTRA.
 
 
 \begin{theorem}
@@ -597,6 +596,6 @@ The PTA-DTRA problem is EXPTIME-complete.
 %\item $\rcum'(\loc,\dtloc):=\rcum(\loc)$ for any $(\loc,\dtloc)\in \locs_\otimes$;
 %\item $\rinst'((\loc,\dtloc),(a,h)):=\rinst(\loc,a)$ for any $(\loc,\dtloc)\in \locs_\otimes$ and $(a,h)\in \acts_\otimes$.
 %\end{compactitem}
-\begin{remark}[Main Novelty]
-The main novelty for our product construction is that by adopting extended actions (i.e. $\exttuples_{\dtloc}$) and integrating them into enabling condition and probabilistic transition function, the product PTA can know which rule to use upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations, causing the usage of different rules from the DTA, while still ensuring EXPTIME-completeness of the problem.
+\begin{remark}
+The main novelty for our product construction is that by adopting extended actions (i.e. $\exttuples_{\dtloc}$) and integrating them into enabling condition and probabilistic transition function, the product PTA can know which rule to use from the DTA upon any symbol to be read. This solves the problem that probabilistic jumps can lead to different locations, causing the usage of different rules from the DTA. Moreover, our product construction ensures EXPTIME-completeness of the problem.
 \end{remark}

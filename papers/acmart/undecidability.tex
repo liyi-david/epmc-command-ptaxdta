@@ -1,10 +1,12 @@
 % \vspace{-0.8em}
 \section{The PTA-TRA problem}
 % \vspace{-0.8em}
-In this section, we study the PTA-NTA problem where the input timed automaton needs not to be deterministic.
-We show that for Rabin acceptance condition, the problem is undecidable, while the problem can be solved approximately through an infinite-state MDP construction when we restrict ourselves to finite acceptance condition.
+In this section, we study the PTA-TRA problem where the input timed automaton needs not to be deterministic.
+In contrast to the deterministic case (which is shown to be decidable and EXPTIME-complete in the previous section), 
+we show that the problem is undecidable.
 
-We first consider Rabin acceptance condition. The main idea for the undecidability result is to reduce the universality problem of timed automata to the PTA-NTA problem. The universality problem over timed automata is well-known to be undecidable, as follows.
+\smallskip
+\noindent{\bf The Main Idea.} The main idea for the undecidability result is to reduce the universality problem of timed automata to the PTA-TRA problem. The universality problem over timed automata is well-known to be undecidable, as follows.
 
 %
 %\begin{lemma}\label{lemm:expressive}
@@ -19,7 +21,7 @@ Given a timed automaton over an alphabet $\alphabet$ and an initial mode, the pr
 \end{lemma}
 %
 Although Lemma \ref{lemm:undecidability} is on  B\"{u}chi acceptance condition, it holds also for Rabin acceptance condition since Rabin acceptance condition extends  B\"{u}chi acceptance condition.
-Actually the two acceptance conditions are equivalent over timed automata (cf.~\cite[Theorem 3.20]{DBLP:journals/tcs/AlurD94}).
+Actually the two acceptance conditions are equivalent over timed automata (cf.~\cite[Theorem 3.20]{DBLP:journals/tcs/AlurD94}). We also remark that Lemma \ref{lemm:undecidability} was originally for multiple initial modes, which can be mimicked by a single initial mode through aggregating all rules emitting from some initial mode as rules emitting from one initial mode. 
 
 Now we prove the undecidability result as follows.
 The proof idea is that we construct a PTA that can generate every time-divergent timed words with probability $1$ by some time-divergent scheduler.
@@ -27,7 +29,7 @@ Then the TRA accepts all time-divergent timed words iff the minimal probability 
 
 %
 \begin{theorem}\label{thm:traundecidability}
-Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability that
+Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability
 that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ is undecidable.
 \end{theorem}
 %
@@ -52,7 +54,7 @@ We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\
 \end{compactitem}
 Then we construct the PTA
 \[
-\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \lbfunc\right)
+\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 \]
 where:
 \begin{compactitem}
@@ -65,7 +67,7 @@ where:
                                             \ntaap{i} \in \locs
                                             \text{ and }
                                             \ntaap{j} \in \acts$;
-    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\mu(\emptyset,\ntaap{j})=1$ and $\mu(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
+    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
                                             \text{ for }
                                             $\ntaap{i} \in \locs$
                                             \text{ and }
