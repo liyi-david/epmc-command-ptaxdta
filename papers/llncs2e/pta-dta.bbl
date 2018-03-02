@@ -1,0 +1,165 @@
+\begin{thebibliography}{10}
+
+\bibitem{DBLP:books/daglib/0020348}
+Baier, C., Katoen, J.:
+\newblock {P}rinciples of {M}odel {C}hecking.
+\newblock {MIT} Press (2008)
+
+\bibitem{DBLP:journals/fmsd/NormanPS13}
+Norman, G., Parker, D., Sproston, J.:
+\newblock Model checking for probabilistic timed automata.
+\newblock Formal Methods in System Design \textbf{43}(2) (2013)  164--190
+
+\bibitem{DBLP:journals/tcs/Beauquier03}
+Beauquier, D.:
+\newblock On probabilistic timed automata.
+\newblock Theor. Comput. Sci. \textbf{292}(1) (2003)  65--84
+
+\bibitem{DBLP:journals/tcs/KwiatkowskaNSS02}
+Kwiatkowska, M.Z., Norman, G., Segala, R., Sproston, J.:
+\newblock Automatic verification of real-time systems with discrete probability
+  distributions.
+\newblock Theor. Comput. Sci. \textbf{282}(1) (2002)  101--150
+
+\bibitem{DBLP:journals/tcs/AlurD94}
+Alur, R., Dill, D.L.:
+\newblock A theory of timed automata.
+\newblock Theor. Comput. Sci. \textbf{126}(2) (1994)  183--235
+
+\bibitem{PutermanMDP}
+Puterman, M.L.:
+\newblock Markov Decision Processes: Discrete Stochastic Dynamic Programming.
+\newblock John Wiley \& Sons, Inc. (1994)
+
+\bibitem{JensenPTA}
+Jensen, H.E.:
+\newblock Model checking probabilistic real time systems.
+\newblock In: 7th Nordic Workshop on Programming Theory, Chalmers University of
+  Technology (1996)  247--261
+
+\bibitem{DBLP:journals/fmsd/AndreFS13}
+Andr{\'{e}}, {\'{E}}., Fribourg, L., Sproston, J.:
+\newblock An extension of the inverse method to probabilistic timed automata.
+\newblock Formal Methods in System Design \textbf{42}(2) (2013)  119--145
+
+\bibitem{DBLP:journals/iandc/KwiatkowskaNSW07}
+Kwiatkowska, M.Z., Norman, G., Sproston, J., Wang, F.:
+\newblock Symbolic model checking for probabilistic timed automata.
+\newblock Inf. Comput. \textbf{205}(7) (2007)  1027--1077
+
+\bibitem{DBLP:conf/formats/KwiatkowskaNP09}
+Kwiatkowska, M.Z., Norman, G., Parker, D.:
+\newblock Stochastic games for verification of probabilistic timed automata.
+\newblock In: {FORMATS}. (2009)  212--227
+
+\bibitem{DBLP:conf/formats/JovanovicKN15}
+Jovanovic, A., Kwiatkowska, M.Z., Norman, G.:
+\newblock Symbolic minimum expected time controller synthesis for probabilistic
+  timed automata.
+\newblock In: {FORMATS}. (2015)  140--155
+
+\bibitem{DBLP:conf/concur/JurdzinskiKNT09}
+Jurdzinski, M., Kwiatkowska, M.Z., Norman, G., Trivedi, A.:
+\newblock Concavely-priced probabilistic timed automata.
+\newblock In: {CONCUR}. (2009)  415--430
+
+\bibitem{DBLP:journals/fmsd/KwiatkowskaNPS06}
+Kwiatkowska, M.Z., Norman, G., Parker, D., Sproston, J.:
+\newblock Performance analysis of probabilistic timed automata using digital
+  clocks.
+\newblock Formal Methods in System Design \textbf{29}(1) (2006)  33--78
+
+\bibitem{DBLP:conf/tamc/BerendsenCJ09}
+Berendsen, J., Chen, T., Jansen, D.N.:
+\newblock Undecidability of cost-bounded reachability in priced probabilistic
+  timed automata.
+\newblock In: {TAMC}. (2009)  128--137
+
+\bibitem{DBLP:conf/cav/KwiatkowskaNP11}
+Kwiatkowska, M.Z., Norman, G., Parker, D.:
+\newblock {PRISM} 4.0: Verification of probabilistic real-time systems.
+\newblock In: {CAV}. (2011)  585--591
+
+\bibitem{DBLP:journals/ipl/LaroussinieS07}
+Laroussinie, F., Sproston, J.:
+\newblock State explosion in almost-sure probabilistic reachability.
+\newblock Inf. Process. Lett. \textbf{102}(6) (2007)  236--241
+
+\bibitem{DBLP:journals/lmcs/JurdzinskiSL08}
+Jurdzinski, M., Sproston, J., Laroussinie, F.:
+\newblock Model checking probabilistic timed automata with one or two clocks.
+\newblock LMCS \textbf{4}(3) (2008)
+
+\bibitem{DBLP:conf/qest/Sproston11}
+Sproston, J.:
+\newblock Discrete-time verification and control for probabilistic rectangular
+  hybrid automata.
+\newblock In: {QEST}. (2011)  79--88
+
+\bibitem{DBLP:journals/rts/Koymans90}
+Koymans, R.:
+\newblock Specifying real-time properties with metric temporal logic.
+\newblock Real-Time Systems \textbf{2}(4) (1990)  255--299
+
+\bibitem{DBLP:conf/lics/OuaknineW05}
+Ouaknine, J., Worrell, J.:
+\newblock On the decidability of metric temporal logic.
+\newblock In: {LICS}. (2005)  188--197
+
+\bibitem{DBLP:journals/jacm/AlurFH96}
+Alur, R., Feder, T., Henzinger, T.A.:
+\newblock The benefits of relaxing punctuality.
+\newblock J. {ACM} \textbf{43}(1) (1996)  116--146
+
+\bibitem{DBLP:journals/tse/DonatelliHS09}
+Donatelli, S., Haddad, S., Sproston, J.:
+\newblock Model checking timed and stochastic properties with
+  {CSL}{\^{}}\{TA\}.
+\newblock {IEEE} Trans. Software Eng. \textbf{35}(2) (2009)  224--240
+
+\bibitem{DBLP:journals/corr/abs-1101-3694}
+Chen, T., Han, T., Katoen, J., Mereacre, A.:
+\newblock Model checking of continuous-time {M}arkov chains against timed
+  automata specifications.
+\newblock Logical Methods in Computer Science \textbf{7}(1) (2011)
+
+\bibitem{DBLP:conf/hybrid/Fu13}
+Fu, H.:
+\newblock Approximating acceptance probabilities of {CTMC}-paths on multi-clock
+  deterministic timed automata.
+\newblock In: {HSCC}. (2013)  323--332
+
+\bibitem{LaroussinieS07}
+Laroussinie, F., Sproston, J.:
+\newblock State explosion in almost-sure probabilistic reachability.
+\newblock Inf. Process. Lett. \textbf{102}(6) (2007)  236--241
+
+\bibitem{DBLP:conf/arts/Vardi99}
+Vardi, M.Y.:
+\newblock Probabilistic linear-time model checking: An overview of the
+  automata-theoretic approach.
+\newblock In: {AMAST}. (1999)  265--276
+
+\bibitem{DBLP:conf/hybrid/BrazdilKKKR11}
+Br{\'{a}}zdil, T., Krc{\'{a}}l, J., Kret{\'{\i}}nsk{\'{y}}, J., Kucera, A.,
+  Reh{\'{a}}k, V.:
+\newblock Measuring performance of continuous-time stochastic processes using
+  timed automata.
+\newblock In: {HSCC}. (2011)  33--42
+
+\bibitem{DBLP:conf/tacas/BarbotCHKM11}
+Barbot, B., Chen, T., Han, T., Katoen, J., Mereacre, A.:
+\newblock Efficient {CTMC} model checking of linear real-time objectives.
+\newblock In: {TACAS}. (2011)  128--142
+
+\bibitem{DBLP:conf/formats/BortolussiL15}
+Bortolussi, L., Lanciani, R.:
+\newblock Fluid model checking of timed properties.
+\newblock In: {FORMATS}. (2015)  172--188
+
+\bibitem{PBMeasure}
+Billingsley, P.:
+\newblock {P}robability and {M}easure. Anniversary edition edn.
+\newblock Wiley (2012)
+
+\end{thebibliography}
