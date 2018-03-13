@@ -1,6 +1,6 @@
-% \vspace{-0.8em}
+\vspace{-1.8em}
 \section{The PTA-TRA problem}
-% \vspace{-0.8em}
+\vspace{-1em}
 In this section, we study the PTA-TRA problem where the input timed automaton needs not to be deterministic.
 In contrast to the deterministic case (which is shown to be decidable and EXPTIME-complete in the previous section), 
 we show that the problem is undecidable.
@@ -26,7 +26,6 @@ Actually the two acceptance conditions are equivalent over timed automata (cf.~\
 Now we prove the undecidability result as follows.
 The proof idea is that we construct a PTA that can generate every time-divergent timed words with probability $1$ by some time-divergent scheduler.
 Then the TRA accepts all time-divergent timed words iff the minimal probability that the PTA observes the TRA equals $1$.
-
 %
 \begin{theorem}\label{thm:traundecidability}
 Given a PTA $\pta$ and a TRA $\dta$, the problem to decide whether the minimal probability
@@ -53,9 +52,9 @@ We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\
     \}$.
 \end{compactitem}
 Then we construct the PTA
-\[
+$
 \pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
-\]
+$
 where:
 \begin{compactitem}
     \item $\locs      :=  \alphabet'$, $\loc^*     :=  \ntaap{0} $, $\clocks    :=  \emptyset $ and $\acts      :=  \alphabet $;

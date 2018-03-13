@@ -1,6 +1,6 @@
-% \vspace{-0.8em}
+\vspace{-1.8em}
 \section{The PTA-DTRA Problem}
-% \vspace{-0.8em}
+\vspace{-1em}
 In this section, we solve the {\sc PTA-DTRA} problem through a product construction.
 Based on the product construction, we also settle the complexity of the problem.
 Below we fix a well-formed PTA $\pta$ in the form (\ref{eq:pta}) and a DTRA $\dta$ in the form (\ref{eq:tra}).
@@ -23,17 +23,16 @@ enough information on clock valuations under $\dta$ so that the rule used for th
 \noindent{\textbf{The Product Construction.}}
 For each $\dtloc\in\cstates$, we let
 \begin{align*}
-&\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\dtclocks}\mid\\
-&\qquad
+\exttuples_{\dtloc}:=\{h:\alphabet\rightarrow\clcons{\dtclocks}\mid
 \forall b\in\alphabet.\left(\dtloc, b, h(b), X, \dtloc')\in\rules\mbox{ for some }X, \dtloc'\right)\}\enskip.
 \end{align*}
 The totality of $\rules$ ensures that $\exttuples_{\dtloc}$ is non-empty.
 Intuitively, every element of $\exttuples_{\dtloc}$ is a tuple of clock constraints $\{\phi_b\}_{b\in\alphabet}$, where each
 clock constraint $\phi_b$ is chosen from the rules emitting from $\dtloc$ and $b$.
 The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with initial mode $\dtloc$) is defined as
-\[
+$
 \left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \cstates, \lbfunc_\otimes\right)
-\]
+$
 where:
 \begin{compactitem}
 \item $\locs_\otimes:=\locs\times \cstates$;
@@ -73,9 +72,6 @@ Then in the definition for $\prob_\otimes$, upon the action $(a,h)$, the product
 Finally, we label each $(\loc,\dtloc)$ by $\dtloc$ to meet the Rabin acceptance condition.\qed
 
 It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$ is well-formed and $\dta$ does not introduce extra invariant conditions.
-
-
-
 \begin{figure*}
     \centering
     \resizebox{1.0\textwidth}{!}{
@@ -84,7 +80,6 @@ It is easy to see that the PTA $\product{\pta}{\dta_q}$ is well-formed as $\pta$
     \caption{The Product PTA for Our Running Example}
     \label{fig:product}
 \end{figure*}
-
 \begin{example}
 The product PTA between the PTA in Example~\ref{ex:pta} and the DTRA in Example~\ref{ex:dta} is depicted in Figure~\ref{fig:product}.
 In the figure, $\PairS{\WORK{\alpha}}{\q{\alpha}}, \PairS{\WORK{\beta}}{\q{\beta}}$ and
@@ -102,8 +97,6 @@ From the construction of $\exttuples_{\dtloc}$'s, the functions $h_i$'s are as f
 \item $h_7=\{\{ \beta \} \mapsto C_\beta < y ,\{ \alpha  \} \mapsto W_\alpha< y\}$.
 \end{compactitem}
 The intuition is that the DTA accepts all infinite paths under the PTA such that the failing time for job $\gamma$ ($\gamma\in\{\alpha,\beta\}$) (the time within the consecutive $\gamma$'s) should be no greater than $C_\gamma$ and the waiting time for job $\gamma$ (the failing time plus the time spent on the last $\gamma$) should be no greater than $W_\gamma$.
-
-
 %Here for the accepting mod  in DTA, we have
 %\begin{align*}
 %    &
@@ -161,8 +154,6 @@ The intuition is that the DTA accepts all infinite paths under the PTA such that
 %$
 %are locations.
 \end{example}
-
-
 % \vspace{-0.8em}
 
 % \vspace{-0.8em}
@@ -205,9 +196,7 @@ under $\pta$, we define $\pfunc(\infpath)$ to be the unique infinite path
 \pfunc(\infpath):=((\loc_0,\dtloc_0),\nu_0\cup\mu_0)a'_0((\loc_1,\dtloc_1),\nu_1\cup\mu_1)a'_1\dots
 \end{equation}
 under $\product{\pta}{\dta_\dtloc}$ such that the three conditions in (\dag) hold for all $k\in\Nset_0$ instead of all $0\le k< n$. From the determinism and totality of $\dta$, it is straightforward to prove the following result.
-
 %The following lemma shows that $\pfunc$ is a bijection and preserves zenoness.
-
 \begin{lemma}\label{lemm:pfuncbij}
 The function $\pfunc$ is a bijection. Moreover, for any infinite path $\infpath$ under $\pta$, $\infpath$ is non-zeno iff $\pfunc(\infpath)$ is non-zeno.
 \end{lemma}
@@ -465,9 +454,10 @@ For any initial mode $q$,
 % there exists an $\rabin_* \subseteq \locs_\otimes$
 % s.t. $\rabin_*$ is a union of several maximal end
 % components that satisfy $\rabin$.
-\begin{align*}
+% \begin{align*}
+$
     \opt_\sigma\pr{\dtloc}{\sigma}
-        & =
+        =
             \opt_{\sigma'}
             \probm^{\product{\pta}{\dta_\dtloc},\sigma'}\left(
 %                \Accept
@@ -491,7 +481,8 @@ For any initial mode $q$,
         %             {\product{\pta}{\dta_\dtloc},\sigma'''}
         %             {\rabin_*}
         %     \right),
-\end{align*}
+% \end{align*}
+$
 where $\opt$ refers to either $\inf$ (infimum) or $\sup$ (supremum),
 $\sigma$ (resp. $\sigma'$) range over all time-divergent schedulers
 for $\pta$ (resp. $\product{\pta}{\dta_\dtloc}$).

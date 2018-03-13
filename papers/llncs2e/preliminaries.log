@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.3.21)  28 FEB 2018 17:32
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.3.21)  13 MAR 2018 10:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -42,7 +42,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 
 Overfull \hbox (20.0pt too wide) in paragraph at lines 2--4
-[] 
+[]
  []
 
 
@@ -1090,36 +1090,6 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no : in font nullfont!
-
-Overfull \hbox (23.51093pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 Clock
- []
-
-
-Overfull \hbox (21.46652pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 Con-
- []
-
-
-Overfull \hbox (35.3942pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 straints.
- []
-
-
-Overfull \hbox (20.95538pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 clock
- []
-
-
-Overfull \hbox (18.39986pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 con-
- []
-
-
-Overfull \hbox (32.32755pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/it/10 straints
- []
-
 ! Undefined control sequence.
 l.24 \phi:=~\true
                  ~\mid~x\le d~\mid ~c\le x~\mid~x+c\le y+d~\mid ~\neg\phi~\m...
@@ -1128,17 +1098,6 @@ of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (191.97131pt too wide) detected at line 25
-\OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 :=  [] [] \OMS/cmsy/m/n/10 j  []\OML/cmm/m
-/it/10 x \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 d [] \OMS/cmsy/m/n/10 j  []\OML/
-cmm/m/it/10 c \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 x [] \OMS/cmsy/m/n/10 j  []
-\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 c \OMS/cmsy/m/n/10 ^^T \O
-ML/cmm/m/it/10 y \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 d [] \OMS/cmsy/m/n/10 j  []
-:\OML/cmm/m/it/10 ^^^ [] \OMS/cmsy/m/n/10 j  []\OML/cmm/m/it/10 ^^^ \OMS/cmsy/m
-/n/10 ^ \OML/cmm/m/it/10 ^^^
- []
 
 Missing character: There is no w in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -1451,62 +1410,131 @@ Missing character: There is no f in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (24.86568pt too wide) in paragraph at lines 25--30
- $\OML/cmm/m/it/10 x; y \OMS/cmsy/m/n/10 2$
+Overfull \hbox (23.51093pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 Clock
  []
 
 
-Overfull \hbox (27.90736pt too wide) in paragraph at lines 25--30
+Overfull \hbox (21.46652pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 Con-
+ []
+
+
+Overfull \hbox (35.3942pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 straints.
+ []
+
+
+Overfull \hbox (20.95538pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 clock
+ []
+
+
+Overfull \hbox (18.39986pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 con-
+ []
+
+
+Overfull \hbox (32.32755pt too wide) in paragraph at lines 22--30
+\OT1/cmr/m/it/10 straints
+ []
+
+
+Overfull \hbox (46.67334pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 :=  [] [] \OMS/cmsy/m/n/10 j  []\OML/cmm/m
+/it/10 x \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (28.42114pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 d [] \OMS/cmsy/m/n/10 j  []\OML/cmm/m/it/10 c \OMS/cmsy/m/n/10
+ ^^T
+ []
+
+
+Overfull \hbox (27.54155pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 x [] \OMS/cmsy/m/n/10 j  []\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 
++
+ []
+
+
+Overfull \hbox (14.88307pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 c \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (13.0394pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 y \OT1/cmr/m/n/10 +
+ []
+
+
+Overfull \hbox (47.12134pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 d [] \OMS/cmsy/m/n/10 j  []:\OML/cmm/m/it/10 ^^^ [] \OMS/cmsy/
+m/n/10 j  []\OML/cmm/m/it/10 ^^^ \OMS/cmsy/m/n/10 ^
+ []
+
+
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 ^^^$
+ []
+
+
+Overfull \hbox (24.86568pt too wide) in paragraph at lines 22--30
+\OML/cmm/m/it/10 x; y \OMS/cmsy/m/n/10 2$
+ []
+
+
+Overfull \hbox (27.90736pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 c; d \OMS/cmsy/m/n/10 2[]$
  []
 
 
-Overfull \hbox (6.66669pt too wide) in paragraph at lines 25--30
+Overfull \hbox (6.66669pt too wide) in paragraph at lines 22--30
 \OMS/cmsy/m/n/10 :$
  []
 
 
-Overfull \hbox (8.88896pt too wide) in paragraph at lines 25--30
+Overfull \hbox (8.88896pt too wide) in paragraph at lines 22--30
 \OMS/cmsy/m/n/10 j[][]$
  []
 
 
-Overfull \hbox (5.57639pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.57639pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^W$
  []
 
 
-Overfull \hbox (5.95834pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^^$
  []
 
 
-Overfull \hbox (15.15967pt too wide) in paragraph at lines 25--30
+Overfull \hbox (15.15967pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 x \OMS/cmsy/m/n/10 2$
  []
 
 
-Overfull \hbox (5.95834pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^^$
  []
 
 
-Overfull \hbox (19.06946pt too wide) in paragraph at lines 25--30
+Overfull \hbox (19.06946pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^W\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$
  []
 
 
-Overfull \hbox (5.95834pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^^$
  []
 
 
-Overfull \hbox (5.95834pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^^$
  []
 
 
-Overfull \hbox (5.95834pt too wide) in paragraph at lines 25--30
+Overfull \hbox (5.95834pt too wide) in paragraph at lines 22--30
 \OML/cmm/m/it/10 ^^^$ 
  []
 
@@ -4037,8 +4065,6 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Misplaced alignment tab character &.
-<recently read> &
-                 
 l.96         &
                \begin{cases}
 I can't figure out why you would want to use a tab mark
@@ -4922,32 +4948,6 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no e in font nullfont!
-
-Overfull \hbox (27.48317pt too wide) in paragraph at lines 110--112
-\OT1/cmr/m/it/10 Paths.
- []
-
-
-Overfull \hbox (9.19994pt too wide) in paragraph at lines 110--112
-\OT1/cmr/m/it/10 fi-
- []
-
-
-Overfull \hbox (16.611pt too wide) in paragraph at lines 110--112
-\OT1/cmr/m/it/10 nite
- []
-
-
-Overfull \hbox (18.14432pt too wide) in paragraph at lines 110--112
-\OT1/cmr/m/it/10 path
- []
-
-
-Overfull \hbox (136.32858pt too wide) detected at line 114
-[]  [] []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^U \OT1/cmr/m/n/
-10 0)
- []
-
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
@@ -5191,126 +5191,6 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no e in font nullfont!
-
-Overfull \hbox (68.48625pt too wide) in paragraph at lines 114--122
- $\OMS/cmsy/m/n/10 ^^B[][]$
- []
-
-
-Overfull \hbox (19.72914pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 s[] \OT1/cmr/m/n/10 =
- []
-
-
-Overfull \hbox (16.81944pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 )$
- []
-
-
-Overfull \hbox (23.63658pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2
- []
-
-
-Overfull \hbox (26.11113pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 1\OT1/cmr/m/n/10 )$
- []
-
-
-Overfull \hbox (33.76163pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2$
- []
-
-
-Overfull \hbox (15.55553pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (16.07635pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (7.34332pt too wide) in paragraph at lines 114--122
-[]$
- []
-
-
-Overfull \hbox (15.55553pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (16.07635pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (17.57947pt too wide) in paragraph at lines 114--122
-[]$
- []
-
-
-Overfull \hbox (15.55553pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (16.07635pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
- []
-
-
-Overfull \hbox (13.78015pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@
- []
-
-
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/n/10 1$
- []
-
-
-Overfull \hbox (39.54643pt too wide) in paragraph at lines 114--122
-[][][]$
- []
-
-
-Overfull \hbox (13.3333pt too wide) in paragraph at lines 114--122
-[] \OT1/cmr/m/n/10 :=
- []
-
-
-Overfull \hbox (6.00235pt too wide) in paragraph at lines 114--122
-\OML/cmm/m/it/10 n$
- []
-
-
-Overfull \hbox (12.26659pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/it/10 in-
- []
-
-
-Overfull \hbox (9.19994pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/it/10 fi-
- []
-
-
-Overfull \hbox (16.611pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/it/10 nite
- []
-
-
-Overfull \hbox (18.14432pt too wide) in paragraph at lines 114--122
-\OT1/cmr/m/it/10 path
- []
-
-
-Overfull \hbox (75.11336pt too wide) detected at line 124
-[]
- []
-
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
@@ -5488,17 +5368,167 @@ and I'll forget about whatever was undefined.
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (61.90015pt too wide) in paragraph at lines 124--129
- $[][]$
+Overfull \hbox (27.48317pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 Paths.
  []
 
 
-Overfull \hbox (19.93288pt too wide) in paragraph at lines 124--129
+Overfull \hbox (9.19994pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 fi-
+ []
+
+
+Overfull \hbox (16.611pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 nite
+ []
+
+
+Overfull \hbox (18.14432pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 path
+ []
+
+
+Overfull \hbox (124.66196pt too wide) in paragraph at lines 110--129
+[]  [] []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^U
+ []
+
+
+Overfull \hbox (8.88892pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 0)$
+ []
+
+
+Overfull \hbox (68.48625pt too wide) in paragraph at lines 110--129
+\OMS/cmsy/m/n/10 ^^B[][]$
+ []
+
+
+Overfull \hbox (19.72914pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 s[] \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (16.81944pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (23.63658pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (26.11113pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 1\OT1/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (33.76163pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2$
+ []
+
+
+Overfull \hbox (15.55553pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (16.07635pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (7.34332pt too wide) in paragraph at lines 110--129
+[]$
+ []
+
+
+Overfull \hbox (15.55553pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (16.07635pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (17.57947pt too wide) in paragraph at lines 110--129
+[]$
+ []
+
+
+Overfull \hbox (15.55553pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (16.07635pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (13.78015pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (39.54643pt too wide) in paragraph at lines 110--129
+[][][]$
+ []
+
+
+Overfull \hbox (13.3333pt too wide) in paragraph at lines 110--129
+[] \OT1/cmr/m/n/10 :=
+ []
+
+
+Overfull \hbox (6.00235pt too wide) in paragraph at lines 110--129
+\OML/cmm/m/it/10 n$
+ []
+
+
+Overfull \hbox (12.26659pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 in-
+ []
+
+
+Overfull \hbox (9.19994pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 fi-
+ []
+
+
+Overfull \hbox (16.611pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 nite
+ []
+
+
+Overfull \hbox (18.14432pt too wide) in paragraph at lines 110--129
+\OT1/cmr/m/it/10 path
+ []
+
+
+Overfull \hbox (75.11336pt too wide) in paragraph at lines 110--129
+[]$
+ []
+
+
+Overfull \hbox (61.90015pt too wide) in paragraph at lines 110--129
+[][]$
+ []
+
+
+Overfull \hbox (19.93288pt too wide) in paragraph at lines 110--129
 \OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 2[]$
  []
 
 
-Overfull \hbox (88.93053pt too wide) in paragraph at lines 124--129
+Overfull \hbox (88.93053pt too wide) in paragraph at lines 110--129
 []$
  []
 
@@ -6223,46 +6253,6 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
-
-Overfull \hbox (46.26631pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 Probability
- []
-
-
-Overfull \hbox (28.1109pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 Spaces
- []
-
-
-Overfull \hbox (14.56657pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 un-
- []
-
-
-Overfull \hbox (13.92767pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 der
- []
-
-
-Overfull \hbox (28.1109pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 Sched-
- []
-
-
-Overfull \hbox (23.89429pt too wide) in paragraph at lines 141--144
-\OT1/cmr/m/it/10 ulers.
- []
-
-
-Overfull \hbox (6.0729pt too wide) in paragraph at lines 141--144
-\OML/cmm/m/it/10 ^^[$
- []
-
-
-Overfull \hbox (6.0729pt too wide) in paragraph at lines 141--144
-\OML/cmm/m/it/10 ^^[$
- []
-
 ! Undefined control sequence.
 l.145 (\Omega^{\pta
                    ,\sigma}, \mathcal{F}^{\pta,\sigma}, \probm^{\pta,\sigma})
@@ -6298,13 +6288,6 @@ of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (55.34969pt too wide) detected at line 146
-\OT1/cmr/m/n/10 (
-[]\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 F[]\OML/cmm/m/it/10 ;[] \OT1/cmr/m/n/10 )
-
- []
 
 Missing character: There is no w in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -6695,54 +6678,101 @@ and I'll forget about whatever was undefined.
 
 Missing character: There is no , in font nullfont!
 
-Overfull \hbox (28.31563pt too wide) in paragraph at lines 146--150
-  $\OT1/cmr/m/n/10 
+Overfull \hbox (46.26631pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 Probability
+ []
+
+
+Overfull \hbox (28.1109pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 Spaces
+ []
+
+
+Overfull \hbox (14.56657pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 un-
+ []
+
+
+Overfull \hbox (13.92767pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 der
+ []
+
+
+Overfull \hbox (28.1109pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 Sched-
+ []
+
+
+Overfull \hbox (23.89429pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/it/10 ulers.
+ []
+
+
+Overfull \hbox (6.0729pt too wide) in paragraph at lines 141--150
+\OML/cmm/m/it/10 ^^[$
+ []
+
+
+Overfull \hbox (6.0729pt too wide) in paragraph at lines 141--150
+\OML/cmm/m/it/10 ^^[$
+ []
+
+
+Overfull \hbox (55.34969pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/n/10 (
+[]\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 F[]\OML/cmm/m/it/10 ;[] \OT1/cmr/m/n/10 )
+$
+ []
+
+
+Overfull \hbox (28.31563pt too wide) in paragraph at lines 141--150
+\OT1/cmr/m/n/10 
 [] :=
  []
 
 
-Overfull \hbox (10.51732pt too wide) in paragraph at lines 146--150
+Overfull \hbox (10.51732pt too wide) in paragraph at lines 141--150
 []$
  []
 
 
-Overfull \hbox (15.94063pt too wide) in paragraph at lines 146--150
+Overfull \hbox (15.94063pt too wide) in paragraph at lines 141--150
 \OMS/cmsy/m/n/10 F[]$
  []
 
 
-Overfull \hbox (7.7778pt too wide) in paragraph at lines 146--150
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 141--150
 \OT1/cmr/m/n/10 ()$
  []
 
 
-Overfull \hbox (10.51732pt too wide) in paragraph at lines 146--150
+Overfull \hbox (10.51732pt too wide) in paragraph at lines 141--150
 []$
  []
 
 
-Overfull \hbox (7.7601pt too wide) in paragraph at lines 146--150
+Overfull \hbox (7.7601pt too wide) in paragraph at lines 141--150
 []$
  []
 
 
-Overfull \hbox (7.7778pt too wide) in paragraph at lines 146--150
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 141--150
 \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (65.0417pt too wide) in paragraph at lines 146--150
+Overfull \hbox (65.0417pt too wide) in paragraph at lines 141--150
 \OML/cmm/m/it/10 s[]a[] [] a[]s[]$
  []
 
 
-Overfull \hbox (10.51732pt too wide) in paragraph at lines 146--150
+Overfull \hbox (10.51732pt too wide) in paragraph at lines 141--150
 []$ 
  []
 
 ! Undefined control sequence.
-l.151 \probm
-            ^{\pta,\sigma}(\cyl(\fnpath))=\prod_{k=0}^{n-1} \probk(s_k, \sig...
+l.151 \textstyle{\probm
+                       ^{\pta,\sigma}(\cyl(\fnpath))=\prod_{k=0}^{n-1} \prob...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -6750,8 +6780,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.151 \probm^{\pta
-                  ,\sigma}(\cyl(\fnpath))=\prod_{k=0}^{n-1} \probk(s_k, \sig...
+l.151 \textstyle{\probm^{\pta
+                             ,\sigma}(\cyl(\fnpath))=\prod_{k=0}^{n-1} \prob...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -6759,8 +6789,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.151 \probm^{\pta,\sigma}(\cyl
-                               (\fnpath))=\prod_{k=0}^{n-1} \probk(s_k, \sig...
+l.151 \textstyle{\probm^{\pta,\sigma}(\cyl
+                                          (\fnpath))=\prod_{k=0}^{n-1} \prob...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -6768,8 +6798,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.151 \probm^{\pta,\sigma}(\cyl(\fnpath
-                                       ))=\prod_{k=0}^{n-1} \probk(s_k, \sig...
+l.151 \textstyle{\probm^{\pta,\sigma}(\cyl(\fnpath
+                                                  ))=\prod_{k=0}^{n-1} \prob...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -6786,10 +6816,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (178.45927pt too wide) detected at line 152
-[]\OT1/cmr/m/n/10 (()) = [](\OML/cmm/m/it/10 s[]; ^^[\OT1/cmr/m/n/10 (\OML/cmm/
-m/it/10 s[]a[] [] a[]s[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; s[]\OT1/cmr/m/n/10 
-)\OML/cmm/m/it/10 :
+Overfull \hbox (188.40375pt too wide) detected at line 152
+[]
  []
 
 Missing character: There is no F in font nullfont!
