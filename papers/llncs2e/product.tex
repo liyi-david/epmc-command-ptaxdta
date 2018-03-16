@@ -1,4 +1,4 @@
-\vspace{-1.8em}
+\vspace{-1.6em}
 \section{The PTA-DTRA Problem}
 \vspace{-1em}
 In this section, we solve the {\sc PTA-DTRA} problem through a product construction.
@@ -33,17 +33,15 @@ The \emph{product PTA} $\product{\pta}{\dta_q}$ (between $\pta$ and $\dta$ with 
 $
 \left({\locs}_\otimes, \loc^*_\otimes, \clocks_\otimes, \acts_\otimes, \inv_\otimes, \enab_\otimes,  \prob_\otimes, \cstates, \lbfunc_\otimes\right)
 $
-where:
-\begin{compactitem}
-\item $\locs_\otimes:=\locs\times \cstates$;
-\item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode such that $\dtatr{(\dtloc,\zero)}{\lbfunc(\loc^*)}{(q^\star,\zero)}$;
+where
+$\locs_\otimes:=\locs\times \cstates$,
+$\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode such that $\dtatr{(\dtloc,\zero)}{\lbfunc(\loc^*)}{(q^\star,\zero)}$,
     %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
-\item $\clocks_\otimes:=\clocks\cup\dtclocks$;
-\item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
-\item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
-\item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise;
+$\clocks_\otimes:=\clocks\cup\dtclocks$,
+$\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$, %$\acts_\otimes:=\acts\times\rules$;
+$\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$,
+$\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise,
 %$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
-\item
 $
     \lbfunc_\otimes \left(
         \loc,\dtloc
@@ -54,9 +52,10 @@ $
     \mbox{ for all } \left (
         \loc,\dtloc
     \right )
-    \in \locs_\otimes;
-$
-\item $\prob_\otimes$ is given by
+    \in \locs_\otimes
+$ 
+and 
+$\prob_\otimes$ is given by
 \begin{align*}
 &\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
 &~~\begin{cases}
@@ -65,7 +64,39 @@ $
 0 & \mbox{otherwise}
 \end{cases}\enskip.
 \end{align*}
-\end{compactitem}
+
+% \begin{compactitem}
+% \item $\locs_\otimes:=\locs\times \cstates$;
+% \item $\loc^*_\otimes:=(\loc^*, q^\star)$ where $q^\star$ is the unique mode such that $\dtatr{(\dtloc,\zero)}{\lbfunc(\loc^*)}{(q^\star,\zero)}$;
+%     %and ${\left[\zero\right]}_\sim$ is the region which contains the sole element $\zero$;
+% \item $\clocks_\otimes:=\clocks\cup\dtclocks$;
+% \item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
+% \item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
+% \item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise;
+% %$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
+% \item
+% $
+%     \lbfunc_\otimes \left(
+%         \loc,\dtloc
+%     \right)
+%         := \left \{
+%             \dtloc
+%         \right \}
+%     \mbox{ for all } \left (
+%         \loc,\dtloc
+%     \right )
+%     \in \locs_\otimes;
+% $
+% \item $\prob_\otimes$ is given by
+% \begin{align*}
+% &\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
+% &~~\begin{cases}
+% \prob\left(\loc,a\right)(Y\cap \clocks,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')\\
+% & \mbox{\quad is a (unique) rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
+% 0 & \mbox{otherwise}
+% \end{cases}\enskip.
+% \end{align*}
+% \end{compactitem}
 Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
 This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.
 Then in the definition for $\prob_\otimes$, upon the action $(a,h)$, the product PTA first perform probabilistic jump from $\pta$ with the target location $\loc'$, then chooses the unique rule $(\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')$ from the emitting mode $\dtloc$ and the label $\lbfunc\left(\loc'\right)$ for which the uniqueness comes from the determinism of $\rules$, then perform the discrete transition from $\dta$.

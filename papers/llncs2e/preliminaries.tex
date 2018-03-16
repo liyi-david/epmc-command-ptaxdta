@@ -1,4 +1,4 @@
-\vspace{-1.8em}
+\vspace{-1.5em}
 \section{Preliminaries}
 \vspace{-1em}
 
@@ -40,9 +40,9 @@ For a given clock constraint $\phi$, we denote by $\sat{\phi}$ the set of all cl
 %Equivalence classes of $\sim_N$ are called \emph{regions}.
 %%The equivalence class that contains a given clock valuation $\nu$ is denoted by $\evclass{\nu}_{\sim_N}$.
 %%We simply write $\evclass{\nu}_{\sim}$ if $N$ is clear from the context.
-\vspace{-1.8em}
+\vspace{-1.5em}
 \subsection{Probabilistic Timed Automata}
-\vspace{-1em}
+\vspace{-0.6em}
 
 %\smallskip \noindent{\em Discrete Probability Distributions.}
 A \emph{discrete probability distribution} over a countable non-empty set $U$ is a function $q:U\rightarrow[0,1]$ such that $\sum_{z\in U}q(z)=1$.
@@ -50,26 +50,35 @@ The \emph{support} of $q$ is defined as $\supp{q}:=\{z\in U\mid q(z)>0\}$.
 We denote the set of discrete probability distributions over $U$ by $\dist{U}$.
 %For $u \in U$, we let $\mu_u$ be the \emph{Dirac distribution at $u$} which assigns probability 1 to $u$.
 
-% \vspace{-0.8em}
+\vspace{-0.6em}
 \begin{definition}[Probabilistic Timed Automata~\cite{DBLP:journals/fmsd/NormanPS13}]
 A \emph{probabilistic timed automaton} (PTA) $\pta$ is a tuple
 \begin{equation}\label{eq:pta}
 \pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 \end{equation}
-where:
-\begin{compactitem}
-\item $\locs$ is a finite set of \emph{locations};
-\item $\loc^*\in\locs$ is the \emph{initial} location;
-\item $\clocks$ is a finite set of \emph{clocks};
-\item $\acts$ is a finite set of \emph{actions};
-\item $\inv:\locs\rightarrow\clcons{\clocks}$ is
-%a function which assigns to every location
-an \emph{invariant condition};
-\item $\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition};
-\item $\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function};
-\item $\ap$ is a finite set of \emph{atomic propositions};
-\item $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
-\end{compactitem}
+where 
+$\locs$ is a finite set of \emph{locations},
+$\loc^*\in\locs$ is the \emph{initial} location,
+$\clocks$ is a finite set of \emph{clocks},
+$\acts$ is a finite set of \emph{actions},
+$\inv:\locs\rightarrow\clcons{\clocks}$ is an \emph{invariant condition},
+$\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition},
+$\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function},
+$\ap$ is a finite set of \emph{atomic propositions} and 
+$\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
+% \begin{compactitem}
+% \item $\locs$ is a finite set of \emph{locations};
+% \item $\loc^*\in\locs$ is the \emph{initial} location;
+% \item $\clocks$ is a finite set of \emph{clocks};
+% \item $\acts$ is a finite set of \emph{actions};
+% \item $\inv:\locs\rightarrow\clcons{\clocks}$ is
+% %a function which assigns to every location
+% an \emph{invariant condition};
+% \item $\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition};
+% \item $\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function};
+% \item $\ap$ is a finite set of \emph{atomic propositions};
+% \item $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
+% \end{compactitem}
 \end{definition}
 % \vspace{-0.8em}
 %
@@ -241,7 +250,7 @@ Note that we omit the initial location in this example.
 %The set of all infinite paths visiting $U$ infinitely often is denoted by $\omgpaths{\pta,\sigma}{U}$.
 \vspace{-1.8em}
 \subsection{Timed Automata}
-\vspace{-1em}
+\vspace{-0.6em}
 \begin{definition}[Timed Automata ~\cite{DBLP:journals/tse/DonatelliHS09,DBLP:journals/corr/abs-1101-3694,DBLP:conf/hybrid/Fu13}]
 A \emph{timed automaton} (TA)
 %(NTA)

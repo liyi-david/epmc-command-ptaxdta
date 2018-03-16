@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex pta-dta"] 1520910917 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1520910918
+["bibtex pta-dta"] 1521194332 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1521194403
   "./splncs.bst" 1503935740 20516 e8608ac05dbe2ead5d4b8e9d3cf4edb2 ""
-  "pta-dta.aux" 1520910918 6089 5bcf99074d1aab04d8cd28c07df32041 ""
+  "pta-dta.aux" 1521194403 6089 03f2766ce9198211887b6923f5041b56 ""
   "pta-dta.bcf" 0 -1 0 ""
   "pta-dta.bib" 1506962220 21174 f983474f9351e53ec83221b65b5d3c20 ""
   (generated)
-  "pta-dta.bbl"
   "pta-dta.blg"
-["pdflatex"] 1520910917 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1520910918
+  "pta-dta.bbl"
+["pdflatex"] 1521194401 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1521194403
   "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -168,15 +168,15 @@
   "example_pta.tex" 1506920200 2007 c4bf75eee687afde674a44559c2a226c ""
   "introduction.tex" 1520908608 6139 eafb8f4f9a8a7b101a05ed839e1124e0 ""
   "llncs.cls" 1504411062 42883 271b24d426a51b6c1c27d8179541db82 ""
-  "preliminaries.tex" 1520910631 27135 123fefcecbc6ab2b2e443d227ef70493 ""
-  "problem.tex" 1520910845 10144 bffd2221dbb1a9651e7aaff27a001175 ""
-  "product.tex" 1520910844 29344 270b98d8f31230c304a9317d898e89c4 ""
-  "pta-dta.aux" 1520910918 6089 5bcf99074d1aab04d8cd28c07df32041 ""
-  "pta-dta.bbl" 1520910917 6077 107327e2406611db3f45dd16a4e41946 "bibtex pta-dta"
+  "preliminaries.tex" 1521194375 27748 0d4ea1ba8c3c7a2f474e96b5a2a72d07 ""
+  "problem.tex" 1521194400 10131 e0608e8612e57d87af02fc20f661dcc0 ""
+  "product.tex" 1521194374 31058 d251d53262d742d46ebde686fa1a2b8a ""
+  "pta-dta.aux" 1521194403 6089 03f2766ce9198211887b6923f5041b56 ""
+  "pta-dta.bbl" 1521194332 6077 107327e2406611db3f45dd16a4e41946 "bibtex pta-dta"
   "pta-dta.tex" 1520910915 13106 f0a30a2f080154e2f6040da290cfe6e2 ""
   "remreset.sty" 1503935740 1096 6a75275ca00e32428c6f059d2f618ea7 ""
-  "undecidability.tex" 1520910846 5494 8f060f56fb41376403cfaa2361552dcd ""
+  "undecidability.tex" 1521194377 6769 b88cb0cea7768ef1f46f83d6a40b7b4c ""
   (generated)
-  "pta-dta.log"
   "pta-dta.pdf"
+  "pta-dta.log"
   "pta-dta.aux"

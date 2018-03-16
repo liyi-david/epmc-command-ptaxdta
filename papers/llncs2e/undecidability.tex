@@ -37,12 +37,10 @@ that $\pta$ \emph{observes} $\dta$ (under a given initial mode) is equal to $1$ 
 Let $\dta=(\cstates,\alphabet,\dtclocks,\rules,\rabin)$ be any TRA where the alphabet $\alphabet = \{\ntaap{1}, \ntaap{2}, \cdots, \ntaap{k}\}$ and the initial mode is $\qstart$.
 W.l.o.g, we consider that $\alphabet\subseteq 2^{\ap}$ for some finite set $\ap$.
 This assumption is not restrictive since what $\ntaap{i}$'s concretely are is irrelevant, while the only thing that matters is that $\alphabet$ has $k$ different symbols.
-We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\rabin)$ where:
-
-\begin{compactitem}
-\item $\cstates'   = \cstates  \cup \{ \qinit \}$ for which $\qinit$ is a fresh mode;
-\item $\alphabet'  = \alphabet \cup \{ \ntaap{0} \}$ for which $\ntaap{0}$ is a fresh symbol;
-\item $\rules'     = \rules    \cup \{ \langle
+We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\rabin)$ where
+$\cstates'   = \cstates  \cup \{ \qinit \}$ for which $\qinit$ is a fresh mode,
+$\alphabet'  = \alphabet \cup \{ \ntaap{0} \}$ for which $\ntaap{0}$ is a fresh symbol and 
+$\rules'     = \rules    \cup \{ \langle
             \qinit,
             \ntaap{0},
             \true,
@@ -50,30 +48,57 @@ We first construct the TRA $\dta' = (\cstates', \alphabet', \dtclocks, \rules',\
             \qstart
         \rangle
     \}$.
-\end{compactitem}
+% \begin{compactitem}
+% \item $\cstates'   = \cstates  \cup \{ \qinit \}$ for which $\qinit$ is a fresh mode;
+% \item $\alphabet'  = \alphabet \cup \{ \ntaap{0} \}$ for which $\ntaap{0}$ is a fresh symbol;
+% \item $\rules'     = \rules    \cup \{ \langle
+%             \qinit,
+%             \ntaap{0},
+%             \true,
+%             \dtclocks,
+%             \qstart
+%         \rangle
+%     \}$.
+% \end{compactitem}
 Then we construct the PTA
 $
 \pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 $
-where:
-\begin{compactitem}
-    \item $\locs      :=  \alphabet'$, $\loc^*     :=  \ntaap{0} $, $\clocks    :=  \emptyset $ and $\acts      :=  \alphabet $;
-    \item $\inv(\ntaap{i})              :=  \true
-                                            \text{ for }
-                                            \ntaap{i} \in \locs$;
-    \item $\enab(\ntaap{i},\ntaap{j})   :=  \true
-                                            \text{ for }
-                                            \ntaap{i} \in \locs
-                                            \text{ and }
-                                            \ntaap{j} \in \acts$;
-    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
-                                            \text{ for }
-                                            $\ntaap{i} \in \locs$
-                                            \text{ and }
-                                            $\ntaap{j} \in \acts$;
-    \item $\lbfunc(\ntaap{i})           :=  \ntaap{i}
-                                            \text{ for } \ntaap{i} \in \locs$.
-\end{compactitem}
+where
+$\locs :=  \alphabet'$,
+$\loc^* :=  \ntaap{0} $, 
+$\clocks :=  \emptyset $, 
+$\acts := \alphabet $,
+$\inv(\ntaap{i})            :=  \true
+                                \text{ for }
+                                \ntaap{i} \in \locs$,
+$\enab(\ntaap{i},\ntaap{j}) :=  \true
+                                \text{ for }
+                                \ntaap{i} \in \locs
+                                \text{ and }
+                                \ntaap{j} \in \acts$,
+$\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$) \text{ for } $\ntaap{i} \in \locs$ \text{ and } $\ntaap{j} \in \acts$,
+$\lbfunc(\ntaap{i})         :=  \ntaap{i}
+                                \text{ for } \ntaap{i} \in \locs$.
+
+% \begin{compactitem}
+%     \item $\locs      :=  \alphabet'$, $\loc^*     :=  \ntaap{0} $, $\clocks    :=  \emptyset $ and $\acts      :=  \alphabet $;
+%     \item $\inv(\ntaap{i})              :=  \true
+%                                             \text{ for }
+%                                             \ntaap{i} \in \locs$;
+%     \item $\enab(\ntaap{i},\ntaap{j})   :=  \true
+%                                             \text{ for }
+%                                             \ntaap{i} \in \locs
+%                                             \text{ and }
+%                                             \ntaap{j} \in \acts$;
+%     \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
+%                                             \text{ for }
+%                                             $\ntaap{i} \in \locs$
+%                                             \text{ and }
+%                                             $\ntaap{j} \in \acts$;
+%     \item $\lbfunc(\ntaap{i})           :=  \ntaap{i}
+%                                             \text{ for } \ntaap{i} \in \locs$.
+% \end{compactitem}
 Note that we allow no clocks in the construction since clocks are irrelevant for our result.
 Since we omit clocks, we also treat states (of $\pta'$) as single locations.
 One can prove that $\tra$ accepts all time-divergent timed words over $\Sigma$ with initial mode $\qstart$ iff

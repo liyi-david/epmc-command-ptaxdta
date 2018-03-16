@@ -65,7 +65,7 @@ we deal with it in our acceptance condition where the initial location is prepro
 %Below we define the acceptance condition on paths as follows.
 %For an infinite path $\infpath=(\loc_0,\nu_0)a_0(\loc_1,\nu_1)a_1\dots$ under $\pta$, we denote by
 %$\initloc{\infpath}$ the initial location $\loc_0$.
-\vspace{-0.8em}
+\vspace{-1em}
 \begin{definition}[Path Acceptance]\label{def:fnacc}
 An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
 initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
@@ -97,10 +97,10 @@ The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$ and 
 \[
     \pr{\dtloc}{\sigma}
         :=
-            \probm^{\pta,\sigma}\left(
+            \probm^{\pta,\sigma}(
                 % \acc{\pta,\sigma}{\tra,q,F}
                 \LangCsAqF
-            \right)
+            )
 \]
 % \pr{\dtloc,F}{\sigma}:=\probm^{\pta,\sigma}\left(\acc{\pta,\sigma}{\tra,q,F}\right)
 where $\LangCsAqF$ is the set of infinite paths under $\pta$ that are accepted by the TRA $\tra$ w.r.t $(\dtloc,\zero)$ i.e.

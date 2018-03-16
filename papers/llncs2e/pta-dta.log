@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.3.21)  13 MAR 2018 11:15
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.3.21)  16 MAR 2018 18:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -721,7 +721,7 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 506.
 (./abstract.tex) (./introduction.tex [1
 
 ] [2]) (./preliminaries.tex [3]
-Overfull \hbox (7.9634pt too wide) in paragraph at lines 86--87
+Overfull \hbox (7.9634pt too wide) in paragraph at lines 95--96
 []\OT1/cmr/m/n/10 if $\OML/cmm/m/it/10 a \OMS/cmsy/m/n/10 2 []$ \OT1/cmr/m/n/10
  then $\OML/cmm/m/it/10 ^^W \OMS/cmsy/m/n/10 j[]\OT1/cmr/m/n/10 = [](\OML/cmm/m
 /it/10 `; a\OT1/cmr/m/n/10 )$ and there ex-ists a pair $(\OML/cmm/m/it/10 X; `[
@@ -730,17 +730,17 @@ Overfull \hbox (7.9634pt too wide) in paragraph at lines 86--87
  []
 
 
-Overfull \hbox (6.86783pt too wide) in paragraph at lines 104--104
+Overfull \hbox (6.86783pt too wide) in paragraph at lines 113--113
 [] 
  []
 
 [4]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 164.
+               Default added (so using `htbp') on input line 173.
 
 (./example_pta.tex) (./example_dta.tex) [5]
-Overfull \hbox (21.52458pt too wide) in paragraph at lines 359--386
+Overfull \hbox (21.52458pt too wide) in paragraph at lines 368--395
 \OT1/cmr/m/it/10 where $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Q; ^^F; \OMS/cmsy/m/n
 /10 Y\OML/cmm/m/it/10 ; ^^A\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 is a TA and $\OM
 S/cmsy/m/n/10 F$ \OT1/cmr/m/it/10 is a fi-nite set of pairs $\OMS/cmsy/m/n/10 F
@@ -759,52 +759,59 @@ s the sin-gle pred-i-cate $[] []$,
 LaTeX Font Info:    Try loading font information for U+euf on input line 96.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-)) (./product.tex [8] (./example_product.tex) [9] [10]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 187.
+)) (./product.tex [8]
+Overfull \hbox (10.34232pt too wide) in paragraph at lines 28--59
+\OML/cmm/m/it/10 h \OMS/cmsy/m/n/10 2 T[]$\OT1/cmr/m/n/10 , and $[][] [] := []$
+ oth-er-wise, $\OMS/cmsy/m/n/10 L[] [] \OT1/cmr/m/n/10 := [] [] [] \OMS/cmsy/m/
+n/10 2
+ []
+
+(./example_product.tex) [9]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 218.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 187.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 218.
 
-Overfull \hbox (9.02222pt too wide) in paragraph at lines 191--192
+Overfull \hbox (9.02222pt too wide) in paragraph at lines 222--223
 []\OT1/cmr/m/n/10 for all $0 \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 k < n$\OT1/c
 mr/m/n/10 , if $\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2 []$ \OT1/cmr/m/n/10 the
 n $\OML/cmm/m/it/10 a[] \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 a[]; ^^X[]\OT1/cmr/
 m/n/10 )$ and $[][][]$
  []
 
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 266 replaced by U+FFFD.
-[11]
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
-Invalid UTF-8 byte or sequence at line 346 replaced by U+FFFD.
- [12]
-Overfull \hbox (0.47935pt too wide) in paragraph at lines 574--577
+[10]
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 297 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 377 replaced by U+FFFD.
+ [11] [12]
+Overfull \hbox (0.47935pt too wide) in paragraph at lines 605--608
 \OT1/cmr/m/n/10 PTAs is \OT1/cmr/m/it/10 EX-P-TIME\OT1/cmr/m/n/10 -complete. Si
 nce Ra-bin ac-cep-tance con-di-tion sub-sumes reach-
  []
@@ -878,7 +885,7 @@ Overfull \hbox (32.8411pt too wide) in paragraph at lines 289--305
 Here is how much of TeX's memory you used:
  15738 strings out of 493591
  330726 string characters out of 6143546
- 424080 words of memory out of 5000000
+ 422664 words of memory out of 5000000
  18799 multiletter control sequences out of 15000+600000
  15614 words of font info for 60 fonts, out of 8000000 for 9000
  1347 hyphenation exceptions out of 8191
