@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex pta-dta"] 1521194332 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1521194403
+["bibtex pta-dta"] 1521446097 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1521446163
   "./splncs.bst" 1503935740 20516 e8608ac05dbe2ead5d4b8e9d3cf4edb2 ""
-  "pta-dta.aux" 1521194403 6089 03f2766ce9198211887b6923f5041b56 ""
+  "pta-dta.aux" 1521446163 6089 17d0a42c8688d8f1caab0441df4b1aa0 ""
   "pta-dta.bcf" 0 -1 0 ""
   "pta-dta.bib" 1506962220 21174 f983474f9351e53ec83221b65b5d3c20 ""
   (generated)
-  "pta-dta.blg"
   "pta-dta.bbl"
-["pdflatex"] 1521194401 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1521194403
+  "pta-dta.blg"
+["pdflatex"] 1521446161 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1521446163
   "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -162,21 +162,21 @@
   "abstract.tex" 1506962220 1013 b102521e123cc5f1ec4a9b2617560382 ""
   "aliascnt.sty" 1503935740 2598 b30528bf103263149326b7572d9672a5 ""
   "appendix.tex" 1507201648 12774 54fc00bde055afe86e6ace2277df89c0 ""
-  "conclusion.tex" 1520910839 4062 84d6ca7aadfc488bdfdde894e492b8a9 ""
+  "conclusion.tex" 1521446128 4062 b0ce1762f701d17c41bade99db2d1164 ""
   "example_dta.tex" 1506920200 2105 dcf21363148405e80bd76aea5e9344fd ""
   "example_product.tex" 1506921581 4302 957b044833d8086e37ab9b1cce0f2835 ""
   "example_pta.tex" 1506920200 2007 c4bf75eee687afde674a44559c2a226c ""
   "introduction.tex" 1520908608 6139 eafb8f4f9a8a7b101a05ed839e1124e0 ""
   "llncs.cls" 1504411062 42883 271b24d426a51b6c1c27d8179541db82 ""
-  "preliminaries.tex" 1521194375 27748 0d4ea1ba8c3c7a2f474e96b5a2a72d07 ""
+  "preliminaries.tex" 1521445929 27741 b9c238694b3484437f7e76156e09bc6e ""
   "problem.tex" 1521194400 10131 e0608e8612e57d87af02fc20f661dcc0 ""
-  "product.tex" 1521194374 31058 d251d53262d742d46ebde686fa1a2b8a ""
-  "pta-dta.aux" 1521194403 6089 03f2766ce9198211887b6923f5041b56 ""
-  "pta-dta.bbl" 1521194332 6077 107327e2406611db3f45dd16a4e41946 "bibtex pta-dta"
-  "pta-dta.tex" 1520910915 13106 f0a30a2f080154e2f6040da290cfe6e2 ""
+  "product.tex" 1521445988 31056 c1dea2ee005964ff15db96c87fe62d0b ""
+  "pta-dta.aux" 1521446163 6089 17d0a42c8688d8f1caab0441df4b1aa0 ""
+  "pta-dta.bbl" 1521446097 6077 107327e2406611db3f45dd16a4e41946 "bibtex pta-dta"
+  "pta-dta.tex" 1521446160 13106 891ef8dc0610720f5ef5275a5d6d123c ""
   "remreset.sty" 1503935740 1096 6a75275ca00e32428c6f059d2f618ea7 ""
   "undecidability.tex" 1521194377 6769 b88cb0cea7768ef1f46f83d6a40b7b4c ""
   (generated)
-  "pta-dta.pdf"
   "pta-dta.log"
+  "pta-dta.pdf"
   "pta-dta.aux"

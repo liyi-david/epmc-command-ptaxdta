@@ -56,29 +56,29 @@ A \emph{probabilistic timed automaton} (PTA) $\pta$ is a tuple
 \begin{equation}\label{eq:pta}
 \pta=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
 \end{equation}
-where 
-$\locs$ is a finite set of \emph{locations},
-$\loc^*\in\locs$ is the \emph{initial} location,
-$\clocks$ is a finite set of \emph{clocks},
-$\acts$ is a finite set of \emph{actions},
-$\inv:\locs\rightarrow\clcons{\clocks}$ is an \emph{invariant condition},
-$\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition},
-$\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function},
-$\ap$ is a finite set of \emph{atomic propositions} and 
-$\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
-% \begin{compactitem}
-% \item $\locs$ is a finite set of \emph{locations};
-% \item $\loc^*\in\locs$ is the \emph{initial} location;
-% \item $\clocks$ is a finite set of \emph{clocks};
-% \item $\acts$ is a finite set of \emph{actions};
-% \item $\inv:\locs\rightarrow\clcons{\clocks}$ is
-% %a function which assigns to every location
-% an \emph{invariant condition};
-% \item $\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition};
-% \item $\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function};
-% \item $\ap$ is a finite set of \emph{atomic propositions};
-% \item $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
-% \end{compactitem}
+where :
+% $\locs$ is a finite set of \emph{locations},
+% $\loc^*\in\locs$ is the \emph{initial} location,
+% $\clocks$ is a finite set of \emph{clocks},
+% $\acts$ is a finite set of \emph{actions},
+% $\inv:\locs\rightarrow\clcons{\clocks}$ is an \emph{invariant condition},
+% $\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition},
+% $\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function},
+% $\ap$ is a finite set of \emph{atomic propositions} and 
+% $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
+\begin{compactitem}
+\item $\locs$ is a finite set of \emph{locations};
+\item $\loc^*\in\locs$ is the \emph{initial} location;
+\item $\clocks$ is a finite set of \emph{clocks};
+\item $\acts$ is a finite set of \emph{actions};
+\item $\inv:\locs\rightarrow\clcons{\clocks}$ is
+%a function which assigns to every location
+an \emph{invariant condition};
+\item $\enab:\locs\times\acts\rightarrow\clcons{\clocks}$ is an \emph{enabling condition};
+\item $\prob:\locs\times\acts\rightarrow\dist{2^{\clocks}\times\locs}$ is a \emph{probabilistic transition function};
+\item $\ap$ is a finite set of \emph{atomic propositions};
+\item $\lbfunc:\locs\rightarrow 2^{\ap}$ is a \emph{labelling function}.
+\end{compactitem}
 \end{definition}
 % \vspace{-0.8em}
 %
