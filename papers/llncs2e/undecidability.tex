@@ -60,51 +60,50 @@ $\rules'     = \rules    \cup \{ \langle
 %         \rangle
 %     \}$.
 % \end{compactitem}
-Then we construct the PTA
-$
-\pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
-$
-where
-$\locs :=  \alphabet'$,
-$\loc^* :=  \ntaap{0} $, 
-$\clocks :=  \emptyset $, 
-$\acts := \alphabet $,
-$\inv(\ntaap{i})            :=  \true
-                                \text{ for }
-                                \ntaap{i} \in \locs$,
-$\enab(\ntaap{i},\ntaap{j}) :=  \true
-                                \text{ for }
-                                \ntaap{i} \in \locs
-                                \text{ and }
-                                \ntaap{j} \in \acts$,
-$\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$) \text{ for } $\ntaap{i} \in \locs$ \text{ and } $\ntaap{j} \in \acts$,
-$\lbfunc(\ntaap{i})         :=  \ntaap{i}
-                                \text{ for } \ntaap{i} \in \locs$.
-
-% \begin{compactitem}
-%     \item $\locs      :=  \alphabet'$, $\loc^*     :=  \ntaap{0} $, $\clocks    :=  \emptyset $ and $\acts      :=  \alphabet $;
-%     \item $\inv(\ntaap{i})              :=  \true
-%                                             \text{ for }
-%                                             \ntaap{i} \in \locs$;
-%     \item $\enab(\ntaap{i},\ntaap{j})   :=  \true
-%                                             \text{ for }
-%                                             \ntaap{i} \in \locs
-%                                             \text{ and }
-%                                             \ntaap{j} \in \acts$;
-%     \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
-%                                             \text{ for }
-%                                             $\ntaap{i} \in \locs$
-%                                             \text{ and }
-%                                             $\ntaap{j} \in \acts$;
-%     \item $\lbfunc(\ntaap{i})           :=  \ntaap{i}
-%                                             \text{ for } \ntaap{i} \in \locs$.
-% \end{compactitem}
+Then we construct the PTA :
+% $
+% \pta'=\left(\locs, \loc^*, \clocks, \acts, \inv, \enab,  \prob, \ap, \lbfunc\right)
+% $
+% where
+% $\locs :=  \alphabet'$,
+% $\loc^* :=  \ntaap{0} $, 
+% $\clocks :=  \emptyset $, 
+% $\acts := \alphabet $,
+% $\inv(\ntaap{i})            :=  \true
+%                                 \text{ for }
+%                                 \ntaap{i} \in \locs$,
+% $\enab(\ntaap{i},\ntaap{j}) :=  \true
+%                                 \text{ for }
+%                                 \ntaap{i} \in \locs
+%                                 \text{ and }
+%                                 \ntaap{j} \in \acts$,
+% $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$) \text{ for } $\ntaap{i} \in \locs$ \text{ and } $\ntaap{j} \in \acts$,
+% $\lbfunc(\ntaap{i})         :=  \ntaap{i}
+%                                 \text{ for } \ntaap{i} \in \locs$.
+\begin{compactitem}
+    \item $\locs      :=  \alphabet'$, $\loc^*     :=  \ntaap{0} $, $\clocks    :=  \emptyset $ and $\acts      :=  \alphabet $;
+    \item $\inv(\ntaap{i})              :=  \true
+                                            \text{ for }
+                                            \ntaap{i} \in \locs$;
+    \item $\enab(\ntaap{i},\ntaap{j})   :=  \true
+                                            \text{ for }
+                                            \ntaap{i} \in \locs
+                                            \text{ and }
+                                            \ntaap{j} \in \acts$;
+    \item $\prob(\ntaap{i},\ntaap{j})$ is the Dirac distribution at $(\emptyset,\ntaap{j})$ (i.e., $\prob(\ntaap{i},\ntaap{j})(\emptyset,\ntaap{j})=1$ and $\prob(\ntaap{i},\ntaap{j})(X,b)=0$ whenever $(X,b)\ne(\emptyset,\ntaap{j})$),
+                                            \text{ for }
+                                            $\ntaap{i} \in \locs$
+                                            \text{ and }
+                                            $\ntaap{j} \in \acts$;
+    \item $\lbfunc(\ntaap{i})           :=  \ntaap{i}
+                                            \text{ for } \ntaap{i} \in \locs$.
+\end{compactitem}
 Note that we allow no clocks in the construction since clocks are irrelevant for our result.
 Since we omit clocks, we also treat states (of $\pta'$) as single locations.
 One can prove that $\tra$ accepts all time-divergent timed words over $\Sigma$ with initial mode $\qstart$ iff
 the minimal probability that $\pta'$ observes $\dta'$ with initial mode $\qinit$ equals $1$.
 %Moreover, the minimal probability is either $0$ or $1$.
-For details see Appendix~\ref{app:ptatraundecidability}.
+For details see Appendix~\ref{app:ptatraundecidability}. \qed
 \end{proof}
 
 \begin{remark}
