@@ -2,7 +2,7 @@
 \section{Problem Statement}
 \vspace{-1em}
 In this part, we define the {\sc PTA-TRA} problem of model-checking {PTAs} against TA-specifications.
-The problem takes a PTA and a TRA as input, and computes the probability that infinite paths under the PTA are accepted by the TRA.
+The problem takes a PTA and a TRA as input, and computes the minimum and the maximum probability that infinite paths under the PTA are accepted by the TRA.
 Informally, the TRA encodes the linear dense-time property by judging whether an infinite path is accepted or not through its external behaviour,
 then the problem is to compute the probability that an infinite path is accepted by the TRA.
 In practice, the TRA can be used to capture all good (or bad) behaviours, so the problem can be treated as a task to evaluate to what extent the PTA behaves in a good (or bad) way.
@@ -67,7 +67,7 @@ we deal with it in our acceptance condition where the initial location is prepro
 %$\initloc{\infpath}$ the initial location $\loc_0$.
 \vspace{-1em}
 \begin{definition}[Path Acceptance]\label{def:fnacc}
-An infinite path $\infpath$ under $\pta$ is \emph{accepted} by $\dta$ w.r.t
+An infinite path $\infpath$ of $\pta$ is \emph{accepted} by $\dta$ w.r.t
 initial configuration $(\dtloc,\nu)$, written as the single predicate $\acccept{\tra}{(\dtloc,\nu)}{\infpath}$,
 if there is a configuration $(\dtloc',\nu')$ such that $\dtatr{(\dtloc,\nu)}{\lbfunc(\loc^*)}{(\dtloc',\nu')}$ and
 the infinite word $\lbfunc(\infpath)$ is Rabin-accepted by $\dta$ with
