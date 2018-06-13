@@ -72,7 +72,7 @@ where :
 \item $\clocks_\otimes:=\clocks\cup\dtclocks$;
 \item $\acts_\otimes:=\acts\times\bigcup_\dtloc\exttuples_\dtloc$; %$\acts_\otimes:=\acts\times\rules$;
 \item $\inv_\otimes(\loc,\dtloc):=\inv(\loc)$ for all $(\loc,\dtloc)\in \locs_\otimes$;
-\item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ for all $(\loc,\dtloc)\in \locs_\otimes$ and $h\in \exttuples_\dtloc$, and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise;
+\item $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\enab(\loc,a)\wedge \bigwedge_{b\in\alphabet} h(b)$ if $h\in \exttuples_\dtloc$,and $\enab_\otimes\left((\loc,\dtloc), (a,h)\right):=\false$ otherwise, for all $(\loc,\dtloc)\in \locs_\otimes$, $(a,h) \in  \acts_\otimes$.
 %$\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\enab(\loc,a)\wedge \phi'$ if $r=\left(\dtloc, b', \phi', Y, \dtloc'\right)$ for some $b', \phi', Y, \dtloc''$, and $\enab_\otimes\left((\loc,\dtloc), (a,r)\right):=\false$ otherwise;
 \item
 $
@@ -96,6 +96,7 @@ $
 0 & \mbox{otherwise}
 \end{cases}\enskip.
 \end{align*}
+for all $(\loc,\dtloc),(\loc',\dtloc')\in \locs_\otimes$, $(a,h) \in  \acts_\otimes$ , $Y \in \clocks_\otimes$
 \end{compactitem}
 Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
 This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.

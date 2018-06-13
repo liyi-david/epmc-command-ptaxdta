@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1521194216 "preliminaries.tex" "preliminaries.pdf" "preliminaries" 1521194218
+["pdflatex"] 1521518251 "preliminaries.tex" "preliminaries.pdf" "preliminaries" 1521518253
   "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
@@ -9,7 +9,7 @@
   "example_dta.tex" 1506920200 2105 dcf21363148405e80bd76aea5e9344fd ""
   "example_pta.tex" 1506920200 2007 c4bf75eee687afde674a44559c2a226c ""
   "preliminaries.aux" 1519810313 8 a94a2480d3289e625eea47cd1b285758 ""
-  "preliminaries.tex" 1521194215 27746 34aa476b36d730de2b409203fb5dc67c ""
+  "preliminaries.tex" 1521518250 27741 f9411bc758a1bec6ffbf3776f88f7e6b ""
   (generated)
-  "preliminaries.log"
   "preliminaries.pdf"
+  "preliminaries.log"

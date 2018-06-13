@@ -91,7 +91,7 @@ $.
 The initial location omitted in Definition~\ref{def:interpretation} is preprocessed by specifying explicitly that the first label $\lbfunc(\loc^*)$ is read by the initial configuration $(\dtloc,\nu)$.
 Below we define acceptance probabilities over infinite paths under $\pta$.
 \vspace{-0.3em}
-\begin{definition}[Acceptance Probabilities]
+\begin{definition}[Acceptance Probabilities]\label{def:accprob}
 % Let $F$ be a Rain acceptance condition.
 The probability that $\pta$ \emph{observes} $\tra$ under scheduler $\sigma$ and initial mode $\dtloc\in\cstates$, denoted by $\pr{\dtloc}{\sigma}$, is defined by:
 \[
@@ -118,7 +118,7 @@ $
 % $\acc{\pta,\sigma}{\tra,q,F}:=\left\{\infpath\in\infpaths{\pta,\sigma}\mid \infpath\mbox{ is accepted by }\tra\mbox{ w.r.t. }(q,\zero)\mbox{ and }F\right\}$.
 \end{definition}
 Since the set $\fnpaths{\pta,\sigma}$ is countably-infinite,
-$\LangCsAqF$ is measurable since it can be represented as a countable intersection of certain countable unions of some cylinder sets (cf.~\cite[Remark 10.24]{DBLP:books/daglib/0020348} for details).
+$\LangCsAqF$ is measurable since it can be represented as a countable intersection of certain countable unions of some cylinder sets (cf.~\cite[Remark 10.24]{DBLP:books/daglib/0020348} and Appendix \ref{app:proof} for details).
 % \begin{small}
 % \begin{align*}
 %     &

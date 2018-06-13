@@ -1,9 +1,14 @@
-1. [x] One limitation is there are no examples of properties that are useful in practice and cannot be expressed in, for example, PTCTL or discrete time Rabin automata. 
+1. [x] One limitation is there are no examples of properties that are useful in practice and cannot be expressed in, for example, PTCTL or discrete time Rabin automata.
+
+这个我们估计没时间。
 
 2. [x] Also, there is something odd going on with the (lack) spacing between text before and after headings.
 
+这个我们目前这样也可以了。你看一下能不能改进一下spacing。
 
-3. [x] page 1: reference 1 for real world applications?
+3. [o] page 1: reference 1 for real world applications?
+
+我们把real-world 去掉。
 
 4. [o] page 2: is studied -> has been studied, for example,
 
@@ -11,7 +16,13 @@
 
 6. [x] page 2: "to track timing constraints" - not clear
 
+改成 involve timing constraints
+
+"since it requires to involve timing constraints."
+
 7. [x] page 2: TAs are ... - you have already said what PTAs are so do not need this detail again
+
+我们可以把这一行删掉。
 
 8. [o] page 2: to compute the probability -> of computing the minimum or maximum probability
 
@@ -21,29 +32,47 @@
 
 11.[o] page 3: form (1) -> this is not need you have defined what a PTA is (so you also do not need the equation numbers)
 
-12.[x] page 4: You should state you restrict to deterministic schedulers and that these are sufficient (although memory is required for omega regular properties)
+12.[o] page 4: You should state you restrict to deterministic schedulers and that these are sufficient (although memory is required for omega regular properties)
+
+可以提一下，就说deteterministic schedulers suffices, 并引用一下principles of model checking这本书关于概率系统的那一章。
+
+改为 Schedulers. A (deteterministic) scheduler is a function ...
+
+再写句子又篇幅又长了。
 
 13.[x] page 4: in the equation sigma(s_0...s_k) can be replaced with a_{k+1} (可能保持现状比较容易读吧)
 
+就保持现状吧。
+
 14.[x] page 5: you do not need the d_i's you can just sum over the odd values of a_i's as you do later
+
+这个不改也没关系。
 
 15.[o] page 5: two dot points - not clear 改为 “The two dots together with their corresponding solid line and dashed arrows refer to two actions...”
 
-16.[x] page 6: explain why a TA does not have invariants
+16.[o] page 6: explain why a TA does not have invariants
+17.[o] page 6: give some discussion of determinacy and totality after the definition
 
-17.[x] page 6: give some discussion of determinacy and totality after the definition
+在第六页定义2后面加上这一段：Informally, A TA is deterministic if there is always exactly one rule applicable for the timed transition. 
+We do not incorporate invariants in TAs as we use TAs as language acceptors. 
 
 18.[x] page 6: (q,v) - you use v for PTA so would be better to use different notation for clock valuations of TAs?
+
+这个我们没时间调整了。
 
 19.[o] page 6: reference to Rabin acceptance 我在 Definition 3 的标题引一下 Principles of Model Checking
 
 18.[x] page 6: add some examples of what can be encoded
 
+这个估计我们也没时间。
+
 19.[o] page 7: explain actions are sets of atomic propositions （Example 2 里面介绍字母表是 AP 幂集）
 
 20.[o] page 7: the discussion of the example is very confusing and need improvement
 
-21.[x] page 7: difference to flip alpha and beta - reword
+21.[o] page 7: difference to flip alpha and beta - reword
+
+改成： where the only difference is to flip ... 
 
 22.[o] page 7: From *the* Rabin
 
@@ -51,71 +80,82 @@
 
 24.[x] page 7/8: what does "internal actions", "internal behaviours" and "external behaviours" mean?
 
+这个我们已经解释了。
+
 25.[o] page 8: pi under C -> pi of C
 
-26.[x] page 8: more details on the measurability would be helpful (either in the text or in the appendix)
+26.[o] page 8: more details on the measurability would be helpful (either in the text or in the appendix)
 我们以前写过这个公式,后来删掉了
 
 \begin{small}
 \begin{align*}
-    &
-    \LangCsAqF = \\
-        \bigcup_{i=1}^{n} (
-            &
-            \bigcup_{m \in \Nset}
-            \bigcap \left \{
-                \overline{\cyl(\fnpath)}
-                \mid
-                \fnpath \in \fnpaths{\pta,\sigma}
-                \mbox{,}
-                m \le \length{\fnpath}
-                \mbox{,}
-                \lastloc{
-                    \traj{
-                        \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
-                    }
-                } \in H_i
-            \right \}
-            \\
-            \cap
-            &
-            \bigcap_{m \in \Nset}
-            \bigcup \left \{
-                \cyl(\fnpath)
-                \mid
-                \fnpath \in \fnpaths{\pta,\sigma}
-                \mbox{,}
-                m \le \length{\fnpath}
-                \mbox{,}
-                \lastloc{
-                    \traj{
-                        \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
-                    }
-                } \in K_i
-            \right \}
-        )
+   &
+   \LangCsAqF = \\
+       \bigcup_{i=1}^{n} (
+           &
+           \bigcup_{m \in \Nset}
+           \bigcap \left \{
+               \overline{\cyl(\fnpath)}
+               \mid
+               \fnpath \in \fnpaths{\pta,\sigma}
+               \mbox{,}
+               m \le \length{\fnpath}
+               \mbox{,}
+               \lastloc{
+                   \traj{
+                       \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
+                   }
+               } \in H_i
+           \right \}
+           \\
+           \cap
+           &
+           \bigcap_{m \in \Nset}
+           \bigcup \left \{
+               \cyl(\fnpath)
+               \mid
+               \fnpath \in \fnpaths{\pta,\sigma}
+               \mbox{,}
+               m \le \length{\fnpath}
+               \mbox{,}
+               \lastloc{
+                   \traj{
+                       \run{\tra}{\iconfig}{\lbfunc(\fnpath)}
+                   }
+               } \in K_i
+           \right \}
+       )
 \end{align*}
 \end{small}
 where
 $
-    \dtloc^*
-        =
-            \trfunc \left(
-                (\dtloc,\zero),
-                \lbfunc (
-                    \initloc{\fnpath}
-            \right)
+   \dtloc^*
+       =
+           \trfunc \left(
+               (\dtloc,\zero),
+               \lbfunc (
+                   \initloc{\fnpath}
+           \right)
 $.
+
+把这个加到附录里。
 
 27.[x] page 9: tuple of clock constraints - you defined a function?
 
-28.[x] page 9: in the definition of enab have not quantified a (a 是 enab⊗ ((l,q),(a,h))的参数)
+这个不用管
 
-29.[x] page 9: in the definition of prob not quantified the states, clock sets etc
+28.[o] page 9: in the definition of enab have not quantified a (a 是 enab⊗ ((l,q),(a,h))的参数)
+
+把a解释一下（文中for all 右边没有关于a的解释）
+
+29.[o] page 9: in the definition of prob not quantified the states, clock sets etc
 评审的意见应该是说介绍一下 l, q, a, h 等等字母是什么。
 
-30.[x] page 9/10: in example 3 (and hence also the previous examples) having a complete example would help with understanding here (for example knowing what the initial state is)
+对，就这样改一下。
 
+30.[x] page 9/10: in example 3 (and hence also the previous examples) having a complete example would help with understanding here (for example knowing what the initial state is)
 31.[x] page 10: the long list of functions is not really adding anything, you can just say it is all combinations of ...
+
+这两个有时间就在会议版论文里改一下。 要改的话你根据自己的理解改一下，比如确定一下初始location, 以及如何概括得描述h_1到h_7 
 
 32.[o] page 12: Rabin probabilities - what are these? 改为 “Rabin(-accepting) probabilities”

@@ -117,6 +117,12 @@ Donatelli, S., Haddad, S., Sproston, J.:
   {CSL}{\^{}}\{TA\}.
 \newblock {IEEE} Trans. Software Eng. \textbf{35}(2) (2009)  224--240
 
+\bibitem{DBLP:journals/corr/abs-1712-00275}
+Fu, H., Li, Y., Li, J., Zhang, L.:
+\newblock Verifying probabilistic timed automata against omega-regular
+  dense-time properties.
+\newblock CoRR \textbf{abs/1712.00275} (2017)
+
 \bibitem{DBLP:journals/corr/abs-1101-3694}
 Chen, T., Han, T., Katoen, J., Mereacre, A.:
 \newblock Model checking of continuous-time {M}arkov chains against timed

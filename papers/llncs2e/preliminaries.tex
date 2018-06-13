@@ -102,6 +102,7 @@ We omit `$\pta$' in `$\states_\pta$' if the underlying context is clear.
 
 \smallskip \noindent{\em Probability Transition Kernel.}
 The \emph{probability transition kernel} $\probk$ is the function $\probk:\states\times\acts\times\states\rightarrow[0,1]$ such that
+\vspace{-0.3cm}
 \begin{align*}
     & \probk((\loc,\nu),a,(\loc',\nu'))
         = 
@@ -140,7 +141,7 @@ such that for all $n\in\Nset_0$, the prefix $\left\langle s_0,a_0,\dots,a_{n-1},
 The set of finite (resp. infinite) paths  under $\pta$ is denoted by $\fnpaths{\pta}$ (resp. $\infpaths{\pta}$).
 
 \smallskip \noindent{\em Schedulers.}
-A \emph{scheduler} is a function $\sigma$ from the set of finite paths into $\acts\cup [0,\infty)$ such that for all finite paths $\fnpath=s_0a_0\dots s_n$,
+A \emph{(deteterministic) scheduler} is a function $\sigma$ from the set of finite paths into $\acts\cup [0,\infty)$ such that for all finite paths $\fnpath=s_0a_0\dots s_n$,
 (i) $\sigma(\fnpath)\in\acts$ (resp. $\sigma(\fnpath)\in  [0,\infty)$) if $n$ is odd (resp. even) and (ii)
 there exists a state $s'$ such that $\tran{s_n}{\sigma(\fnpath)}{s'}$.
 
@@ -279,6 +280,9 @@ $\dta$ is a \emph{deterministic} TA (DTA) if the following holds:
 \item ({\em totality}) for all $(q,b)\in \cstates\times\Sigma$ and $\nu\in\val{\clocks}$, there exists $(q,b,\phi,X,q')\in\rules$ such that $\nu\models \phi$.
 \end{compactenum}
 \end{definition}
+Informally, A TA is deterministic if there is always exactly one rule applicable for the timed transition. 
+We do not incorporate invariants in TAs as we use TAs as language acceptors. 
+
 Below we illustrate the semantics of TAs. We fix a TA $\dta$ in the form (\ref{eq:nta}).
 
 %Below we fix a DTA $\dta$ in the form~(\ref{eq:dta}). Given $q\in\cstates$, $\nu\in\val{\clocks}$ and $b\in\Sigma$, the triple $(\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu})\in\clcons{\clocks}\times 2^{\clocks}\times\cstates$ are determined such that $\left(\dtloc,b,\dtphi{q}{b}{\nu},\dtx{q}{b}{\nu},\dtq{q}{b}{\nu}\right)\in\rules$ is the unique rule satisfying $\nu\models \dtphi{q}{b}{\nu}$.
@@ -438,8 +442,8 @@ However, we assume that all missing rules lead to the mode $\FAIL$ and does not 
 The mode $\q{\alpha}$ does not reset the clock $y$ until it reads $\beta$.
 Moreover, $\q{\alpha}$ does not transit to $\FAIL$ only if the time spent within a maximal consecutive segment of $\alpha$'s (in an infinite timed word) is no greater than $C_\alpha$ time units (cf. the rule $(\q{\alpha}, \{ \alpha \}, y \le C_\alpha,\emptyset, \q{\alpha})$) and the total time from the start of the segment until $\beta$ is read (the time within a maximal consecutive segment of $\alpha$'s plus the time spent on the last $\alpha$ in the segment) is no greater than $W_\beta$
 (cf. the rule $(\q{\alpha}, \{ \beta \}, y \le W_\beta, \{ y \}, \q{\beta})$).
-The behaviour of the mode $\q{\beta}$ can be argued similar to that of $\q{\alpha}$ with the only difference to
-flip $\alpha$ and $\beta$.
+The behaviour of the mode $\q{\beta}$ can be argued similar to that of $\q{\alpha}$ 
+where the only difference is to flip $\alpha$ and $\beta$.
 From the Rabin acceptance condition, the DTRA specifies a property on infinite timed words that the time spent within a maximal consecutive segment of $\alpha$'s (resp. $\beta$'s) and the total time until $\beta$ (resp. $\alpha$) is read
 always satisfy the conditions specified by $\q{\alpha}$ (resp. $\q{\beta}$).
 \end{example}

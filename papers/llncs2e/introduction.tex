@@ -2,7 +2,7 @@
 \section{Introduction}
 \vspace{-1em}
 Stochastic timed systems are systems that exhibit both timed and stochastic behaviours.
-Such systems play a dominant role in many real-world applications~\cite{DBLP:books/daglib/0020348}, hence
+Such systems play a dominant role in many applications~\cite{DBLP:books/daglib/0020348}, hence
 addressing fundamental issues such as safety and performance over these systems are important.
 \emph{Probabilistic timed automata} (PTAs)~\cite{DBLP:journals/fmsd/NormanPS13,DBLP:journals/tcs/Beauquier03,DBLP:journals/tcs/KwiatkowskaNSS02} serve as a good mathematical model for these systems.
 They extend the well-known model of timed automata~\cite{DBLP:journals/tcs/AlurD94} (for nonprobabilistic timed systems) with discrete probability distributions, and Markov Decision Processes (MDPs)~\cite{PutermanMDP} (for untimed probabilistic systems) with timing constraints.
@@ -22,15 +22,15 @@ then he proved that the problem can be reduced to omega-regular verification of 
 
 In this paper, we study the problem of model-checking linear \emph{dense-time} properties over PTAs.
 Compared with discrete-time properties, dense-time properties take into account timing constraints, and therefore is more expressive and applicable to time-critical systems.
-Simultaneously, verification of dense-time properties is more challenging since it requires to track timing constraints.
+Simultaneously, verification of dense-time properties is more challenging since it requires to involve timing constraints.
 The extra feature of timing constraints also brings more theoretical difficulty, e.g.,
 timed automata~\cite{DBLP:journals/tcs/AlurD94} (TAs) are generally not determinizable,
 which is in contrast to untimed automata (such as Rabin or Muller automata).
 
 We focus on linear dense-time properties that can be encoded by TAs.
-TAs are finite automata extended with \emph{clocks} and \emph{timing constraints}.
+% TAs are finite automata extended with \emph{clocks} and \emph{timing constraints}.
 Due to the ability to model dense-time behaviours,
-they can be used to model real-time systems, while they can also act as language recognizers for timed omega-regular languages.
+TAs can be used to model real-time systems, while they can also act as language recognizers for timed omega-regular languages.
 Here we treat TAs as language recognizers for timed paths from a PTA, and study
 the problem of computing the minimum or maximum probability that a timed path from the PTA is accepted by the TA.
 The intuition is that a TA can recognize the set of ``good'' (or ``bad'') timed paths emitting from a PTA,
@@ -49,7 +49,7 @@ Then we show that the problem becomes undecidable when one considers general TAs
 %Moreover, we devised an approximation algorithm for the problem with general timed automata through translation to infinite-state MDPs.
 Our results substantially extend previous ones (e.g.~\cite{DBLP:conf/qest/Sproston11}) with both the dense-time feature and the nondeterminism in TAs.
 
-Due to lack of space, detailed proofs of several results are put in the appendix. 
+Due to lack of space, detailed proofs of several results are put in the appendix and full version can be found in \cite{DBLP:journals/corr/abs-1712-00275}.  
 
 
 
