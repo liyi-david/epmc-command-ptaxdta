@@ -53,8 +53,8 @@ where :
 %         \loc,\dtloc
 %     \right )
 %     \in \locs_\otimes
-% $ 
-% and 
+% $
+% and
 % $\prob_\otimes$ is given by
 % \begin{align*}
 % &\prob_\otimes\left((\loc,\dtloc),(a,h)\right)(Y,(\loc',\dtloc')):=\\
@@ -94,9 +94,9 @@ $
 \prob\left(\loc,a\right)(Y\cap \clocks,\loc') & \mbox{if } (\dtloc,\lbfunc\left(\loc'\right), h(\lbfunc\left(\loc'\right)), Y\cap \dtclocks, \dtloc')\\
 & \mbox{\quad is a (unique) rule in }\rules\\%\mbox{ and }R'={R}{\left[Y\cap \clocks_2:=0\right]}  \\
 0 & \mbox{otherwise}
-\end{cases}\enskip.
+\end{cases}
 \end{align*}
-for all $(\loc,\dtloc),(\loc',\dtloc')\in \locs_\otimes$, $(a,h) \in  \acts_\otimes$ , $Y \in \clocks_\otimes$
+for all $(\loc,\dtloc),(\loc',\dtloc')\in \locs_\otimes$, $(a,h) \in  \acts_\otimes$ and $Y \in \clocks_\otimes$.
 \end{compactitem}
 Besides standard constructions (e.g., the Cartesian product between $\locs$ and $\cstates$), the product construction also has Cartesian product between $\acts$ and $\bigcup_\dtloc\exttuples_\dtloc$. For each extended action $(a,h)$, the enabling condition for this action is the conjunction between $\enab(\loc,a)$ and all clock constraints from $h$.
 This is to ensure that when the action $(a,h)$ is taken, the clock valuation under $\dta$ satisfies every clock constraint in $h$.
