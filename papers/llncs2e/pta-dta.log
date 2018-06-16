@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.9.18)  16 JUN 2018 18:39
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.9.18)  16 JUN 2018 18:52
 entering extended mode
 **pta-dta.tex
 (D:\GIT仓库\PTA_01\epmc-command-ptaxdta\papers\llncs2e\pta-dta.tex
@@ -757,89 +757,41 @@ r/m/n/10 , if $\OML/cmm/m/it/10 a[] \OMS/cmsy/m/n/10 2 []$ \OT1/cmr/m/n/10 then
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 117.
 )
-[16] (D:\GIT仓库\PTA_01\epmc-command-ptaxdta\papers\llncs2e\appendix.tex
-Overfull \hbox (37.81139pt too wide) in paragraph at lines 140--146
-\OT1/cmr/m/n/10 which $\OML/cmm/m/it/10 q[]$ \OT1/cmr/m/n/10 is the u-nique lo-
-ca-tion such that $[][][]$. Let $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 = (\OML/cmm
-/m/it/10 `[]; []\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 a[]\OT1/cmr/m/n/10 (\OML/cmm
-/m/it/10 `[]; []\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 a[] [] $
- []
-
-
-Overfull \hbox (16.07823pt too wide) in paragraph at lines 231--234
-\OT1/cmr/m/n/10 der set-s as they for-m a pi-system (cf. [[], Page 43]). Let $\
-OML/cmm/m/it/10  \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 `[]; []\OT1/cmr/m/n/10 )
-\OML/cmm/m/it/10 a[] [] a[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 `[]; []\OT1/cmr/m
-/n/10 )$
- []
-
-[17
-
-] [18]
-Overfull \hbox (15.99643pt too wide) in paragraph at lines 301--305
-[]\OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 A \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 Q
-; ; \OMS/cmsy/m/n/10 Y\OML/cmm/m/it/10 ; ; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 
-)$ be any TRA where the al-pha-bet $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 = \OMS/c
-msy/m/n/10 f\OML/cmm/m/it/10 b[]; b[]; []  ; b[]\OMS/cmsy/m/n/10 g$
- []
-
-
-Overfull \hbox (35.02216pt too wide) in paragraph at lines 350--351
-[]\OT1/cmr/m/n/10 for $\OML/cmm/m/it/10 m \OMS/cmsy/m/n/10  \OT1/cmr/m/n/10 0$
-, $\OML/cmm/m/it/10 [] \OT1/cmr/m/n/10 := []$ if $\OML/cmm/m/it/10 [] \OT1/cm
-r/m/n/10 = []$; 
- []
-
-
-Overfull \hbox (48.10785pt too wide) in paragraph at lines 351--352
-[]\OT1/cmr/m/n/10 for $\OML/cmm/m/it/10 m \OMS/cmsy/m/n/10  \OT1/cmr/m/n/10 0$
-, $\OML/cmm/m/it/10 [] \OT1/cmr/m/n/10 := []$ if $\OML/cmm/m/it/10 [] \OT1/cm
-r/m/n/10 = []$. 
- []
-
-[19]
-Overfull \hbox (32.8411pt too wide) in paragraph at lines 379--395
-\OT1/cmr/m/n/10 spond to al-l time di-ver-gen-t sched-uler-s for $\OMS/cmsy/m/n
-/10 C[]$\OT1/cmr/m/n/10 , we have that $[][] \U/msb/m/n/10 P[] [] \OT1/cmr/m/n/
-10 =$
- []
-
-) [20] (D:\GIT仓库\PTA_01\epmc-command-ptaxdta\papers\llncs2e\pta-dta.aux) ) 
+[16] (D:\GIT仓库\PTA_01\epmc-command-ptaxdta\papers\llncs2e\pta-dta.aux) ) 
 Here is how much of TeX's memory you used:
- 13951 strings out of 495354
- 272625 string characters out of 3183859
- 372359 words of memory out of 3000000
- 16781 multiletter control sequences out of 15000+200000
+ 13945 strings out of 495354
+ 272430 string characters out of 3183859
+ 372332 words of memory out of 3000000
+ 16777 multiletter control sequences out of 15000+200000
  15447 words of font info for 59 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  56i,25n,73p,545b,927s stack positions out of 5000i,500n,10000p,200000b,50000s
-<
-C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/CTEX/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmbx12.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmbx6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/CTEX
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/CTEX/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmex10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cmext
-ra/cmex9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/CTEX
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/CTEX/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmmi6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7
-.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/CTEX/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmr10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmr5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/CT
-EX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/CTEX/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl1
-0.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl8.pfb><C:/CTEX/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmsl9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C
-:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/CTEX/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmsy7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmsy9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/CTEX/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/CTEX/MiKTeX/fonts/type1/publ
-ic/amsfonts/euler/eufm10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbol
-s/msbm10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb><C:/
-CTEX/MiKTeX/fonts/type1/public/hoekwater/stmary10.pfb>
-Output written on pta-dta.pdf (20 pages, 449808 bytes).
+<C:
+/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/CTEX/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmbx9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/CTEX
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/CTEX/MiKTeX/fonts/type1/p
+ublic/amsfonts/cmextra/cmex9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmmi10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/CTEX/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/CTEX/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmmi7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.p
+fb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/CTEX/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmr5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmr6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/CTEX/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/CTEX/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmsl10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl8.
+pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl9.pfb><C:/CTEX/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmsy5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/
+CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/CTEX/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mti10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/CTEX/MiK
+TeX/fonts/type1/public/amsfonts/euler/eufm10.pfb><C:/CTEX/MiKTeX/fonts/type1/pu
+blic/amsfonts/symbols/msbm10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/sy
+mbols/msbm7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/hoekwater/stmary10.pfb>
+Output written on pta-dta.pdf (16 pages, 417604 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
+ 177 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
