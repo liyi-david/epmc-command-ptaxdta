@@ -118,7 +118,7 @@ Donatelli, S., Haddad, S., Sproston, J.:
 \newblock {IEEE} Trans. Software Eng. \textbf{35}(2) (2009)  224--240
 
 \bibitem{DBLP:journals/corr/abs-1712-00275}
-Fu, H., Li, Y., Li, J., Zhang, L.:
+Fu, H., Li, Y., Li, J.:
 \newblock Verifying probabilistic timed automata against omega-regular
   dense-time properties.
 \newblock CoRR \textbf{abs/1712.00275} (2017)
@@ -162,10 +162,5 @@ Barbot, B., Chen, T., Han, T., Katoen, J., Mereacre, A.:
 Bortolussi, L., Lanciani, R.:
 \newblock Fluid model checking of timed properties.
 \newblock In: {FORMATS}. (2015)  172--188
-
-\bibitem{PBMeasure}
-Billingsley, P.:
-\newblock {P}robability and {M}easure. Anniversary edition edn.
-\newblock Wiley (2012)
 
 \end{thebibliography}

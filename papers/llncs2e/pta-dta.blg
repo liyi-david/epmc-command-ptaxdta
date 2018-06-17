@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: pta-dta.aux
 The style file: splncs.bst
 Database file #1: pta-dta.bib
-You've used 31 entries,
+You've used 30 entries,
             2087 wiz_defined-function locations,
-            686 strings with 9321 characters,
-and the built_in function-call counts, 10362 in all, are:
-= -- 1091
-> -- 297
+            679 strings with 9213 characters,
+and the built_in function-call counts, 10169 in all, are:
+= -- 1070
+> -- 290
 < -- 25
-+ -- 112
-- -- 81
-* -- 683
-:= -- 1282
-add.period$ -- 44
-call.type$ -- 31
-change.case$ -- 29
++ -- 109
+- -- 79
+* -- 673
+:= -- 1255
+add.period$ -- 42
+call.type$ -- 30
+change.case$ -- 28
 chr.to.int$ -- 0
-cite$ -- 31
-duplicate$ -- 571
-empty$ -- 1015
-format.name$ -- 81
-if$ -- 2569
+cite$ -- 30
+duplicate$ -- 560
+empty$ -- 993
+format.name$ -- 79
+if$ -- 2520
 int.to.chr$ -- 0
-int.to.str$ -- 31
-missing$ -- 34
-newline$ -- 158
-num.names$ -- 31
-pop$ -- 115
+int.to.str$ -- 30
+missing$ -- 32
+newline$ -- 153
+num.names$ -- 30
+pop$ -- 109
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 433
+skip$ -- 429
 stack$ -- 0
 substring$ -- 776
-swap$ -- 323
+swap$ -- 321
 text.length$ -- 25
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 106
-width$ -- 33
-write$ -- 354
+while$ -- 105
+width$ -- 32
+write$ -- 343
