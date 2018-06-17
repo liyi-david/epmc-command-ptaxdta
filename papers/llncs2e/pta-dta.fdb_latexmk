@@ -1,12 +1,13 @@
 # Fdb version 3
-["bibtex pta-dta"] 1529217968 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1529217970
+["bibtex pta-dta"] 1529221198 "pta-dta.aux" "pta-dta.bbl" "pta-dta" 1529221650
   "./splncs.bst" 1503935740 20516 e8608ac05dbe2ead5d4b8e9d3cf4edb2 ""
-  "pta-dta.aux" 1529217969 5785 3995f608fa0224b01aa14766e0fb8b3b ""
+  "pta-dta.aux" 1529221649 5804 258f6e57b91de9f8e8623aadc867309a ""
   "pta-dta.bib" 1529217966 21803 fc06f9d7a32909a2ddb787c583196bc9 ""
   (generated)
   "pta-dta.blg"
   "pta-dta.bbl"
-["pdflatex"] 1529217968 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1529217970
+["pdflatex"] 1529221648 "pta-dta.tex" "pta-dta.pdf" "pta-dta" 1529221650
+  "/Users/lijianlin/Library/texlive/2017/texmf-var/fonts/pk/ljfour/public/ifsym/ifsym10.600pk" 1529221042 6828 65b6f6e572d5380352895304e471650a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1480098698 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -38,6 +39,8 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1480098701 1116 25a7bf822c58caf309a702ef79f4afbb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1480098701 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti9.tfm" 1480098701 1476 cccc6cc4935c18ec3d5623b77ecb8b74 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm" 1480098701 764 c98a2af25c99b73a368cf7336e255190 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/ifsym/ifsym10.tfm" 1480098708 656 c2340a8e3dac8a7b2e5b9e024e09893c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm" 1480098718 848 f478e0761563bbc369eca609a1741348 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/stmaryrd/stmary5.tfm" 1480098718 848 e1bc58a31b9ed9c3729ffea165acfaac ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/stmaryrd/stmary6.tfm" 1480098718 848 068dd119e13b75777e62821af7d4f2a6 ""
@@ -68,6 +71,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1480098733 32442 c975af247b6702f7ca0c299af3616b80 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1480098733 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb" 1480098733 36310 f5ddc6715cc60deb16d9db5ded6a9391 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb" 1480098733 29078 718ea4567ceff944262b0f5b0800e1d9 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb" 1480098733 30212 b6aafa449db0097a6b9b890f66741063 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb" 1480098733 21098 d4aee7c0aac232caac5688b586b9363c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1480098734 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
@@ -170,6 +174,8 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty" 1480098830 8125 557ab9f1bfa80d369fb45a914aa8a3b4 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty" 1480098830 2594 d18d5e19aa8239cf867fa670c556d2e9 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty" 1480098830 3980 0a268fbfda01e381fa95821ab13b6aee ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/ifsym/ifsym.sty" 1480098831 10032 43f71c1aa29e7088a881ecb9f4451fd3 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/ifsym/uifsym.fd" 1480098831 850 a5c0ec4b6ef5d2f555f41c75d1306b12 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1480098833 678 4792914a8f45be57bb98413425e4c7af ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty" 1480098833 52544 230bee00b51474565531682f2222a2d9 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty" 1480098833 5175 696879833890ce832e12746d98d0e932 ""
@@ -210,9 +216,9 @@
   "preliminaries.tex" 1528871895 28195 a5be3f3962e3c511b75503f220dc3a6a ""
   "problem.tex" 1529216365 10205 be30385435cb67d86b10199e4498d40e ""
   "product.tex" 1529216365 31205 2f0ce1f72838b6b90fa9d8a99553f1e4 ""
-  "pta-dta.aux" 1529217969 5785 3995f608fa0224b01aa14766e0fb8b3b ""
-  "pta-dta.bbl" 1529217968 6163 fe33a8a667a4615de61b48211e6e2da1 "bibtex pta-dta"
-  "pta-dta.tex" 1529216365 13281 0c07542acc80350fe1228cc6e668e41c ""
+  "pta-dta.aux" 1529221649 5804 258f6e57b91de9f8e8623aadc867309a ""
+  "pta-dta.bbl" 1529221198 6163 fe33a8a667a4615de61b48211e6e2da1 "bibtex pta-dta"
+  "pta-dta.tex" 1529221647 13389 c008bb168b97e866283030e15645552c ""
   "remreset.sty" 1503935740 1096 6a75275ca00e32428c6f059d2f618ea7 ""
   "undecidability.tex" 1529216365 6774 226b3a7d6fcfcbd97bde85a6c9f5cd75 ""
   (generated)

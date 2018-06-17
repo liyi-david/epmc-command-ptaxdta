@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.4.1)  17 JUN 2018 14:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.4.1)  17 JUN 2018 15:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,6 +272,10 @@ Package: stmaryrd 1994/03/03 St Mary's Road symbol package
 LaTeX Font Info:    Overwriting symbol font `stmry' in version `bold'
 (Font)                  U/stmry/m/n --> U/stmry/b/n on input line 89.
 )
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ifsym/ifsym.sty
+Package: ifsym 2000/04/18 I.Kloeckl
+\c@ifsymcnt=\count135
+)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
@@ -316,7 +320,7 @@ Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count135
+\Gread@gobject=\count136
 ))
 \Gin@req@height=\dimen158
 \Gin@req@width=\dimen159
@@ -342,10 +346,10 @@ ode.tex
 \pgf@yc=\dimen167
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count136
-\c@pgf@countb=\count137
-\c@pgf@countc=\count138
-\c@pgf@countd=\count139
+\c@pgf@counta=\count137
+\c@pgf@countb=\count138
+\c@pgf@countc=\count139
+\c@pgf@countd=\count140
 \t@pgf@toka=\toks31
 \t@pgf@tokb=\toks32
 \t@pgf@tokc=\toks33
@@ -366,8 +370,8 @@ File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
 code.tex
 File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
-\pgfsyssoftpath@smallbuffer@items=\count140
-\pgfsyssoftpath@bigbuffer@items=\count141
+\pgfsyssoftpath@smallbuffer@items=\count141
+\pgfsyssoftpath@bigbuffer@items=\count142
 )
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
 code.tex
@@ -396,7 +400,7 @@ Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen168
-\pgfmath@count=\count142
+\pgfmath@count=\count143
 \pgfmath@box=\box57
 \pgfmath@toks=\toks34
 \pgfmath@stack@operand=\toks35
@@ -421,7 +425,7 @@ code.tex)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
 erarithmetics.code.tex)))
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count143
+\c@pgfmathroundto@lastzeros=\count144
 ))
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
@@ -459,7 +463,7 @@ File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
 \pgfpic=\box58
 \pgf@hbox=\box59
 \pgf@layerbox@main=\box60
-\pgf@picture@serial@count=\count144
+\pgf@picture@serial@count=\count145
 )
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
@@ -494,7 +498,7 @@ File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
 e.tex
 File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
 \pgf@max=\dimen192
-\pgf@sys@shading@range@num=\count145
+\pgf@sys@shading@range@num=\count146
 )
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
@@ -557,7 +561,7 @@ Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
-\pgf@plot@mark@count=\count146
+\pgf@plot@mark@count=\count147
 \pgfplotmarksize=\dimen197
 )
 \tikz@lastx=\dimen198
@@ -570,19 +574,19 @@ File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
 \tikz@figbox@bg=\box64
 \tikz@tempbox=\box65
 \tikz@tempbox@bg=\box66
-\tikztreelevel=\count147
-\tikznumberofchildren=\count148
-\tikznumberofcurrentchild=\count149
-\tikz@fig@count=\count150
+\tikztreelevel=\count148
+\tikznumberofchildren=\count149
+\tikznumberofcurrentchild=\count150
+\tikz@fig@count=\count151
 
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
-\pgfmatrixcurrentrow=\count151
-\pgfmatrixcurrentcolumn=\count152
-\pgf@matrix@numberofcolumns=\count153
+\pgfmatrixcurrentrow=\count152
+\pgfmatrixcurrentcolumn=\count153
+\pgf@matrix@numberofcolumns=\count154
 )
-\tikz@expandcount=\count154
+\tikz@expandcount=\count155
 
 (/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -681,37 +685,37 @@ File: tikzlibraryautomata.code.tex 2008/07/14 v3.0.1a (rcs-revision 1.3)
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.1a (rcs-revision 1.7)
 )
-\c@row=\count155
-\c@col=\count156
+\c@row=\count156
+\c@col=\count157
  (./pta-dta.aux)
 \openout1 = `pta-dta.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
 
 ABD: EveryShipout initializing macros
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count157
+\scratchcounter=\count158
 \scratchdimen=\dimen261
 \scratchbox=\box87
-\nofMPsegments=\count158
-\nofMParguments=\count159
+\nofMPsegments=\count159
+\nofMParguments=\count160
 \everyMPshowfont=\toks39
-\MPscratchCnt=\count160
+\MPscratchCnt=\count161
 \MPscratchDim=\dimen262
-\MPnumerator=\count161
-\makeMPintoPDFobject=\count162
+\MPnumerator=\count162
+\makeMPintoPDFobject=\count163
 \everyMPtoPDFconversion=\toks40
 ) (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
@@ -762,21 +766,25 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 507.
+LaTeX Font Info:    Try loading font information for U+msa on input line 509.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 507.
+LaTeX Font Info:    Try loading font information for U+msb on input line 509.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+stmry on input line 507.
+LaTeX Font Info:    Try loading font information for U+stmry on input line 509.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-(./abstract.tex) (./introduction.tex [1
+LaTeX Font Info:    Try loading font information for U+ifsym on input line 509.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ifsym/uifsym.fd) (./abstract.tex)
+(./introduction.tex [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]) (./pre
 liminaries.tex [2] [3]
@@ -869,47 +877,50 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 117.
 ) [16] (./pta-dta.aux) ) 
 Here is how much of TeX's memory you used:
- 16423 strings out of 492995
- 341460 string characters out of 6132705
- 431143 words of memory out of 5000000
- 19593 multiletter control sequences out of 15000+600000
- 15447 words of font info for 59 fonts, out of 8000000 for 9000
+ 16615 strings out of 492995
+ 343886 string characters out of 6132705
+ 432516 words of memory out of 5000000
+ 19776 multiletter control sequences out of 15000+600000
+ 15777 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,25n,70p,545b,933s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmcsc10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cmextra/cmex9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6
-.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pf
-b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></
-usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl8.pfb></us
-r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl9.pfb></usr/
-local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
-ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local
-/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/t
-exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/tex
-live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texl
-ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texliv
-e/2017/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texl
-ive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/
-texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on pta-dta.pdf (16 pages, 385804 bytes).
+ </Users/lijianlin/Library/texlive/2017/texmf-var/fonts
+/pk/ljfour/public/ifsym/ifsym10.600pk></usr/local/texlive/2017/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/amsfonts/cmextra/cmex9.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsl10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsl8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sl9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.p
+fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.p
+fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb
+>
+Output written on pta-dta.pdf (16 pages, 395383 bytes).
 PDF statistics:
- 180 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
+ 189 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
